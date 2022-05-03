@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/explore_fragment">
+
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="com.omnicoder.anichan.UI.Fragments.ExploreFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/explore_fragment" >
+        <action
+            android:id="@+id/action_explore_fragment_to_seasonActivity"
+            app:destination="@id/seasonActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_viewAnimeActivity"
+            app:destination="@id/animeChartActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/news_fragment"
+        android:name="com.omnicoder.anichan.UI.Fragments.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/news_fragment" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.omnicoder.anichan.UI.Fragments.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/shopping_fragment"
+        android:name="com.omnicoder.anichan.ViewModels.ShoppingFragment"
+        android:label="shopping_fragment"
+        tools:layout="@layout/shopping_fragment" />
+    <fragment
+        android:id="@+id/anime_list_fragment"
+        android:name="com.omnicoder.anichan.UI.Fragments.AnimeListFragment"
+        android:label="anime_list_fragment"
+        tools:layout="@layout/anime_list_fragment" >
+        <action
+            android:id="@+id/action_anime_list_fragment_to_searchListFragment"
+            app:destination="@id/searchListFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/seasonActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.SeasonActivity"
+        android:label="SeasonActivity" >
+        <argument
+            android:name="Season"
+            app:argType="integer" />
+        <argument
+            android:name="Year"
+            app:argType="integer" />
+    </activity>
+    <activity
+        android:id="@+id/animeChartActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.AnimeChartActivity"
+        android:label="activity_view_anime"
+        app:action="action_viewAnimeActivity_to_anime_chart_bottom_sheet"
+        tools:layout="@layout/activity_chart_anime">
+        <argument
+            android:name="animeTypeIndex"
+            app:argType="integer" />
+
+    </activity>
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.SearchActivity"
+        android:label="SearchActivity" />
+
+    <fragment
+        android:id="@+id/searchListFragment"
+        android:name="com.omnicoder.anichan.UI.Fragments.SearchListFragment"
+        android:label="SearchListFragment" />
+
+
+</navigation>

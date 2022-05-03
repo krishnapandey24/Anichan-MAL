@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/explore_fragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/explore_fragment"/>
+
+<!--    <item-->
+<!--        android:id="@+id/news_fragment"-->
+<!--        android:icon="@drawable/ic_article"-->
+<!--        android:title="@string/news_fragment"/>-->
+
+    <item
+        android:id="@+id/anime_list_fragment"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:title="@string/anime_list_fragment"/>
+
+<!--    <item-->
+<!--        android:id="@+id/shopping_fragment"-->
+<!--        android:icon="@drawable/ic_baseline_shopping_cart_24"-->
+<!--        android:title="@string/shopping_fragment"/>-->
+
+<!--    <item-->
+<!--        android:id="@+id/profile_fragment"-->
+<!--        android:icon="@drawable/ic_baseline_person_24"-->
+<!--        android:title="@string/profile_fragment"/>-->
+
+
+
+
+</menu>
