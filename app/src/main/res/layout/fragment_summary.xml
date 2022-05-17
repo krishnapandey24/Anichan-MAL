@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="-24dp"
         android:background="@drawable/transparent_blue2"
-        app:layout_constraintBottom_toBottomOf="@+id/totalWatchTimeView"
+        app:layout_constraintBottom_toBottomOf="@+id/studiosView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,16 +47,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/totalEpisodes"
+        android:id="@+id/broadcast"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="19dp"
         android:layout_marginTop="8dp"
-        android:text="Seasons"
+        android:text="Broadcast"
         android:textColor="@color/textColor"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/releaseDateView" />
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/status" />
 
     <TextView
         android:id="@+id/episodeDuration"
@@ -67,14 +68,14 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/totalSeasonsView" />
+        app:layout_constraintTop_toBottomOf="@+id/endDate" />
 
     <TextView
         android:id="@+id/totalWatchTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Total Watch Time"
+        android:text="Source"
         android:textColor="@color/textColor"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -82,16 +83,40 @@
         app:layout_constraintTop_toBottomOf="@+id/episodeDurationView" />
 
     <TextView
-        android:id="@+id/releaseDate"
+        android:id="@+id/studios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Premiered"
+        android:text="Studios"
         android:textColor="@color/textColor"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/status"
-        app:layout_constraintTop_toBottomOf="@+id/statusView" />
+        app:layout_constraintTop_toBottomOf="@+id/totalWatchTime" />
+
+    <TextView
+        android:id="@+id/releaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Start Date"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/status"
+        app:layout_constraintTop_toBottomOf="@+id/broadcastView" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="End Date"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/status"
+        app:layout_constraintTop_toBottomOf="@+id/releaseDate" />
 
     <TextView
         android:id="@+id/statusView"
@@ -105,6 +130,20 @@
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/status" />
+
+    <TextView
+        android:id="@+id/broadcastView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/statusView" />
 
     <TextView
         android:id="@+id/totalSeasonsView"
@@ -130,10 +169,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/totalSeasonsView"
-        app:layout_constraintTop_toBottomOf="@+id/totalEpisodes" />
+        app:layout_constraintTop_toBottomOf="@+id/endDateView" />
 
     <TextView
-        android:id="@+id/totalWatchTimeView"
+        android:id="@+id/sourceView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -146,6 +185,19 @@
         app:layout_constraintTop_toBottomOf="@+id/episodeDurationView" />
 
     <TextView
+        android:id="@+id/studiosView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/totalSeasonsView"
+        app:layout_constraintTop_toBottomOf="@+id/sourceView" />
+
+    <TextView
         android:id="@+id/releaseDateView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -156,7 +208,20 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/episodeDurationView"
-        app:layout_constraintTop_toBottomOf="@+id/statusView" />
+        app:layout_constraintTop_toBottomOf="@+id/broadcastView" />
+
+    <TextView
+        android:id="@+id/endDateView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/episodeDurationView"
+        app:layout_constraintTop_toBottomOf="@+id/releaseDateView" />
 
     <TextView
         android:id="@+id/adView"
@@ -176,20 +241,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="-24dp"
-        android:background="@drawable/transparent_blue2"
-        app:layout_constraintBottom_toBottomOf="@+id/viewMore2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adView" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -204,70 +255,145 @@
         app:layout_constraintTop_toBottomOf="@+id/adView" />
 
     <TextView
-        android:id="@+id/alternateTitlesView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="32dp"
-        android:maxLines="3"
-        android:textColor="@color/textColor"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
         android:id="@+id/viewMore2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View More"
         android:textColor="@color/blue"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="@+id/alternateTitlesView"
-        app:layout_constraintTop_toBottomOf="@+id/alternateTitlesView" />
+        app:layout_constraintEnd_toEndOf="@+id/synonymsView"
+        app:layout_constraintTop_toBottomOf="@+id/synonymsView" />
+
+    <TextView
+        android:id="@+id/japaneseView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/japanese" />
+
+    <TextView
+        android:id="@+id/synonyms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Synonyms"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/japanese"
+        app:layout_constraintTop_toBottomOf="@+id/japaneseView" />
+
+    <TextView
+        android:id="@+id/synonymsView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="3"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/episodeDurationView"
+        app:layout_constraintTop_toBottomOf="@+id/japaneseView" />
+
+    <TextView
+        android:id="@+id/japanese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Japanese"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-24dp"
+        android:background="@drawable/transparent_blue2"
+        app:layout_constraintBottom_toBottomOf="@+id/viewMore2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
+
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/transparent_blue2"
+        app:layout_constraintBottom_toBottomOf="@+id/openingendingtheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/openingendingtheme" />
+
+    <TextView
+        android:id="@+id/openingendingtheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Opening/Ending Themes"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="32dp"
+        android:paddingLeft="32dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/openingendingtheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/openingendingtheme"
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+    <ViewStub
+        android:id="@+id/themesViewStub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:inflatedId="@id/videoViewStub"
+        android:layout="@layout/opending_ending_themes_view_stub_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openingendingtheme"
+        />
 
     <ViewStub
         android:id="@+id/videoViewStub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
         android:inflatedId="@id/videoViewStub"
         android:layout="@layout/video_view_stub"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <ViewStub
-        android:id="@+id/watchProviderViewStub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inflatedId="@id/watchProviderViewStub"
-        android:layout="@layout/video_view_stub"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/videoViewStub"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <ViewStub
-        android:id="@+id/linksViewStub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout="@layout/links_view_stub"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/watchProviderViewStub"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/themesViewStub" />
 
 
 

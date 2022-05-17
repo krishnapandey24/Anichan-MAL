@@ -9,28 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.TrendingAnime;
+import com.omnicoder.anichan.Models.Responses.Genre;
+import com.omnicoder.anichan.Models.Responses.Node;
+import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
-import com.omnicoder.anichan.Utils.Constants;
-import com.omnicoder.anichan.ViewModels.ExploreViewModel;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
-import jp.wasabeef.picasso.transformations.BlurTransformation;
-
 public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewPagerAdapter.MyViewHolder> {
-    List<TrendingAnime> dataHolder;
+    List<Data> dataHolder;
     Context context;
 
 
-    public TrendingViewPagerAdapter(Context context, List<TrendingAnime> dataHolder){
+    public TrendingViewPagerAdapter(Context context, List<Data> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
     }
@@ -40,27 +36,23 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
         View view= inflater.inflate(R.layout.trending_viewpager_item,parent,false);
-        return new MyViewHolder(view,context);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TrendingViewPagerAdapter.MyViewHolder holder, int position) {
-        TrendingAnime Anime= dataHolder.get(position);
-        String imageURL= Constants.IMAGE_URL +Anime.getImageURL();
+        Node Anime= dataHolder.get(position).getNode();
+        String imageURL= Anime.getMainPicture().getMedium();
         Picasso.get().load(imageURL).into(holder.imageView);
-        Picasso.get().load(Constants.IMAGE_URL+Anime.getBackgroundPoster()).into(holder.backgroundPosterView);
+        Picasso.get().load(imageURL).into(holder.backgroundPosterView);
         holder.titleView.setText(Anime.getTitle());
         holder.imageView.setClipToOutline(true);
-        holder.ratingView.setText(Anime.getMovieDBRating());
-        holder.formatView.setText(Anime.getFormat());
-        holder.genresView.setText(Anime.getGenres());
+        holder.ratingView.setText(String.valueOf(Anime.getMean()));
+        holder.formatView.setText(Anime.getMedia_type());
+        holder.genresView.setText(getGenres(Anime.getGenres()));
         holder.cardView.setOnClickListener(v -> {
             Intent intent= new Intent(context,ViewAnimeActivity.class);
-            intent.putExtra("media_type",dataHolder.get(position).getMediaType());
-            intent.putExtra("id",dataHolder.get(position).getAnimeID());
-            intent.putExtra("single",true);
-            intent.putExtra("seasonNo",0);
-            intent.putExtra("format",dataHolder.get(position).getFormat());
+            intent.putExtra("id",Anime.getId());
             context.startActivity(intent);
         });
     }
@@ -75,7 +67,7 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
         TextView titleView,genresView,ratingView,formatView;
         ConstraintLayout cardView;
 
-        public MyViewHolder(View itemView, Context context) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.posterView2);
             titleView= itemView.findViewById(R.id.animeTitle);
@@ -87,6 +79,19 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
 
         }
 
+    }
+
+    private StringBuilder getGenres(List<Genre> genres) {
+        int size=genres.size()-1;
+        StringBuilder studiosString = new StringBuilder();
+        int i = 0;
+        while (i < size - 1) {
+            studiosString.append(genres.get(i).getName());
+            studiosString.append(",");
+            i++;
+        }
+        studiosString.append(genres.get(i).getName());
+        return studiosString;
     }
 }
 

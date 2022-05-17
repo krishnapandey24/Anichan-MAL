@@ -10,11 +10,25 @@
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/AllBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:checked="true"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="All"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
 
         <RadioButton
             android:id="@+id/trendingBtn"
@@ -26,7 +40,7 @@
             android:drawablePadding="10dp"
             android:fontFamily="sans-serif-medium"
             android:padding="20dp"
-            android:text="@string/trending"
+            android:text="Airing"
             android:textColor="@drawable/top_chart_text_color"
             android:textSize="15sp" />
 
@@ -38,7 +52,7 @@
             android:button="@null"
             android:fontFamily="sans-serif-medium"
             android:padding="20dp"
-            android:text="@string/top_upcoming"
+            android:text="Upcoming"
             android:textColor="@drawable/top_chart_text_color"
             android:textSize="15sp" />
 
@@ -50,7 +64,7 @@
             android:button="@null"
             android:fontFamily="sans-serif-medium"
             android:padding="20dp"
-            android:text="@string/most_popular"
+            android:text="TV"
             android:textColor="@drawable/top_chart_text_color"
             android:textSize="15sp" />
 
@@ -62,21 +76,58 @@
             android:button="@null"
             android:fontFamily="sans-serif-medium"
             android:padding="20dp"
-            android:text="@string/highest_rated"
+            android:text="OVA"
             android:textColor="@drawable/top_chart_text_color"
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/personalizedBtn"
+            android:id="@+id/tvBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/top_chart_selector"
             android:button="@null"
             android:fontFamily="sans-serif-medium"
             android:padding="20dp"
-            android:text="@string/personalized"
+            android:text="Movie"
             android:textColor="@drawable/top_chart_text_color"
             android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/movieBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="Special"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/ovaBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="By Popularity"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/specialBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="Favorites"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
     </RadioGroup>
 
 

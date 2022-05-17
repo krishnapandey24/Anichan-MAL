@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.Models;
 
-import androidx.room.Ignore;
 
 public class ExploreView {
     int animeID;

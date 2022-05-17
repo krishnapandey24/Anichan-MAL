@@ -2,7 +2,6 @@ package com.omnicoder.anichan.UI.Activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,23 +17,24 @@ import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.AnimeChartBottomSheet;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.ViewAnimeBottomSheet;
 import com.omnicoder.anichan.Utils.AnimeComparator;
-import com.omnicoder.anichan.Utils.AnimePlainComparator;
 import com.omnicoder.anichan.ViewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
+
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class AnimeChartActivity extends AppCompatActivity implements ViewAnimeBottomSheet.MenuBottomSheet, AnimeChartBottomSheet.AnimeChartSheet {
+public class AnimeChartActivity extends AppCompatActivity implements AnimeChartBottomSheet.AnimeChartSheet{
     private ActivityChartAnimeBinding binding;
     private AnimeChartViewModel viewModel;
-    private String[] animeTypes;
-    private String animeType;
+    private String[] rankingTypes;
+    private String rankingType;
+    AnimePageAdapter animePageAdapter;
+    AnimePageAdapterPlain animePageAdapterPlain;
     private final CompositeDisposable compositeDisposable= new CompositeDisposable();
-    ViewAnimeBottomSheet menuBottomSheet;
     AnimeChartBottomSheet animeChartBottomSheet;
-    int animeTypeIndex;
+    int rankingTypeIndex;
     boolean three=true;
 
 
@@ -45,19 +45,18 @@ public class AnimeChartActivity extends AppCompatActivity implements ViewAnimeBo
         View view = binding.getRoot();
         setContentView(view);
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
-        animeTypeIndex=getIntent().getIntExtra("animeTypeIndex",0);
-        animeTypes=getResources().getStringArray(R.array.AnimeTypes);
-        binding.topChartSelector.setText(animeTypes[animeTypeIndex]);
-        animeType= animeTypes[animeTypeIndex];
-        setAnime(animeType,three);
+        rankingTypeIndex=getIntent().getIntExtra("animeTypeIndex",0);
+        rankingTypes=getResources().getStringArray(R.array.RankingTypes);
+        binding.topChartSelector.setText(rankingTypes[rankingTypeIndex]);
+        rankingType= rankingTypes[rankingTypeIndex];
+        animePageAdapter = new AnimePageAdapter(new AnimeComparator(), AnimeChartActivity.this);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new AnimeComparator(), AnimeChartActivity.this);
+        setAnime(rankingType,three);
         setOnClickListeners();
-        Log.d("tagg","First"+three);
-
     }
 
     private void setOnClickListeners() {
         binding.backButton.setOnClickListener(v -> onBackPressed());
-        binding.menuButton.setOnClickListener(v -> showMenuBottomSheet());
         binding.topChartSelector.setOnClickListener(v -> showAnimeChartBottomSheet());
         binding.itemLayout.setOnClickListener(v -> changeItemLayout());
     }
@@ -65,34 +64,26 @@ public class AnimeChartActivity extends AppCompatActivity implements ViewAnimeBo
     private void changeItemLayout() {
         three=!three;
         binding.itemLayout.setImageDrawable(getDrawableBasedOnThree());
-        setAnime(animeType,three);
-        Log.d("tagg","Now "+three);
+        setAnime(rankingType,three);
     }
 
     private void showAnimeChartBottomSheet() {
         if(animeChartBottomSheet==null){
             animeChartBottomSheet=new AnimeChartBottomSheet();
         }
-        animeChartBottomSheet.setIndex(animeTypeIndex);
+        animeChartBottomSheet.setIndex(rankingTypeIndex);
         animeChartBottomSheet.show(getSupportFragmentManager(),"AnimeChartSheet");
     }
 
-    private void showMenuBottomSheet() {
-        if(menuBottomSheet==null){
-            menuBottomSheet=new ViewAnimeBottomSheet();
-        }
-        menuBottomSheet.show(getSupportFragmentManager(),"ViewAnimeBottomSheet");
-    }
 
-    public void setAnime(String animeType, boolean three){
+
+    public void setAnime(String rankingType, boolean three){
         if(three) {
-            AnimePageAdapter animePageAdapter = new AnimePageAdapter(new AnimeComparator(), AnimeChartActivity.this);
-            compositeDisposable.add(viewModel.getAnimePage(animeType).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
             binding.animeView.setLayoutManager(new GridLayoutManager(AnimeChartActivity.this, 3));
             binding.animeView.setAdapter(animePageAdapter);
         }else {
-            AnimePageAdapterPlain animePageAdapterPlain= new AnimePageAdapterPlain(new AnimePlainComparator(), AnimeChartActivity.this);
-            compositeDisposable.add(viewModel.getAnimePagePlain(animeType).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
             binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeChartActivity.this));
             binding.animeView.setAdapter(animePageAdapterPlain);
         }
@@ -118,40 +109,11 @@ public class AnimeChartActivity extends AppCompatActivity implements ViewAnimeBo
 
 
     @Override
-    public void sortAnimeList(String sortBy,String airingStatus,String format) {
-        if (three) {
-            setPersonalizedAnime(sortBy, airingStatus, format);
-        } else {
-            setPersonalizedAnimePlain(sortBy, airingStatus, format);
-        }
-    }
-
-    private void setPersonalizedAnime(String sortBy, String airingStatus, String format) {
-        AnimePageAdapter animePageAdapter = new AnimePageAdapter(new AnimeComparator(),AnimeChartActivity.this);
-        compositeDisposable.add(viewModel.getPersonalizedAnime(sortBy,airingStatus,format).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(),Anime)));
-        binding.animeView.setLayoutManager(new GridLayoutManager(AnimeChartActivity.this,3));
-        binding.animeView.setAdapter(animePageAdapter);
-    }
-
-    private void setPersonalizedAnimePlain(String sortBy, String airingStatus, String format) {
-        AnimePageAdapterPlain animePageAdapterPlain = new AnimePageAdapterPlain(new AnimePlainComparator(),AnimeChartActivity.this);
-        compositeDisposable.add(viewModel.getPersonalizedAnimePlain(sortBy,airingStatus,format).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(),Anime)));
-        binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeChartActivity.this));
-        binding.animeView.setAdapter(animePageAdapterPlain);
-    }
-
-    @Override
-    public void changeList(int animeTypeIndex) {
-        if(animeTypeIndex<4){
-            animeType=animeTypes[animeTypeIndex];
-            setAnime(animeType,three);
-            Log.d("tagg","Anime Type"+animeTypeIndex);
-            this.animeTypeIndex=animeTypeIndex;
-            binding.topChartSelector.setText(animeType);
-        }
-        else {
-            showMenuBottomSheet();
-        }
+    public void changeList(int rankingTypeIndex) {
+        rankingType=rankingTypes[rankingTypeIndex];
+        setAnime(rankingType,three);
+        this.rankingTypeIndex=rankingTypeIndex;
+        binding.topChartSelector.setText(rankingType);
 
     }
 

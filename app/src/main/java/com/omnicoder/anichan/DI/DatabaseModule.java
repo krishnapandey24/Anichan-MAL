@@ -7,9 +7,7 @@ import androidx.room.Room;
 import com.omnicoder.anichan.Database.AnimeDB;
 import com.omnicoder.anichan.Database.AnimeDao;
 import com.omnicoder.anichan.Database.AnimeListDao;
-import com.omnicoder.anichan.Database.PagingSource.AnimePagingSource;
-import com.omnicoder.anichan.Database.PagingSource.SeasonPagingSource;
-import com.omnicoder.anichan.Database.PagingSource.SeasonPagingSourcePlain;
+
 import com.omnicoder.anichan.Utils.Constants;
 
 import javax.inject.Singleton;
@@ -48,23 +46,6 @@ public class DatabaseModule {
     }
 
 
-    @Provides
-    @Singleton
-    AnimePagingSource provideAnimePagingSource(AnimeDao animeDao){
-        return new AnimePagingSource(animeDao);
-    }
-
-    @Provides
-    @Singleton
-    SeasonPagingSource provideSeasonPagingSource(AnimeDao animeDao){
-        return new SeasonPagingSource(animeDao);
-    }
-
-    @Provides
-    @Singleton
-    SeasonPagingSourcePlain provideSeasonPagingSourcePlain(AnimeDao animeDao){
-        return new SeasonPagingSourcePlain(animeDao);
-    }
 
 
 

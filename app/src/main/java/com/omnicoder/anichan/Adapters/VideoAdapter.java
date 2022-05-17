@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
+import com.omnicoder.anichan.Models.AnimeResponse.videos.Video;
 import com.omnicoder.anichan.databinding.VideoItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Map;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
-    List<Map<String,Object>> dataHolder;
+    List<Promo> dataHolder;
     Context context;
     VideoItemLayoutBinding binding;
-    static final String thumbnail="https://img.youtube.com/vi/%s/mqdefault.jpg";
-    static final String videoURL="https://youtu.be/%s";
 
-    public VideoAdapter(Context context, List<Map<String,Object>> dataHolder){
+    public VideoAdapter(Context context, List<Promo> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
     }
@@ -36,14 +35,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull VideoAdapter.MyViewHolder holder, int position) {
-        Map<String,Object> video = dataHolder.get(position);
-        String key=(String) video.get("key");
-        Picasso.get().load(String.format(thumbnail,key)).into(holder.binding.thumbnailView);
-        binding.textView17.setText((String)video.get("name"));
-        binding.constraintLayout.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(videoURL,key)));
-            context.startActivity(browserIntent);
-        });
+        Promo video= dataHolder.get(position);
+        try {
+            Picasso.get().load(video.getTrailer().getImages().getMedium_image_url()).into(holder.binding.thumbnailView);
+            binding.constraintLayout.setOnClickListener(v -> {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(video.getTrailer().getUrl()));
+                context.startActivity(browserIntent);
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        binding.textView17.setText(video.getTitle());
 
     }
 

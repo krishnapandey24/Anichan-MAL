@@ -13,15 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
         <activity
-            android:name=".UI.Activities.ViewAnimeActivity"
-            android:theme="@style/Theme.Anichan3"
-            android:exported="true" >
+            android:name=".UI.Activities.LoginActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="anichan.page.link"
+                    android:scheme="anichan" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".UI.Activities.ViewAnimeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Anichan3" />
         <activity
             android:name=".UI.Activities.SearchActivity"
             android:exported="true"
             android:parentActivityName=".UI.Activities.MainActivity"
-            android:theme="@style/Theme.Anichan"/>
+            android:theme="@style/Theme.Anichan" />
         <activity
             android:name=".UI.Activities.SeasonActivity"
             android:parentActivityName=".UI.Activities.MainActivity" />
@@ -33,9 +46,9 @@
             android:parentActivityName=".UI.Activities.MainActivity" />
         <activity
             android:name=".UI.Activities.MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

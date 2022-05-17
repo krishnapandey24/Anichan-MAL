@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView2"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/white_rectangle"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/ratingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="8.85"
+        android:textColor="#ffef00"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_baseline_star_24"
+        app:drawableTint="#ffef00"
+        app:layout_constraintStart_toStartOf="@+id/animeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/animeTitle" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/posterView"
+        android:layout_width="110dp"
+        android:layout_height="167dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/posterView"
+        app:srcCompat="@drawable/demon_slayer" />
+
+    <TextView
+        android:id="@+id/animeTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/bold"
+        android:gravity="start"
+        android:maxLines="2"
+        android:text="Anime Title"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/posterView"
+        app:layout_constraintTop_toTopOf="@+id/posterView" />
+
+    <TextView
+        android:id="@+id/formatView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="start"
+        android:maxLines="3"
+        android:text="TV"
+        android:textAllCaps="true"
+        android:textColor="#bfffffff"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/ratingView"
+        app:layout_constraintTop_toBottomOf="@+id/animeTitle" />
+
+    <TextView
+        android:id="@+id/genresView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="start"
+        android:maxLines="3"
+        android:text="Action, Adventure, Romance"
+        android:textAllCaps="true"
+        android:textColor="#bfffffff"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/posterView"
+        app:layout_constraintTop_toBottomOf="@+id/ratingView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

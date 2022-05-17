@@ -49,11 +49,11 @@
         android:name="com.omnicoder.anichan.UI.Activities.SeasonActivity"
         android:label="SeasonActivity" >
         <argument
-            android:name="Season"
+            android:name="SeasonIndex"
             app:argType="integer" />
         <argument
-            android:name="Year"
-            app:argType="integer" />
+            android:name="Season"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/animeChartActivity"

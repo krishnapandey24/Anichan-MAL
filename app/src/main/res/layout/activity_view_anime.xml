@@ -37,7 +37,7 @@
             android:id="@+id/menuButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="16dp"
             android:src="@drawable/ic_baseline_menu_24"
@@ -50,7 +50,7 @@
             android:id="@+id/backButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="16dp"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
@@ -167,6 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            android:text="9.0/10"
             android:textColor="@color/viewAnimeMainTextColor"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -292,23 +293,18 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seasons" />
+                android:text="Characters" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cast" />
+                android:text="Reviews" />
 
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Crew" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Studios" />
+                android:text="Staff" />
 
         </com.google.android.material.tabs.TabLayout>
 

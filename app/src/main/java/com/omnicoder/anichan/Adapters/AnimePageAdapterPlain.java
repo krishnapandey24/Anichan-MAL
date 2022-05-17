@@ -14,18 +14,22 @@ import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.ExplorePlainView;
+import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Models.Responses.Genre;
+import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.Utils.Constants;
 import com.squareup.picasso.Picasso;
 
-public class AnimePageAdapterPlain extends PagingDataAdapter<ExplorePlainView, AnimePageAdapterPlain.MyViewHolder> {
+import java.util.List;
+
+public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdapterPlain.MyViewHolder> {
     public static final int LOADING_ITEM = 0;
     public static final int ANIME_ITEM = 1;
     Context context;
 
-    public AnimePageAdapterPlain(DiffUtil.ItemCallback<ExplorePlainView> diffCallBack, Context context){
+    public AnimePageAdapterPlain(DiffUtil.ItemCallback<Data> diffCallBack, Context context){
         super(diffCallBack);
         this.context=context;
     }
@@ -40,18 +44,25 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<ExplorePlainView, A
 
     @Override
     public void onBindViewHolder(@NonNull AnimePageAdapterPlain.MyViewHolder holder, int position) {
-        ExplorePlainView currentAnime= getItem(position);
+        Node currentAnime= getItem(position).getNode();
         if(currentAnime != null){
-            String imageURL= Constants.IMAGE_LINK+currentAnime.getImageURL();
+            String imageURL= currentAnime.getMainPicture().getMedium();
             Picasso.get().load(imageURL).into(holder.imageView);
             holder.titleView.setText(currentAnime.getTitle());
-            holder.genresView.setText(currentAnime.getGenres());
-            holder.ratingView.setText(currentAnime.getMovieDBRating());
+            List<Genre> genres= currentAnime.getGenres();
+            StringBuilder stringBuilder= new StringBuilder();
+            int size=genres.size();
+            for(int i=0;i<size;i++){
+                stringBuilder.append(genres.get(i).getName());
+                stringBuilder.append(",");
+            }
+            holder.genresView.setText(stringBuilder);
+            holder.ratingView.setText(String.valueOf(currentAnime.getMean()));
             holder.imageView.setClipToOutline(true);
             holder.constraintLayout.setOnClickListener(v -> {
                 Intent intent= new Intent(context, ViewAnimeActivity.class);
-                intent.putExtra("media_type",currentAnime.getMediaType());
-                intent.putExtra("id",currentAnime.getAnimeID());
+                intent.putExtra("media_type",currentAnime.getMedia_type());
+                intent.putExtra("id",currentAnime.getId());
                 context.startActivity(intent);
             });
         }

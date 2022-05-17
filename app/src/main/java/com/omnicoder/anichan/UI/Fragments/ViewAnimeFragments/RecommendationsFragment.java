@@ -11,45 +11,36 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.SeasonDetailsAdapter;
-import com.omnicoder.anichan.Models.ViewAnime;
+import com.omnicoder.anichan.Adapters.RecommendationsAdapter;
+import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 
+import java.util.List;
 
-public class SeasonDetailsFragment extends Fragment {
-    ViewAnime seasons;
+
+public class RecommendationsFragment extends Fragment {
+    List<Data> recommendations;
     FragmentSeasonDetailsBinding binding;
 
-    public SeasonDetailsFragment(ViewAnime seasons) {
-        this.seasons = seasons;
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public RecommendationsFragment(List<Data> recommendations) {
+        this.recommendations=recommendations;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding=FragmentSeasonDetailsBinding.inflate(inflater,container,false);
+        binding= FragmentSeasonDetailsBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context= getContext();
-        SeasonDetailsAdapter adapter= new SeasonDetailsAdapter(context,seasons.getSeasons(),seasons.getId());
+        Context context=getContext();
+        RecommendationsAdapter adapter = new RecommendationsAdapter(context,recommendations);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         binding.recyclerView.setAdapter(adapter);
+
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding=null;
-    }
-
-
 
 
 

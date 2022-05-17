@@ -3,7 +3,6 @@ package com.omnicoder.anichan.UI.Fragments;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,23 +19,18 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.omnicoder.anichan.Adapters.AdapterClass;
 import com.omnicoder.anichan.Adapters.AllTimePopularAdapter;
 import com.omnicoder.anichan.Adapters.Season2Adapter;
 import com.omnicoder.anichan.Adapters.Top100Adapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
-import com.omnicoder.anichan.Models.ExplorePlainView;
-import com.omnicoder.anichan.Models.ExploreView;
-import com.omnicoder.anichan.Models.TrendingAnime;
+import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.UI.Activities.MainActivity;
-import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -59,7 +52,6 @@ public class ExploreFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         viewModel= new ViewModelProvider(this).get(ExploreViewModel.class);
         observeData();
-        viewModel.check(getContext());
         viewModel.fetchTrending();
         viewModel.fetchTop100();
         viewModel.fetchPopular();
@@ -81,47 +73,47 @@ public class ExploreFragment extends Fragment{
         });
 
         binding.viewTrending.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(0);
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.viewTopUpcoming.setOnClickListener(v -> {
             ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(1);
             Navigation.findNavController(v).navigate(action);
         });
 
-        binding.viewAllTimePopular.setOnClickListener(v -> {
+        binding.viewTopUpcoming.setOnClickListener(v -> {
             ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
             Navigation.findNavController(v).navigate(action);
         });
 
+        binding.viewAllTimePopular.setOnClickListener(v -> {
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(7);
+            Navigation.findNavController(v).navigate(action);
+        });
+
         binding.viewTop100.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(3);
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(0);
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.viewWinter.setOnClickListener(view->{
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0,1);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0,"Winter");
             Navigation.findNavController(view).navigate(action);
         });
 
         binding.viewSpring.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(1,1);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(1,"Spring");
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.viewSummer.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(2,1);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(2,"Summer");
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.viewFall.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(3,1);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(3,"Fall");
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.viewAnimeSeasons.setOnClickListener(v->{
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0,1);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0,"Spring");
             Navigation.findNavController(v).navigate(action);
         });
 
@@ -129,7 +121,7 @@ public class ExploreFragment extends Fragment{
 
     private void observeData(){
         LifecycleOwner lifecycleOwner= getViewLifecycleOwner();
-        viewModel.getTrendingAnime().observe(lifecycleOwner,this::setTrending);
+        viewModel.getTrendingAnime().observe(lifecycleOwner, this::setTrending);
         viewModel.getTop100Anime().observe(lifecycleOwner,this::setTop100);
         viewModel.getTopUpcomingAnime().observe(lifecycleOwner,this::setTopUpcoming);
         viewModel.getAllTimePopularAnime().observe(lifecycleOwner,this::setAllTimePopular);
@@ -147,7 +139,8 @@ public class ExploreFragment extends Fragment{
         });
     }
 
-    public void setTrending(List<TrendingAnime> exploreViews){
+
+    public void setTrending(List<Data> exploreViews){
         RecyclerView recyclerView= binding.trendingView;
         TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
@@ -155,21 +148,21 @@ public class ExploreFragment extends Fragment{
 
     }
 
-    public void setAllTimePopular(List<ExploreView> exploreViews){
+    public void setAllTimePopular(List<Data> exploreViews){
         AllTimePopularAdapter adapter = new AllTimePopularAdapter(getContext(), exploreViews);
         binding.allTimePopularView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.allTimePopularView.setAdapter(adapter);
 
     }
 
-    public void setTopUpcoming(List<ExploreView> exploreViews){
+    public void setTopUpcoming(List<Data> exploreViews){
         Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews);
         binding.upcomingView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.upcomingView.setAdapter(seasonAdapter2);
     }
 
 
-    public void setTop100(List<ExploreView> exploreViews){
+    public void setTop100(List<Data> exploreViews){
         Top100Adapter top100Adapter = new Top100Adapter(getContext(), exploreViews);
         binding.top100View.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.top100View.setAdapter(top100Adapter);

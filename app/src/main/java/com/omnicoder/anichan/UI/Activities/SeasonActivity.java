@@ -3,6 +3,7 @@ package com.omnicoder.anichan.UI.Activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,77 +22,57 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omnicoder.anichan.Adapters.AnimePageAdapter;
 import com.omnicoder.anichan.Adapters.AnimePageAdapterPlain;
-import com.omnicoder.anichan.Adapters.SeasonPageAdapter;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.SeasonAnimeBottomSheet;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.SeasonSelector;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.YearSelector;
 import com.omnicoder.anichan.Utils.AnimeComparator;
-import com.omnicoder.anichan.Utils.AnimePlainComparator;
 import com.omnicoder.anichan.ViewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivitySeasonBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBottomSheet.SeasonBottomSheet, SeasonSelector.SeasonSheet, YearSelector.YearSheet {
-    public static final String ONE="1";
+public class SeasonActivity extends AppCompatActivity implements SeasonSelector.SeasonSheet, YearSelector.YearSheet {
     ActivitySeasonBinding binding;
-    ArrayList<Integer> years;
     AnimeChartViewModel viewModel;
     CompositeDisposable compositeDisposable=new CompositeDisposable();
-    SeasonPageAdapter animePageAdapter;
+    AnimePageAdapter animePageAdapter;
     AnimePageAdapterPlain animePageAdapterPlain;
     SeasonAnimeBottomSheet seasonAnimeBottomSheet;
-    String animeType;
-    int season;
     boolean three=true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySeasonBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
         Intent intent= getIntent();
-        season=intent.getIntExtra("Season",3);
+        int selectedSeasonIndex=intent.getIntExtra("SeasonIndex",0);
+        String selectedSeason=intent.getStringExtra("Season");
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
-        years= new ArrayList<>();
-        animePageAdapter = new SeasonPageAdapter(new AnimeComparator(),SeasonActivity.this);
-        animePageAdapterPlain = new AnimePageAdapterPlain(new AnimePlainComparator(),SeasonActivity.this);
-        int[] years2=viewModel.getYears();
-        years.add(years2[0]);
-        years.add(years2[1]);
-        years.add(years2[2]);
-        animeType=season+ONE;
-        setAnime(animeType);
+        String currentYear=String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        animePageAdapter = new AnimePageAdapter(new AnimeComparator(), SeasonActivity.this);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new AnimeComparator(), SeasonActivity.this);
+        setAnime(selectedSeason,currentYear);
         setOnClickListeners();
-        createSpinners();
-        setSpinners();
-
+        setSpinners(selectedSeasonIndex,currentYear);
     }
 
     private void setOnClickListeners() {
         binding.backButton.setOnClickListener(view -> onBackPressed());
-        binding.menuButton.setOnClickListener(v -> {
-            if(seasonAnimeBottomSheet==null){
-                seasonAnimeBottomSheet= new SeasonAnimeBottomSheet();
-            }
-            seasonAnimeBottomSheet.show(getSupportFragmentManager(),"SeasonAnimeBottomSheet");
-        });
         binding.itemLayout.setOnClickListener(v->changeItemLayout());
     }
 
     private void changeItemLayout() {
         three=!three;
         binding.itemLayout.setImageDrawable(getDrawableBasedOnThree());
-        setAnime(animeType);
+        setAnime(binding.yearSpinner.getSelectedItem().toString(),binding.seasonSpinner.getSelectedItem().toString());
     }
 
     @Override
@@ -102,18 +83,19 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
     }
 
 
-    public void setAnime(String seasonType){
-        animeType=seasonType;
+    public void setAnime(String year,String season){
         if(three) {
-            compositeDisposable.add(viewModel.getSeasonPage(seasonType).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
             binding.seasonView.setLayoutManager(new GridLayoutManager(SeasonActivity.this, 3));
             binding.seasonView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getSeasonPagePlain(seasonType).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
             binding.seasonView.setLayoutManager(new LinearLayoutManager(SeasonActivity.this));
             binding.seasonView.setAdapter(animePageAdapterPlain);
         }
     }
+
+ 
 
 
     @Override
@@ -123,30 +105,8 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
         compositeDisposable.dispose();
     }
 
-    @Override
-    public void sortAnimeList(String sortBy, String format) {
-        if(three){
-            setPersonalizedAnime(sortBy,format);
-        }else {
-            setPersonalizedAnimePlain(sortBy,format);
-        }
-    }
 
-    private void setPersonalizedAnime(String sortBy, String format) {
-        AnimePageAdapter animePageAdapter = new AnimePageAdapter(new AnimeComparator(),SeasonActivity.this);
-        compositeDisposable.add(viewModel.getPersonalizedAnime(sortBy,format).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(),Anime)));
-        binding.seasonView.setLayoutManager(new GridLayoutManager(SeasonActivity.this,3));
-        binding.seasonView.setAdapter(animePageAdapter);
-    }
-
-    private void setPersonalizedAnimePlain(String sortBy, String format) {
-        AnimePageAdapterPlain animePageAdapterPlain = new AnimePageAdapterPlain(new AnimePlainComparator(),SeasonActivity.this);
-        compositeDisposable.add(viewModel.getPersonalizedAnimePlain(sortBy,format).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(),Anime)));
-        binding.seasonView.setLayoutManager(new LinearLayoutManager(SeasonActivity.this));
-        binding.seasonView.setAdapter(animePageAdapterPlain);
-    }
-
-    private void createSpinners() {
+    private void setSpinners(int selectedSeasonIndex,String currentYear){
         ArrayAdapter<String> seasonAdapter= new ArrayAdapter<String>(SeasonActivity.this,R.layout.drop_down,getResources().getStringArray(R.array.Seasons)){
             @Override
             public View getDropDownView(int position, @Nullable @org.jetbrains.annotations.Nullable View convertView, @NonNull @NotNull ViewGroup parent) {
@@ -160,8 +120,9 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
             }
         };
 
+        String[] yearArray= getResources().getStringArray(R.array.Years);
 
-        ArrayAdapter<Integer> yearAdapter= new ArrayAdapter<Integer>(SeasonActivity.this,R.layout.drop_down,years){
+        ArrayAdapter<String> yearAdapter= new ArrayAdapter<String>(SeasonActivity.this,R.layout.drop_down,yearArray){
             @Override
             public View getDropDownView(int position, @Nullable @org.jetbrains.annotations.Nullable View convertView, @NonNull @NotNull ViewGroup parent) {
                 View view = super.getDropDownView(position, null, parent);
@@ -176,28 +137,19 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
 
         binding.seasonSpinner.setAdapter(seasonAdapter);
         binding.yearSpinner.setAdapter(yearAdapter);
-    }
 
-    private void setSpinners(){
+        int selectedIndex=yearArray.length-1;
+        while(!currentYear.equals(yearArray[selectedIndex])){
+            selectedIndex--;
+        }
+        binding.yearSpinner.setSelection(selectedIndex);
+        binding.seasonSpinner.setSelection(selectedSeasonIndex);
+
+
         binding.seasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int year=binding.yearSpinner.getSelectedItemPosition();
-                switch (position){
-                    case 0:
-                        setAnime("Winter"+year);
-                        break;
-                    case 1:
-                        setAnime("Spring"+year);
-                        break;
-                    case 2:
-                        setAnime("Summer"+year);
-                        break;
-                    case 3:
-                        setAnime("Fall"+year);
-                        break;
-                }
-
+                setAnime(binding.yearSpinner.getSelectedItem().toString(),binding.seasonSpinner.getSelectedItem().toString());
             }
 
             @Override
@@ -209,8 +161,7 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
         binding.yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String season=binding.seasonSpinner.getSelectedItem().toString();
-                setAnime(season+position);
+                setAnime(binding.yearSpinner.getSelectedItem().toString(),binding.seasonSpinner.getSelectedItem().toString());
             }
 
             @Override
@@ -218,8 +169,8 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
 
             }
         });
-        binding.seasonSpinner.setSelection(season);
-        binding.yearSpinner.setSelection(1);
+
+
 
     }
 
@@ -242,4 +193,7 @@ public class SeasonActivity extends AppCompatActivity implements SeasonAnimeBott
         }
         return AppCompatResources.getDrawable(SeasonActivity.this,R.drawable.ic_baseline_view_agenda_24);
     }
+
+
+
 }

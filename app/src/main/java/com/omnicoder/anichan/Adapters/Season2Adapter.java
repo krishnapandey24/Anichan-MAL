@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.ExploreView;
+import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.squareup.picasso.Picasso;
@@ -16,20 +17,20 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class Season2Adapter extends RecyclerView.Adapter<Season2Adapter.MyViewHolder> {
-    List<ExploreView> dataHolder;
+    List<Data> dataHolder;
     Context context;
     LayoutBinding binding;
 
-    public Season2Adapter(Context context, List<ExploreView> dataHolder){
+    public Season2Adapter(Context context, List<Data> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
     }
 
-    public List<ExploreView> getDataHolder() {
+    public List<Data> getDataHolder() {
         return dataHolder;
     }
 
-    public void setDataHolder(List<ExploreView> dataHolder) {
+    public void setDataHolder(List<Data> dataHolder) {
         this.dataHolder = dataHolder;
     }
 
@@ -42,24 +43,20 @@ public class Season2Adapter extends RecyclerView.Adapter<Season2Adapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull Season2Adapter.MyViewHolder holder, int position) {
-        ExploreView Anime= dataHolder.get(position);
+        Node Anime= dataHolder.get(position).getNode();
         String title= Anime.getTitle();
-        String imageURL= "https://image.tmdb.org/t/p/w500/"+Anime.getImageURL();
+        String imageURL= Anime.getMainPicture().getMedium();
+        String mediaType= Anime.getMedia_type();
         Picasso.get().load(imageURL).into(holder.binding.imageView);
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewAnimeActivity.class);
-            intent.putExtra("media_type",dataHolder.get(position).getMediaType());
-            intent.putExtra("id",dataHolder.get(position).getAnimeID());
-            intent.putExtra("single",true);
+            intent.putExtra("media_type",mediaType);
+            intent.putExtra("id",Anime.getId());
             intent.putExtra("seasonNo",0);
-            intent.putExtra("format",dataHolder.get(position).getFormat());
             context.startActivity(intent);
         });
-
-
-
     }
 
     @Override

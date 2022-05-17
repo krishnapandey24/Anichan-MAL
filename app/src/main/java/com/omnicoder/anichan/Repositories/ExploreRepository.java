@@ -1,168 +1,70 @@
 package com.omnicoder.anichan.Repositories;
 
 
+import android.content.Context;
+import android.util.Log;
+
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
-import androidx.sqlite.db.SimpleSQLiteQuery;
 
-import com.omnicoder.anichan.Database.Anime;
-import com.omnicoder.anichan.Database.AnimeDao;
-import com.omnicoder.anichan.Database.PagingSource.AnimePagingSource;
-import com.omnicoder.anichan.Database.PagingSource.AnimePagingSourcePlain;
-import com.omnicoder.anichan.Database.PagingSource.SeasonPagingSource;
-import com.omnicoder.anichan.Database.PagingSource.SeasonPagingSourcePlain;
-import com.omnicoder.anichan.Models.AllAnime;
+import com.omnicoder.anichan.Models.AccessToken;
+import com.omnicoder.anichan.Models.AnimeResponse.Anime;
+import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
+import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
 import com.omnicoder.anichan.Models.Animes;
-import com.omnicoder.anichan.Models.ExplorePlainView;
-import com.omnicoder.anichan.Models.ExploreView;
-import com.omnicoder.anichan.Models.TrendingAnime;
+import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Models.Responses.RankingResponse;
+import com.omnicoder.anichan.Network.JikanAPI;
+import com.omnicoder.anichan.Paging.RankingPagingSource;
 import com.omnicoder.anichan.Network.RxAPI;
-import com.omnicoder.anichan.Network.SearchPagingSource;
+import com.omnicoder.anichan.Paging.SearchPagingSource;
+import com.omnicoder.anichan.Paging.SeasonPagingSource;
+import com.omnicoder.anichan.Utils.Constants;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 
 
 public class ExploreRepository {
-    AnimeDao animeDao;
     RxAPI rxAPI;
-    AnimePagingSource animePagingSource;
-    SeasonPagingSource seasonPagingSource;
     SearchPagingSource searchPagingSource;
-    AnimePagingSourcePlain animePagingSourcePlain;
-    SeasonPagingSourcePlain seasonPagingSourcePlain;
+    String accessToken;
+    public static final String AIRING="airing";
+    public static final String UPCOMING="upcoming";
+    public static final String POPULAR="bypopularity";
+    public static final String FIELDS="media_type,mean,genres";
+    JikanAPI jikanAPI;
 
     @Inject
-    public ExploreRepository(AnimeDao animeDao, RxAPI rxAPI, AnimePagingSource animePagingSource, SeasonPagingSource seasonPagingSource, SearchPagingSource searchPagingSource, AnimePagingSourcePlain animePagingSourcePlain, SeasonPagingSourcePlain seasonPagingSourcePlain){
-        this.animeDao= animeDao;
+    public ExploreRepository(RxAPI rxAPI, SearchPagingSource searchPagingSource, Context context, JikanAPI jikanAPI){
         this.rxAPI= rxAPI;
-        this.animePagingSource=animePagingSource;
-        this.seasonPagingSource=seasonPagingSource;
         this.searchPagingSource=searchPagingSource;
-        this.animePagingSourcePlain= animePagingSourcePlain;
-        this.seasonPagingSourcePlain=seasonPagingSourcePlain;
-
+        this.accessToken=" Bearer "+context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE).getString("accessToken",null);
+        this.jikanAPI=jikanAPI;
     }
 
-    public Flowable<List<TrendingAnime>> get9TrendingAnime(){
-        return animeDao.get9TrendingAnime();
+    public Observable<RankingResponse> get9TrendingAnime(){
+        return rxAPI.getRanking(accessToken,AIRING,9,FIELDS);
     }
 
-    public Flowable<List<ExploreView>> get9PopularAnime(){
-        return animeDao.get9PopularAnime();
+    public Observable<RankingResponse> get9PopularAnime(){
+        return rxAPI.getRanking(accessToken,POPULAR,9,FIELDS);
     }
 
-    public Flowable<List<ExploreView>> get9Top100Anime(){
-        return animeDao.get9Top100Anime();
+    public Observable<RankingResponse> get9Top100Anime(){
+        return rxAPI.getRanking(accessToken,null,9,FIELDS);
     }
 
-    public Flowable<List<ExploreView>> get9TopUpcomingAnime(){
-        return animeDao.get9TopUpcomingAnime();
+    public Observable<RankingResponse> get9TopUpcomingAnime(){
+        return rxAPI.getRanking(accessToken,UPCOMING,9,FIELDS);
     }
 
-    public Observable<AllAnime> fetchAllAnime(){
-        return rxAPI.getAllAnime();
-    }
-
-
-    public Completable insertAllAnime(List<Anime> animeList){
-        return animeDao.insertAllAnime(animeList);
-    }
-
-    public Completable reset(){
-        return animeDao.reset();
-    }
-
-
-
-    public io.reactivex.rxjava3.core.Flowable<PagingData<ExploreView>> getPageFlowable(String animeType){
-        animePagingSource.setAnimeType(animeType);
-        Pager<Integer,ExploreView> pager=new Pager( new PagingConfig(20,20,false,20,600),()-> animePagingSource);
-        return PagingRx.getFlowable(pager);
-
-    }
-    public io.reactivex.rxjava3.core.Flowable<PagingData<ExplorePlainView>> getPageFlowablePlain(String animeType){
-        animePagingSourcePlain.setAnimeType(animeType);
-        Pager<Integer,ExplorePlainView> pager=new Pager( new PagingConfig(9,3,false,9,600),()-> animePagingSourcePlain);
-        return PagingRx.getFlowable(pager);
-
-    }
-
-    public io.reactivex.rxjava3.core.Flowable<PagingData<ExploreView>> getSeasonFlowable(String season){
-        seasonPagingSource.setSeason(season);
-        Pager<Integer,ExploreView> pager=new Pager( new PagingConfig(9,3,false,9,100),()-> seasonPagingSource);
-        return PagingRx.getFlowable(pager);
-    }
-
-    public io.reactivex.rxjava3.core.Flowable<PagingData<ExplorePlainView>> getSeasonFlowablePlain(String season){
-        seasonPagingSourcePlain.setSeason(season);
-        Pager<Integer,ExplorePlainView> pager=new Pager( new PagingConfig(9,3,false,9,100),()-> seasonPagingSourcePlain);
-        return PagingRx.getFlowable(pager);
-    }
-
-
-    public Flowable<PagingData<ExploreView>> getPersonalizedAnime(String sortBy,String airingStatus,String format){
-        String query;
-        if(sortBy.equals("Release Date")){
-            query="SELECT animeID,title,imageURL,mediaType FROM ANIME WHERE status='"+airingStatus+"' AND format='"+format+"' ORDER BY date(releaseDate) DESC";
-        }
-        else{
-            query="SELECT animeID,title,imageURL,mediaType FROM ANIME WHERE status='"+airingStatus+"' AND format='"+format+"' ORDER BY "+sortBy+" DESC";
-
-        }
-        animePagingSource.setQuery(new SimpleSQLiteQuery(query));
-        Pager<Integer,ExploreView> pager=new Pager( new PagingConfig(9,3,false,9,600),()-> animePagingSource);
-        return PagingRx.getFlowable(pager);
-    }
-
-    public Flowable<PagingData<ExploreView>> getPersonalizedAnime(String sortBy,String format){
-        String query;
-        if(sortBy.equals("Release Date")){
-            query="SELECT animeID,title,imageURL,mediaType FROM ANIME WHERE format='"+format+"' ORDER BY date(releaseDate) DESC";
-        }
-        else{
-            query="SELECT animeID,title,imageURL,mediaType FROM ANIME WHERE format='"+format+"' ORDER BY "+sortBy+" DESC";
-        }
-        animePagingSource.setQuery(new SimpleSQLiteQuery(query));
-        Pager<Integer,ExploreView> pager=new Pager( new PagingConfig(9,3,false,9,600),()-> animePagingSource);
-        return PagingRx.getFlowable(pager);
-    }
-
-
-    public Flowable<PagingData<ExplorePlainView>> getPersonalizedAnimePlain(String sortBy,String airingStatus,String format){
-        String query;
-        if(sortBy.equals("Release Date")){
-            query="SELECT animeID,title,imageURL,mediaType,rating,genres FROM ANIME WHERE status='"+airingStatus+"' AND format='"+format+"' ORDER BY date(releaseDate) DESC";
-        }
-        else{
-            query="SELECT animeID,title,imageURL,mediaType,rating,genres FROM ANIME WHERE status='"+airingStatus+"' AND format='"+format+"' ORDER BY "+sortBy+" DESC";
-
-        }
-        animePagingSourcePlain.setQuery(new SimpleSQLiteQuery(query));
-        Pager<Integer,ExplorePlainView> pager=new Pager( new PagingConfig(9,3,false,9,600),()-> animePagingSourcePlain);
-        return PagingRx.getFlowable(pager);
-    }
-
-    public Flowable<PagingData<ExplorePlainView>> getPersonalizedAnimePlain(String sortBy,String format){
-        String query;
-        if(sortBy.equals("Release Date")){
-            query="SELECT animeID,title,imageURL,mediaType,rating,genres FROM ANIME WHERE format='"+format+"' ORDER BY date(releaseDate) DESC";
-        }
-        else{
-            query="SELECT animeID,title,imageURL,mediaType,rating,genres FROM ANIME WHERE format='"+format+"' ORDER BY "+sortBy+" DESC";
-        }
-        animePagingSourcePlain.setQuery(new SimpleSQLiteQuery(query));
-        Pager<Integer,ExplorePlainView> pager=new Pager( new PagingConfig(9,3,false,9,600),()-> animePagingSource);
-        return PagingRx.getFlowable(pager);
-    }
 
     public Flowable<PagingData<Animes>> searchAnimePage(String searchQuery){
         searchPagingSource.setSearchQuery(searchQuery);
@@ -170,33 +72,30 @@ public class ExploreRepository {
         return PagingRx.getFlowable(pager);
     }
 
-    public Single<List<ExploreView>> getTrendingAnime(){
-        return animeDao.getTrendingAnime();
+    public Observable<AccessToken> getAccessToken(String code, String codeVerified){
+        String clientId= Constants.CLIENT_ID;
+        String grantType= "authorization_code";
+        return rxAPI.getAccessToken(clientId,code,codeVerified,grantType);
     }
 
-    public Single<List<ExploreView>> getPopularAnime(){
-        return animeDao.getPopularAnime();
+    public Flowable<PagingData<Data>> getRanking(String rankingType){
+        RankingPagingSource rankingPagingSource= new RankingPagingSource(rxAPI,rankingType,accessToken);
+        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
-    public Single<List<ExploreView>> getTop100Anime(){
-        return animeDao.getTop100Anime();
+    public Flowable<PagingData<Data>> getSeason(String year,String season){
+        Log.d("tagg","so here "+year+season);
+        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(rxAPI,accessToken,year,season);
+        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
     }
 
-    public Single<List<ExploreView>> getTopUpcomingAnime(){
-        return animeDao.getTopUpcomingAnime();
+    public Observable<Anime> getAnime(int id){
+        return rxAPI.getAnime(accessToken,id);
     }
 
-
-
-
-
-
-
-
-
-    
-    
-
+    public Observable<VideoResponse> getVideos(int id){
+        return jikanAPI.getVideos(id);
+    }
 
 
 

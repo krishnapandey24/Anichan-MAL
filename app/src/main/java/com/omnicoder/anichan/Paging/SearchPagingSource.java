@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Network;
+package com.omnicoder.anichan.Paging;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import androidx.paging.PagingState;
 import androidx.paging.rxjava3.RxPagingSource;
 
 import com.omnicoder.anichan.Models.Animes;
+import com.omnicoder.anichan.Network.MovieDB;
 import com.omnicoder.anichan.Utils.Constants;
 import com.omnicoder.anichan.Utils.SearchComparator;
 
@@ -43,7 +44,6 @@ public class SearchPagingSource extends RxPagingSource<Integer, Animes> {
     @Override
     public Single<LoadResult<Integer, Animes>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int page=loadParams.getKey() != null ? loadParams.getKey() : 1;
-        Log.d("tagg","Page: "+page);
         try {
             return movieDB.searchAnime(searchQuery,page, Constants.API_KEY)
                     .subscribeOn(Schedulers.io())
@@ -54,12 +54,12 @@ public class SearchPagingSource extends RxPagingSource<Integer, Animes> {
                     })
                     .filter(anime -> anime.getOriginal_language().equals("ja") && anime.getGenre_ids().contains(16))
                     .toList()
-                    .map(animes -> {
-                        if(animes.size()<1){
+                    .map(anime -> {
+                        if(anime.size()<1){
                             zeroResults=true;
                             return null;
                         }
-                        return toLoadResult(animes,page);
+                        return toLoadResult(anime,page);
                     })
                     .onErrorReturn(LoadResult.Error::new);
         }catch (Exception e){

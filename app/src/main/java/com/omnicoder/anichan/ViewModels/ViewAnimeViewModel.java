@@ -5,8 +5,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Models.ViewAnime;
-import com.omnicoder.anichan.Repositories.ViewAnimeRepository;
+import com.omnicoder.anichan.Models.AnimeResponse.Anime;
+import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
+import com.omnicoder.anichan.Repositories.ExploreRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,30 +20,45 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class ViewAnimeViewModel extends ViewModel {
-    MutableLiveData<ViewAnime> animeDetails= new MutableLiveData<>();
+    MutableLiveData<Anime> anime= new MutableLiveData<>();
+    MutableLiveData<List<Promo>> videos= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
-    private final ViewAnimeRepository repository;
+    private final ExploreRepository repository;
     MutableLiveData<Boolean> NoInternet=new MutableLiveData<>();
 
     @Inject
-    public ViewAnimeViewModel(ViewAnimeRepository repository){
+    public ViewAnimeViewModel(ExploreRepository repository){
         this.repository=repository;
     }
 
-    public MutableLiveData<ViewAnime> getAnimeDetails() {
-        return animeDetails;
+    public MutableLiveData<Anime> getAnimeDetails() {
+        return anime;
     }
 
-    public void fetchAnimeDetails(String media_type,int id,String extra){
-        compositeDisposable.add(repository.fetchAnimeDetails(media_type,id,extra)
+    public void fetchAnimeDetails(int id){
+        compositeDisposable.add(repository.getAnime(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeDetails::setValue, e->{
+                .subscribe(anime::setValue, e->{
                     e.printStackTrace();
                     NoInternet.setValue(true);
                     Log.d("tagg","Error: in fetch "+e.getMessage());
                 })
         );
+    }
+
+    public void fetchVideos(int id){
+        compositeDisposable.add(repository.getVideos(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(videoResponse -> {
+                    videos.setValue(videoResponse.getData().getPromo());
+                })
+        );
+    }
+
+    public MutableLiveData<List<Promo>> getVideos() {
+        return videos;
     }
 
     public MutableLiveData<Boolean> getNoInternet() {

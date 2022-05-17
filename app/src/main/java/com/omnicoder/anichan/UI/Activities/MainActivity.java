@@ -1,7 +1,11 @@
 package com.omnicoder.anichan.UI.Activities;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+//        Intent intent= getIntent();
+//        boolean b=intent.getBooleanExtra("loggedIn",false);
+//        if(!b){
+//            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+//            finish();
+//        }
+        SharedPreferences sharedPreferences= getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
+
+        Log.d("tagg","heyits"+sharedPreferences.getBoolean("userLogged",false));
+        Log.d("tagg","heyits"+sharedPreferences.getString("accessToken",""));
         NavController navController= Navigation.findNavController(this,R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
