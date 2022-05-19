@@ -13,14 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
         <activity
+            android:name=".UI.Activities.ViewCharacterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activities.ViewThemesActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.Activities.LoginActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="anichan.page.link"
                     android:scheme="anichan" />

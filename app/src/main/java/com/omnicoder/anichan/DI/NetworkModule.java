@@ -58,12 +58,7 @@ public class NetworkModule {
                 .create(MovieDB.class);
     }
 
-    @Provides
-    @Singleton
-    public static SearchPagingSource provideSearchPagingSource(MovieDB movieDB){
-        return new SearchPagingSource(movieDB);
 
-    }
 
     @Provides
     @Singleton

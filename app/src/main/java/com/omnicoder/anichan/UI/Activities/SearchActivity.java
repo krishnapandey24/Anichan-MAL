@@ -61,7 +61,6 @@ public class SearchActivity extends AppCompatActivity{
 
     private void setSearchResults(){
         compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
-
     }
 
 

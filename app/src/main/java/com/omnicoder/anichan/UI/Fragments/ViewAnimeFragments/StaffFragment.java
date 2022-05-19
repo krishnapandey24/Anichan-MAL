@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,22 +10,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.RecommendationsAdapter;
-import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Adapters.CrewAdapter;
+import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 
-import java.util.List;
 
-
-public class RecommendationsFragment extends Fragment {
-    List<Data> recommendations;
+public class StaffFragment extends Fragment {
     FragmentSeasonDetailsBinding binding;
+    ViewAnimeViewModel viewModel;
+    int id;
 
 
-    public RecommendationsFragment(List<Data> recommendations) {
-        this.recommendations=recommendations;
+    public StaffFragment(int id, ViewAnimeViewModel viewModel) {
+        this.viewModel=viewModel;
+        this.id=id;
     }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding= FragmentSeasonDetailsBinding.inflate(inflater,container,false);
@@ -35,10 +33,12 @@ public class RecommendationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context=getContext();
-        RecommendationsAdapter adapter = new RecommendationsAdapter(context,recommendations);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-        binding.recyclerView.setAdapter(adapter);
+        viewModel.fetchStaff(id);
+        viewModel.getStaff().observe(getViewLifecycleOwner(), staffData -> {
+            CrewAdapter adapter = new CrewAdapter(getContext(),staffData);
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            binding.recyclerView.setAdapter(adapter);
+        });
 
     }
 

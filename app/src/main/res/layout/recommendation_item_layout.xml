@@ -10,17 +10,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/ratingView"
+        android:id="@+id/titleView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="2"
+        android:text="Demon Slayer The Movie : Mugen Train"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@+id/posterView"
+        tools:layout_editor_absoluteX="138dp" />
+
+    <TextView
+        android:id="@+id/formatView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="8.85"
-        android:textColor="#ffef00"
-        android:textSize="12sp"
-        app:drawableStartCompat="@drawable/ic_baseline_star_24"
-        app:drawableTint="#ffef00"
-        app:layout_constraintStart_toStartOf="@+id/animeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/animeTitle" />
+        android:text="Summer 2021"
+        android:textSize="13sp"
+        tools:layout_editor_absoluteX="184dp"
+        tools:layout_editor_absoluteY="64dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/posterView"
@@ -35,59 +44,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/posterView"
         app:srcCompat="@drawable/demon_slayer" />
-
-    <TextView
-        android:id="@+id/animeTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="5dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/bold"
-        android:gravity="start"
-        android:maxLines="2"
-        android:text="Anime Title"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/posterView"
-        app:layout_constraintTop_toTopOf="@+id/posterView" />
-
-    <TextView
-        android:id="@+id/formatView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="start"
-        android:maxLines="3"
-        android:text="TV"
-        android:textAllCaps="true"
-        android:textColor="#bfffffff"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/ratingView"
-        app:layout_constraintTop_toBottomOf="@+id/animeTitle" />
-
-    <TextView
-        android:id="@+id/genresView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="start"
-        android:maxLines="3"
-        android:text="Action, Adventure, Romance"
-        android:textAllCaps="true"
-        android:textColor="#bfffffff"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/posterView"
-        app:layout_constraintTop_toBottomOf="@+id/ratingView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,20 +11,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.RecommendationsAdapter;
-import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Adapters.CharactersAdapter;
+import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
-
-import java.util.List;
 
 
 public class CharactersFragment extends Fragment {
-    List<Data> recommendations;
     FragmentSeasonDetailsBinding binding;
+    ViewAnimeViewModel viewModel;
+    int id;
 
 
-    public CharactersFragment(List<Data> recommendations) {
-        this.recommendations=recommendations;
+    public CharactersFragment(int id, ViewAnimeViewModel viewModel) {
+        this.viewModel=viewModel;
+        this.id=id;
     }
 
     @Override
@@ -35,11 +35,12 @@ public class CharactersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context=getContext();
-        RecommendationsAdapter adapter = new RecommendationsAdapter(context,recommendations);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-        binding.recyclerView.setAdapter(adapter);
-
+        viewModel.fetchCharacters(id);
+        viewModel.getCharacters().observe(getViewLifecycleOwner(), characterData -> {
+            CharactersAdapter adapter = new CharactersAdapter(getContext(),characterData);
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            binding.recyclerView.setAdapter(adapter);
+        });
     }
 
 

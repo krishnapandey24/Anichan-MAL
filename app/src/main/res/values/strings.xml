@@ -68,8 +68,6 @@
     </string-array>
 
 
-
-
     <string-array name="Statuses">
         <item>Watching</item>
         <item>Plan To Watch</item>
@@ -201,6 +199,12 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="by10">/10</string>
+    <string name="place_for_ad">PLACE FOR AD</string>
+    <string name="alternate_titles">Alternate Titles</string>
+    <string name="view_more">View More</string>
+    <string name="opening_ending_themes">Opening/Ending Themes</string>
+    <string name="related">Related</string>
+    <string name="recommendations">Recommendations</string>
 
 
 </resources>

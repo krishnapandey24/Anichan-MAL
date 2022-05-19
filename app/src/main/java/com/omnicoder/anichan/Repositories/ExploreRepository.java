@@ -11,7 +11,8 @@ import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.Models.AccessToken;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
+import com.omnicoder.anichan.Models.AnimeResponse.Characters.CharacterResponse;
+import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
 import com.omnicoder.anichan.Models.Animes;
 import com.omnicoder.anichan.Models.Responses.Data;
@@ -23,8 +24,6 @@ import com.omnicoder.anichan.Paging.SearchPagingSource;
 import com.omnicoder.anichan.Paging.SeasonPagingSource;
 import com.omnicoder.anichan.Utils.Constants;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
@@ -33,7 +32,6 @@ import io.reactivex.rxjava3.core.Observable;
 
 public class ExploreRepository {
     RxAPI rxAPI;
-    SearchPagingSource searchPagingSource;
     String accessToken;
     public static final String AIRING="airing";
     public static final String UPCOMING="upcoming";
@@ -42,9 +40,8 @@ public class ExploreRepository {
     JikanAPI jikanAPI;
 
     @Inject
-    public ExploreRepository(RxAPI rxAPI, SearchPagingSource searchPagingSource, Context context, JikanAPI jikanAPI){
+    public ExploreRepository(RxAPI rxAPI, Context context, JikanAPI jikanAPI){
         this.rxAPI= rxAPI;
-        this.searchPagingSource=searchPagingSource;
         this.accessToken=" Bearer "+context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE).getString("accessToken",null);
         this.jikanAPI=jikanAPI;
     }
@@ -66,11 +63,7 @@ public class ExploreRepository {
     }
 
 
-    public Flowable<PagingData<Animes>> searchAnimePage(String searchQuery){
-        searchPagingSource.setSearchQuery(searchQuery);
-        Pager<Integer,Animes> pager=new Pager( new PagingConfig(5,5,false,5,600),()-> searchPagingSource);
-        return PagingRx.getFlowable(pager);
-    }
+
 
     public Observable<AccessToken> getAccessToken(String code, String codeVerified){
         String clientId= Constants.CLIENT_ID;
@@ -84,10 +77,15 @@ public class ExploreRepository {
     }
 
     public Flowable<PagingData<Data>> getSeason(String year,String season){
-        Log.d("tagg","so here "+year+season);
         SeasonPagingSource seasonPagingSource= new SeasonPagingSource(rxAPI,accessToken,year,season);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
     }
+
+    public Flowable<PagingData<Data>> searchAnime(String query){
+        SearchPagingSource searchPagingSource= new SearchPagingSource(rxAPI,query,accessToken);
+        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
+    }
+
 
     public Observable<Anime> getAnime(int id){
         return rxAPI.getAnime(accessToken,id);
@@ -95,6 +93,14 @@ public class ExploreRepository {
 
     public Observable<VideoResponse> getVideos(int id){
         return jikanAPI.getVideos(id);
+    }
+
+    public Observable<CharacterResponse> getCharacters(int id){
+        return jikanAPI.getCharacters(id);
+    }
+
+    public Observable<StaffResponse> getStaff(int id){
+        return jikanAPI.getStaff(id);
     }
 
 

@@ -1,13 +1,12 @@
 package com.omnicoder.anichan.Utils;
 
-import com.omnicoder.anichan.Models.Animes;
+import com.omnicoder.anichan.Models.Responses.Data;
 
 import java.util.Comparator;
 
-public class SearchComparator implements Comparator<Animes> {
+public class SearchComparator implements Comparator<Data> {
     @Override
-    public int compare(Animes o1, Animes o2) {
-        return Integer.compare(o1.getTitle().length(),o2.getTitle().length());
-//        return Float.compare(o2.getPopularity(),o1.getPopularity());
+    public int compare(Data o1, Data o2) {
+        return Integer.compare(o1.getNode().getTitle().length(),o2.getNode().getTitle().length());
     }
 }

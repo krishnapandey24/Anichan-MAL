@@ -7,6 +7,7 @@ import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.Models.Animes;
+import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Repositories.ExploreRepository;
 
 import javax.inject.Inject;
@@ -27,11 +28,8 @@ public class SearchViewModel extends ViewModel {
 
 
 
-    public Flowable<PagingData<Animes>> getSearchResults(String searchQuery){
-        flowable= exploreRepository.searchAnimePage(searchQuery);
-        CoroutineScope coroutineScope= ViewModelKt.getViewModelScope(this);
-        PagingRx.cachedIn(flowable,coroutineScope);
-        return flowable;
+    public Flowable<PagingData<Data>> getSearchResults(String searchQuery){
+        return exploreRepository.searchAnime(searchQuery);
     }
 
 

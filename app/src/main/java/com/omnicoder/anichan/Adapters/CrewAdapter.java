@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.Crew;
-import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.Models.AnimeResponse.Characters.Character;
+import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffData;
+import com.omnicoder.anichan.UI.Activities.ViewPersonActivity;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 
@@ -17,11 +18,11 @@ import java.util.List;
 
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> {
-    List<Crew> dataHolder;
+    List<StaffData> dataHolder;
     Context context;
     CastItemLayoutBinding binding;
 
-    public CrewAdapter(Context context, List<Crew> dataHolder){
+    public CrewAdapter(Context context, List<StaffData> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
     }
@@ -36,14 +37,18 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CrewAdapter.MyViewHolder holder, int position) {
-        Crew crew=dataHolder.get(position);
-        String imageURL= "https://image.tmdb.org/t/p/w500/"+crew.getProfile_path();
-        holder.binding.titleView.setText(crew.getName());
-        holder.binding.characterName.setText(crew.getJob());
-        Picasso.get().load(imageURL).into(holder.binding.imageView);
+        StaffData staffData=dataHolder.get(position);
+        Character person=staffData.getPerson();
+        holder.binding.titleView.setText(person.getName());
+        holder.binding.characterName.setText(getPositions(staffData.getPositions()));
+        try{
+            Picasso.get().load(person.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
+        }catch (Exception e){
+            //
+        }
         holder.binding.cardView2.setOnClickListener(v -> {
-            Intent intent= new Intent(context,ViewAnimeActivity.class);
-            intent.putExtra("id",crew.getId());
+            Intent intent= new Intent(context, ViewPersonActivity.class);
+            intent.putExtra("id",person.getMal_id());
             context.startActivity(intent);
         });
     }
@@ -61,6 +66,19 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> 
             this.binding=binding;
         }
 
+    }
+
+    private StringBuilder getPositions(List<String> genres) {
+        int size=genres.size()-1;
+        StringBuilder studiosString = new StringBuilder();
+        int i = 0;
+        while (i < size - 1) {
+            studiosString.append(genres.get(i));
+            studiosString.append(",");
+            i++;
+        }
+        studiosString.append(genres.get(i));
+        return studiosString;
     }
 }
 

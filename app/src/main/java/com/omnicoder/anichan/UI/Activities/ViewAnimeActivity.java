@@ -17,7 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.AddAnimeBottomSheet;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.RecommendationsFragment;
+import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.CharactersFragment;
+import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.StaffFragment;
 import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.RelatedFragment;
 import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.SummaryFragment;
 import com.omnicoder.anichan.Utils.Constants;
@@ -53,8 +54,9 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     }
 
     private void setTabLayout(Anime anime) {
-        Fragment Relateds= new RelatedFragment(anime.getRelated_anime());
-        Fragment RecommendationsFragment=new RecommendationsFragment(anime.getRecommendations());
+        Fragment charactersFragment= new CharactersFragment(anime.getId(),viewModel);
+        Fragment staffFragment=new StaffFragment(anime.getId(),viewModel);
+        Fragment reviewsFragment= new RelatedFragment(anime.getId(),viewModel);
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -65,10 +67,12 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
                         break;
                     case 1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,Relateds).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,charactersFragment).commit();
                         break;
                     case 2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,RecommendationsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,reviewsFragment).commit();
+                    case 3:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,staffFragment).commit();
                         break;
                 }
             }
@@ -110,7 +114,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
                 if(anime.getMainPicture()!=null){
-                    Picasso.get().load(anime.getMainPicture().getMedium()).into(binding.posterView);
+                    Picasso.get().load(anime.getMainPicture().getLarge()).into(binding.posterView);
                 }
                 if(!anime.getPictures().isEmpty()){
                     Picasso.get().load(anime.getPictures().get(0).getMedium()).into(binding.backgroundPoster);

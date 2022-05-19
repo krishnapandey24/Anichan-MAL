@@ -16,6 +16,7 @@ public class Constants {
     public static final String LOGIN_URL="https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=%s&code_challenge=%s&state=%s";
     public static final int LIMIT=20;
     public static final int OFFSET=0;
+    public static final int SEARCH_LIMIT=10;
     public static final String RANKING_FIELDS="media_type,mean,genres";
     public static final String AIRING="airing";
     public static final String UPCOMING="upcoming";

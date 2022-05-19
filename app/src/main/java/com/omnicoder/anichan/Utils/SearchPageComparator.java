@@ -3,20 +3,20 @@ package com.omnicoder.anichan.Utils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.omnicoder.anichan.Models.Animes;
+import com.omnicoder.anichan.Models.Responses.Data;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SearchPageComparator extends DiffUtil.ItemCallback<Animes> {
+public class SearchPageComparator extends DiffUtil.ItemCallback<Data> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull @NotNull Animes oldItem, @NonNull @NotNull Animes newItem) {
-            return oldItem.getTitle().equals(newItem.getTitle());
+        public boolean areItemsTheSame(@NonNull @NotNull Data oldItem, @NonNull @NotNull Data newItem) {
+            return oldItem.getNode().getId()==newItem.getNode().getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull @NotNull Animes oldItem, @NonNull @NotNull Animes newItem) {
-            return oldItem.getTitle().equals(newItem.getTitle());
+        public boolean areContentsTheSame(@NonNull @NotNull Data oldItem, @NonNull @NotNull Data newItem) {
+            return oldItem.getNode().getId()==newItem.getNode().getId();
         }
 }
 

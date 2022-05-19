@@ -233,7 +233,7 @@
         android:background="@color/black"
         android:gravity="center"
         android:padding="10dp"
-        android:text="PLACE FOR AD"
+        android:text="@string/place_for_ad"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -247,7 +247,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Alternate Titles"
+        android:text="@string/alternate_titles"
         android:textColor="@color/viewAnimeMainTextColor"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -258,7 +258,7 @@
         android:id="@+id/viewMore2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View More"
+        android:text="@string/view_more"
         android:textColor="@color/blue"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="@+id/synonymsView"
@@ -337,19 +337,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/transparent_blue2"
-        app:layout_constraintBottom_toBottomOf="@+id/openingendingtheme"
+        app:layout_constraintBottom_toBottomOf="@+id/openingEndingTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/openingendingtheme" />
+        app:layout_constraintTop_toTopOf="@+id/openingEndingTheme" />
 
     <TextView
-        android:id="@+id/openingendingtheme"
+        android:id="@+id/openingEndingTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:padding="16dp"
-        android:text="Opening/Ending Themes"
+        android:text="@string/opening_ending_themes"
         android:textColor="@color/viewAnimeMainTextColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -365,35 +365,76 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/openingendingtheme"
+        app:layout_constraintBottom_toBottomOf="@+id/openingEndingTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/openingendingtheme"
-        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
-
-    <ViewStub
-        android:id="@+id/themesViewStub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:inflatedId="@id/videoViewStub"
-        android:layout="@layout/opending_ending_themes_view_stub_layout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openingendingtheme"
-        />
+        app:layout_constraintTop_toTopOf="@+id/openingEndingTheme"
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+        tools:ignore="ContentDescription" />
 
     <ViewStub
         android:id="@+id/videoViewStub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
         android:inflatedId="@id/videoViewStub"
         android:layout="@layout/video_view_stub"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/themesViewStub" />
+        app:layout_constraintTop_toBottomOf="@id/view7" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/related"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoViewStub" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/relatedRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        tools:listitem="@layout/layout"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/recommendations"
+        android:textColor="@color/viewAnimeMainTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/relatedRv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recommendationRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        tools:listitem="@layout/layout" />
 
 
 

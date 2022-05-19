@@ -18,6 +18,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_arrow_drop_down_242.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.2595" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.2595" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1707236842105263" />
@@ -45,19 +46,23 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_search.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_season.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_anime.xml" value="0.264" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_themes.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/add_anime_bottom_sheet.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_list_fragment.xml" value="0.2" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_theme_layout.xml" value="0.16052631578947368" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/cast_item_layout.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_theme_layout.xml" value="0.176" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/cast_item_layout.xml" value="0.125" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/drop_down.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/drop_down3.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/explore_fragment.xml" value="0.136" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_cast_and_crew.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_season_details.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_summary.xml" value="0.264" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_tab.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_view.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/just_recycler_view.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout2.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout3.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/links_view_stub.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/list_item_layout.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/news_fragment.xml" value="0.16052631578947368" />
@@ -65,7 +70,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/opending_ending_themes_view_stub_layout.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/plain_layout.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/progress_bar.xml" value="0.16052631578947368" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/recommendation_item_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/recommendation_item_layout.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/related_anime_item_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/search_item_layout.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/search_list_bottom_sheet.xml" value="0.128" />
