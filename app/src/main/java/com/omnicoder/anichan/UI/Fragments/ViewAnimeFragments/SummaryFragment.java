@@ -136,9 +136,11 @@ public class SummaryFragment extends Fragment {
     private void loadVideos(List<Promo> videos){
         if(videos!=null){
             VideoAdapter adapter = new VideoAdapter(context, videos);
-            RecyclerView recyclerView=binding.videoViewStub.inflate().findViewById(R.id.videoViewRv);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-            recyclerView.setAdapter(adapter);
+            if(binding.videoViewStub.getParent() == null) {
+                RecyclerView recyclerView = binding.videoViewStub.inflate().findViewById(R.id.videoViewRv);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                recyclerView.setAdapter(adapter);
+            }
         }
     }
     private String getAiringStatus(String status){

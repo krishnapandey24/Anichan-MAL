@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -28,24 +28,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Anichan);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        Intent intent= getIntent();
-//        boolean b=intent.getBooleanExtra("loggedIn",false);
-//        if(!b){
-//            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-//            finish();
-//        }
+        setupSearchBar();
         SharedPreferences sharedPreferences= getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-
-        Log.d("tagg","heyits"+sharedPreferences.getBoolean("userLogged",false));
-        Log.d("tagg","heyits"+sharedPreferences.getString("accessToken",""));
+        if(!sharedPreferences.getBoolean("userLogged",false)){
+            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            finish();
+        }
         NavController navController= Navigation.findNavController(this,R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
-        binding.imageView.setVisibility(View.GONE);
+    }
+
+    private void setupSearchBar() {
+//        binding.searchEditText.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
+//        binding.searchButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
+//        binding.scanButton.setOnClickListener(v -> {
+//            //
+//        });
     }
 
     public void showNoInternetConnectionDialog(){

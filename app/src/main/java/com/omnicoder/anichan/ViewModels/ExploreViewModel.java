@@ -25,13 +25,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ExploreViewModel extends ViewModel {
 
     private final MutableLiveData<List<Data>> trendingAnime= new MutableLiveData<>();
-    private final MutableLiveData<List<Data>> top100Anime= new MutableLiveData<>();
     private final MutableLiveData<List<Data>> topUpcomingAnime = new MutableLiveData<>();
-    private final MutableLiveData<List<Data>> allTimePopularAnime= new MutableLiveData<>();
+    private final MutableLiveData<List<Data>> recommendation=new MutableLiveData<>();
     private final MutableLiveData<Boolean> startLoading= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final ExploreRepository exploreRepository;
-    MutableLiveData<Boolean> NoInternet=new MutableLiveData<>();
 
 
 
@@ -41,14 +39,6 @@ public class ExploreViewModel extends ViewModel {
     }
 
 
-    public MutableLiveData<List<Data>> getAllTimePopularAnime() {
-        return allTimePopularAnime;
-    }
-
-    public MutableLiveData<Boolean> getStartLoading() {
-        return startLoading;
-    }
-
     public MutableLiveData<List<Data>> getTopUpcomingAnime(){
         return topUpcomingAnime;
     }
@@ -57,60 +47,40 @@ public class ExploreViewModel extends ViewModel {
         return trendingAnime;
     }
 
-
-    public MutableLiveData<List<Data>> getTop100Anime() {
-        return top100Anime;
+    public MutableLiveData<List<Data>> getRecommendation() {
+        return recommendation;
     }
-
-    public MutableLiveData<Boolean> getNoInternet() {
-        return NoInternet;
-    }
-
 
     public void fetchTrending(){
         compositeDisposable.add(exploreRepository.get9TrendingAnime()
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(trendingAnime::setValue, e->{
+                .subscribe(trendingAnime::setValue,e->{
                     e.printStackTrace();
-                    NoInternet.setValue(true);
                 })
         );
     }
 
-    public void fetchPopular(){
-        compositeDisposable.add(exploreRepository.get9PopularAnime()
+    public void fetchSuggestions(){
+        compositeDisposable.add(exploreRepository.getSuggestions()
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(allTimePopularAnime::setValue, e->{
-                    Log.d("tagg","Error: "+e.getMessage());
-                    NoInternet.setValue(true);
+                .subscribe(recommendation::setValue,e->{
+                    e.printStackTrace();
                 })
         );
     }
 
-    public void fetchTop100(){
-        compositeDisposable.add(exploreRepository.get9Top100Anime()
-                .subscribeOn(Schedulers.io())
-                .map(RankingResponse::getData)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(top100Anime::setValue, e->{
-                    Log.d("tagg","Error: "+e.getMessage());
-                    NoInternet.setValue(true);
-                })
-        );
-    }
 
     public void fetchTopUpcoming(){
         compositeDisposable.add(exploreRepository.get9TopUpcomingAnime()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(RankingResponse::getData)
-                .subscribe(topUpcomingAnime::setValue, e->{
-                    Log.d("tagg","Error: "+e.getMessage());
-                    NoInternet.setValue(true);
+                .subscribe(topUpcomingAnime::setValue,e->{
+                    e.printStackTrace();
                 })
         );
     }

@@ -1,15 +1,11 @@
 package com.omnicoder.anichan.Paging;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.paging.PagingState;
 import androidx.paging.rxjava3.RxPagingSource;
 
-import com.omnicoder.anichan.Models.Animes;
 import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
 import com.omnicoder.anichan.Network.RxAPI;
 import com.omnicoder.anichan.Utils.Constants;
 import com.omnicoder.anichan.Utils.SearchComparator;
@@ -24,12 +20,14 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private final RxAPI rxAPI;
     private final String query;
     private final String accessToken;
+    private  final boolean nsfw;
 
 
-    public SearchPagingSource(RxAPI rxAPI, String query, String accessToken){
+    public SearchPagingSource(RxAPI rxAPI, String query, String accessToken, boolean nsfw){
         this.rxAPI=rxAPI;
         this.query = query;
         this.accessToken=accessToken;
+        this.nsfw = nsfw;
     }
 
 
@@ -47,7 +45,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return rxAPI.searchAnime(accessToken,query,limit,offset)
+            return rxAPI.searchAnime(accessToken,query,limit,nsfw,offset)
                     .subscribeOn(Schedulers.io())
                     .flattenAsObservable(searchResponse -> {
                         List<Data> results=searchResponse.getData();

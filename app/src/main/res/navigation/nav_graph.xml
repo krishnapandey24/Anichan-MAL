@@ -17,8 +17,11 @@
             android:id="@+id/action_explore_fragment_to_viewAnimeActivity"
             app:destination="@id/animeChartActivity" />
         <action
-            android:id="@+id/action_explore_fragment_to_searchActivity"
-            app:destination="@id/searchActivity" />
+            android:id="@+id/action_explore_fragment_to_mangaRankingActivity"
+            app:destination="@id/mangaRankingActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_scheduleActivity"
+            app:destination="@id/scheduleActivity" />
     </fragment>
     <fragment
         android:id="@+id/news_fragment"
@@ -66,15 +69,21 @@
             app:argType="integer" />
 
     </activity>
-    <activity
-        android:id="@+id/searchActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.SearchActivity"
-        android:label="SearchActivity" />
 
     <fragment
         android:id="@+id/searchListFragment"
         android:name="com.omnicoder.anichan.UI.Fragments.SearchListFragment"
         android:label="SearchListFragment" />
+    <activity
+        android:id="@+id/mangaRankingActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.MangaRankingActivity"
+        android:label="activity_manga_ranking"
+        tools:layout="@layout/activity_manga_ranking" />
+    <activity
+        android:id="@+id/scheduleActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.ScheduleActivity"
+        android:label="activity_schedule"
+        tools:layout="@layout/activity_schedule" />
 
 
 </navigation>

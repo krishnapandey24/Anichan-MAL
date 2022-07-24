@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.omnicoder.anichan.Models.AccessToken;
 import com.omnicoder.anichan.Repositories.ExploreRepository;
+import com.omnicoder.anichan.Repositories.LoginRepository;
 import com.omnicoder.anichan.Utils.Constants;
 import com.omnicoder.anichan.Utils.PkceGenerator;
 
@@ -23,14 +24,14 @@ public class LoginViewModel extends ViewModel {
     public static final String STATE="Anichan123";
     public MutableLiveData<Boolean> useExternalBrowser= new MutableLiveData<>(false);
     public MutableLiveData<AccessToken> accessToken=new MutableLiveData<>();
-    private ExploreRepository repository;
+    private final LoginRepository repository;
     CompositeDisposable compositeDisposable= new CompositeDisposable();
 
 
 
     @Inject
-    public LoginViewModel(ExploreRepository exploreRepository){
-        this.repository= exploreRepository;
+    public LoginViewModel(LoginRepository loginRepository){
+        this.repository= loginRepository;
     }
 
 

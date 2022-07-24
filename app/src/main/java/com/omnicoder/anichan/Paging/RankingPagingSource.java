@@ -19,12 +19,15 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     private final RxAPI rxAPI;
     private final String rankingType;
     private final String accessToken;
+    private final boolean nsfw;
 
 
-    public RankingPagingSource(RxAPI rxAPI, String rankingType, String accessToken){
+    public RankingPagingSource(RxAPI rxAPI, String rankingType, String accessToken, boolean nsfw){
         this.rxAPI=rxAPI;
         this.rankingType=rankingType;
         this.accessToken=accessToken;
+        this.nsfw=nsfw;
+
     }
 
 
@@ -39,7 +42,7 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return rxAPI.getRanking(accessToken,rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,offset)
+        return rxAPI.getRanking(accessToken,rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(LoadResult.Error::new);

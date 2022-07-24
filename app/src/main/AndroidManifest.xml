@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
         <activity
+            android:name=".UI.Activities.MangaRankingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Activities.ScheduleActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.Activities.ViewCharacterActivity"
             android:exported="false" />
         <activity

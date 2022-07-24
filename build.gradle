@@ -12,9 +12,9 @@ buildscript {
         maven { url "https://oss.jfrog.org/libs-snapshot" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-beta02"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0"
 
     }
 }

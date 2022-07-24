@@ -6,6 +6,7 @@ import androidx.paging.PagingData;
 import com.omnicoder.anichan.Models.ExplorePlainView;
 import com.omnicoder.anichan.Models.ExploreView;
 import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.Repositories.AnimeChartRepository;
 import com.omnicoder.anichan.Repositories.ExploreRepository;
 import com.omnicoder.anichan.Utils.Constants;
 import com.omnicoder.anichan.Utils.Years;
@@ -20,20 +21,20 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @HiltViewModel
 public class AnimeChartViewModel extends ViewModel {
-    private final ExploreRepository exploreRepository;
+    private final AnimeChartRepository repository;
 
     @Inject
-    public AnimeChartViewModel(ExploreRepository exploreRepository){
-        this.exploreRepository = exploreRepository;
+    public AnimeChartViewModel(AnimeChartRepository repository){
+        this.repository = repository;
     }
 
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){
-        return exploreRepository.getRanking(rankingType.toLowerCase(Locale.ROOT).trim());
+        return repository.getRanking(rankingType.toLowerCase(Locale.ROOT).trim());
     }
 
     public Flowable<PagingData<Data>> getSeason(String year,String season){
-        return exploreRepository.getSeason(year,season);
+        return repository.getSeason(year,season);
     }
 }
 

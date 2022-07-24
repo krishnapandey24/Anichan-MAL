@@ -51,7 +51,7 @@ public class NetworkModule {
     @Singleton
     public static MovieDB provideMovieDB(){
         return new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl("https://myanimelist.net/v1/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()

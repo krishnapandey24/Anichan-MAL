@@ -9,6 +9,7 @@ public class Node {
     String title,media_type;
     MainPicture main_picture;
     List<Genre> genres;
+    List<MainPicture> pictures;
 
 
     public int getId() {
@@ -35,6 +36,8 @@ public class Node {
         return genres;
     }
 
-
+    public List<MainPicture> getPictures() {
+        return pictures;
+    }
 }
 

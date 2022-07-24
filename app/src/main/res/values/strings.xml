@@ -38,7 +38,6 @@
     <string name="ova">OVA</string>
     <string name="apply_filter">Apply filter</string>
     <string name="filter">Personalize</string>
-    <string name="top_upcoming">Top Upcoming</string>
     <string name="most_popular">Most Popular</string>
     <string name="highest_rated">Highest Rated</string>
     <string name="personalized">Personalized</string>
@@ -63,7 +62,7 @@
         <item>OVA</item>
         <item>Movie</item>
         <item>Special</item>
-        <item>By Popular</item>
+        <item>By Popularity</item>
         <item>Favorites</item>
     </string-array>
 
@@ -205,6 +204,14 @@
     <string name="opening_ending_themes">Opening/Ending Themes</string>
     <string name="related">Related</string>
     <string name="recommendations">Recommendations</string>
+    <string name="anime_ranking">Anime Ranking</string>
+    <string name="manga_ranking">Manga Ranking</string>
+    <string name="seasonal_chart">Seasonal Chart</string>
+    <string name="schedule">Schedule</string>
+    <string name="currently_airing">Currently Airing</string>
+    <string name="top_upcoming">Top Upcoming</string>
+    <string name="recommendation">Recommendation</string>
+    <string name="itemLayout">itemLayout</string>
 
 
 </resources>

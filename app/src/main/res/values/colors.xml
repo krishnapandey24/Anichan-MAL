@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="listItemTitleTextColor">@color/black</color>
-    <color name="headingTextColor">#647380</color>
+    <color name="headingTextColor">#000000</color>
     <color name="mainBlue">@color/darkBlue</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#2F80ED</color>
@@ -26,14 +26,17 @@
     <color name="viewAllButtonColor">@color/white</color>
     <color name="searchBarIconColor">@color/white</color>
     <color name="bottomSheetBackground">@color/white</color>
-    <color name="bgWhite">#E5EBF1</color>
+    <color name="bgWhite">@color/white</color>
     <color name="transparentBlue">#902F80ED</color>
     <color name="transparentBlue2">#352F80ED</color>
     <color name="bottomSheetMainTextColor">@color/black</color>
     <color name="notScoredYet">@color/black</color>
 <!--    <color name="transparentBlueColor">#252F80ED</color>-->
     <color name="transparentBlueColor">@color/transparentBlue2</color>
-    <color name="dark_fade_effect">#59000000</color>
+    <color name="menuIcon">@color/black</color>
+    <color name="contentBackground">#ECEFF1</color>
+
+    <color name="dark_fade_effect">#80000000</color>
     <color name="pickDateColor">@color/blue</color>
     <color name="green">#82D75F</color>
     <color name="drop_down_arrow_color">@color/blue</color>

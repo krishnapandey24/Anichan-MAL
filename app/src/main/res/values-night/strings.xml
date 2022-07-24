@@ -11,4 +11,12 @@
     <string name="opening_ending_themes">Opening/Ending Themes</string>
     <string name="related">Related</string>
     <string name="recommendations">Recommendations</string>
+    <string name="anime_ranking">Anime Ranking</string>
+    <string name="manga_ranking">Manga Ranking</string>
+    <string name="seasonal_chart">Seasonal Chart</string>
+    <string name="schedule">Schedule</string>
+    <string name="currently_airing">Currently Airing</string>
+    <string name="top_upcoming">Top Upcoming</string>
+    <string name="recommendation">Recommendation</string>
+    <string name="itemLayout" />
 </resources>

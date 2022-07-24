@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+
 public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewPagerAdapter.MyViewHolder> {
     List<Data> dataHolder;
     Context context;
@@ -44,7 +46,7 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
         Node Anime= dataHolder.get(position).getNode();
         String imageURL= Anime.getMainPicture().getMedium();
         Picasso.get().load(imageURL).into(holder.imageView);
-        Picasso.get().load(imageURL).into(holder.backgroundPosterView);
+        Picasso.get().load(imageURL).transform(new BlurTransformation(context,5,1)).into(holder.backgroundPosterView);
         holder.titleView.setText(Anime.getTitle());
         holder.imageView.setClipToOutline(true);
         holder.ratingView.setText(String.valueOf(Anime.getMean()));
@@ -65,6 +67,7 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView,backgroundPosterView;
         TextView titleView,genresView,ratingView,formatView;
+        View blurView;
         ConstraintLayout cardView;
 
         public MyViewHolder(View itemView) {
@@ -87,7 +90,7 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
         int i = 0;
         while (i < size - 1) {
             studiosString.append(genres.get(i).getName());
-            studiosString.append(",");
+            studiosString.append(", ");
             i++;
         }
         studiosString.append(genres.get(i).getName());

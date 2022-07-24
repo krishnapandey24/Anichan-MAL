@@ -2,93 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/bgWhite"
     >
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="131dp"
-        android:background="@drawable/rectangle"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_baseline_arrow_back_ios_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            app:contentInsetStartWithNavigation="0dp"
+            app:menu="@menu/ranking_menu"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:title="Anime Ranking" />
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/explore_anime"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/backButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            app:layout_collapseMode="pin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-    <TextView
-        android:id="@+id/topChartSelector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:paddingStart="12dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="5dp"
-        android:background="@drawable/transparent_blue"
-        android:text="@string/all_time_popular"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
-        app:drawableTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText"
-        tools:listitem="@layout/drop_down" />
+            <Spinner
+                android:id="@+id/animeRankingSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageButton
-        android:id="@+id/itemLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:paddingVertical="10dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="10dp"
-        android:src="@drawable/ic_baseline_view_module_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/animeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
