@@ -2,7 +2,6 @@ package com.omnicoder.anichan.UI.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +11,7 @@ import androidx.core.app.NavUtils;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.omnicoder.anichan.Adapters.SearchPageAdapter;
 import com.omnicoder.anichan.Utils.SearchPageComparator;
 import com.omnicoder.anichan.ViewModels.SearchViewModel;
@@ -38,6 +38,25 @@ public class SearchActivity extends AppCompatActivity{
         setOnClickListeners();
         initRecyclerView();
         binding.searchEditText.requestFocus();
+        binding.tabLayout2.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(!binding.searchEditText.getText().toString().equals("")){
+                    setSearchResults();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     private void setOnClickListeners() {
@@ -60,7 +79,7 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     private void setSearchResults(){
-        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
+        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString(),binding.tabLayout2.getSelectedTabPosition()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
     }
 
 

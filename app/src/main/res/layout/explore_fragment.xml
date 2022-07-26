@@ -12,6 +12,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="5dp"
+            android:background="@drawable/search_bar_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/scanButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:src="@drawable/ic_baseline_camera_alt_24"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/searchEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/searchBarBackground"
+                android:hint="Search Anime"
+                android:paddingHorizontal="8dp"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/scanButton"
+                app:layout_constraintStart_toEndOf="@+id/searchButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="10dp"
+                android:src="@drawable/ic_baseline_search_24"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
         <View
             android:id="@+id/view9"
             android:layout_width="1dp"
@@ -33,7 +90,7 @@
             app:contentPadding="3dp"
             app:layout_constraintEnd_toStartOf="@+id/view9"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/searchView">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +119,7 @@
             app:contentPadding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view9"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/searchView">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +205,7 @@
             android:padding="16dp"
             android:text="@string/currently_airing"
             android:textColor="@color/headingTextColor"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,6 +216,7 @@
             android:id="@+id/trendingView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +236,7 @@
             android:padding="16dp"
             android:text="@string/top_upcoming"
             android:textColor="@color/headingTextColor"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -191,6 +249,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="-5dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -212,7 +271,7 @@
             android:padding="16dp"
             android:text="@string/recommendation"
             android:textColor="@color/headingTextColor"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
             app:layout_constraintEnd_toEndOf="parent"
@@ -225,6 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="-5dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -89,6 +89,7 @@ public class ExploreFragment extends Fragment{
 
         binding.schedule.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToScheduleActivity()));
 
+        binding.searchView.setOnClickListener(v-> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
 
     }
 

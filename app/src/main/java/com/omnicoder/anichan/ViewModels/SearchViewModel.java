@@ -28,8 +28,8 @@ public class SearchViewModel extends ViewModel {
 
 
 
-    public Flowable<PagingData<Data>> getSearchResults(String searchQuery){
-        return exploreRepository.searchAnime(searchQuery);
+    public Flowable<PagingData<Data>> getSearchResults(String searchQuery,int isAnime){
+        return exploreRepository.searchAnime(searchQuery,isAnime);
     }
 
 

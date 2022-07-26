@@ -8,15 +8,48 @@
     android:background="@color/bgWhite"
     android:layout_height="match_parent">
 
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/rectangle"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/rectangle"
+        app:layout_constraintBottom_toBottomOf="@+id/tabLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:tabBackground="@color/darkBlue"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/listSelectedTabColor"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="auto"
+        app:tabSelectedTextColor="@color/listSelectedTabColor"
+        app:tabTextAppearance="@style/TabLayoutTextSize"
+        app:tabTextColor="@color/listTabTextColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anime" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manga" />
+
+
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -86,6 +119,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -93,14 +130,13 @@
         android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:paddingVertical="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_explore_fragment_to_scheduleActivity"
             app:destination="@id/scheduleActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
     </fragment>
     <fragment
         android:id="@+id/news_fragment"
@@ -84,6 +87,10 @@
         android:name="com.omnicoder.anichan.UI.Activities.ScheduleActivity"
         android:label="activity_schedule"
         tools:layout="@layout/activity_schedule" />
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.SearchActivity"
+        android:label="SearchActivity" />
 
 
 </navigation>

@@ -62,7 +62,9 @@ public class SummaryFragment extends Fragment {
         viewModel.fetchVideos(anime.getId());
         observeData();
         binding.statusView.setText(getAiringStatus(anime.getStatus()));
-        binding.broadcastView.setText(anime.getBroadcast().getBroadCast());
+        if(anime.getBroadcast()!=null){
+            binding.broadcastView.setText(anime.getBroadcast().getBroadCast());
+        }
         binding.japaneseView.setText(anime.getAlternateTitles().getJa());
         binding.synonymsView.setText(getAlternateTitles(anime.getAlternateTitles().getSynonyms()));
         binding.releaseDateView.setText(anime.getStart_date());
@@ -70,7 +72,11 @@ public class SummaryFragment extends Fragment {
         String episodeDuration=(anime.getAverage_episode_duration()/60)+" min";
         binding.episodeDurationView.setText(episodeDuration);
         binding.sourceView.setText(anime.getSource());
-        binding.studiosView.setText(getStudios(anime.getStudios()));
+        try{
+            binding.studiosView.setText(getStudios(anime.getStudios()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         setupOpeningAndEndingThemes(anime.getOpening_themes(),anime.getEnding_themes());
         setRecyclerViews(anime.getRelated_anime(),anime.getRecommendations(),getContext());
         binding.viewMore2.setOnClickListener(v -> {

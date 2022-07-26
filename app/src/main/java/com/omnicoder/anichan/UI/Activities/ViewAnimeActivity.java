@@ -119,13 +119,23 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 if(!anime.getPictures().isEmpty()){
                     Picasso.get().load(anime.getPictures().get(0).getMedium()).into(binding.backgroundPoster);
                 }
-                String meanScore=anime.getMean()+"/10";
+                String meanScore;
+                float mean=anime.getMean();
+                if(mean==0.0f){
+                    meanScore="??/10";
+                }else{
+                    meanScore=mean+"/10";
+                }
                 binding.description.setText(anime.getSynopsis());
                 binding.titleView.setText(anime.getTitle());
                 binding.formatView.setText(anime.getMedia_type());
                 binding.dateView.setText(anime.getStart_date());
                 binding.ratingView.setText(meanScore);
-                binding.studioView.setText(anime.getStudios().get(0).getName());
+                if(anime.getStudios().isEmpty()){
+                    binding.studioView.setText("?");
+                }else{
+                    binding.studioView.setText(anime.getStudios().get(0).getName());
+                }
                 summary=new SummaryFragment(anime,viewModel);
                 if(anime.getMedia_type().equals(Constants.MOVIE)){
                     String duration=convertDuration(anime.getAverage_episode_duration());

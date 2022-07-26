@@ -69,8 +69,8 @@ public class ExploreRepository {
 
 
 
-    public Flowable<PagingData<Data>> searchAnime(String query){
-        SearchPagingSource searchPagingSource= new SearchPagingSource(rxAPI,query,accessToken, nsfw);
+    public Flowable<PagingData<Data>> searchAnime(String query, int isAnime){
+        SearchPagingSource searchPagingSource= new SearchPagingSource(rxAPI,query,accessToken, nsfw,isAnime);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
     }
 
