@@ -42,6 +42,7 @@ public class Anime {
     List<AnimeTheme> opening_themes;
     List<AnimeTheme> ending_themes;
     List<Video> videos;
+    AnimeListStatus my_list_status;
 
     public int getId() {
         return id;
@@ -177,5 +178,9 @@ public class Anime {
 
     public List<Video> getVideos() {
         return videos;
+    }
+
+    public AnimeListStatus getMy_list_status() {
+        return my_list_status;
     }
 }

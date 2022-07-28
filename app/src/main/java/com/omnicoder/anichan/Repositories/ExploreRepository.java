@@ -3,6 +3,7 @@ package com.omnicoder.anichan.Repositories;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;
@@ -11,6 +12,7 @@ import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.Models.AccessToken;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
+import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
@@ -42,6 +44,7 @@ public class ExploreRepository {
         this.jikanAPI=jikanAPI;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE);
         this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
+        Log.d("tagg","ac:\n"+accessToken);
         this.nsfw= sharedPreferences.getBoolean("nsfw",false);
     }
 
@@ -90,7 +93,6 @@ public class ExploreRepository {
     public Observable<StaffResponse> getStaff(int id){
         return jikanAPI.getStaff(id);
     }
-
 
 
 

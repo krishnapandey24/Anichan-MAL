@@ -20,6 +20,9 @@ public interface AnimeListDao {
     @Query("UPDATE ANIME_LIST SET watchedEpisodes=watchedEpisodes+1 WHERE animeID==:animeID")
     Completable addEpisode(int animeID);
 
+    @Query("SELECT * FROM ANIME_LIST")
+    List<AnimeList> getAllAnime();
+
     @Query("UPDATE ANIME_LIST SET status=:status WHERE animeID==:animeID")
     Completable updateStatus(String status,int animeID);
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.omnicoder.anichan.Database.AnimeList;
+import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Repositories.AnimeListRepository;
 import com.omnicoder.anichan.Utils.Constants;
 
@@ -29,6 +30,7 @@ public class AnimeListViewModel extends ViewModel {
     public MutableLiveData<List<AnimeList>> animeList5= new MutableLiveData<>();
     public MutableLiveData<List<AnimeList>> animeList6= new MutableLiveData<>();
     public MutableLiveData<List<AnimeList>> searchResults= new MutableLiveData<>();
+    public MutableLiveData<Boolean> response= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final AnimeListRepository repository;
 
@@ -153,6 +155,18 @@ public class AnimeListViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(searchResults::setValue,Throwable::printStackTrace)
+        );
+    }
+
+
+    public void updateAnime(int anime_id, String status, boolean is_rewatching, int num_of_episodes_watched, int score, String start_date, String finish_date){
+        compositeDisposable.add(repository.updateAnimeList(anime_id,status,is_rewatching,num_of_episodes_watched,score,start_date,finish_date)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(success -> response.setValue(true), e-> {
+                    e.printStackTrace();
+                    response.setValue(false);
+                })
         );
     }
 

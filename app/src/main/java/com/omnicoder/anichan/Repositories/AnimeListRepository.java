@@ -1,21 +1,36 @@
 package com.omnicoder.anichan.Repositories;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.omnicoder.anichan.Database.AnimeList;
 import com.omnicoder.anichan.Database.AnimeListDao;
+import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
+import com.omnicoder.anichan.Models.AnimeListResponse.UserListAnime;
+import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
+import com.omnicoder.anichan.Network.RxAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class AnimeListRepository {
     AnimeListDao animeListDao;
+    RxAPI rxAPI;
+    String accessToken;
 
     @Inject
-    public AnimeListRepository(AnimeListDao animeListDao){
+    public AnimeListRepository(AnimeListDao animeListDao, Context context, RxAPI rxAPI){
         this.animeListDao=animeListDao;
+        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
+        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
+        this.rxAPI=rxAPI;
+
     }
 
     public Completable addAnimeToList(AnimeList animeListItem){
@@ -69,6 +84,15 @@ public class AnimeListRepository {
     public Flowable<List<AnimeList>> searchAnime(CharSequence query){
         return animeListDao.searchAnime(query.toString());
     }
+
+    public Observable<AnimeListStatus> updateAnimeList(int anime_id, String status, boolean is_rewatching, int num_of_episodes_watched, int score, String start_date, String finish_date){
+        List<String> strings=new ArrayList<>();
+        return rxAPI.updateAnimeListStatus(accessToken, anime_id, status, is_rewatching, score, num_of_episodes_watched, 0, 0, 0, strings, "", start_date, finish_date);
+    }
+
+
+
+
 
 
 

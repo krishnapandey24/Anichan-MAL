@@ -30,16 +30,6 @@
         app:layout_constraintStart_toEndOf="@+id/view6"
         app:layout_constraintTop_toTopOf="@+id/editText" />
 
-    <ViewStub
-        android:id="@+id/chooseSeason"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inflatedId="@id/chooseSeason"
-        android:layout="@layout/season_selector_view_stub"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/view6"
         android:layout_width="1dp"
@@ -53,26 +43,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Status: "
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/chooseSeason"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="21dp" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Episodes: "
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/chooseSeason"
-        app:layout_constraintStart_toEndOf="@+id/view6" />
+        app:layout_constraintStart_toEndOf="@+id/view6"
+        tools:layout_editor_absoluteY="21dp" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -147,7 +135,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:max="9"
+        android:max="10"
         android:thumbTint="@color/pickDateColor"
         android:progress="0"
         android:progressTint="@color/blue"
@@ -179,10 +167,10 @@
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickDate" />
+        app:layout_constraintTop_toBottomOf="@+id/pickStartDate" />
 
     <TextView
-        android:id="@+id/pickDate"
+        android:id="@+id/pickStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -225,28 +213,28 @@
         android:id="@+id/startDateToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:buttonTint="@color/pickDateColor"
         android:fontFamily="sans-serif-medium"
         android:text="Set Today"
-        android:buttonTint="@color/pickDateColor"
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pickDate"
+        app:layout_constraintBottom_toBottomOf="@+id/pickStartDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pickDate"
-        app:layout_constraintTop_toTopOf="@+id/pickDate" />
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="@+id/pickStartDate" />
 
     <CheckBox
         android:id="@+id/finishDateToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:buttonTint="@color/pickDateColor"
         android:fontFamily="sans-serif-medium"
         android:text="Set Today"
-        android:buttonTint="@color/pickDateColor"
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/pickFinishDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pickDate"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
         app:layout_constraintTop_toTopOf="@+id/pickFinishDate" />
 
     <Button

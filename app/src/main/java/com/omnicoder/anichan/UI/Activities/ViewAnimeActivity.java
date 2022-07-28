@@ -26,6 +26,8 @@ import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -113,11 +115,13 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     private void observeData() {
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
+                String posterPath="";
                 if(anime.getMainPicture()!=null){
                     Picasso.get().load(anime.getMainPicture().getLarge()).into(binding.posterView);
                 }
                 if(!anime.getPictures().isEmpty()){
-                    Picasso.get().load(anime.getPictures().get(0).getMedium()).into(binding.backgroundPoster);
+                    posterPath=anime.getPictures().get(0).getMedium();
+                    Picasso.get().load(posterPath).into(binding.backgroundPoster);
                 }
                 String meanScore;
                 float mean=anime.getMean();
@@ -145,8 +149,10 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 }else{
                     binding.seasonAndDurationView.setText(String.valueOf(anime.getNum_episodes()));
                 }
+                addAnimeBottomSheet.setData(anime.getTitle(),anime.getNum_episodes(),anime.getId(),posterPath,anime.getMedia_type(),anime.getMy_list_status());
                 setTabLayout(anime);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
+                binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();
                 Log.d("tagg","Error: "+e.getMessage());
@@ -154,7 +160,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         });
 
         viewModel.getNoInternet().observe(ViewAnimeActivity.this, NoInternet -> {
-            Log.d("tagg","NO Internet connection"+NoInternet);
+            Log.d("tagg","No Internet connection"+NoInternet);
             if(NoInternet) {
                 showNoInternetConnectionDialog();
             }

@@ -2,11 +2,9 @@ package com.omnicoder.anichan.DI;
 
 import android.content.Context;
 
-import com.omnicoder.anichan.Network.API;
 import com.omnicoder.anichan.Network.JikanAPI;
 import com.omnicoder.anichan.Network.MovieDB;
 import com.omnicoder.anichan.Network.RxAPI;
-import com.omnicoder.anichan.Paging.SearchPagingSource;
 
 import javax.inject.Singleton;
 
@@ -65,6 +63,5 @@ public class NetworkModule {
     public static Context provideApplicationContext(@ApplicationContext Context context){
         return context;
     }
-
 
 }

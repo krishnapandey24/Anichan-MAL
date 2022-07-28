@@ -12,6 +12,7 @@ public class Node {
     List<MainPicture> pictures;
 
 
+
     public int getId() {
         return id;
     }

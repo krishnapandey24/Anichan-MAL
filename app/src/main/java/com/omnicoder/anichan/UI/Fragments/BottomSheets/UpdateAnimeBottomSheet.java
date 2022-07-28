@@ -77,7 +77,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
                 animeList.setStatus(statuses[position],position);
                 switch (position){
                     case 0:
-                        binding.pickDate.setText(todayDate);
+                        binding.pickStartDate.setText(todayDate);
                         break;
                     case 1:
                         binding.editText.setText("0");
@@ -198,7 +198,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         String animeStartDate=animeList.getStartedDate();
         String animeFinishDate=animeList.getCompletedDate();
         if(animeStartDate!=null){
-            binding.pickDate.setText(animeList.getStartedDate());
+            binding.pickStartDate.setText(animeList.getStartedDate());
         }
         if(animeFinishDate!=null){
             binding.pickFinishDate.setText(animeList.getCompletedDate());
@@ -208,7 +208,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             String startDate=materialDatePicker.getHeaderText();
             animeList.setStartedDate(startDate);
-            binding.pickDate.setText(startDate);
+            binding.pickStartDate.setText(startDate);
         });
         final MaterialDatePicker<Long> materialDatePicker2 =MaterialDatePicker.Builder.datePicker().build();
         materialDatePicker2.addOnPositiveButtonClickListener(selection -> {
@@ -216,16 +216,16 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
             animeList.setStartedDate(finishDate);
             binding.pickFinishDate.setText(finishDate);
         });
-        binding.pickDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager,"DatePicker"));
+        binding.pickStartDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager,"DatePicker"));
         binding.pickFinishDate.setOnClickListener(v -> materialDatePicker2.show(fragmentManager,"DatePicker2"));
 
         todayDate= new SimpleDateFormat("d MMM yyyy", Locale.US).format(new Date());
         binding.startDateToday.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
-                binding.pickDate.setText(todayDate);
+                binding.pickStartDate.setText(todayDate);
                 animeList.setStartedDate(todayDate);
             }else {
-                binding.pickDate.setText("Pick Start Date");
+                binding.pickStartDate.setText("Pick Start Date");
             }
         });
 
