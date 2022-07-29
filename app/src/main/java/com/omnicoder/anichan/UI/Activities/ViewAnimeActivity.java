@@ -152,7 +152,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 addAnimeBottomSheet.setData(anime.getTitle(),anime.getNum_episodes(),anime.getId(),posterPath,anime.getMedia_type(),anime.getMy_list_status());
                 setTabLayout(anime);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
-                binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
+//                binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();
                 Log.d("tagg","Error: "+e.getMessage());

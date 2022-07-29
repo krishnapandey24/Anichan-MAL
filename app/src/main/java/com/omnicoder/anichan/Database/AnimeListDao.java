@@ -4,7 +4,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -20,9 +19,6 @@ public interface AnimeListDao {
     @Query("UPDATE ANIME_LIST SET watchedEpisodes=watchedEpisodes+1 WHERE animeID==:animeID")
     Completable addEpisode(int animeID);
 
-    @Query("SELECT * FROM ANIME_LIST")
-    List<AnimeList> getAllAnime();
-
     @Query("UPDATE ANIME_LIST SET status=:status WHERE animeID==:animeID")
     Completable updateStatus(String status,int animeID);
 
@@ -32,20 +28,11 @@ public interface AnimeListDao {
     @Query("DELETE FROM ANIME_LIST WHERE animeID=:animeID")
     Completable deleteAnime(int animeID);
 
-    @Query("SELECT * from ANIME_LIST WHERE title like :query || '%' ")
-    Flowable<List<AnimeList>> searchAnime(String query);
-
     @Query("SELECT * from ANIME_LIST WHERE status=:status")
     Flowable<List<AnimeList>> getAnimeList(String status);
 
     @Query("SELECT * from ANIME_LIST WHERE status='Watching'")
     Flowable<List<AnimeList>> getWatching();
-
-    @Query("SELECT * from ANIME_LIST WHERE status=:status")
-    Flowable<List<AnimeList>> fetchAnimeList(String status);
-
-    @Query("SELECT * from ANIME_LIST WHERE status=:status ORDER BY "+":sortBy"+" DESC")
-    Flowable<List<AnimeList>> fetchAnimeList(String status,String sortBy);
 
     @Query("SELECT * from ANIME_LIST WHERE status='Plan To Watch'")
     Flowable<List<AnimeList>> getPlanToWatch();
@@ -64,8 +51,6 @@ public interface AnimeListDao {
 
     @Query("SELECT * from ANIME_LIST")
     Flowable<List<AnimeList>> getAll();
-
-
 
 //    animeID,title,posterPath,format,mediaType,givenScore,totalEpisode,watchedEpisodes,seasonNo,status
 

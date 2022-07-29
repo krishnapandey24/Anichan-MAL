@@ -6,7 +6,6 @@ import androidx.room.Room;
 
 import com.omnicoder.anichan.Database.AnimeDB;
 import com.omnicoder.anichan.Database.AnimeDao;
-import com.omnicoder.anichan.Database.AnimeListDao;
 
 import com.omnicoder.anichan.Utils.Constants;
 
@@ -34,16 +33,10 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    AnimeDao provideAnimeDao(AnimeDB animeDB){
+     AnimeDao provideAnimeDao(AnimeDB animeDB){
         return animeDB.animeDao();
     }
 
-
-    @Provides
-    @Singleton
-    AnimeListDao provideAnimeListDao(AnimeDB animeDB){
-        return animeDB.animeListDao();
-    }
 
 
 

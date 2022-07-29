@@ -47,24 +47,13 @@ public interface RxAPI {
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
-    Observable<AnimeListStatus> updateAnimeListStatus(
-            @Header("Authorization") String accessToken,
-            @Path("anime_id") int anime_id,
-            @Field("status") String status,
-            @Field("is_rewatching") Boolean is_rewatching,
-            @Field("score") int score,
-            @Field("num_watched_episodes") int num_watched_episodes,
-            @Field("priority") int priority,
-            @Field("num_times_rewatched") int num_times_rewatched,
-            @Field("rewatch_value") int rewatch_value,
-            @Field("tags") List<String> tags,
-            @Field("comments") String comments,
-            @Field("start_date") String startDate,
-            @Field("finish_date") String finishDate
-    );
+    Observable<AnimeListStatus> updateAnimeListStatus(@Header("Authorization") String accessToken, @Path("anime_id") int anime_id, @Field("status") String status, @Field("is_rewatching") Boolean is_rewatching, @Field("score") int score, @Field("num_watched_episodes") int num_watched_episodes, @Field("priority") int priority, @Field("num_times_rewatched") int num_times_rewatched, @Field("rewatch_value") int rewatch_value, @Field("tags") List<String> tags, @Field("comments") String comments, @Field("start_date") String startDate, @Field("finish_date") String finishDate);
 
     @GET("users/@me/animelist?/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
-    Observable<UserAnimeListResponse> getUserAnimeList();
+    Single<UserAnimeListResponse> getUserAnimeList(@Header("Authorization") String accessToken,@Query("limit") int limit,@Query("offset") int offset );
+
+    @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
+    Observable<UserAnimeListResponse> getUserAnimeList(@Header("Authorization") String accessToken,@Query("limit") int limit);
 
 
 

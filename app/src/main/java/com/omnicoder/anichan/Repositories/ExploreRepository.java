@@ -12,7 +12,6 @@ import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.Models.AccessToken;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;

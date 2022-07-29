@@ -7,12 +7,23 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ANIME_LIST")
 public class AnimeList {
+    public static final String STATUS="status";
+    public static final String TITLE="title";
+    public static final String POSTER_PATH ="posterPath";
+    public static final String FORMAT ="format";
+    public static final String ANIME_ID="animeID";
+    public static final String TOTAL_EPISODES="totalEpisode";
+    public static final String WATCHED_EPISODES="watchedEpisodes";
+    public static final String GIVEN_SCORE="givenScore";
+    public static final String SEASON_NO="seasonNo";
+
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private Integer animeID,givenScore,totalEpisode,seasonNo,watchedEpisodes,statusPosition;
-    private String status,title,posterPath,startedDate,completedDate,format,mediaType,airingStatus;
 
-    public AnimeList(Integer id, Integer animeID, Integer givenScore, Integer totalEpisode, Integer seasonNo, Integer watchedEpisodes, String status, String title, String posterPath, String startedDate, String completedDate, String format, String mediaType,String airingStatus) {
+    private Integer animeID,givenScore,totalEpisode,seasonNo,watchedEpisodes;
+    private String status,title,posterPath,startedDate,completedDate,format,mediaType;
+
+    public AnimeList(Integer id, Integer animeID, Integer givenScore, Integer totalEpisode, Integer seasonNo, Integer watchedEpisodes, String status, String title, String posterPath, String startedDate, String completedDate, String format, String mediaType) {
         this.id = id;
         this.animeID = animeID;
         this.givenScore = givenScore;
@@ -26,11 +37,10 @@ public class AnimeList {
         this.completedDate = completedDate;
         this.format = format;
         this.mediaType = mediaType;
-        this.airingStatus=airingStatus;
     }
 
     @Ignore
-    public AnimeList(Integer animeID, Integer givenScore, Integer totalEpisode, Integer seasonNo, Integer watchEpisodes, String status, String title, String posterPath, String startedDate, String completedDate, String format, String mediaType,int statusPosition, String airingStatus) {
+    public AnimeList(Integer animeID, Integer givenScore, Integer totalEpisode, Integer seasonNo, Integer watchEpisodes, String status, String title, String posterPath, String startedDate, String completedDate, String format, String mediaType) {
         this.animeID = animeID;
         this.givenScore = givenScore;
         this.totalEpisode = totalEpisode;
@@ -43,8 +53,6 @@ public class AnimeList {
         this.completedDate = completedDate;
         this.format = format;
         this.mediaType = mediaType;
-        this.statusPosition=statusPosition;
-        this.airingStatus=airingStatus;
     }
 
 
@@ -100,9 +108,8 @@ public class AnimeList {
         return status;
     }
 
-    public void setStatus(String status, int position) {
+    public void setStatus(String status) {
         this.status = status;
-        this.statusPosition=position;
     }
 
     public String getTitle() {
@@ -139,7 +146,7 @@ public class AnimeList {
 
     public String getFormat() {
         if(format==null){
-            return mediaType;
+            return "--";
         }
         return format;
     }
@@ -154,21 +161,5 @@ public class AnimeList {
 
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
-    }
-
-    public Integer getStatusPosition() {
-        return statusPosition;
-    }
-
-    public void setStatusPosition(Integer statusPosition) {
-        this.statusPosition = statusPosition;
-    }
-
-    public String getAiringStatus() {
-        return airingStatus;
-    }
-
-    public void setAiringStatus(String airingStatus) {
-        this.airingStatus = airingStatus;
     }
 }

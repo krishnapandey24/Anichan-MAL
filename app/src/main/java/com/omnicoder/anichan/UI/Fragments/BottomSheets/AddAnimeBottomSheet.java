@@ -20,8 +20,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.omnicoder.anichan.Database.Anime;
 import com.omnicoder.anichan.Database.AnimeList;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
+import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
@@ -36,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
-    String status="Plan To Watch",posterPath,mediaType,startDate,finishDate,title,todayDate,airingStatus,selectedStatus;
+    String status="Plan To Watch",posterPath,mediaType,startDate,finishDate,title,todayDate,airingStatus,selectedStatus,mainPicture;
     int score=-1,noOfEpisodes=0,totalEpisodes,id,statusPosition;
     AnimeAdded animeAdded;
     AnimeListStatus animeListStatus;
@@ -290,8 +292,8 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.addToListButton.setOnClickListener(v -> {
             AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
             animeListViewModel.updateAnime(id,selectedStatus,rewatching,Integer.parseInt(binding.editText.getText().toString()),score,startDate,finishDate);
-            AnimeList animeList = new AnimeList(id, score, totalEpisodes, 0, Integer.parseInt(binding.editText.getText().toString()), status, title, posterPath, startDate, finishDate, mediaType, mediaType, statusPosition,"Completed");
-            animeListViewModel.addAnime(animeList);
+//            Anime anime = new Anime(id,title,mainPicture,mediaType,animeListStatus.s);
+//            animeListViewModel.addAnime(animeList);
             animeAdded.setStatus(status);
             dismiss();
         });
@@ -303,7 +305,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         void setStatus(String status);
     }
 
-    public void setData(String title, int totalEpisodes, int id, String posterPath, String mediaType, AnimeListStatus animeListStatus) {
+    public void setData(String title, int totalEpisodes, int id, String posterPath, String mediaType, AnimeListStatus animeListStatus, StartSeason startSeason) {
         this.title = title;
         this.totalEpisodes=totalEpisodes;
         this.id=id;
@@ -312,6 +314,17 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         this.airingStatus=status;
         this.animeListStatus=animeListStatus;
     }
+
+//    public void setData(com.omnicoder.anichan.Models.AnimeResponse.Anime) {
+//        this.title = title;
+//        this.totalEpisodes=totalEpisodes;
+//        this.id=id;
+//        this.posterPath=posterPath;
+//        this.mediaType=mediaType;
+//        this.airingStatus=status;
+//        this.animeListStatus=animeListStatus;
+//    }
+
 
 
     @Override

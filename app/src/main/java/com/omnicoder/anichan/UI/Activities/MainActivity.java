@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        setupSearchBar();
         SharedPreferences sharedPreferences= getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
         if(!sharedPreferences.getBoolean("userLogged",false)){
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -44,13 +43,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
     }
 
-    private void setupSearchBar() {
-//        binding.searchEditText.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
-//        binding.searchButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
-//        binding.scanButton.setOnClickListener(v -> {
-//            //
-//        });
-    }
 
     public void showNoInternetConnectionDialog(){
         Dialog noInternetConnectionDialog= new Dialog(MainActivity.this);
@@ -59,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         Button okButton=noInternetConnectionDialog.findViewById(R.id.okButton);
         okButton.setOnClickListener(v -> noInternetConnectionDialog.dismiss());
     }
-
-
-
 
     @Override
     protected void onDestroy() {

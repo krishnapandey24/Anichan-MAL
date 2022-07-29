@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.Database.Anime;
 import com.omnicoder.anichan.Database.AnimeList;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
@@ -25,7 +26,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     PagerAdapter pagerAdapter;
     boolean b=true;
 
-    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner,PagerAdapter pagerAdapter){
+    public      ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner,PagerAdapter pagerAdapter){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
@@ -62,9 +63,10 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     }
 
 
+
     @Override
-    public void updateAnime(AnimeList animeList, int position) {
-        pagerAdapter.updateAnime(animeList,position);
+    public void updateAnime(Anime anime, int position) {
+
     }
 
     @Override
@@ -96,7 +98,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
 
     public interface PagerAdapter{
-        void updateAnime(AnimeList animeList,int position);
+        void updateAnime(AnimeList animeList, int position);
         void addEpisode(int id);
         void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
         void animeCompleted(int id,String name);

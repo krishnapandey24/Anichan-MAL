@@ -73,6 +73,7 @@
         <item>Completed</item>
         <item>On Hold</item>
         <item>Dropped</item>
+        <item>Rewatching</item>
         <item>All</item>
     </string-array>
 
