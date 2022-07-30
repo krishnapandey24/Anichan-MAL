@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.Anime;
-import com.omnicoder.anichan.Database.AnimeList;
+import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.ViewModels.AddAnimeViewModel;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 
@@ -38,8 +40,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
-    String status="Plan To Watch",posterPath,mediaType,startDate,finishDate,title,todayDate,airingStatus,selectedStatus,mainPicture;
-    int score=-1,noOfEpisodes=0,totalEpisodes,id,statusPosition;
+    Anime anime;
+    String status="Plan To Watch",startDate,finishDate,todayDate,selectedStatus;
+    int score=0,noOfEpisodes=0,totalEpisodes,statusPosition;
     AnimeAdded animeAdded;
     AnimeListStatus animeListStatus;
     boolean rewatching=false;
@@ -69,15 +72,19 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             switch (status){
                 case "watching":
                     statusPosition=0;
+                    rewatching=false;
                     break;
                 case "plan_to_watch":
                     statusPosition=1;
+                    rewatching=false;
                     break;
                 case "completed":
                     statusPosition=2;
+                    rewatching=false;
                     break;
                 case "on_hold":
                     statusPosition=3;
+                    rewatching=false;
                     break;
                 case "dropped":
                     statusPosition=4;
@@ -238,7 +245,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
                 Toast.makeText(context,"Episodes haven't released yet",Toast.LENGTH_SHORT).show();
             }
             else if(noOfEpisodes==totalEpisodes){
-                Toast.makeText(context,title+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,anime.getTitle()+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
             }else {
                 noOfEpisodes++;
                 binding.editText.setText(String.valueOf(noOfEpisodes));
@@ -290,10 +297,20 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initButtons(){
         binding.addToListButton.setOnClickListener(v -> {
-            AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
-            animeListViewModel.updateAnime(id,selectedStatus,rewatching,Integer.parseInt(binding.editText.getText().toString()),score,startDate,finishDate);
-//            Anime anime = new Anime(id,title,mainPicture,mediaType,animeListStatus.s);
-//            animeListViewModel.addAnime(animeList);
+//            AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
+//            animeListViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,5);
+            AddAnimeViewModel addAnimeViewModel= new ViewModelProvider(this).get(AddAnimeViewModel.class);
+            addAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,5);
+//            String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
+//            StartSeason startSeason= anime.getStart_season();
+//            String season;
+//            if(startSeason==null){
+//                season="";
+//            }else{
+//                season=startSeason.getSeason() + " " + startSeason.getYear();
+//            }
+//            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching);
+//            animeListViewModel.addAnime(userAnime);
             animeAdded.setStatus(status);
             dismiss();
         });
@@ -305,25 +322,13 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         void setStatus(String status);
     }
 
-    public void setData(String title, int totalEpisodes, int id, String posterPath, String mediaType, AnimeListStatus animeListStatus, StartSeason startSeason) {
-        this.title = title;
-        this.totalEpisodes=totalEpisodes;
-        this.id=id;
-        this.posterPath=posterPath;
-        this.mediaType=mediaType;
-        this.airingStatus=status;
-        this.animeListStatus=animeListStatus;
-    }
 
-//    public void setData(com.omnicoder.anichan.Models.AnimeResponse.Anime) {
-//        this.title = title;
-//        this.totalEpisodes=totalEpisodes;
-//        this.id=id;
-//        this.posterPath=posterPath;
-//        this.mediaType=mediaType;
-//        this.airingStatus=status;
-//        this.animeListStatus=animeListStatus;
-//    }
+
+    public void setData(Anime anime) {
+        this.anime=anime;
+        this.totalEpisodes=anime.getNum_episodes();
+        this.animeListStatus=anime.getMy_list_status();
+    }
 
 
 

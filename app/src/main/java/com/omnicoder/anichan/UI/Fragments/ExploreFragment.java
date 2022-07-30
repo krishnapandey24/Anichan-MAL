@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.UI.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.omnicoder.anichan.Adapters.Season2Adapter;
 import com.omnicoder.anichan.Adapters.Top100Adapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.UI.Activities.TestActivity;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
 
@@ -57,6 +59,12 @@ public class ExploreFragment extends Fragment{
             pagerSnapHelper.attachToRecyclerView(binding.trendingView);
         }
         setOnClickListeners();
+        binding.scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), TestActivity.class));
+            }
+        });
     }
 
     private void setOnClickListeners() {

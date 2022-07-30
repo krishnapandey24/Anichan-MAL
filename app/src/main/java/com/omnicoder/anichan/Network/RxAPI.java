@@ -6,11 +6,14 @@ import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.Responses.RankingResponse;
+import com.omnicoder.anichan.Models.UpdateAnimeResponse;
+import com.omnicoder.anichan.UI.Activities.TestActivity;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -47,7 +50,18 @@ public interface RxAPI {
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
-    Observable<AnimeListStatus> updateAnimeListStatus(@Header("Authorization") String accessToken, @Path("anime_id") int anime_id, @Field("status") String status, @Field("is_rewatching") Boolean is_rewatching, @Field("score") int score, @Field("num_watched_episodes") int num_watched_episodes, @Field("priority") int priority, @Field("num_times_rewatched") int num_times_rewatched, @Field("rewatch_value") int rewatch_value, @Field("tags") List<String> tags, @Field("comments") String comments, @Field("start_date") String startDate, @Field("finish_date") String finishDate);
+    Observable<UpdateAnimeResponse> updateAnime(@Header("Authorization") String accessToken,
+                                                @Path("anime_id") Integer anime_id,
+                                                @Field("status") String status,
+                                                @Field("is_rewatching") Boolean is_rewatching,
+                                                @Field("score") Integer score,
+                                                @Field("num_watched_episodes") Integer noOfWatchedEpisodes,
+                                                @Field("priority") Integer priority,
+                                                @Field("num_times_rewatched") Integer numOfTimesRewatched,
+                                                @Field("rewatch_value") Integer rewatchValue,
+                                                @Field("tags") String tags,
+                                                @Field("comments") String comments
+    );
 
     @GET("users/@me/animelist?/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
     Single<UserAnimeListResponse> getUserAnimeList(@Header("Authorization") String accessToken,@Query("limit") int limit,@Query("offset") int offset );

@@ -115,7 +115,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     private void observeData() {
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
-                String posterPath="";
+                String posterPath;
                 if(anime.getMainPicture()!=null){
                     Picasso.get().load(anime.getMainPicture().getLarge()).into(binding.posterView);
                 }
@@ -149,13 +149,13 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 }else{
                     binding.seasonAndDurationView.setText(String.valueOf(anime.getNum_episodes()));
                 }
-                addAnimeBottomSheet.setData(anime.getTitle(),anime.getNum_episodes(),anime.getId(),posterPath,anime.getMedia_type(),anime.getMy_list_status());
+                addAnimeBottomSheet.setData(anime);
                 setTabLayout(anime);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
-//                binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
+                binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();
-                Log.d("tagg","Error: "+e.getMessage());
+                Log.d("tagg","Error: ignore "+e.getMessage());
             }
         });
 
@@ -165,6 +165,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 showNoInternetConnectionDialog();
             }
         });
+
     }
 
     public void showNoInternetConnectionDialog(){

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Database.Anime;
+import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.databinding.ListItemLayoutBinding;
@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyViewHolder>{
-    List<Anime> dataHolder;
+    List<UserAnime> dataHolder;
     Context context;
     ListItemLayoutBinding binding;
     static final String notRatedYet="--";
@@ -26,7 +26,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     UpdateAnimeBottomSheet.UpdateAnime updateAnime;
 
 
-    public AnimeListAdapter(Context context, List<Anime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime){
+    public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime){
         this.dataHolder= dataHolder;
         this.context= context;
         this.updateAnimeList=updateAnimeList;
@@ -42,17 +42,17 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull AnimeListAdapter.MyViewHolder holder, int position) {
-        Anime currentAnime= dataHolder.get(position);
-        int id=currentAnime.getId();
-        int score=currentAnime.getScore();
-        int totalEpisodes=currentAnime.getNum_episodes();
-        final int[] watchedEpisodes = {currentAnime.getNum_episodes()};
-        String title=currentAnime.getTitle();
-        Picasso.get().load(currentAnime.getMain_picture()).into(binding.imageView);
+        UserAnime currentUserAnime = dataHolder.get(position);
+        int id= currentUserAnime.getId();
+        int score= currentUserAnime.getScore();
+        int totalEpisodes= currentUserAnime.getNum_episodes();
+        final int[] watchedEpisodes = {currentUserAnime.getNum_episodes()};
+        String title= currentUserAnime.getTitle();
+        Picasso.get().load(currentUserAnime.getMain_picture()).into(binding.imageView);
         holder.binding.titleView.setText(title);
-        holder.binding.formatView.setText(currentAnime.getMedia_type().toUpperCase());
+        holder.binding.formatView.setText(currentUserAnime.getMedia_type().toUpperCase());
         holder.binding.totalEpisodeView.setText(String.valueOf(totalEpisodes));
-        holder.binding.episodeCountView.setText(String.valueOf(currentAnime.getNum_episodes_watched()));
+        holder.binding.episodeCountView.setText(String.valueOf(currentUserAnime.getNum_episodes_watched()));
         holder.binding.givenScoreView.setText( score!=-1 ? String.valueOf(score) :notRatedYet);
         holder.binding.progressBar.setMax(totalEpisodes);
         holder.binding.progressBar.setProgress(watchedEpisodes[0]);
@@ -78,7 +78,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         });
         holder.binding.getRoot().setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewAnimeActivity.class);
-            intent.putExtra("media_type",currentAnime.getMedia_type());
+            intent.putExtra("media_type", currentUserAnime.getMedia_type());
             intent.putExtra("id",id);
             context.startActivity(intent);
         });

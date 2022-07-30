@@ -4,24 +4,42 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ANIME")
-public class Anime {
+public class UserAnime {
     @PrimaryKey
     int id;
-    String title,main_picture,media_type,start_season,status;
+    String title,main_picture,media_type,start_season,status,startDate,finishData;
     int score,num_episodes_watched,num_episodes;
     boolean is_rewatching;
 
-    public Anime(int id, String title, String main_picture, String media_type, String start_season, String status, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching) {
+    public UserAnime(int id, String title, String main_picture, String media_type, String start_season, String status, String startDate, String finishData, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
         this.media_type = media_type;
         this.start_season = start_season;
         this.status = status;
+        this.startDate = startDate;
+        this.finishData = finishData;
         this.score = score;
         this.num_episodes_watched = num_episodes_watched;
         this.num_episodes = num_episodes;
         this.is_rewatching = is_rewatching;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setFinishData(String finishData) {
+        this.finishData = finishData;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getFinishData() {
+        return finishData;
     }
 
     public int getId() {

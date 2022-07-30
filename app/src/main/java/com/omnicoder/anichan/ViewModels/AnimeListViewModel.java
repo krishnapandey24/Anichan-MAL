@@ -5,9 +5,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Database.Anime;
+import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
+import com.omnicoder.anichan.Models.UpdateAnimeResponse;
 import com.omnicoder.anichan.Repositories.AnimeListRepository;
+import com.omnicoder.anichan.Repository;
 import com.omnicoder.anichan.Utils.Constants;
 
 import java.util.List;
@@ -18,43 +20,51 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 @HiltViewModel
 public class AnimeListViewModel extends ViewModel {
-    public MutableLiveData<List<Anime>> animeList= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList1= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList2= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList3= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList4= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList5= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> animeList6= new MutableLiveData<>();
-    public MutableLiveData<List<Anime>> searchResults= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList1= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList2= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList3= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList4= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList5= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> animeList6= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> searchResults= new MutableLiveData<>();
     public MutableLiveData<Boolean> response= new MutableLiveData<>();
     public MutableLiveData<String> nextPage= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final AnimeListRepository repository;
+    Repository repository1;
 
     @Inject
-    public AnimeListViewModel(AnimeListRepository repository){
+    public AnimeListViewModel(AnimeListRepository repository, Repository repository1){
         this.repository = repository;
+        this.repository1=repository1;
+
     }
 
 
-    public void addAnime(Anime animeListItem){
-//        compositeDisposable.add(repository.addAnimeToList(animeListItem)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(()-> Log.d("tagg","Inserted Successfully"), Throwable::printStackTrace)
-//        );
+    public MutableLiveData<Boolean> getResponse() {
+        return response;
     }
 
-    public MutableLiveData<List<Anime>> getSearchResults() {
+    public void addAnime(UserAnime userAnime){
+        compositeDisposable.add(repository.addAnimeToList(userAnime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(()-> Log.d("tagg","Inserted Successfully"), Throwable::printStackTrace)
+        );
+    }
+
+    public MutableLiveData<List<UserAnime>> getSearchResults() {
         return searchResults;
     }
 
-    public MutableLiveData<List<Anime>> getAnimeList(int position){
+    public MutableLiveData<List<UserAnime>> getAnimeList(int position){
         Log.d("tagg","Position"+position);
         switch (position){
             case 0:
@@ -197,15 +207,21 @@ public class AnimeListViewModel extends ViewModel {
 
 
 
-    public void updateAnime(int anime_id, String status, boolean is_rewatching, int num_of_episodes_watched, int score, String start_date, String finish_date){
-        compositeDisposable.add(repository.updateAnimeList(anime_id,status,is_rewatching,num_of_episodes_watched,score,start_date,finish_date)
+    public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
+        compositeDisposable.add(repository1.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success -> response.setValue(true), e-> {
-                    e.printStackTrace();
-                    response.setValue(false);
+                .subscribe(updateAnimeResponse -> {
+                    Log.d("tagg","is null: "+(updateAnimeResponse==null));
+                    if(updateAnimeResponse!=null){
+                        Log.d("tagg","status: "+updateAnimeResponse.getStatus());
+                    }
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    Log.d("tagg","Error: "+throwable.getMessage());
                 })
         );
+
     }
 
     @Override

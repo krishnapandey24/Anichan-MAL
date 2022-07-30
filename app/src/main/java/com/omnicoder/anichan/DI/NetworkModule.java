@@ -3,6 +3,7 @@ package com.omnicoder.anichan.DI;
 import android.content.Context;
 
 import com.omnicoder.anichan.Network.JikanAPI;
+import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Network.MovieDB;
 import com.omnicoder.anichan.Network.RxAPI;
 
@@ -25,7 +26,7 @@ public class NetworkModule {
     @Provides
     @Singleton
     public static RxAPI provideRxAPI(){
-        return  new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl("https://api.myanimelist.net/v2/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -33,6 +34,14 @@ public class NetworkModule {
                 .create(RxAPI.class);
     }
 
+    @Provides
+    @Singleton
+    public static MalApi provideMalApi(){
+        return new Retrofit.Builder().baseUrl("https://api.myanimelist.net/v2/")
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build().create(MalApi.class);
+    }
 
     @Provides
     @Singleton

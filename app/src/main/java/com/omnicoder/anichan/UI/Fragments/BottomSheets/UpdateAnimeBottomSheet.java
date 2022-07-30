@@ -1,32 +1,16 @@
 package com.omnicoder.anichan.UI.Fragments.BottomSheets;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.Anime;
-import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -34,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
-    Anime anime;
+    UserAnime userAnime;
     UpdateAnime updateAnimeInterface;
     int position,score=-1,noOfEpisodes,totalEpisodes;
     String todayDate;
@@ -275,7 +259,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
 //    }
 
     public interface UpdateAnime{
-        void updateAnime(Anime anime,int position);
+        void updateAnime(UserAnime userAnime, int position);
         void deleteAnime(int id);
     }
 

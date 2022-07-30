@@ -1,21 +1,21 @@
 package com.omnicoder.anichan.Models;
 
-import com.omnicoder.anichan.Database.Anime;
+import com.omnicoder.anichan.Database.UserAnime;
 
 import java.util.List;
 
 public class AllAnime {
-    private List<Anime> ANIME;
+    private List<UserAnime> UserANIMES;
 
-    public AllAnime(List<Anime> ANIME) {
-        this.ANIME = ANIME;
+    public AllAnime(List<UserAnime> UserANIMES) {
+        this.UserANIMES = UserANIMES;
     }
 
-    public List<Anime> getAllAnime() {
-        return ANIME;
+    public List<UserAnime> getAllAnime() {
+        return UserANIMES;
     }
 
-    public void setAllAnime(List<Anime> ANIME) {
-        this.ANIME = ANIME;
+    public void setAllAnime(List<UserAnime> UserANIMES) {
+        this.UserANIMES = UserANIMES;
     }
 }

@@ -2,6 +2,7 @@ package com.omnicoder.anichan.UI.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.Adapters.ViewPagerAdapter;
@@ -46,9 +50,11 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
         setOnClickListeners();
     }
     private void setTabLayout(){
+        ViewPager2 viewPager2=binding.viewPager;
         String[] tabs = getResources().getStringArray(R.array.Statuses);
-        binding.viewPager.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this));
-        new TabLayoutMediator(binding.tabLayout2, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
+        viewPager2.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this));
+        TabLayout tabLayout = binding.tabLayout2;
+        new TabLayoutMediator(tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
     private void setOnClickListeners(){

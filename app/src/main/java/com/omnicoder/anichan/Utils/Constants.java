@@ -7,7 +7,7 @@ public class Constants {
     public static final String IMAGE_LINK= "https://image.tmdb.org/t/p/w500/";
     public static final String IMAGE_URL= "https://image.tmdb.org/t/p/w500/";
     public static final String WATCHING="watching";
-    public static final String PLAN_TO_WATCH="plan_to_atch";
+    public static final String PLAN_TO_WATCH="plan_to_watch";
     public static final String COMPLETED= "completed";
     public static final String ON_HOLD= "on_hold";
     public static final String DROPPED="dropped";
