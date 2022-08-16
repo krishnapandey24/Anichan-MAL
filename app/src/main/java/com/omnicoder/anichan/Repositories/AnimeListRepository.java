@@ -72,7 +72,7 @@ public class AnimeListRepository {
     }
 
     public Completable addAnimeToList(UserAnime userAnime){
-        return animeDao.insertAnime(userAnime);
+        return animeDao.insertOrUpdateAnime(userAnime);
     }
 
     public Flowable<List<UserAnime>> getAllAnime(){

@@ -2,7 +2,6 @@ package com.omnicoder.anichan.UI.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
@@ -19,19 +17,21 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.Adapters.ViewPagerAdapter;
-import com.omnicoder.anichan.Database.AnimeList;
+import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
+import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 
 @AndroidEntryPoint
-public class AnimeListFragment extends Fragment implements ViewPagerAdapter.PagerAdapter{
+public class AnimeListFragment extends Fragment implements ViewPagerAdapter.PagerAdapterInterface {
     private AnimeListFragmentBinding binding;
     private AnimeListViewModel viewModel;
+    private UpdateAnimeViewModel updateAnimeViewModel;
     private Context context;
 
     @Override
@@ -44,7 +44,8 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
-        viewModel.fetchUserAnimeList();
+        updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
+//        viewModel.fetchUserAnimeList();
         context=getContext();
         setTabLayout();
         setOnClickListeners();
@@ -63,13 +64,14 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
 
 
     @Override
-    public void updateAnime(AnimeList animeList, int position) {
-
+    public void updateAnime(UserAnime userAnime, int position) {
+        updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
+        updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
     }
 
     @Override
-    public void addEpisode(int id) {
-        viewModel.addEpisode(id);
+    public void addEpisode(int id,int noOfEpisodesWatched) {
+        updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
     }
 
     @Override
@@ -79,13 +81,13 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
 
     @Override
     public void animeCompleted(int id,String name) {
-        viewModel.animeCompleted(id);
+        updateAnimeViewModel.animeCompleted(id);
         Toast.makeText(context,name+" Completed!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void deleteAnime(int id) {
-        viewModel.deleteAnime(id);
+        updateAnimeViewModel.deleteAnime(id);
     }
 
 

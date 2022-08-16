@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -192,5 +193,14 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     public void setStatus(String status) {
         binding.addToListButton.setText(status);
         addedToList=true;
+    }
+
+    @Override
+    public void updateResponse(boolean response) {
+        if(response){
+            Toast.makeText(ViewAnimeActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(ViewAnimeActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
+        }
     }
 }

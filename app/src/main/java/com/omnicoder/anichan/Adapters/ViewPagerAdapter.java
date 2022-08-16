@@ -1,7 +1,6 @@
 package com.omnicoder.anichan.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -24,15 +23,15 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     AnimeListViewModel viewModel;
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
-    PagerAdapter pagerAdapter;
+    PagerAdapterInterface pagerAdapterInterface;
     boolean b=true;
 
-    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner,PagerAdapter pagerAdapter){
+    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, PagerAdapterInterface pagerAdapterInterface){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
         this.lifecycleOwner=lifecycleOwner;
-        this.pagerAdapter=pagerAdapter;
+        this.pagerAdapterInterface = pagerAdapterInterface;
 
     }
 
@@ -67,40 +66,40 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     @Override
     public void updateAnime(UserAnime userAnime, int position) {
-
+        pagerAdapterInterface.updateAnime(userAnime,position);
     }
 
     @Override
     public void deleteAnime(int id) {
         b=true;
-        pagerAdapter.deleteAnime(id);
+        pagerAdapterInterface.deleteAnime(id);
 
     }
 
     @Override
-    public void addEpisode(int id) {
+    public void addEpisode(int id,int noOfEpisodesWatched) {
         b=false;
-        pagerAdapter.addEpisode(id);
+        pagerAdapterInterface.addEpisode(id,noOfEpisodesWatched);
 
     }
 
     @Override
     public void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet) {
-        pagerAdapter.showEditor(updateAnimeBottomSheet);
+        pagerAdapterInterface.showEditor(updateAnimeBottomSheet);
 
     }
 
     @Override
     public void animeComplete(int id, String name) {
         b=true;
-        pagerAdapter.animeCompleted(id,name);
+        pagerAdapterInterface.animeCompleted(id,name);
 
     }
 
 
-    public interface PagerAdapter{
-        void updateAnime(AnimeList animeList, int position);
-        void addEpisode(int id);
+    public interface PagerAdapterInterface {
+        void updateAnime(UserAnime userAnime, int position);
+        void addEpisode(int id,int noOfEpisodesWatched);
         void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
         void animeCompleted(int id,String name);
         void deleteAnime(int id);

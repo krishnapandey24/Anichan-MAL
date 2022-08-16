@@ -2,6 +2,7 @@ package com.omnicoder.anichan.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.omnicoder.anichan.databinding.ListItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyViewHolder>{
     List<UserAnime> dataHolder;
@@ -46,26 +48,25 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         int id= currentUserAnime.getId();
         int score= currentUserAnime.getScore();
         int totalEpisodes= currentUserAnime.getNum_episodes();
-        final int[] watchedEpisodes = {currentUserAnime.getNum_episodes()};
+        final int[] watchedEpisodes = {currentUserAnime.getNum_episodes_watched()};
         String title= currentUserAnime.getTitle();
+        Log.d("tagg",id+" "+score+" "+totalEpisodes+" "+title+" "+watchedEpisodes[0]);
         Picasso.get().load(currentUserAnime.getMain_picture()).into(binding.imageView);
         holder.binding.titleView.setText(title);
         holder.binding.formatView.setText(currentUserAnime.getMedia_type().toUpperCase());
         holder.binding.totalEpisodeView.setText(String.valueOf(totalEpisodes));
         holder.binding.episodeCountView.setText(String.valueOf(currentUserAnime.getNum_episodes_watched()));
-        holder.binding.givenScoreView.setText( score!=-1 ? String.valueOf(score) :notRatedYet);
+        holder.binding.givenScoreView.setText( score!=0 ? String.valueOf(score) : notRatedYet);
         holder.binding.progressBar.setMax(totalEpisodes);
         holder.binding.progressBar.setProgress(watchedEpisodes[0]);
-//        holder.binding.statusView.setText(currentAnime.getAiringStatus());
+        holder.binding.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
         holder.binding.addButton.setOnClickListener(v -> {
             if(watchedEpisodes[0]<totalEpisodes-1) {
-                updateAnimeList.addEpisode(id);
-                watchedEpisodes[0] = watchedEpisodes[0] + 1;
-                holder.binding.progressBar.setProgress(watchedEpisodes[0]);
+                holder.binding.progressBar.setProgress(++watchedEpisodes[0]);
+                updateAnimeList.addEpisode(id,watchedEpisodes[0]);
                 holder.binding.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
             }else {
-                watchedEpisodes[0] = watchedEpisodes[0] + 1;
-                holder.binding.progressBar.setProgress(watchedEpisodes[0]);
+                holder.binding.progressBar.setProgress(++watchedEpisodes[0]);
                 holder.binding.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
                 updateAnimeList.animeComplete(id,title);
             }
@@ -73,7 +74,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         });
         holder.binding.editButton.setOnClickListener(v -> {
             UpdateAnimeBottomSheet updateAnimeBottomSheet=new UpdateAnimeBottomSheet();
-//            updateAnimeBottomSheet.setAnime(currentAnime,updateAnime);
+            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,position);
             updateAnimeList.showEditor(updateAnimeBottomSheet);
         });
         holder.binding.getRoot().setOnClickListener(v -> {
@@ -106,9 +107,9 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         }
 
         public interface UpdateAnimeList{
-            void addEpisode(int id);
+            void addEpisode(int id,int noOfEpisodesWatched);
             void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
-            void animeComplete(int id, String name);
+            void animeComplete(int id,String title);
         }
 
 

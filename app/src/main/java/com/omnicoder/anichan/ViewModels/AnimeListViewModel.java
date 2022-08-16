@@ -224,6 +224,12 @@ public class AnimeListViewModel extends ViewModel {
 
     }
 
+
+
+
+
+
+
     @Override
     protected void onCleared() {
         super.onCleared();

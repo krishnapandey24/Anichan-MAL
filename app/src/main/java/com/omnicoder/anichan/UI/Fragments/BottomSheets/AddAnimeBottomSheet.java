@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -26,8 +26,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.ViewModels.AddAnimeViewModel;
-import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
+import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 
 import java.text.SimpleDateFormat;
@@ -297,20 +296,24 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initButtons(){
         binding.addToListButton.setOnClickListener(v -> {
-//            AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
-//            animeListViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,5);
-            AddAnimeViewModel addAnimeViewModel= new ViewModelProvider(this).get(AddAnimeViewModel.class);
-            addAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,5);
-//            String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
-//            StartSeason startSeason= anime.getStart_season();
-//            String season;
-//            if(startSeason==null){
-//                season="";
-//            }else{
-//                season=startSeason.getSeason() + " " + startSeason.getYear();
-//            }
-//            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching);
-//            animeListViewModel.addAnime(userAnime);
+            UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
+            updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()));
+            updateAnimeViewModel.getResponse().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    animeAdded.updateResponse(aBoolean);
+                }
+            });
+            String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
+            StartSeason startSeason= anime.getStart_season();
+            String season;
+            if(startSeason==null){
+                season="";
+            }else{
+                season=startSeason.getSeason() + " " + startSeason.getYear();
+            }
+            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching);
+            updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
             animeAdded.setStatus(status);
             dismiss();
         });
@@ -320,6 +323,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
 
     public interface AnimeAdded{
         void setStatus(String status);
+        void updateResponse(boolean response);
     }
 
 

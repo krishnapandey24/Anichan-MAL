@@ -1,19 +1,30 @@
 package com.omnicoder.anichan;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.omnicoder.anichan.Database.AnimeDao;
+import com.omnicoder.anichan.Database.UserAnime;
+
 import com.omnicoder.anichan.Models.UpdateAnimeResponse;
 import com.omnicoder.anichan.Network.MalApi;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 
 public class Repository {
     MalApi rxAPI;
-    public static final String accessToken="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBjMmViZGM4NGU4OGI3MTRjY2MwMTg4NmIyZWU2NDE4NGQ4ODk0ZWVmZGVjZjg2NWM2OTAwM2IxYjRiOTUzNjY2OWE5OGY2MzI5Mzg0YmRmIn0.eyJhdWQiOiI0OGI0ODE2NzI3ZGI2ODcxYzRmN2JkNjhjZThhODIzMyIsImp0aSI6IjBjMmViZGM4NGU4OGI3MTRjY2MwMTg4NmIyZWU2NDE4NGQ4ODk0ZWVmZGVjZjg2NWM2OTAwM2IxYjRiOTUzNjY2OWE5OGY2MzI5Mzg0YmRmIiwiaWF0IjoxNjU5MTcwOTU3LCJuYmYiOjE2NTkxNzA5NTcsImV4cCI6MTY2MTg0OTM1Nywic3ViIjoiMTQ5ODA5MDEiLCJzY29wZXMiOltdfQ.GG_NElrJyaSuAF1NN2-tR5jBZxCeSDFTGINe3dYlNMWMdeiFC3cyhcqTlQns-j0nfRDlFGIV8ATB3xz01AZMxZrUkwW8Y96vUHQC4-hL7RfT-sa1oe6bZ19o-O1ghVzvBN5ASczVesZ_SvPxEagOeQiNLXHZMjQTb7NhTzpWoevl9oLVWhzqjDeUAt1_PQ6RYxuFmgyTk7K6Z5k0op296e_gfGpcFqoiEJpZeB-iGg4D0M1DQIdjrU-vy9YW_aGS0NQTGo6gtiudDjv_fb1v8GnVi4YrAusMdD6Ao8o0dHxcn9K1DhuaNS-GPSc8IJfMCKSbpjWqssgPunsO-5EUQA";
+    AnimeDao animeDao;
+    public String accessToken;
 
     @Inject
-    public Repository(MalApi rxAPI){
+    public Repository(MalApi rxAPI, AnimeDao animeDao, Context context){
+        this.animeDao=animeDao;
+        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
+        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
         this.rxAPI=rxAPI;
     }
 
@@ -31,6 +42,36 @@ public class Repository {
                 null,
                 null
         );
+    }
+
+
+    public Completable addOrUpdateAnimeInList(UserAnime userAnime){
+        return animeDao.insertOrUpdateAnime(userAnime);
+    }
+
+
+    public Completable addEpisode(int id,int numberOfEpisodesWatched){
+        return rxAPI.addEpisode(accessToken,id,numberOfEpisodesWatched);
+    }
+
+    public Completable animeCompleted(int id){
+        return rxAPI.animeCompleted(accessToken,id,"completed");
+    }
+
+    public Completable deleteAnime(int id){
+        return rxAPI.deleteAnimeFromList(accessToken,id);
+    }
+
+    public Completable addEpisodeInDB(int id,int numberOfEpisodesWatched){
+        return animeDao.addEpisode(id,numberOfEpisodesWatched);
+    }
+
+    public Completable animeCompletedInDB(int id){
+        return animeDao.animeCompleted(id,"completed");
+    }
+
+    public Completable deleteAnimeFromDB(int id){
+        return animeDao.deleteAnimeFromList(id);
     }
 
 
