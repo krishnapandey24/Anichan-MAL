@@ -45,7 +45,6 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
         super.onViewCreated(view, savedInstanceState);
         viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-//        viewModel.fetchUserAnimeList();
         context=getContext();
         setTabLayout();
         setOnClickListeners();

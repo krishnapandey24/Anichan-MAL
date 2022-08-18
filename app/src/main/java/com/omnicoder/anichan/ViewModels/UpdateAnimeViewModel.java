@@ -97,11 +97,4 @@ public class UpdateAnimeViewModel extends ViewModel {
     }
 
 
-//    public void searchAnime(CharSequence query){
-//        compositeDisposable.add(repository.searchAnime(query)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(searchResults::setValue,Throwable::printStackTrace)
-//        );
-//    }
 }
