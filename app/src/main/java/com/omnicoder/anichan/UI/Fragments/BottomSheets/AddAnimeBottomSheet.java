@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -296,14 +298,10 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initButtons(){
         binding.addToListButton.setOnClickListener(v -> {
+            animeAdded.startLoading();
             UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
             updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()));
-            updateAnimeViewModel.getResponse().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    animeAdded.updateResponse(aBoolean);
-                }
-            });
+            animeAdded.setResponseToObserve(updateAnimeViewModel.getResponse());
             String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
             StartSeason startSeason= anime.getStart_season();
             String season;
@@ -323,7 +321,8 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
 
     public interface AnimeAdded{
         void setStatus(String status);
-        void updateResponse(boolean response);
+        void startLoading();
+        void setResponseToObserve(MutableLiveData<Boolean> response);
     }
 
 

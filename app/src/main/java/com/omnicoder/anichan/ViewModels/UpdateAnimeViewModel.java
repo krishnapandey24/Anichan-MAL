@@ -36,6 +36,7 @@ public class UpdateAnimeViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(updateAnimeResponse -> {
+                    Log.d("tagg","it changed in view model");
                     response.setValue(true);
                     if(updateAnimeResponse!=null){
                         Log.d("tagg","status: "+updateAnimeResponse.getStatus());

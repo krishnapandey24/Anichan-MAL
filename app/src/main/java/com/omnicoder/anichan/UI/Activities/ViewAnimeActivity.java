@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
@@ -158,6 +159,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 e.printStackTrace();
                 Log.d("tagg","Error: ignore "+e.getMessage());
             }
+            binding.progressBar.setVisibility(View.GONE);
         });
 
         viewModel.getNoInternet().observe(ViewAnimeActivity.this, NoInternet -> {
@@ -196,11 +198,22 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     }
 
     @Override
-    public void updateResponse(boolean response) {
-        if(response){
-            Toast.makeText(ViewAnimeActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(ViewAnimeActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
-        }
+    public void startLoading() {
+        binding.progressBar.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void setResponseToObserve(MutableLiveData<Boolean> response) {
+        response.observe(ViewAnimeActivity.this, aBoolean -> {
+            Log.d("tagg","observer now");
+            binding.progressBar.setVisibility(View.GONE);
+            if(aBoolean){
+                Toast.makeText(ViewAnimeActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(ViewAnimeActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 }
