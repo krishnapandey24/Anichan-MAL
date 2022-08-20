@@ -2,18 +2,23 @@ package com.omnicoder.anichan.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
-import com.omnicoder.anichan.databinding.ListItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,7 +27,6 @@ import java.util.Locale;
 public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyViewHolder>{
     List<UserAnime> dataHolder;
     Context context;
-    ListItemLayoutBinding binding;
     static final String notRatedYet="--";
     MyViewHolder.UpdateAnimeList updateAnimeList;
     UpdateAnimeBottomSheet.UpdateAnime updateAnime;
@@ -38,8 +42,9 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding= ListItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
-        return new MyViewHolder(binding);
+        LayoutInflater inflater= LayoutInflater.from(parent.getContext());
+        View view= inflater.inflate(R.layout.list_item_layout,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
@@ -50,34 +55,33 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         int totalEpisodes= currentUserAnime.getNum_episodes();
         final int[] watchedEpisodes = {currentUserAnime.getNum_episodes_watched()};
         String title= currentUserAnime.getTitle();
-        Log.d("tagg",id+" "+score+" "+totalEpisodes+" "+title+" "+watchedEpisodes[0]);
-        Picasso.get().load(currentUserAnime.getMain_picture()).into(binding.imageView);
-        holder.binding.titleView.setText(title);
-        holder.binding.formatView.setText(currentUserAnime.getMedia_type().toUpperCase());
-        holder.binding.totalEpisodeView.setText(String.valueOf(totalEpisodes));
-        holder.binding.episodeCountView.setText(String.valueOf(currentUserAnime.getNum_episodes_watched()));
-        holder.binding.givenScoreView.setText( score!=0 ? String.valueOf(score) : notRatedYet);
-        holder.binding.progressBar.setMax(totalEpisodes);
-        holder.binding.progressBar.setProgress(watchedEpisodes[0]);
-        holder.binding.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
-        holder.binding.addButton.setOnClickListener(v -> {
+        Picasso.get().load(currentUserAnime.getMain_picture()).into(holder.imageView);
+        holder.titleView.setText(title);
+        holder.formatView.setText(currentUserAnime.getMedia_type().toUpperCase());
+        holder.totalEpisodeView.setText(String.valueOf(totalEpisodes));
+        holder.episodeCountView.setText(String.valueOf(currentUserAnime.getNum_episodes_watched()));
+        holder.givenScoreView.setText( score!=0 ? String.valueOf(score) : notRatedYet);
+        holder.progressBar.setMax(totalEpisodes);
+        holder.progressBar.setProgress(watchedEpisodes[0]);
+        holder.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
+        holder.addButton.setOnClickListener(v -> {
             if(watchedEpisodes[0]<totalEpisodes-1) {
-                holder.binding.progressBar.setProgress(++watchedEpisodes[0]);
+                holder.progressBar.setProgress(++watchedEpisodes[0]);
                 updateAnimeList.addEpisode(id,watchedEpisodes[0]);
-                holder.binding.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
+                holder.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
             }else {
-                holder.binding.progressBar.setProgress(++watchedEpisodes[0]);
-                holder.binding.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
+                holder.progressBar.setProgress(++watchedEpisodes[0]);
+                holder.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
                 updateAnimeList.animeComplete(id,title);
             }
 
         });
-        holder.binding.editButton.setOnClickListener(v -> {
+        holder.editButton.setOnClickListener(v -> {
             UpdateAnimeBottomSheet updateAnimeBottomSheet=new UpdateAnimeBottomSheet();
             updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,position);
             updateAnimeList.showEditor(updateAnimeBottomSheet);
         });
-        holder.binding.getRoot().setOnClickListener(v -> {
+        holder.constraintLayout.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewAnimeActivity.class);
             intent.putExtra("media_type", currentUserAnime.getMedia_type());
             intent.putExtra("id",id);
@@ -92,18 +96,26 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     }
 
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ListItemLayoutBinding binding;
-        public MyViewHolder(ListItemLayoutBinding binding) {
-            super(binding.getRoot());
-            this.binding=binding;
-            binding.getRoot().setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView titleView,formatView,totalEpisodeView ,episodeCountView,givenScoreView,seasonView;
+        ProgressBar progressBar;
+        ImageButton addButton,editButton;
+        ImageView imageView;
+        ConstraintLayout constraintLayout;
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            titleView=itemView.findViewById(R.id.titleView);
+            formatView=itemView.findViewById(R.id.formatView);
+            totalEpisodeView=itemView.findViewById(R.id.totalEpisodeView);
+            episodeCountView=itemView.findViewById(R.id.episodeCountView);
+            givenScoreView=itemView.findViewById(R.id.givenScoreView);
+            progressBar=itemView.findViewById(R.id.progressBar);
+            seasonView=itemView.findViewById(R.id.seasonView);
+            addButton=itemView.findViewById(R.id.addButton);
+            editButton=itemView.findViewById(R.id.editButton);
+            imageView=itemView.findViewById(R.id.imageView);
+            constraintLayout=itemView.findViewById(R.id.layout);
+ 
         }
 
         public interface UpdateAnimeList{
