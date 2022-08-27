@@ -20,6 +20,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.2015" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.2595" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.2595" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.2595" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.2595" />
@@ -73,6 +74,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout3.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/links_view_stub.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/list_item_layout.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/list_sort_dialog.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/news_fragment.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/no_internet_connection_dialog.xml" value="0.16" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/opending_ending_themes_view_stub_layout.xml" value="0.2" />
@@ -94,6 +96,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/type_bottom_sheet_menu.xml" value="0.264" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/video_view_stub.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/view_bottom_sheet.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/menu/list_fragment_menu.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/menu/navigation_menu2.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/menu/ranking_menu.xml" value="0.16052631578947368" />

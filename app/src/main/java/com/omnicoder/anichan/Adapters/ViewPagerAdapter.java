@@ -24,15 +24,16 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
     PagerAdapterInterface pagerAdapterInterface;
+    String sortBy;
     boolean b=true;
 
-    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, PagerAdapterInterface pagerAdapterInterface){
+    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, PagerAdapterInterface pagerAdapterInterface, String sortBy){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
         this.lifecycleOwner=lifecycleOwner;
         this.pagerAdapterInterface = pagerAdapterInterface;
-
+        this.sortBy=sortBy;
     }
 
     @NonNull
@@ -44,7 +45,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     @Override
     public void onBindViewHolder(@NonNull PageHolder holder, int position) {
-        viewModel.getAnimeList(position).observe(lifecycleOwner, animeList-> {
+        viewModel.getAnimeList(position,sortBy).observe(lifecycleOwner, animeList-> {
             if(b) {
                 recyclerView = holder.binding.recyclerView;
                 AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, ViewPagerAdapter.this,ViewPagerAdapter.this);

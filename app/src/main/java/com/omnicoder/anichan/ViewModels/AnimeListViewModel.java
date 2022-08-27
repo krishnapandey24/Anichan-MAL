@@ -64,36 +64,36 @@ public class AnimeListViewModel extends ViewModel {
         return searchResults;
     }
 
-    public MutableLiveData<List<UserAnime>> getAnimeList(int position){
+    public MutableLiveData<List<UserAnime>> getAnimeList(int position, String sortBy){
         Log.d("tagg","Position"+position);
         switch (position){
             case 0:
-                fetchWatching();
+                fetchWatching(sortBy);
                 return animeList;
             case 1:
-                fetchPlanToWatch();
+                fetchPlanToWatch(sortBy);
                 return animeList1;
             case 2:
-                fetchCompleted();
+                fetchCompleted(sortBy);
                 return animeList2;
             case 3:
-                fetchOnHold();
+                fetchOnHold(sortBy);
                 return animeList3;
             case 4:
-                fetchDropped();
+                fetchDropped(sortBy);
                 return animeList4;
             case 5:
-                fetchReWatching();
+                fetchReWatching(sortBy);
                 return animeList5;
             case 6:
-                fetchAll();
+                fetchAll(sortBy);
                 return animeList6;
         }
         return animeList;
     }
 
-    private void fetchReWatching() {
-        compositeDisposable.add(repository.getReWatching()
+    private void fetchReWatching(String sortBy) {
+        compositeDisposable.add(repository.getReWatching(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList::setValue,Throwable::printStackTrace)
@@ -110,48 +110,48 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-    public void fetchWatching(){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.WATCHING)
+    public void fetchWatching(String sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.WATCHING,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void fetchPlanToWatch(){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.PLAN_TO_WATCH)
+    public void fetchPlanToWatch(String sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.PLAN_TO_WATCH,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList1::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void fetchCompleted(){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.COMPLETED)
+    public void fetchCompleted(String sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.COMPLETED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList2::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void fetchOnHold(){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.ON_HOLD)
+    public void fetchOnHold(String sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.ON_HOLD,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList3::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void fetchDropped(){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.DROPPED)
+    public void fetchDropped(String sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.DROPPED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList4::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void fetchAll(){
-        compositeDisposable.add(repository.getAllAnime()
+    public void fetchAll(String sortBy){
+        compositeDisposable.add(repository.getAllAnime(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList6::setValue,Throwable::printStackTrace)

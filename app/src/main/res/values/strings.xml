@@ -223,6 +223,8 @@
     <string name="top_upcoming">Top Upcoming</string>
     <string name="recommendation">Recommendation</string>
     <string name="itemLayout">itemLayout</string>
+    <string name="sort">Sort</string>
+    <string name="search">Search</string>
 
 
 </resources>

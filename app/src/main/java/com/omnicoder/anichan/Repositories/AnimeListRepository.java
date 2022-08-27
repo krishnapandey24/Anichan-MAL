@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import androidx.room.Update;
 
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.Database.AnimeDB;
@@ -38,7 +37,6 @@ public class AnimeListRepository {
     RxAPI rxAPI;
     String accessToken;
     MalApi malApi;
-    CompositeDisposable compositeDisposable=new CompositeDisposable();
 
 
     @Inject
@@ -67,16 +65,16 @@ public class AnimeListRepository {
         );
     }
 
-    public Flowable<List<UserAnime>> getAnimeListByStatus(String status){
-        return animeDao.getAnimeList(status);
+    public Flowable<List<UserAnime>> getAnimeListByStatus(String status, String sortBy){
+        return animeDao.getAnimeList(status,sortBy);
     }
 
     public Completable addAnimeToList(UserAnime userAnime){
         return animeDao.insertOrUpdateAnime(userAnime);
     }
 
-    public Flowable<List<UserAnime>> getAllAnime(){
-        return animeDao.getAllAnime();
+    public Flowable<List<UserAnime>> getAllAnime(String sortBy){
+        return animeDao.getAllAnime(sortBy);
     }
 
 
@@ -84,21 +82,18 @@ public class AnimeListRepository {
         return rxAPI.getUserAnimeList(accessToken,Constants.LIMIT);
     }
 
-    public Flowable<List<UserAnime>> getReWatching(){
-        return animeDao.getReWatching();
+    public Flowable<List<UserAnime>> getReWatching(String sortBy){
+        return animeDao.getReWatching(sortBy);
     }
 
     public boolean insertAnimeInDB(UserAnimeListResponse response){
         try{
             animeDao.deleteAllAnime();
-            int limit=Constants.USER_LIST_LIMIT;
             List<UserListAnime> userListAnimeList=response.getData();
             int size=userListAnimeList.size();
             List<UserAnime> userAnimeList =new ArrayList<>();
-            Log.d("tagg","Starting");
             for(int i=0;i<size;i++){
                 UserListAnime userListAnime=userListAnimeList.get(i);
-                Log.d("tagg","name: "+userListAnime.getNode().getTitle());
                 Anime node= userListAnime.getNode();
                 AnimeListStatus listStatus= userListAnime.getList_status();
                 String mainPicture=node.getMainPicture()==null ? "" : node.getMainPicture().getMedium();
@@ -112,33 +107,27 @@ public class AnimeListRepository {
                 }
                 userAnimeList.add(new UserAnime(node.getId(),node.getTitle(),mainPicture,node.getMedia_type(),season,listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(),listStatus.getNum_episodes_watched(), node.getNum_episodes(), listStatus.isIs_rewatching()));
             }
-            Log.d("tagg","End");
-            Log.d("tagg","size of animelist now : "+ userAnimeList.size());
+
             animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
-                    Log.d("tagg","on start");
 
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.d("tagg","Completed");
 
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.d("tagg","Something wrong: "+e.getMessage());
 
                 }
             });
-            Log.d("tagg","inserted!!!!!!");
 
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("tagg","Error: insertAnime: "+e.getMessage());
             return false;
         }
 

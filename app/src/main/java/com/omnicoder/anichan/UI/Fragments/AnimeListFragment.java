@@ -1,14 +1,19 @@
 package com.omnicoder.anichan.UI.Fragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -19,6 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.Adapters.ViewPagerAdapter;
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
@@ -33,6 +39,8 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
     private AnimeListViewModel viewModel;
     private UpdateAnimeViewModel updateAnimeViewModel;
     private Context context;
+    private Dialog sortDialog=null;
+    private String[] tabs;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,16 +53,14 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
         super.onViewCreated(view, savedInstanceState);
         viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
+        tabs = getResources().getStringArray(R.array.Statuses);
         context=getContext();
         setTabLayout();
         setOnClickListeners();
     }
     private void setTabLayout(){
-        ViewPager2 viewPager2=binding.viewPager;
-        String[] tabs = getResources().getStringArray(R.array.Statuses);
-        viewPager2.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this));
-        TabLayout tabLayout = binding.tabLayout2;
-        new TabLayoutMediator(tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
+        binding.viewPager.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,"t_id"));
+        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
     private void setOnClickListeners(){
@@ -87,6 +93,50 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
     @Override
     public void deleteAnime(int id) {
         updateAnimeViewModel.deleteAnime(id);
+    }
+
+    private void setupToolbar(){
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            if(item.getItemId()== R.id.sort){
+                launchSortDialog();
+            }else{
+
+            }
+
+            return true;
+        });
+    }
+
+    private void launchSortDialog() {
+        if(sortDialog==null){
+            sortDialog= new Dialog(getContext());
+            sortDialog.setContentView(R.layout.list_sort_dialog);
+            sortDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.dialog_background));
+            sortDialog.setCancelable(true);
+            Button okButton=sortDialog.findViewById(R.id.ok);
+            RadioGroup radioGroup=sortDialog.findViewById(R.id.radioGroup);
+            Button cancelButton=sortDialog.findViewById(R.id.cancel);
+            okButton.setOnClickListener(v -> {
+                int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
+                String sortBy;
+                switch (checkedRadioButton){
+                    case R.id.title:
+                        sortBy="title";
+                        break;
+                    case R.id.score:
+                        sortBy="score";
+                        break;
+                    default:
+                        sortBy="t_id";
+                        break;
+                }
+                binding.viewPager.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,sortBy));
+                sortDialog.dismiss();
+            });
+
+            cancelButton.setOnClickListener(v -> sortDialog.dismiss());
+        }
+        sortDialog.show();
     }
 
 

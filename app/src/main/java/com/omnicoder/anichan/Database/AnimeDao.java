@@ -17,17 +17,17 @@ public interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllAnime(List<UserAnime> userAnimeList);
 
-    @Query("SELECT * from ANIME WHERE status=:status")
-    Flowable<List<UserAnime>> getAnimeList(String status);
+    @Query("SELECT * from ANIME WHERE status=:status ORDER BY :sortBy DESC")
+    Flowable<List<UserAnime>> getAnimeList(String status, String sortBy);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertOrUpdateAnime(UserAnime userAnime);
 
-    @Query("SELECT * from ANIME")
-    Flowable<List<UserAnime>> getAllAnime();
+    @Query("SELECT * from  ANIME ORDER BY :sortBy")
+    Flowable<List<UserAnime>> getAllAnime(String sortBy);
 
-    @Query("SELECT * from anime WHERE is_rewatching==1")
-    Flowable<List<UserAnime>> getReWatching();
+    @Query("SELECT * from anime WHERE is_rewatching==1 ORDER BY :sortBy")
+    Flowable<List<UserAnime>> getReWatching(String sortBy);
 
     @Query("UPDATE ANIME SET num_episodes_watched=:noOfEpisodesWatched WHERE id=:id")
     Completable addEpisode(int id,int noOfEpisodesWatched);

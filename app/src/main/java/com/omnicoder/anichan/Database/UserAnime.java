@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ANIME")
 public class UserAnime {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    int t_id;
     int id;
     String title,main_picture,media_type,start_season,status,startDate,finishData;
     int score,num_episodes_watched,num_episodes;
@@ -24,6 +25,14 @@ public class UserAnime {
         this.num_episodes_watched = num_episodes_watched;
         this.num_episodes = num_episodes;
         this.is_rewatching = is_rewatching;
+    }
+
+    public int getT_id() {
+        return t_id;
+    }
+
+    public void setT_id(int t_id) {
+        this.t_id = t_id;
     }
 
     public void setStartDate(String startDate) {
