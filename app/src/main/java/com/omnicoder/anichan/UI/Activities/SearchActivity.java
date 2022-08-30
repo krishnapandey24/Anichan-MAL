@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity{
         setOnClickListeners();
         initRecyclerView();
         binding.searchEditText.requestFocus();
-        binding.tabLayout2.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(!binding.searchEditText.getText().toString().equals("")){
@@ -79,7 +79,7 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     private void setSearchResults(){
-        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString(),binding.tabLayout2.getSelectedTabPosition()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
+        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString(),binding.tabLayout.getSelectedTabPosition()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
     }
 
 

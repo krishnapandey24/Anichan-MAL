@@ -14,6 +14,7 @@
     <color name="cancelButtonColor">@color/white</color>
     <color name="cancelTextColor">@color/blue</color>
     <color name="darkBlue">#1261cd</color>
+    <color name="darkBlue2">@color/white</color>
     <color name="buttonBlue">#0077EB</color>
     <color name="searchTextColor">@color/textColor</color>
     <color name="viewAnimeMainTextColor">@color/blue</color>

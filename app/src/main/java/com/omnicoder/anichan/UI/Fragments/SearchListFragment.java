@@ -38,11 +38,11 @@ public class SearchListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context context= getContext();
-        binding.searchView.requestFocus();
+        binding.searchEditText.requestFocus();
         ((InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).
                 toggleSoftInput(InputMethodManager.SHOW_FORCED,
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
-        binding.searchView.setOnEditorActionListener((v, actionId, event) -> {
+        binding.searchEditText.setOnEditorActionListener((v, actionId, event) -> {
             if(actionId== EditorInfo.IME_ACTION_SEARCH){
                 InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -52,7 +52,7 @@ public class SearchListFragment extends Fragment {
         AnimeListViewModel animeListViewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         animeListViewModel.getSearchResults().observe(getViewLifecycleOwner(), animeLists -> binding.recyclerView.setAdapter(new AnimeListAdapter(context,animeLists,null,null)));
-        binding.searchView.addTextChangedListener(new TextWatcher() {
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

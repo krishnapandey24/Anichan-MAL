@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
-import com.omnicoder.anichan.Models.UpdateAnimeResponse;
 import com.omnicoder.anichan.Repositories.AnimeListRepository;
 import com.omnicoder.anichan.Repository;
 import com.omnicoder.anichan.Utils.Constants;
@@ -20,7 +19,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -37,13 +35,13 @@ public class AnimeListViewModel extends ViewModel {
     public MutableLiveData<Boolean> response= new MutableLiveData<>();
     public MutableLiveData<String> nextPage= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
-    private final AnimeListRepository repository;
-    Repository repository1;
+    private final AnimeListRepository animeListRepository;
+    Repository repository;
 
     @Inject
-    public AnimeListViewModel(AnimeListRepository repository, Repository repository1){
-        this.repository = repository;
-        this.repository1=repository1;
+    public AnimeListViewModel(AnimeListRepository animeListRepository, Repository repository){
+        this.animeListRepository = animeListRepository;
+        this.repository =repository;
 
     }
 
@@ -53,7 +51,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void addAnime(UserAnime userAnime){
-        compositeDisposable.add(repository.addAnimeToList(userAnime)
+        compositeDisposable.add(animeListRepository.addAnimeToList(userAnime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(()-> Log.d("tagg","Inserted Successfully"), Throwable::printStackTrace)
@@ -65,7 +63,6 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<UserAnime>> getAnimeList(int position, String sortBy){
-        Log.d("tagg","Position"+position);
         switch (position){
             case 0:
                 fetchWatching(sortBy);
@@ -93,7 +90,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     private void fetchReWatching(String sortBy) {
-        compositeDisposable.add(repository.getReWatching(sortBy)
+        compositeDisposable.add(animeListRepository.getReWatching(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList::setValue,Throwable::printStackTrace)
@@ -101,17 +98,10 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-    public void addEpisode(int id){
-//        compositeDisposable.add(repository.addEpisode(id)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe()
-//        );
-    }
 
 
     public void fetchWatching(String sortBy){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.WATCHING,sortBy)
+        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.WATCHING,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList::setValue,Throwable::printStackTrace)
@@ -119,7 +109,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchPlanToWatch(String sortBy){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.PLAN_TO_WATCH,sortBy)
+        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.PLAN_TO_WATCH,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList1::setValue,Throwable::printStackTrace)
@@ -127,7 +117,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchCompleted(String sortBy){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.COMPLETED,sortBy)
+        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.COMPLETED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList2::setValue,Throwable::printStackTrace)
@@ -135,7 +125,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchOnHold(String sortBy){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.ON_HOLD,sortBy)
+        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.ON_HOLD,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList3::setValue,Throwable::printStackTrace)
@@ -143,7 +133,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchDropped(String sortBy){
-        compositeDisposable.add(repository.getAnimeListByStatus(Constants.DROPPED,sortBy)
+        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.DROPPED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList4::setValue,Throwable::printStackTrace)
@@ -151,68 +141,31 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchAll(String sortBy){
-        compositeDisposable.add(repository.getAllAnime(sortBy)
+        compositeDisposable.add(animeListRepository.getAllAnime(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(animeList6::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void animeCompleted(int id){
-//        compositeDisposable.add(repository.animeCompleted(id)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe()
-//        );
-    }
-
-    public void deleteAnime(int id){
-//        compositeDisposable.add(repository.deleteAnime(id)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe()
-//        );
-    }
-
     public void searchAnime(CharSequence query){
-//        compositeDisposable.add(repository.searchAnime(query)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(searchResults::setValue,Throwable::printStackTrace)
-//        );
-    }
-
-
-    public void fetchUserAnimeList(){
-        compositeDisposable.add(repository.fetchUserAnimeList()
+        compositeDisposable.add(animeListRepository.searchAnime(query.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    insertDataInDatabase(response);
-                    nextPage.setValue(response.getPaging().getNext());
-                })
-
+                .subscribe(searchResults::setValue,Throwable::printStackTrace)
         );
     }
 
-    public void insertDataInDatabase(UserAnimeListResponse userAnimeListResponse){
-        Single.fromCallable(() -> repository.insertAnimeInDB(userAnimeListResponse))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(b->{
-            Log.d("tagg","returned le"+b);
-        });
-    }
+
 
 
 
 
     public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
-        compositeDisposable.add(repository1.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
+        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(updateAnimeResponse -> {
-                    Log.d("tagg","is null: "+(updateAnimeResponse==null));
                     if(updateAnimeResponse!=null){
                         Log.d("tagg","status: "+updateAnimeResponse.getStatus());
                     }

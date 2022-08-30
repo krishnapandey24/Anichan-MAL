@@ -26,6 +26,7 @@
     <color name="pickDateColor">@color/headingTextColor</color>
     <!--    <color name="darkBlue">#161d2f</color>-->
     <color name="darkBlue">#202025</color>
+    <color name="darkBlue2">#202025</color>
     <color name="mainBlue">#1261cd</color>
     <color name="buttonBlue">#0077EB</color>
     <color name="navigationBarColor">@color/darkBlue</color>

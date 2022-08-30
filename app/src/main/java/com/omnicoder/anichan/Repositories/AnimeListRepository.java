@@ -50,20 +50,12 @@ public class AnimeListRepository {
 
     }
 
-    public Observable<UpdateAnimeResponse> updateAnime(Integer id,String status,boolean isRewatching,Integer score,Integer numOfWatchedEpisodes){
-        return rxAPI.updateAnime(accessToken,
-                id,
-                status,
-                isRewatching,
-                score,
-                numOfWatchedEpisodes,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+
+
+    public Flowable<List<UserAnime>> searchAnime(String title){
+        return animeDao.searchAnime(title);
     }
+
 
     public Flowable<List<UserAnime>> getAnimeListByStatus(String status, String sortBy){
         return animeDao.getAnimeList(status,sortBy);
@@ -78,82 +70,8 @@ public class AnimeListRepository {
     }
 
 
-    public Observable<UserAnimeListResponse> fetchUserAnimeList(){
-        return rxAPI.getUserAnimeList(accessToken,Constants.LIMIT);
-    }
-
     public Flowable<List<UserAnime>> getReWatching(String sortBy){
         return animeDao.getReWatching(sortBy);
     }
-
-    public boolean insertAnimeInDB(UserAnimeListResponse response){
-        try{
-            animeDao.deleteAllAnime();
-            List<UserListAnime> userListAnimeList=response.getData();
-            int size=userListAnimeList.size();
-            List<UserAnime> userAnimeList =new ArrayList<>();
-            for(int i=0;i<size;i++){
-                UserListAnime userListAnime=userListAnimeList.get(i);
-                Anime node= userListAnime.getNode();
-                AnimeListStatus listStatus= userListAnime.getList_status();
-                String mainPicture=node.getMainPicture()==null ? "" : node.getMainPicture().getMedium();
-                StartSeason startSeason= node.getStart_season();
-                String season;
-
-                if(startSeason==null){
-                    season="";
-                }else{
-                    season=startSeason.getSeason() + " " + startSeason.getYear();
-                }
-                userAnimeList.add(new UserAnime(node.getId(),node.getTitle(),mainPicture,node.getMedia_type(),season,listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(),listStatus.getNum_episodes_watched(), node.getNum_episodes(), listStatus.isIs_rewatching()));
-            }
-
-            animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-
-                @Override
-                public void onError(@NonNull Throwable e) {
-
-                }
-            });
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

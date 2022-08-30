@@ -2,8 +2,8 @@ package com.omnicoder.anichan.UI.Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +17,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.Adapters.ViewPagerAdapter;
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
@@ -56,27 +53,40 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
         tabs = getResources().getStringArray(R.array.Statuses);
         context=getContext();
         setTabLayout();
-        setOnClickListeners();
+        setupToolbar();
     }
     private void setTabLayout(){
         binding.viewPager.setAdapter(new ViewPagerAdapter(context,tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,"t_id"));
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
-    private void setOnClickListeners(){
-        binding.listSearchButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(AnimeListFragmentDirections.actionAnimeListFragmentToSearchListFragment()));
-    }
-
-
     @Override
     public void updateAnime(UserAnime userAnime, int position) {
+        binding.progressBar2.setVisibility(View.VISIBLE);
         updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
         updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
+        updateAnimeViewModel.getUpdateAnimeResponse().observe(getViewLifecycleOwner(),success -> {
+            if(success){
+                Toast.makeText(context,"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context,"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void addEpisode(int id,int noOfEpisodesWatched) {
+        binding.progressBar2.setVisibility(View.VISIBLE);
         updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
+        updateAnimeViewModel.getResponse().observe(getViewLifecycleOwner(), success -> {
+            binding.progressBar2.setVisibility(View.GONE);
+            if(success){
+                Toast.makeText(context,"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context,"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -100,9 +110,8 @@ public class AnimeListFragment extends Fragment implements ViewPagerAdapter.Page
             if(item.getItemId()== R.id.sort){
                 launchSortDialog();
             }else{
-
+                Navigation.findNavController(binding.toolbar).navigate(AnimeListFragmentDirections.actionAnimeListFragmentToSearchListFragment());
             }
-
             return true;
         });
     }

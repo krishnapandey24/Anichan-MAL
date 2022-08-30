@@ -20,6 +20,9 @@ public interface AnimeDao {
     @Query("SELECT * from ANIME WHERE status=:status ORDER BY :sortBy DESC")
     Flowable<List<UserAnime>> getAnimeList(String status, String sortBy);
 
+    @Query("SELECT * from ANIME WHERE title like :query || '%' ")
+    Flowable<List<UserAnime>> searchAnime(String query);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertOrUpdateAnime(UserAnime userAnime);
 
