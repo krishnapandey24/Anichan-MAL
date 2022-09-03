@@ -63,8 +63,6 @@ public interface RxAPI {
                                                 @Field("comments") String comments
     );
 
-    @GET("users/@me/animelist?/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
-    Single<UserAnimeListResponse> getUserAnimeList(@Header("Authorization") String accessToken,@Query("limit") int limit,@Query("offset") int offset );
 
     @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
     Observable<UserAnimeListResponse> getUserAnimeList(@Header("Authorization") String accessToken,@Query("limit") int limit);

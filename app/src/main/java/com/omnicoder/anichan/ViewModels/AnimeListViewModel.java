@@ -32,9 +32,9 @@ public class AnimeListViewModel extends ViewModel {
     public MutableLiveData<List<UserAnime>> animeList5= new MutableLiveData<>();
     public MutableLiveData<List<UserAnime>> animeList6= new MutableLiveData<>();
     public MutableLiveData<List<UserAnime>> searchResults= new MutableLiveData<>();
-    public MutableLiveData<Boolean> response= new MutableLiveData<>();
     public MutableLiveData<String> nextPage= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
+    private MutableLiveData<Boolean> animeListFetched=new MutableLiveData<>();
     private final AnimeListRepository animeListRepository;
     Repository repository;
 
@@ -46,17 +46,8 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-    public MutableLiveData<Boolean> getResponse() {
-        return response;
-    }
 
-    public void addAnime(UserAnime userAnime){
-        compositeDisposable.add(animeListRepository.addAnimeToList(userAnime)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(()-> Log.d("tagg","Inserted Successfully"), Throwable::printStackTrace)
-        );
-    }
+
 
     public MutableLiveData<List<UserAnime>> getSearchResults() {
         return searchResults;
@@ -157,10 +148,6 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-
-
-
-
     public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
         compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
                 .subscribeOn(Schedulers.io())
@@ -177,11 +164,45 @@ public class AnimeListViewModel extends ViewModel {
 
     }
 
+    public void fetchUserAnimeList(){
+        compositeDisposable.add(animeListRepository.fetchUserAnimeList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    deleteAllAnime();
+                    insertDataInDatabase(response);
+                    nextPage.setValue(response.getPaging().getNext());
+                })
+
+        );
+    }
+
+    public void deleteAllAnime(){
+        compositeDisposable.add(animeListRepository.deleteAllAnime()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+
+    }
+
+    public void insertDataInDatabase(UserAnimeListResponse userAnimeListResponse){
+        Single.fromCallable(() -> animeListRepository.insertAnimeInDB(userAnimeListResponse))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    if(aBoolean){
+                        animeListFetched.setValue(true);
+                    }else{
+                        animeListFetched.setValue(false);
+                    }
+                });
 
 
+    }
 
-
-
+    public MutableLiveData<Boolean> getAnimeListFetchedStatus() {
+        return animeListFetched;
+    }
 
     @Override
     protected void onCleared() {
