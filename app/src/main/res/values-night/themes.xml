@@ -12,7 +12,7 @@
         <item name="backgroundColor">@color/bgWhite</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/bgWhite</item>
         <!-- Customize your theme here. -->
     </style>
 

@@ -31,6 +31,7 @@
     <color name="buttonBlue">#0077EB</color>
     <color name="navigationBarColor">@color/darkBlue</color>
     <color name="searchBarBackground">#303134</color>
+    <color name="lineColor">#303134</color>
 <!--    <color name="bgWhite">#0C1622</color>-->
     <color name="bgWhite">#121212</color>
     <color name="transparentBlue">#902F80ED</color>

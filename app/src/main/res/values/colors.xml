@@ -23,6 +23,7 @@
     <color name="white_rectangle_background">@color/white</color>
     <color name="navigationBarColor">@color/white</color>
     <color name="searchBarBackground">@color/white</color>
+    <color name="lineColor">#E4E4E4</color>
     <color name="headingTextColor2">@color/white</color>
     <color name="viewAllButtonColor">@color/white</color>
     <color name="searchBarIconColor">@color/white</color>

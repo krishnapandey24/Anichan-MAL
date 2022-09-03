@@ -26,6 +26,7 @@ import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.UI.Activities.TestActivity;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
+import com.omnicoder.anichan.databinding.TestlayoutBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,13 +37,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ExploreFragment extends Fragment{
 
-    private ExploreFragmentBinding binding;
+    private TestlayoutBinding binding;
     private ExploreViewModel viewModel;
     private final Context context= getContext();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=ExploreFragmentBinding.inflate(inflater,container,false);
+        binding=TestlayoutBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 
@@ -58,7 +59,7 @@ public class ExploreFragment extends Fragment{
             SnapHelper pagerSnapHelper= new PagerSnapHelper();
             pagerSnapHelper.attachToRecyclerView(binding.trendingView);
         }
-        setOnClickListeners();
+//        setOnClickListeners();
         binding.scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,39 +68,39 @@ public class ExploreFragment extends Fragment{
         });
     }
 
-    private void setOnClickListeners() {
-        binding.todayTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(1);
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.upcomingTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.recommendationTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(7);
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.animeRank.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(0);
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.mangaRank.setOnClickListener(view-> Navigation.findNavController(view).navigate(ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity()));
-
-        binding.seasonalChart.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(1,"Spring");
-            Navigation.findNavController(v).navigate(action);
-        });
-
-        binding.schedule.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToScheduleActivity()));
-
-        binding.searchView.setOnClickListener(v-> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
-
-    }
+//    private void setOnClickListeners() {
+//        binding.todayTitle.setOnClickListener(v -> {
+//            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(1);
+//            Navigation.findNavController(v).navigate(action);
+//        });
+//
+//        binding.upcomingTitle.setOnClickListener(v -> {
+//            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
+//            Navigation.findNavController(v).navigate(action);
+//        });
+//
+//        binding.recommendationTitle.setOnClickListener(v -> {
+//            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(7);
+//            Navigation.findNavController(v).navigate(action);
+//        });
+//
+//        binding.animeRank.setOnClickListener(v -> {
+//            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action= ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(0);
+//            Navigation.findNavController(v).navigate(action);
+//        });
+//
+//        binding.mangaRank.setOnClickListener(view-> Navigation.findNavController(view).navigate(ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity()));
+//
+//        binding.seasonalChart.setOnClickListener(v -> {
+//            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action= ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(1,"Spring");
+//            Navigation.findNavController(v).navigate(action);
+//        });
+//
+//        binding.schedule.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToScheduleActivity()));
+//
+//        binding.searchView.setOnClickListener(v-> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToSearchActivity()));
+//
+//    }
 
     private void observeData(){
         LifecycleOwner lifecycleOwner= getViewLifecycleOwner();
