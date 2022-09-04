@@ -225,6 +225,8 @@
     <string name="itemLayout">itemLayout</string>
     <string name="sort">Sort</string>
     <string name="search">Search</string>
+    <string name="anime">Anime</string>
+    <string name="manga">Manga</string>
 
 
 </resources>

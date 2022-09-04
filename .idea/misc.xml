@@ -37,6 +37,8 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_group_2.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_remove.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_spring.xml" value="0.1707236842105263" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_summer.xml" value="0.2595" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_winter.xml" value="0.2595" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/ic_zzz.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/line.xml" value="0.2375" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/model_bottom_sheet_background.xml" value="0.1707236842105263" />
@@ -74,6 +76,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout2.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout3.xml" value="0.4" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout4.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/links_view_stub.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/list_item_layout.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/list_sort_dialog.xml" value="0.16052631578947368" />
@@ -91,7 +94,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/season_selector_view_stub.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/test.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/test2.xml" value="0.16052631578947368" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/testlayout.xml" value="0.30827542640555905" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/testlayout.xml" value="0.152" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/top_chart_menu.xml" value="0.264" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/trending_item_layout.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/trending_view_pager_layout_2.xml" value="0.4" />
