@@ -6,7 +6,7 @@
   <path
       android:pathData="M350,0H150C67.157,0 0,67.157 0,150V350C0,432.843 67.157,500 150,500H350C432.843,500 500,432.843 500,350V150C500,67.157 432.843,0 350,0Z"
       android:fillColor="@color/viewAnimeMainTextColor"
-      android:fillAlpha="0.2"/>
+      android:fillAlpha="0.15"/>
   <group>
     <clip-path
         android:pathData="M115,115h270v270h-270z"/>

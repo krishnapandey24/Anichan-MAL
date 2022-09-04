@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.UI.Activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -39,8 +40,9 @@ public class SeasonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySeasonBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Intent intent= getIntent();
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
-        setSpinners();
+        setSpinners(intent.getIntExtra("SeasonIndex",0));
         animePageAdapter = new AnimePageAdapter(new AnimeComparator(), SeasonActivity.this);
         animePageAdapterPlain= new AnimePageAdapterPlain(new AnimeComparator(), SeasonActivity.this);
 //        setAnime(selectedSeason,currentYear);
@@ -86,7 +88,7 @@ public class SeasonActivity extends AppCompatActivity {
     }
 
 
-    private void setSpinners(){
+    private void setSpinners(int seasonIndex){
         ArrayAdapter<CharSequence> seasonArrayAdapter= ArrayAdapter.createFromResource(SeasonActivity.this,R.array.Seasons, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> yearArrayAdapter= ArrayAdapter.createFromResource(SeasonActivity.this,R.array.Years, android.R.layout.simple_spinner_item);
         seasonArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -118,19 +120,8 @@ public class SeasonActivity extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH) + 1;
         int yearPosition=yearArrayAdapter.getPosition(String.valueOf(year));
-        int seasonPosition;
-        if(month<4){
-            seasonPosition=0;
-        }else if(month<7){
-            seasonPosition=1;
-        }else if(month<9){
-            seasonPosition=2;
-        }else{
-            seasonPosition=3;
-        }
-        binding.seasonSpinner.setSelection(seasonPosition);
+        binding.seasonSpinner.setSelection(seasonIndex);
         binding.yearSpinner.setSelection(yearPosition);
     }
 
