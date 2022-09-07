@@ -68,12 +68,19 @@ public class AnimeChartActivity extends AppCompatActivity{
     }
 
     public void setAnime(String rankingType, boolean three){
+        binding.progressBar.setVisibility(View.VISIBLE);
         if(three) {
-            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime ->{
+                animePageAdapter.submitData(getLifecycle(), Anime);
+                binding.progressBar.setVisibility(View.GONE);
+            }));
             binding.animeView.setLayoutManager(new GridLayoutManager(AnimeChartActivity.this, 3));
             binding.animeView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> {
+                animePageAdapterPlain.submitData(getLifecycle(), Anime);
+                binding.progressBar.setVisibility(View.GONE);
+            }));
             binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeChartActivity.this));
             binding.animeView.setAdapter(animePageAdapterPlain);
         }

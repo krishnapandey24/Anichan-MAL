@@ -69,12 +69,21 @@ public class SeasonActivity extends AppCompatActivity {
 
 
     public void setAnime(String year,String season){
+        binding.progressBar.setVisibility(View.VISIBLE);
         if(three) {
-            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> animePageAdapter.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> {
+                animePageAdapter.submitData(getLifecycle(), Anime);
+                binding.progressBar.setVisibility(View.GONE);
+
+            }));
             binding.seasonView.setLayoutManager(new GridLayoutManager(SeasonActivity.this, 3));
             binding.seasonView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> animePageAdapterPlain.submitData(getLifecycle(), Anime)));
+            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> {
+                animePageAdapterPlain.submitData(getLifecycle(), Anime);
+                binding.progressBar.setVisibility(View.GONE);
+
+            }));
             binding.seasonView.setLayoutManager(new LinearLayoutManager(SeasonActivity.this));
             binding.seasonView.setAdapter(animePageAdapterPlain);
         }
