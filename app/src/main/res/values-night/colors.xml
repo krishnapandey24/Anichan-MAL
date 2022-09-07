@@ -9,7 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="menuIcon">@color/white</color>
     <color name="dark_fade_effect">#80000000</color>
-<!--    <color name="listItemTitleTextColor">@color/textColor</color>-->
+    <color name="drop_down_spinner_arrow_color">@color/white</color>
+
+    <color name="appBarBackgroundColor">?attr/colorSurface</color>
+    <!--    <color name="listItemTitleTextColor">@color/textColor</color>-->
     <color name="listItemTitleTextColor">@color/white</color>
     <color name="headingTextColor">#ADC0D1</color>
     <color name="cancelTextColor">@color/white</color>
@@ -36,7 +39,7 @@
     <color name="bgWhite">#121212</color>
     <color name="transparentBlue">#902F80ED</color>
     <color name="transparentBlue2">#352F80ED</color>
-    <color name="contentBackground">#ECEFF1</color>
+    <color name="contentBackground">#303134</color>
     <color name="green">#82D75F</color>
     <color name="textColor">@color/searchBarIconColor</color>
 <!--    <color name="textColor">#647380</color>-->
@@ -55,4 +58,5 @@
     <color name="subheadingtext">#ADC0D1</color>
     <color name="lightdarkbackgroud">#1E2129</color>
     <color name="nightbuttoncolor">#01ABD2</color>
+    <color name="recycler_view_background_color">@color/black</color>
 </resources>

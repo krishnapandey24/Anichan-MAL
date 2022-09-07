@@ -14,10 +14,13 @@
     <color name="cancelButtonColor">@color/white</color>
     <color name="cancelTextColor">@color/blue</color>
     <color name="darkBlue">#1261cd</color>
+    <color name="drop_down_spinner_arrow_color">#282626</color>
     <color name="darkBlue2">@color/white</color>
     <color name="buttonBlue">#0077EB</color>
     <color name="searchTextColor">@color/textColor</color>
     <color name="viewAnimeMainTextColor">@color/blue</color>
+    <color name="appBarBackgroundColor">?attr/colorSurface</color>
+    <color name="check">#121212</color>
     <color name="listSelectedTabColor">@color/white</color>
     <color name="listTabTextColor">@color/white</color>
     <color name="white_rectangle_background">@color/white</color>
@@ -53,4 +56,5 @@
     <color name="subheadingtext">#ADC0D1</color>
     <color name="lightdarkbackgroud">#1E2129</color>
     <color name="nightbuttoncolor">#01ABD2</color>
+    <color name="recycler_view_background_color">@color/white</color>
 </resources>
