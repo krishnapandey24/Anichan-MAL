@@ -9,7 +9,7 @@ import androidx.paging.rxjava3.RxPagingSource;
 
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Network.RxAPI;
+import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Utils.Constants;
 
 import java.util.Locale;
@@ -18,13 +18,13 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
-    private final RxAPI rxAPI;
+    private final MalApi malApi;
     private final String year,season,accessToken;
     private final boolean nsfw;
 
 
-    public SeasonPagingSource(RxAPI rxAPI, String accessToken, String year, String season, boolean nsfw){
-        this.rxAPI=rxAPI;
+    public SeasonPagingSource(MalApi malApi, String accessToken, String year, String season, boolean nsfw){
+        this.malApi=malApi;
         this.accessToken=accessToken;
         this.year=year;
         this.season=season.toLowerCase(Locale.ROOT);
@@ -43,7 +43,7 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return rxAPI.getSeason(accessToken,year,season,Constants.SEASON_SORT,Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getSeason(accessToken,year,season,Constants.SEASON_SORT,Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{

@@ -18,7 +18,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.RankingResponse;
 import com.omnicoder.anichan.Network.JikanAPI;
-import com.omnicoder.anichan.Network.RxAPI;
+import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Paging.SearchPagingSource;
 import com.omnicoder.anichan.Utils.Constants;
 
@@ -29,7 +29,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 
 public class ExploreRepository {
-    RxAPI rxAPI;
+    MalApi malApi;
     String accessToken;
     public static final String AIRING="airing";
     public static final String UPCOMING="upcoming";
@@ -38,8 +38,8 @@ public class ExploreRepository {
     boolean nsfw;
 
     @Inject
-    public ExploreRepository(RxAPI rxAPI, Context context, JikanAPI jikanAPI){
-        this.rxAPI= rxAPI;
+    public ExploreRepository(MalApi malApi, Context context, JikanAPI jikanAPI){
+        this.malApi= malApi;
         this.jikanAPI=jikanAPI;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE);
         this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
@@ -48,16 +48,16 @@ public class ExploreRepository {
     }
 
     public Observable<RankingResponse> get9TrendingAnime(){
-        return rxAPI.getRanking(accessToken,AIRING,9,FIELDS);
+        return malApi.getRanking(accessToken,AIRING,9,FIELDS);
     }
 
     public Observable<RankingResponse> getSuggestions(){
-        return rxAPI.getSuggestions(accessToken,9,FIELDS);
+        return malApi.getSuggestions(accessToken,9,FIELDS);
     }
 
 
     public Observable<RankingResponse> get9TopUpcomingAnime(){
-        return rxAPI.getRanking(accessToken,UPCOMING,9,FIELDS);
+        return malApi.getRanking(accessToken,UPCOMING,9,FIELDS);
     }
 
 
@@ -66,19 +66,19 @@ public class ExploreRepository {
     public Observable<AccessToken> getAccessToken(String code, String codeVerified){
         String clientId= Constants.CLIENT_ID;
         String grantType= "authorization_code";
-        return rxAPI.getAccessToken(clientId,code,codeVerified,grantType);
+        return malApi.getAccessToken(clientId,code,codeVerified,grantType);
     }
 
 
 
     public Flowable<PagingData<Data>> searchAnime(String query, int isAnime){
-        SearchPagingSource searchPagingSource= new SearchPagingSource(rxAPI,query,accessToken, nsfw,isAnime);
+        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query,accessToken, nsfw,isAnime);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
     }
 
 
     public Observable<Anime> getAnime(int id){
-        return rxAPI.getAnime(accessToken,id);
+        return malApi.getAnime(accessToken,id);
     }
 
     public Observable<VideoResponse> getVideos(int id){

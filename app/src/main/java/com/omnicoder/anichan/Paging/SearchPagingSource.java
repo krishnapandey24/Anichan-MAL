@@ -6,7 +6,7 @@ import androidx.paging.PagingState;
 import androidx.paging.rxjava3.RxPagingSource;
 
 import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Network.RxAPI;
+import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Utils.Constants;
 import com.omnicoder.anichan.Utils.SearchComparator;
 
@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPagingSource extends RxPagingSource<Integer, Data> {
-    private final RxAPI rxAPI;
+    private final MalApi malApi;
     private final String query;
     private final String accessToken;
     private final boolean nsfw;
@@ -26,8 +26,8 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private static final String MANGA="manga";
 
 
-    public SearchPagingSource(RxAPI rxAPI, String query, String accessToken, boolean nsfw, int isAnime){
-        this.rxAPI=rxAPI;
+    public SearchPagingSource(MalApi malApi, String query, String accessToken, boolean nsfw, int isAnime){
+        this.malApi=malApi;
         this.query = query;
         this.accessToken=accessToken;
         this.nsfw = nsfw;
@@ -49,7 +49,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return rxAPI.searchAnime(accessToken,isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset)
+            return malApi.searchAnime(accessToken,isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset)
                     .subscribeOn(Schedulers.io())
                     .flattenAsObservable(searchResponse -> {
                         List<Data> results=searchResponse.getData();

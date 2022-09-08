@@ -3,12 +3,15 @@ package com.omnicoder.anichan.UI.Fragments;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,10 +39,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ExploreAnimeFragment extends Fragment{
-
     private ExploreAnimeFragmentBinding binding;
     private ExploreViewModel viewModel;
-    private final Context context= getContext();
+    private RecyclerView.OnItemTouchListener onItemTouchListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +62,36 @@ public class ExploreAnimeFragment extends Fragment{
             pagerSnapHelper.attachToRecyclerView(binding.trendingView);
         }
         setOnClickListeners();
+
+    }
+    private void addOnItemTouchListener(RecyclerView recyclerView){
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                int action=e.getAction();
+                if(recyclerView.canScrollHorizontally(RecyclerView.FOCUS_FORWARD)){
+                    if(action==MotionEvent.ACTION_MOVE){
+                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+                    return false;
+                }else{
+                    if(action==MotionEvent.ACTION_MOVE){
+                        rv.getParent().requestDisallowInterceptTouchEvent(false);
+                    }
+                    recyclerView.removeOnItemTouchListener(this);
+                    return true;
+                }            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
     }
 
     private void setOnClickListeners() {
@@ -119,22 +151,27 @@ public class ExploreAnimeFragment extends Fragment{
     public void setTrending(List<Data> exploreViews){
         RecyclerView recyclerView= binding.trendingView;
         TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(adapter);
+        addOnItemTouchListener(recyclerView);
 
     }
 
 
     public void setTopUpcoming(List<Data> exploreViews){
         Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews);
-        binding.upcomingView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.upcomingView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.upcomingView.setAdapter(seasonAdapter2);
+        addOnItemTouchListener(binding.upcomingView);
+
     }
 
     public void setRecommendations(List<Data> exploreViews){
         Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews);
-        binding.recommendationView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.recommendationView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.recommendationView.setAdapter(seasonAdapter2);
+        addOnItemTouchListener(binding.recommendationView);
+
     }
 
 

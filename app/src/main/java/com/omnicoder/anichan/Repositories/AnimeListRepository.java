@@ -13,7 +13,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
 import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Network.RxAPI;
+import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Utils.Constants;
 
 import java.util.ArrayList;
@@ -31,17 +31,15 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class AnimeListRepository {
     AnimeDao animeDao;
     AnimeDB animeDB;
-    RxAPI rxAPI;
-    String accessToken;
     MalApi malApi;
+    String accessToken;
 
 
     @Inject
-    public AnimeListRepository(AnimeDao animeDao, Context context, RxAPI rxAPI, AnimeDB animeDB, MalApi malApi){
+    public AnimeListRepository(AnimeDao animeDao, Context context, AnimeDB animeDB, MalApi malApi){
         this.animeDao=animeDao;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
         this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
-        this.rxAPI=rxAPI;
         this.animeDB=animeDB;
         this.malApi=malApi;
 
@@ -72,7 +70,7 @@ public class AnimeListRepository {
     }
 
     public Observable<UserAnimeListResponse> fetchUserAnimeList(){
-        return rxAPI.getUserAnimeList(accessToken,Constants.LIMIT);
+        return malApi.getUserAnimeList(accessToken,Constants.LIMIT);
     }
 
     public Completable deleteAllAnime(){
