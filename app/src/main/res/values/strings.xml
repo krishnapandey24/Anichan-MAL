@@ -54,6 +54,12 @@
         <item>Fall</item>
     </string-array>
 
+    <string-array name="ExploreTabs">
+        <item>Anime</item>
+        <item>Manga</item>
+        <item>Schedule</item>
+    </string-array>
+
     <string-array name="RankingTypes">
         <item>All</item>
         <item>Airing</item>
@@ -93,7 +99,6 @@
         <item>on_hold</item>
         <item>dropped</item>
     </string-array>
-
 
 
     <string-array name="Years">
@@ -227,6 +232,9 @@
     <string name="search">Search</string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
+    <string name="top_manhua">Top Manhua</string>
+    <string name="top_manhwa">Top Manhwa</string>
+    <string name="top_manga">Top Manga</string>
 
 
 </resources>
