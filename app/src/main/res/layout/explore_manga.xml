@@ -23,7 +23,7 @@
 
 
         <TextView
-            android:id="@+id/today_title"
+            android:id="@+id/topMangaTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -48,12 +48,12 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/today_title"
+            app:layout_constraintTop_toBottomOf="@+id/topMangaTitle"
             tools:listitem="@layout/trending_viewpager_item" />
 
 
         <TextView
-            android:id="@+id/upcoming_title"
+            android:id="@+id/topManhwaTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -82,13 +82,13 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_title"
+            app:layout_constraintTop_toBottomOf="@+id/topManhwaTitle"
             tools:listitem="@layout/layout">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
-            android:id="@+id/recommendation_title"
+            android:id="@+id/topManhuaTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -116,7 +116,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recommendation_title"
+            app:layout_constraintTop_toBottomOf="@+id/topManhuaTitle"
             tools:listitem="@layout/layout">
 
         </androidx.recyclerview.widget.RecyclerView>

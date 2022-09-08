@@ -29,11 +29,15 @@ import io.reactivex.rxjava3.core.Observable;
 
 
 public class ExploreRepository {
+    private static final String AIRING="airing";
+    private static final String MANGA="manga";
+    private static final String MANHWA="manhwa";
+    private static final String MANHUA="manhua";
+    private static final String ONE_SHOTS="oneshots";
+    private static final String UPCOMING="upcoming";
+    private static final String FIELDS="media_type,mean,genres";
     MalApi malApi;
     String accessToken;
-    public static final String AIRING="airing";
-    public static final String UPCOMING="upcoming";
-    public static final String FIELDS="media_type,mean,genres";
     JikanAPI jikanAPI;
     boolean nsfw;
 
@@ -47,8 +51,10 @@ public class ExploreRepository {
         this.nsfw= sharedPreferences.getBoolean("nsfw",false);
     }
 
+
+
     public Observable<RankingResponse> get9TrendingAnime(){
-        return malApi.getRanking(accessToken,AIRING,9,FIELDS);
+        return malApi.getAnimeRanking(accessToken,AIRING,9,FIELDS);
     }
 
     public Observable<RankingResponse> getSuggestions(){
@@ -57,7 +63,7 @@ public class ExploreRepository {
 
 
     public Observable<RankingResponse> get9TopUpcomingAnime(){
-        return malApi.getRanking(accessToken,UPCOMING,9,FIELDS);
+        return malApi.getAnimeRanking(accessToken,UPCOMING,9,FIELDS);
     }
 
 
@@ -78,7 +84,7 @@ public class ExploreRepository {
 
 
     public Observable<Anime> getAnime(int id){
-        return malApi.getAnime(accessToken,id);
+        return malApi.getAnimeDetails(accessToken,id);
     }
 
     public Observable<VideoResponse> getVideos(int id){
@@ -94,7 +100,40 @@ public class ExploreRepository {
     }
 
 
+    // For Manga
+    public Observable<RankingResponse> get9TopManga(){
+        return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
+    }
 
+    public Observable<RankingResponse> get9TopManhwa(){
+        return malApi.getMangaRanking(accessToken,MANHWA,9,FIELDS);
+    }
+
+    public Observable<RankingResponse> get9TopManhua(){
+        return malApi.getMangaRanking(accessToken,MANHUA,9,FIELDS);
+    }
+
+    public Observable<RankingResponse> get9OneShots(){
+        return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
+    }
+
+
+
+
+    
+    
+    
+    /*
+    all	All
+manga	Top Manga
+novels	Top Novels
+oneshots	Top One-shots
+doujin	Top Doujinshi
+manhwa	Top Manhwa
+manhua	Top Manhua
+bypopularity	Most Popular
+favorite	Most Favorited
+     */
 
 
 }

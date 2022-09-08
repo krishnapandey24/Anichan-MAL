@@ -1,9 +1,7 @@
 package com.omnicoder.anichan.UI.Fragments;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,11 +22,8 @@ import com.omnicoder.anichan.Adapters.Season2Adapter;
 import com.omnicoder.anichan.Adapters.Top100Adapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.UI.Activities.TestActivity;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
 import com.omnicoder.anichan.databinding.ExploreAnimeFragmentBinding;
-import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
-import com.omnicoder.anichan.databinding.TestlayoutBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +35,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ExploreAnimeFragment extends Fragment{
     private ExploreAnimeFragmentBinding binding;
     private ExploreViewModel viewModel;
-    private RecyclerView.OnItemTouchListener onItemTouchListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
