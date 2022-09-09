@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.omnicoder.anichan.ViewModels.MangaDetailsViewModel;
 import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 
@@ -16,12 +17,19 @@ import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 public class RelatedFragment extends Fragment {
     FragmentSeasonDetailsBinding binding;
     int id;
-    ViewAnimeViewModel viewModel;
+    ViewAnimeViewModel animeViewModel;
+    MangaDetailsViewModel mangaViewModel;
 
-    public RelatedFragment(int id, ViewAnimeViewModel viewModel) {
+    public RelatedFragment(int id, ViewAnimeViewModel animeViewModel) {
         this.id = id;
-        this.viewModel=viewModel;
+        this.animeViewModel = animeViewModel;
     }
+
+    public RelatedFragment(int id, MangaDetailsViewModel mangaViewModel) {
+        this.id = id;
+        this.mangaViewModel = mangaViewModel;
+    }
+
 
 
     @Override

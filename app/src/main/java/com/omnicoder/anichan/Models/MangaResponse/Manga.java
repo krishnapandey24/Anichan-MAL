@@ -15,6 +15,7 @@ public class Manga {
     AlternateTitles alternative_titles;
     String start_date;
     String end_date;
+    String synopsis;
     float mean;
     float rank;
     int popularity;
@@ -44,11 +45,11 @@ public class Manga {
         return title;
     }
 
-    public MainPicture getMain_picture() {
+    public MainPicture getMainPicture() {
         return main_picture;
     }
 
-    public AlternateTitles getAlternative_titles() {
+    public AlternateTitles getAlternativeTitles() {
         return alternative_titles;
     }
 
@@ -56,11 +57,13 @@ public class Manga {
         return start_date;
     }
 
-    public String getEnd_date() {
+    public String getEndDate() {
         return end_date;
     }
 
-
+    public String getSynopsis() {
+        return synopsis;
+    }
 
     public float getMean() {
         return mean;

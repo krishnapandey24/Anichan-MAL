@@ -15,6 +15,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
+import com.omnicoder.anichan.Models.MangaResponse.Manga;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.RankingResponse;
 import com.omnicoder.anichan.Network.JikanAPI;
@@ -95,12 +96,20 @@ public class ExploreRepository {
         return jikanAPI.getCharacters(id);
     }
 
+
+
     public Observable<StaffResponse> getStaff(int id){
         return jikanAPI.getStaff(id);
     }
 
 
     // For Manga
+
+
+    public Observable<Manga> getManga(int id){
+        return malApi.getMangaDetails(accessToken,id);
+    }
+
     public Observable<RankingResponse> get9TopManga(){
         return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
     }
@@ -116,6 +125,15 @@ public class ExploreRepository {
     public Observable<RankingResponse> get9OneShots(){
         return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
     }
+
+    public Observable<CharacterResponse> getMangaCharacters(int id){
+        return jikanAPI.getMangaCharacters(id);
+    }
+
+    public Observable<StaffResponse> getAuthors(int id){
+        return jikanAPI.getStaff(id);
+    }
+
 
 
 

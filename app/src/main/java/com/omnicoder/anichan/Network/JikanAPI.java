@@ -19,5 +19,8 @@ public interface JikanAPI {
     @GET("anime/{id}/staff")
     Observable<StaffResponse> getStaff(@Path("id") int id);
 
+    @GET("manga/{id}/characters")
+    Observable<CharacterResponse> getMangaCharacters(@Path("id") int id);
+
 
 }
