@@ -149,6 +149,16 @@ public interface MalApi {
             @Query("fields") String fields
     );
 
+    @GET("manga/ranking")
+    Single<RankingResponse> getMangaRanking(
+            @Header("Authorization") String accessToken,
+            @Query("ranking_type") String rankingType,
+            @Query("limit") int limit,
+            @Query("fields") String fields,
+            @Query("nsfw") Boolean nsfw,
+            @Query("offset") int offset
+    );
+
     @GET("manga/{manga_id}?fields=id,title,main_picture,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}")
     Observable<Manga> getMangaDetails(
             @Header("Authorization") String accessToken,

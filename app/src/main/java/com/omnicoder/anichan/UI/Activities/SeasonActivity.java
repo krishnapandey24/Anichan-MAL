@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.omnicoder.anichan.Adapters.AnimePageAdapter;
 import com.omnicoder.anichan.Adapters.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.Utils.AnimeComparator;
+import com.omnicoder.anichan.Utils.NodeComparator;
 import com.omnicoder.anichan.ViewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivitySeasonBinding;
 
@@ -43,8 +43,8 @@ public class SeasonActivity extends AppCompatActivity {
         Intent intent= getIntent();
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
         setSpinners(intent.getIntExtra("SeasonIndex",0));
-        animePageAdapter = new AnimePageAdapter(new AnimeComparator(), SeasonActivity.this);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new AnimeComparator(), SeasonActivity.this);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), SeasonActivity.this);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), SeasonActivity.this);
 //        setAnime(selectedSeason,currentYear);
         setupToolbar();
     }

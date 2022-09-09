@@ -8,7 +8,7 @@ import com.omnicoder.anichan.Models.Responses.Node;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AnimeComparator extends DiffUtil.ItemCallback<Data> {
+public class NodeComparator extends DiffUtil.ItemCallback<Data> {
 
         @Override
         public boolean areItemsTheSame(@NonNull @NotNull Data oldItem, @NonNull @NotNull Data newItem) {

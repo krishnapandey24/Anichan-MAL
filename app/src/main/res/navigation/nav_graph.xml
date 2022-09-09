@@ -15,7 +15,7 @@
             app:destination="@id/seasonActivity" />
         <action
             android:id="@+id/action_explore_fragment_to_viewAnimeActivity"
-            app:destination="@id/animeChartActivity" />
+            app:destination="@id/animeRankingActivity" />
         <action
             android:id="@+id/action_explore_fragment_to_scheduleActivity"
             app:destination="@id/scheduleActivity" />
@@ -62,8 +62,8 @@
             app:argType="string" />
     </activity>
     <activity
-        android:id="@+id/animeChartActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.AnimeChartActivity"
+        android:id="@+id/animeRankingActivity"
+        android:name="com.omnicoder.anichan.UI.Activities.AnimeRankingActivity"
         android:label="activity_view_anime"
         app:action="action_viewAnimeActivity_to_anime_chart_bottom_sheet"
         tools:layout="@layout/activity_chart_anime">
@@ -83,7 +83,8 @@
         android:label="activity_manga_ranking"
         tools:layout="@layout/activity_manga_ranking" >
         <argument android:name="mangaTypeIndex"
-            app:argType="integer" />
+            app:argType="integer"
+            app:defaultValue="0"/>
     </activity>
     <activity
         android:id="@+id/scheduleActivity"

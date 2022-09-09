@@ -34,7 +34,7 @@ public class AnimeListViewModel extends ViewModel {
     public MutableLiveData<List<UserAnime>> searchResults= new MutableLiveData<>();
     public MutableLiveData<String> nextPage= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
-    private MutableLiveData<Boolean> animeListFetched=new MutableLiveData<>();
+    private final MutableLiveData<Boolean> animeListFetched=new MutableLiveData<>();
     private final AnimeListRepository animeListRepository;
     Repository repository;
 

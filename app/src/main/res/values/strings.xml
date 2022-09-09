@@ -72,6 +72,18 @@
         <item>Favorites</item>
     </string-array>
 
+    <string-array name="MangaRankingTypes">
+        <item>All</item>
+        <item>Manga</item>
+        <item>Novels</item>
+        <item>OneShots</item>
+        <item>Doujin</item>
+        <item>Manhwa</item>
+        <item>Manhua</item>
+        <item>By Popularity</item>
+        <item>Favorite</item>
+    </string-array>
+
 
     <string-array name="Statuses">
         <item>Watching</item>

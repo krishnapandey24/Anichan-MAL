@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.omnicoder.anichan.Adapters.AnimePageAdapter;
 import com.omnicoder.anichan.Adapters.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.Utils.AnimeComparator;
+import com.omnicoder.anichan.Utils.NodeComparator;
 import com.omnicoder.anichan.ViewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
 
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class AnimeChartActivity extends AppCompatActivity{
+public class AnimeRankingActivity extends AppCompatActivity{
     private ActivityChartAnimeBinding binding;
     private AnimeChartViewModel viewModel;
     private String rankingType;
@@ -39,12 +39,11 @@ public class AnimeChartActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityChartAnimeBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
         rankingTypeIndex=getIntent().getIntExtra("animeTypeIndex",0);
         String[] rankingTypes = getResources().getStringArray(R.array.RankingTypes);
-        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(AnimeChartActivity.this,R.array.RankingTypes,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(AnimeRankingActivity.this,R.array.RankingTypes,android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.animeRankingSpinner.setAdapter(arrayAdapter);
         binding.animeRankingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -61,8 +60,8 @@ public class AnimeChartActivity extends AppCompatActivity{
         });
 
         rankingType= rankingTypes[rankingTypeIndex];
-        animePageAdapter = new AnimePageAdapter(new AnimeComparator(), AnimeChartActivity.this);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new AnimeComparator(), AnimeChartActivity.this);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this);
         setAnime(rankingType,three);
         setupToolbar();
     }
@@ -74,14 +73,14 @@ public class AnimeChartActivity extends AppCompatActivity{
                 animePageAdapter.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
-            binding.animeView.setLayoutManager(new GridLayoutManager(AnimeChartActivity.this, 3));
+            binding.animeView.setLayoutManager(new GridLayoutManager(AnimeRankingActivity.this, 3));
             binding.animeView.setAdapter(animePageAdapter);
         }else {
             compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> {
                 animePageAdapterPlain.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
-            binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeChartActivity.this));
+            binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeRankingActivity.this));
             binding.animeView.setAdapter(animePageAdapterPlain);
         }
     }
@@ -90,7 +89,7 @@ public class AnimeChartActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(AnimeChartActivity.this);
+        NavUtils.navigateUpFromSameTask(AnimeRankingActivity.this);
     }
 
     @Override
@@ -102,9 +101,9 @@ public class AnimeChartActivity extends AppCompatActivity{
 
     public Drawable getDrawableBasedOnThree(){
         if(three){
-            return AppCompatResources.getDrawable(AnimeChartActivity.this,R.drawable.ic_baseline_view_module_24);
+            return AppCompatResources.getDrawable(AnimeRankingActivity.this,R.drawable.ic_baseline_view_module_24);
         }
-        return AppCompatResources.getDrawable(AnimeChartActivity.this,R.drawable.ic_baseline_view_agenda_24);
+        return AppCompatResources.getDrawable(AnimeRankingActivity.this,R.drawable.ic_baseline_view_agenda_24);
     }
 
     private void setupToolbar(){
