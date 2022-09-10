@@ -62,15 +62,16 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_season.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_anime.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_manga.xml" value="0.176" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_themes.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_themes.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/add_anime_bottom_sheet.xml" value="0.1" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_list_fragment.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_theme_layout.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/cast_item_layout.xml" value="0.125" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/drop_down.xml" value="0.16052631578947368" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/drop_down2.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/drop_down3.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/explore_anime_fragment.xml" value="0.152" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/explore_fragment.xml" value="0.152" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/explore_fragment.xml" value="0.1" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/explore_manga.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_cast_and_crew.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_manga_summary.xml" value="0.264" />

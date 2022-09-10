@@ -45,13 +45,8 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.MyViewHold
         String name=theme.getText();
         holder.nameView.setText(name);
         holder.itemView.setOnClickListener(v -> {
-            String query=name.replace(" ","+");
-            if(position>0){
-                query=getCleanName(name);
-            }
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+query)));
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query="+getCleanName(name))));
         });
-        Log.d("tagg","name: "+name+"\n");
         holder.itemView.setOnLongClickListener(v -> {
             ClipboardManager clipboardManager= (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip= ClipData.newPlainText("ThemeName",name);
@@ -76,6 +71,7 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.MyViewHold
     }
 
     String getCleanName(String name){
+        name=name.replace(" ","+");
         int size=name.length();
         name=name.substring(4,size);
         int index=name.indexOf("(eps");

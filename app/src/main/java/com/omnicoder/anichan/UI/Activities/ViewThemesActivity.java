@@ -20,12 +20,14 @@ public class ViewThemesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityViewThemesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.backButton3.setOnClickListener(v -> finish());
         ViewPager2 viewPager2= binding.viewPager;
         BaseApplication application= (BaseApplication) getApplicationContext();
         viewPager2.setAdapter(new ThemesViewPagerAdapter(this,application.getAnimeThemes()));
-        TabLayout tabLayout=binding.tabLayout2;
+        TabLayout tabLayout=binding.tabLayout;
         new TabLayoutMediator(tabLayout,viewPager2,(tab, position) -> tab.setText(themes[position])).attach();
+        binding.toolbar.setNavigationOnClickListener(v-> finish());
+
     }
+
 
 }

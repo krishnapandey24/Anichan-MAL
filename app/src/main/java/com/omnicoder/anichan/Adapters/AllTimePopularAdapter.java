@@ -17,6 +17,7 @@ import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
 
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,11 +49,13 @@ public class AllTimePopularAdapter extends RecyclerView.Adapter<AllTimePopularAd
         holder.titleView.setText(title);
         holder.imageView.setClipToOutline(true);
         holder.cardView.setOnClickListener(v -> {
-            Intent intent= new Intent(context, ViewAnimeActivity.class);
-            intent.putExtra("media_type",Anime.getMedia_type());
+            Intent intent;
+            if(Anime.getMedia_type().equals("manga")){
+                intent = new Intent(context, ViewMangaActivity.class);
+            }else{
+                intent = new Intent(context, ViewAnimeActivity.class);
+            }
             intent.putExtra("id",Anime.getId());
-            intent.putExtra("single",true);
-            intent.putExtra("seasonNo",0);
             context.startActivity(intent);
         });
 

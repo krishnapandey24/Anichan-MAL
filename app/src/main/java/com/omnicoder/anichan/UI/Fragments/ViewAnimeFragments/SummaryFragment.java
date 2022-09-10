@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -102,12 +103,16 @@ public class SummaryFragment extends Fragment {
 
     private void setupOpeningAndEndingThemes(List<AnimeTheme> opening_themes, List<AnimeTheme> ending_themes) {
         View.OnClickListener onClickListener= v -> {
-            BaseApplication application= (BaseApplication) getContext().getApplicationContext();
-            ArrayList<List<AnimeTheme>> arrayList= new ArrayList<>();
-            arrayList.add(opening_themes);
-            arrayList.add(ending_themes);
-            application.setAnimeThemes(arrayList);
-            startActivity(new Intent(getContext(), ViewThemesActivity.class));
+            if((opening_themes==null || opening_themes.isEmpty()) && (ending_themes==null || ending_themes.isEmpty())){
+                Toast.makeText(context,"No opening or ending themes available",Toast.LENGTH_SHORT).show();
+            }else{
+                BaseApplication application= (BaseApplication) getContext().getApplicationContext();
+                ArrayList<List<AnimeTheme>> arrayList= new ArrayList<>();
+                arrayList.add(opening_themes);
+                arrayList.add(ending_themes);
+                application.setAnimeThemes(arrayList);
+                startActivity(new Intent(getContext(), ViewThemesActivity.class));
+            }
         };
         binding.openingEndingTheme.setOnClickListener(onClickListener);
         binding.imageButton.setOnClickListener(onClickListener);

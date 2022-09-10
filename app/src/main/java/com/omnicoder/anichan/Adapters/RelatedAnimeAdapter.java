@@ -16,6 +16,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.RelatedAnime;
 import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,7 +53,12 @@ public class RelatedAnimeAdapter extends RecyclerView.Adapter<RelatedAnimeAdapte
         holder.relationType.setText(anime.getRelation_type_formatted());
         holder.imageView.setClipToOutline(true);
         holder.cardView.setOnClickListener(v -> {
-            Intent intent= new Intent(context, ViewAnimeActivity.class);
+            Intent intent;
+            if(node.getMedia_type().equals("manga")){
+                intent= new Intent(context, ViewMangaActivity.class);
+            }else{
+                intent= new Intent(context, ViewAnimeActivity.class);
+            }
             intent.putExtra("id",node.getId());
             context.startActivity(intent);
         });
