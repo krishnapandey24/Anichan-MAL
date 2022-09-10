@@ -79,7 +79,10 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     private void setSearchResults(){
-        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString(),binding.tabLayout.getSelectedTabPosition()).subscribe(searchResults-> adapter.submitData(getLifecycle(),searchResults)));
+        int isAnime=binding.tabLayout.getSelectedTabPosition();
+        compositeDisposable.add(viewModel.getSearchResults(binding.searchEditText.getText().toString(),isAnime).subscribe(searchResults-> {
+            adapter.submitData(getLifecycle(),searchResults);
+        }));
     }
 
 

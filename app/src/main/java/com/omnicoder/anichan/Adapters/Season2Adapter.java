@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +21,12 @@ public class Season2Adapter extends RecyclerView.Adapter<Season2Adapter.MyViewHo
     List<Data> dataHolder;
     Context context;
     LayoutBinding binding;
+    boolean isAnime;
 
-    public Season2Adapter(Context context, List<Data> dataHolder){
+    public Season2Adapter(Context context, List<Data> dataHolder,boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.isAnime=isAnime;
     }
 
     public List<Data> getDataHolder() {
@@ -51,11 +54,17 @@ public class Season2Adapter extends RecyclerView.Adapter<Season2Adapter.MyViewHo
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {
-            Intent intent= new Intent(context, ViewAnimeActivity.class);
+            Intent intent;
+            if(isAnime){
+                intent = new Intent(context, ViewAnimeActivity.class);
+            }else{
+                intent = new Intent(context, ViewMangaActivity.class);
+            }
             intent.putExtra("media_type",mediaType);
             intent.putExtra("id",Anime.getId());
             intent.putExtra("seasonNo",0);
             context.startActivity(intent);
+
         });
     }
 

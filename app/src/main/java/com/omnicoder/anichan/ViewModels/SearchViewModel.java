@@ -19,7 +19,6 @@ import kotlinx.coroutines.CoroutineScope;
 @HiltViewModel
 public class SearchViewModel extends ViewModel {
     private final ExploreRepository exploreRepository;
-    public Flowable<PagingData<Animes>> flowable;
 
     @Inject
     public SearchViewModel(ExploreRepository exploreRepository){

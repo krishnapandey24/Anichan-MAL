@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.ExploreView;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.squareup.picasso.Picasso;
 
@@ -21,10 +21,12 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.MyViewHold
     List<Data> dataHolder;
     Context context;
     LayoutBinding binding;
+    boolean isAnime;
 
-    public Top100Adapter(Context context, List<Data> dataHolder){
+    public Top100Adapter(Context context, List<Data> dataHolder,boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.isAnime=isAnime;
     }
 
     @NonNull
@@ -43,15 +45,15 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.MyViewHold
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {
-            Intent intent= new Intent(context, ViewAnimeActivity.class);
-            intent.putExtra("media_type",Anime.getMedia_type());
+            Intent intent;
+            if(isAnime){
+                intent = new Intent(context, ViewAnimeActivity.class);
+            }else{
+                intent = new Intent(context, ViewMangaActivity.class);
+            }
             intent.putExtra("id",Anime.getId());
-            intent.putExtra("single",true);
-            intent.putExtra("seasonNo",0);
             context.startActivity(intent);
         });
-
-
 
     }
 

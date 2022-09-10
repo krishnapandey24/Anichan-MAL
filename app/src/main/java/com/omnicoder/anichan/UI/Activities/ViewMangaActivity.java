@@ -131,10 +131,11 @@ public class ViewMangaActivity extends AppCompatActivity implements AddAnimeBott
                 binding.titleView.setText(manga.getTitle());
                 binding.dateView.setText(manga.getStart_date());
                 binding.ratingView.setText(meanScore);
-                binding.chapterView.setText(String.valueOf(manga.getNum_chapters()));
+                String ranked="#"+manga.getRank();
+                String popularity="#"+manga.getPopularity();
+                binding.popularityView.setText(popularity);
+                binding.rankView.setText(ranked);
                 summary=new MangaSummaryFragment(manga);
-                binding.volumesView.setText(manga.getNum_volumes());
-                binding.chapterView.setText(manga.getNum_chapters());
                 addMangaBottomSheet.setData(manga);
                 setTabLayout(manga);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();

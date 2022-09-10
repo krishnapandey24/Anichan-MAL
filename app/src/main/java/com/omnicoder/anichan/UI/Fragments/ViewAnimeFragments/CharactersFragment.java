@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class CharactersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("tagg","characetr fagment");
         if(animeViewModel==null){
             mangaViewModel.fetchCharacters(id);
             mangaViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);

@@ -2,6 +2,7 @@ package com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.omnicoder.anichan.Adapters.AllTimePopularAdapter;
 import com.omnicoder.anichan.Adapters.RelatedAnimeAdapter;
 import com.omnicoder.anichan.Models.AnimeResponse.RelatedAnime;
+import com.omnicoder.anichan.Models.MangaResponse.Author;
 import com.omnicoder.anichan.Models.MangaResponse.Manga;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.databinding.FragmentMangaSummaryBinding;
@@ -26,8 +28,8 @@ public class MangaSummaryFragment extends Fragment {
     boolean viewMore=true;
     final String viewMore2="View More";
     final String viewLess="View Less";
-    private static final String FINISHED_AIRING="finished_airing";
-    private static final String CURRENTLY_AIRING="currently_airing";
+    private static final String CURRENTLY_PUBLISHING="finished_airing";
+    private static final String NOT_YET_PUBLISHED="currently_airing";
     Context context;
 
     public MangaSummaryFragment(Manga manga){
@@ -45,13 +47,17 @@ public class MangaSummaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context=getContext();
-        binding.statusView.setText(manga.getStatus());
-        binding.authors.setText(manga.getAuthors().toString().replace("[","").replace("]",""));
+        binding.statusView.setText(getPublishingStatus(manga.getStatus()));
+        binding.authorsView.setText(getAuthors(manga.getAuthors()));
         binding.japaneseView.setText(manga.getAlternativeTitles().getJa());
         binding.synonymsView.setText(getAlternateTitles(manga.getAlternativeTitles().getSynonyms()));
-        binding.releaseDateView.setText(manga.getStart_date());
-        binding.endDateView.setText(manga.getEndDate());
-        setRecyclerViews(manga.getRelated_anime(),manga.getRecommendations(),getContext());
+        binding.startView.setText(manga.getStart_date());
+        binding.endView.setText(manga.getEndDate());
+        String volumes= manga.getNum_volumes() == 0 ? "Unknown" : String.valueOf(manga.getNum_volumes());
+        String chapters= manga.getNum_chapters() == 0 ? "Unknown" : String.valueOf(manga.getNum_chapters());
+        binding.volumesView.setText(volumes);
+        binding.chaptersView.setText(chapters);
+        setRecyclerViews(manga.getRelated_manga(),manga.getRecommendations(),getContext());
         binding.viewMore2.setOnClickListener(v -> {
             if(viewMore){
                 binding.synonymsView.setMaxLines(15);
@@ -62,6 +68,17 @@ public class MangaSummaryFragment extends Fragment {
             }
             viewMore=!viewMore;
         });
+    }
+
+    private String getAuthors(List<Author> authors) {
+        StringBuilder stringBuilder=new StringBuilder();
+        for(Author author: authors){
+            String firstName=author.getNode().getFirst_name();
+            String lastName=author.getNode().getLast_name();
+            stringBuilder.append(firstName).append(" ").append(lastName).append(", ");
+        }
+        String name=stringBuilder.toString();
+        return name.substring(0,name.length()-2);
     }
 
 
@@ -81,13 +98,13 @@ public class MangaSummaryFragment extends Fragment {
         binding=null;
     }
 
-    private String getAiringStatus(String status){
-        if(status.equals(FINISHED_AIRING))
-            return "Finished Airing";
-        else if(status.equals(CURRENTLY_AIRING))
-            return "Currently Airing";
+    private String getPublishingStatus(String status){
+        if(status.equals(CURRENTLY_PUBLISHING))
+            return "Currently Publishing";
+        else if(status.equals(NOT_YET_PUBLISHED))
+            return "Not Yet Published";
         else
-            return "Not Yet Aired";
+            return "Finished";
     }
 
     public StringBuilder getAlternateTitles(List<String> titles) {

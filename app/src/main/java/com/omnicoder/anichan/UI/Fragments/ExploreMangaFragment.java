@@ -117,7 +117,7 @@ public class ExploreMangaFragment extends Fragment{
 
     public void setTopManga(List<Data> exploreViews){
         RecyclerView recyclerView= binding.mangaView;
-        TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews);
+        TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(adapter);
         addOnItemTouchListener(recyclerView);
@@ -127,7 +127,7 @@ public class ExploreMangaFragment extends Fragment{
 
     public void setTopManhwa(List<Data> exploreViews){
         RecyclerView recyclerView= binding.manhwaView;
-        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews);
+        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(recyclerView);
@@ -136,7 +136,7 @@ public class ExploreMangaFragment extends Fragment{
 
     public void setTopManhua(List<Data> exploreViews){
         RecyclerView recyclerView= binding.manhuaView;
-        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews);
+        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(recyclerView);

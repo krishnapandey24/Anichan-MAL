@@ -143,7 +143,7 @@ public class ExploreAnimeFragment extends Fragment{
 
     public void setTrending(List<Data> exploreViews){
         RecyclerView recyclerView= binding.trendingView;
-        TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews);
+        TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews,true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(adapter);
         addOnItemTouchListener(recyclerView);
@@ -152,7 +152,7 @@ public class ExploreAnimeFragment extends Fragment{
 
 
     public void setTopUpcoming(List<Data> exploreViews){
-        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews);
+        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews,true);
         binding.upcomingView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.upcomingView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(binding.upcomingView);
@@ -160,7 +160,7 @@ public class ExploreAnimeFragment extends Fragment{
     }
 
     public void setRecommendations(List<Data> exploreViews){
-        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews);
+        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews,true);
         binding.recommendationView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.recommendationView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(binding.recommendationView);

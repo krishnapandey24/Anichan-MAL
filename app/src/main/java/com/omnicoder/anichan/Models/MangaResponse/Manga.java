@@ -17,7 +17,7 @@ public class Manga {
     String end_date;
     String synopsis;
     float mean;
-    float rank;
+    int rank;
     int popularity;
     int num_list_users;
     int num_scoring_users;
@@ -35,7 +35,6 @@ public class Manga {
     List<RelatedAnime> related_manga;
     List<Data> recommendations;
     MangaListStatus my_list_status;
-    Serialization serialization;
 
     public int getId() {
         return id;
@@ -69,7 +68,7 @@ public class Manga {
         return mean;
     }
 
-    public float getRank() {
+    public int getRank() {
         return rank;
     }
 
@@ -145,8 +144,5 @@ public class Manga {
         return my_list_status;
     }
 
-    public Serialization getSerialization() {
-        return serialization;
-    }
 }
 

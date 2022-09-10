@@ -107,7 +107,7 @@ public class ExploreRepository {
 
 
     public Observable<Manga> getManga(int id){
-        return malApi.getMangaDetails(accessToken,id);
+        return malApi.getMangaDetails(accessToken,id,Constants.MANGA_DETAILS_FIELDS);
     }
 
     public Observable<RankingResponse> get9TopManga(){

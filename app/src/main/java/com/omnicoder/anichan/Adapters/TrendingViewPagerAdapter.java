@@ -17,6 +17,7 @@ import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,11 +27,12 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewPagerAdapter.MyViewHolder> {
     List<Data> dataHolder;
     Context context;
+    boolean isAnime;
 
-
-    public TrendingViewPagerAdapter(Context context, List<Data> dataHolder){
+    public TrendingViewPagerAdapter(Context context, List<Data> dataHolder,boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.isAnime=isAnime;
     }
 
     @NonNull
@@ -53,9 +55,15 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
         holder.formatView.setText(Anime.getMedia_type());
         holder.genresView.setText(getGenres(Anime.getGenres()));
         holder.cardView.setOnClickListener(v -> {
-            Intent intent= new Intent(context,ViewAnimeActivity.class);
+            Intent intent;
+            if(isAnime){
+                intent = new Intent(context, ViewAnimeActivity.class);
+            }else{
+                intent = new Intent(context, ViewMangaActivity.class);
+            }
             intent.putExtra("id",Anime.getId());
             context.startActivity(intent);
+
         });
     }
 

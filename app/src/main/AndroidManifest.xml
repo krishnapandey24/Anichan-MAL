@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
         <activity
-            android:name=".ViewMangaActivity"
+            android:name=".UI.Activities.ViewMangaActivity"
+            android:parentActivityName=".UI.Activities.MainActivity"
             android:exported="false" />
         <activity
             android:name=".UI.Activities.TestActivity"

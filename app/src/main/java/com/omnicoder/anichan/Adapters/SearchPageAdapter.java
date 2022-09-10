@@ -18,6 +18,7 @@ import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter.MyViewHolder> {
@@ -29,6 +30,7 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
         super(diffCallBack);
         this.context=context;
     }
+
 
     @NonNull
     @Override
@@ -49,7 +51,12 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
             holder.titleView.setText(node.getTitle());
             holder.imageView.setClipToOutline(true);
             holder.itemView.setOnClickListener(v -> {
-                Intent intent= new Intent(context, ViewAnimeActivity.class);
+                Intent intent;
+                if(node.getMedia_type().equals("manga")){
+                    intent = new Intent(context, ViewMangaActivity.class);
+                }else{
+                    intent = new Intent(context, ViewAnimeActivity.class);
+                }
                 intent.putExtra("id",node.getId());
                 context.startActivity(intent);
             });

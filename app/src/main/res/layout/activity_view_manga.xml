@@ -135,7 +135,7 @@
             app:layout_constraintTop_toBottomOf="@+id/posterView" />
 
         <TextView
-            android:id="@+id/chapterView"
+            android:id="@+id/popularityView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -145,11 +145,11 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/volumesView"
+            app:layout_constraintStart_toEndOf="@+id/rankView"
             app:layout_constraintTop_toBottomOf="@+id/backgroundPoster" />
 
         <TextView
-            android:id="@+id/volumesView"
+            android:id="@+id/rankView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -171,7 +171,7 @@
             android:textColor="@color/viewAnimeMainTextColor"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/volumesView"
+            app:layout_constraintEnd_toStartOf="@+id/rankView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backgroundPoster" />
 
@@ -180,12 +180,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Chapters"
+            android:text="Popularity"
             android:textColor="@color/viewAnimeMainTextColor"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/chapterView"
-            app:layout_constraintStart_toStartOf="@+id/chapterView"
-            app:layout_constraintTop_toBottomOf="@+id/chapterView" />
+            app:layout_constraintEnd_toEndOf="@+id/popularityView"
+            app:layout_constraintStart_toStartOf="@+id/popularityView"
+            app:layout_constraintTop_toBottomOf="@+id/popularityView" />
 
         <TextView
             android:id="@+id/volumesViewText"
@@ -193,12 +193,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingHorizontal="10dp"
-            android:text="Volumes"
+            android:text="Ranked"
             android:textColor="@color/viewAnimeMainTextColor"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/volumesView"
-            app:layout_constraintStart_toStartOf="@+id/volumesView"
-            app:layout_constraintTop_toBottomOf="@+id/volumesView" />
+            app:layout_constraintEnd_toEndOf="@+id/rankView"
+            app:layout_constraintStart_toStartOf="@+id/rankView"
+            app:layout_constraintTop_toBottomOf="@+id/rankView" />
 
         <TextView
             android:id="@+id/ratingView2"

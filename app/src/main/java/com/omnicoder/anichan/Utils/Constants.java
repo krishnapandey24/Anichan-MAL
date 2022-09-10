@@ -24,5 +24,6 @@ public class Constants {
     public static final String POPULAR="bypopularity";
     public static final String SEASON_SORT="anime_num_list_users";
     public static final String MOVIE="movie";
+    public static final String MANGA_DETAILS_FIELDS="id,title,main_picture,synopsis,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations";
 
 }

@@ -49,7 +49,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return malApi.searchAnime(accessToken,isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset)
+            return malApi.searchAnime(accessToken,isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,"media_type")
                     .subscribeOn(Schedulers.io())
                     .flattenAsObservable(searchResponse -> {
                         List<Data> results=searchResponse.getData();

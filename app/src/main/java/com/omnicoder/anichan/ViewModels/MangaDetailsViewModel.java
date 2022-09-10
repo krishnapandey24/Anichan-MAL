@@ -49,7 +49,7 @@ public class MangaDetailsViewModel extends ViewModel {
     }
 
     public void fetchCharacters(int id){
-        compositeDisposable.add(repository.getCharacters(id)
+        compositeDisposable.add(repository.getMangaCharacters(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(characterResponse -> characters.setValue(characterResponse.getData()), Throwable::printStackTrace)

@@ -121,7 +121,9 @@ public interface MalApi {
             @Query("q") String query,
             @Query("limit") int limit,
             @Query("nsfw") Boolean nsfw,
-            @Query("offset") int offset
+            @Query("offset") int offset,
+            @Query("fields") String fields
+
     );
 
     @GET("anime/{anime_id}?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics,opening_themes,ending_themes,my_list_status")
@@ -159,10 +161,12 @@ public interface MalApi {
             @Query("offset") int offset
     );
 
-    @GET("manga/{manga_id}?fields=id,title,main_picture,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}")
+    @GET("manga/{manga_id}?fields=id,title,main_picture,synopsis,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors,pictures,background,related_anime,related_manga,recommendations")
     Observable<Manga> getMangaDetails(
             @Header("Authorization") String accessToken,
-            @Path("manga_id") int id
+            @Path("manga_id") int id,
+            @Query("fields") String fields
+
     );
 
     @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters")
