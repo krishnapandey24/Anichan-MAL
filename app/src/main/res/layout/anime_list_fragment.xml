@@ -23,7 +23,7 @@
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="@color/bgWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,6 +31,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:background="@color/bgWhite"
             android:layout_height="?attr/actionBarSize"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -42,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
+            android:background="@color/bgWhite"
             app:layout_collapseMode="pin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -58,6 +60,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabIndicatorColor="@color/viewAnimeMainTextColor"
                 app:tabMode="auto"
+                app:tabBackground="@color/bgWhite"
                 app:tabSelectedTextColor="@color/viewAnimeMainTextColor"
                 app:tabTextColor="@color/textColor">
 
