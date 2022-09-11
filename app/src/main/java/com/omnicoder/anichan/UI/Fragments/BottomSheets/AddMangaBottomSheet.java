@@ -21,14 +21,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
+import com.omnicoder.anichan.Database.UserManga;
 import com.omnicoder.anichan.Models.MangaResponse.Manga;
+import com.omnicoder.anichan.Models.MangaResponse.MangaListStatus;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
-import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
+import com.omnicoder.anichan.databinding.MangaBottomSheetBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,20 +37,19 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class AddMangaBottomSheet extends BottomSheetDialogFragment {
-    AddAnimeBottomSheetBinding binding;
-    Anime anime;
+    MangaBottomSheetBinding binding;
     Manga manga;
-    String status="Plan To Watch",startDate,finishDate,todayDate,selectedStatus;
-    int score=0,noOfEpisodes=0,totalEpisodes,statusPosition;
-    AnimeAdded animeAdded;
-    AnimeListStatus animeListStatus;
-    boolean rewatching=false;
+    String status="Plan To Read",startDate,finishDate,todayDate,selectedStatus;
+    int score=0,noOfVolumes=0,noOfChapters,totalVolumes,totalChapters,statusPosition;
+    MangaAdded mangaAdded;
+    MangaListStatus mangaListStatus;
+    boolean rereading =false;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=AddAnimeBottomSheetBinding.inflate(inflater,container,false);
+        binding=MangaBottomSheetBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 
@@ -62,51 +59,54 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
         initDatePicker();
         initSpinner();
         initSeekbar();
-        initEpisodeCounter();
+        initCounters();
         initButtons();
         AlreadyAdded();
     }
 
     private void AlreadyAdded() {
-        if(animeListStatus!=null){
-            status=animeListStatus.getStatus();
+        if(mangaListStatus!=null){
+            status=mangaListStatus.getStatus();
             switch (status){
                 case "watching":
                     statusPosition=0;
-                    rewatching=false;
+                    rereading =false;
                     break;
-                case "plan_to_watch":
+                case "plan_to_read":
                     statusPosition=1;
-                    rewatching=false;
+                    rereading =false;
                     break;
                 case "completed":
                     statusPosition=2;
-                    rewatching=false;
+                    rereading =false;
                     break;
                 case "on_hold":
                     statusPosition=3;
-                    rewatching=false;
+                    rereading =false;
                     break;
                 case "dropped":
                     statusPosition=4;
                     break;
             }
             binding.spinner.setSelection(statusPosition);
-            binding.editText.setText(String.valueOf(animeListStatus.getNum_episodes_watched()));
-            binding.seekBar.setProgress(animeListStatus.getScore());
-            startDate=animeListStatus.getStart_date();
+            binding.editVolumes.setText(String.valueOf(mangaListStatus.getNum_volumes_read()));
+            binding.editChapters.setText(String.valueOf(manga.getNum_chapters()));
+            binding.seekBar.setProgress(mangaListStatus.getScore());
+            startDate=mangaListStatus.getStart_date();
             if(startDate!=null){
-                binding.pickStartDate.setText(animeListStatus.getStart_date());
+                binding.pickStartDate.setText(mangaListStatus.getStart_date());
             }
-            finishDate=animeListStatus.getFinish_date();
+            finishDate=mangaListStatus.getFinish_date();
             if(finishDate!=null){
-                binding.pickFinishDate.setText(animeListStatus.getFinish_date());
+                binding.pickFinishDate.setText(mangaListStatus.getFinish_date());
             }
-            noOfEpisodes= animeListStatus.getNum_episodes_watched();
-            startDate=animeListStatus.getStart_date();
-            finishDate=animeListStatus.getFinish_date();
-            score=animeListStatus.getScore();
-            binding.editText.setText(String.valueOf(noOfEpisodes));
+            noOfVolumes= mangaListStatus.getNum_volumes_read();
+            noOfChapters= mangaListStatus.getNum_chapters_read();
+            startDate=mangaListStatus.getStart_date();
+            finishDate=mangaListStatus.getFinish_date();
+            score=mangaListStatus.getScore();
+            binding.editVolumes.setText(String.valueOf(noOfVolumes));
+            binding.editChapters.setText(String.valueOf(noOfChapters));
         }
     }
 
@@ -116,7 +116,8 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
 
 
     private void initSpinner() {
-        String[] statuses =getResources().getStringArray(R.array.Statuses2);
+        String[] statuses =getResources().getStringArray(R.array.MangaStatuses);
+        String[] malStatus=getResources().getStringArray(R.array.malMangaStatuses);
         ArrayAdapter<String> statusAdapter= new ArrayAdapter<String>(getContext(),R.layout.drop_down3,statuses){
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -136,25 +137,27 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
                 switch (position){
                     case 0:
                         binding.pickStartDate.setText(todayDate);
-                        selectedStatus="watching";
+                        selectedStatus=malStatus[0];
                         break;
                     case 1:
-                        binding.editText.setText("0");
-                        selectedStatus="plan_to_watch";
+                        binding.editVolumes.setText("0");
+                        binding.editChapters.setText("0");
+                        selectedStatus=malStatus[1];
                         break;
                     case 2:
-                        binding.editText.setText(String.valueOf(totalEpisodes));
-                        selectedStatus="completed";
+                        binding.editVolumes.setText(String.valueOf(totalVolumes));
+                        binding.editChapters.setText(String.valueOf(totalChapters));
+                        selectedStatus=malStatus[2];
                         break;
                     case 3:
-                        selectedStatus="on_hold";
+                        selectedStatus=malStatus[3];
                         break;
                     case 4:
-                        selectedStatus="dropped";
+                        selectedStatus=malStatus[4];
                         break;
                     case 5:
-                        selectedStatus="watching";
-                        rewatching=true;
+                        selectedStatus=malStatus[1];
+                        rereading =true;
                         break;
                 }
             }
@@ -239,26 +242,46 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
         });
     }
 
-    private void initEpisodeCounter(){
+    private void initCounters(){
         Context context=getContext();
-        binding.addButton2.setOnClickListener(v -> {
-            noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            if(totalEpisodes==0){
-                Toast.makeText(context,"Episodes haven't released yet",Toast.LENGTH_SHORT).show();
+        binding.addButton.setOnClickListener(v -> {
+            noOfVolumes=Integer.parseInt(binding.editVolumes.getText().toString());
+            if(totalVolumes==0){
+                Toast.makeText(context,"Volumes haven't released yet",Toast.LENGTH_SHORT).show();
             }
-            else if(noOfEpisodes==totalEpisodes){
-                Toast.makeText(context,anime.getTitle()+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
+            else if(noOfVolumes==totalVolumes){
+                Toast.makeText(context,manga.getTitle()+" Only have "+totalVolumes+" volumes.",Toast.LENGTH_SHORT).show();
             }else {
-                noOfEpisodes++;
-                binding.editText.setText(String.valueOf(noOfEpisodes));
+                noOfVolumes++;
+                binding.editVolumes.setText(String.valueOf(noOfVolumes));
             }
 
         });
 
-        binding.minusButton2.setOnClickListener(v -> {
-            noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            noOfEpisodes= noOfEpisodes!=0 ? noOfEpisodes-1 : 0;
-            binding.editText.setText(String.valueOf(noOfEpisodes));
+        binding.minusButton.setOnClickListener(v -> {
+            noOfVolumes=Integer.parseInt(binding.editVolumes.getText().toString());
+            noOfVolumes= noOfVolumes!=0 ? noOfVolumes-1 : 0;
+            binding.editVolumes.setText(String.valueOf(noOfVolumes));
+        });
+
+        binding.addChapters.setOnClickListener(v -> {
+            noOfChapters=Integer.parseInt(binding.editChapters.getText().toString());
+            if(totalChapters==0){
+                Toast.makeText(context,"Chapters haven't released yet",Toast.LENGTH_SHORT).show();
+            }
+            else if(noOfChapters==totalChapters){
+                Toast.makeText(context,manga.getTitle()+" Only have "+totalChapters+" chapters.",Toast.LENGTH_SHORT).show();
+            }else {
+                noOfChapters++;
+                binding.editChapters.setText(String.valueOf(noOfChapters));
+            }
+
+        });
+
+        binding.minusChapter.setOnClickListener(v -> {
+            noOfChapters=Integer.parseInt(binding.editChapters.getText().toString());
+            noOfChapters= noOfChapters!=0 ? noOfChapters-1 : 0;
+            binding.editChapters.setText(String.valueOf(noOfChapters));
         });
     }
 
@@ -299,28 +322,23 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initButtons(){
         binding.addToListButton.setOnClickListener(v -> {
-            animeAdded.startLoading();
+            mangaAdded.startLoading();
+            int volumes=Integer.parseInt(binding.editVolumes.getText().toString());
+            int chapters=Integer.parseInt(binding.editChapters.getText().toString());
             UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-            updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()));
-            animeAdded.setResponseToObserve(updateAnimeViewModel.getResponse());
-            String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
-            StartSeason startSeason= anime.getStart_season();
-            String season;
-            if(startSeason==null){
-                season="";
-            }else{
-                season=startSeason.getSeason() + " " + startSeason.getYear();
-            }
-            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching);
-            updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
-            animeAdded.setStatus(status);
+            updateAnimeViewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
+            mangaAdded.setResponseToObserve(updateAnimeViewModel.getResponse());
+            String mainPicture=manga.getMainPicture()==null ? "" : manga.getMainPicture().getMedium();
+            UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading);
+            updateAnimeViewModel.insertOrUpdateMangaInList(userManga);
+            mangaAdded.setStatus(status);
             dismiss();
         });
 
         binding.cancelButton.setOnClickListener(v -> dismiss());
     }
 
-    public interface AnimeAdded{
+    public interface MangaAdded{
         void setStatus(String status);
         void startLoading();
         void setResponseToObserve(MutableLiveData<Boolean> response);
@@ -328,22 +346,21 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
 
 
 
-    public void setData(Anime anime) {
-        this.anime=anime;
-        this.totalEpisodes=anime.getNum_episodes();
-        this.animeListStatus=anime.getMy_list_status();
+    public void setData(Manga manga) {
+        this.manga=manga;
+        this.totalVolumes=manga.getNum_volumes();
+        this.totalChapters=manga.getNum_chapters();
+        this.mangaListStatus=manga.getMy_list_status();
     }
 
-    public void setData(Manga manga){
-        this.manga=manga;
-    }
+
 
 
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        animeAdded=(AnimeAdded) context;
+        mangaAdded=(MangaAdded) context;
     }
 
 

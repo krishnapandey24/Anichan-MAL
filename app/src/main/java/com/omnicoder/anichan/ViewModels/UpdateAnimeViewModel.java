@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.Database.UserManga;
 import com.omnicoder.anichan.Repository;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ public class UpdateAnimeViewModel extends ViewModel {
         return updateAnimeResponse;
     }
 
+    // TODO: 10-Sep-22 add functions for anime
 
 
     public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
@@ -63,6 +65,11 @@ public class UpdateAnimeViewModel extends ViewModel {
                 .subscribe()
         );
     }
+
+    public void insertOrUpdateMangaInList(UserManga userManga){
+        // TODO: 10-Sep-22 Complete this function
+    }
+
 
     public void addEpisode(int id,int numberOfEpisodesWatched){
         compositeDisposable.add(repository.addEpisode(id,numberOfEpisodesWatched)
@@ -102,6 +109,24 @@ public class UpdateAnimeViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         );
+    }
+
+
+    public void updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer noOfVolumes,Integer noOfChapters){
+//        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(response -> {
+//                    if(response!=null){
+//                        updateAnimeResponse.setValue(true);
+//                    }else{
+//                        updateAnimeResponse.setValue(false);
+//                    }
+//                }, throwable -> {
+//                    response.setValue(false);
+//                    throwable.printStackTrace();
+//                })
+//        );
     }
 
 

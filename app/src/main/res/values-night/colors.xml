@@ -45,7 +45,8 @@
 <!--    <color name="textColor">#647380</color>-->
     <color name="searchBarIconColor">#757A81</color>
     <color name="bottomSheetBackground">@color/darkBlue</color>
-    <color name="bottomSheetMainTextColor">@color/textColor</color>
+<!--    <color name="bottomSheetMainTextColor">@color/textColor</color>-->
+    <color name="bottomSheetMainTextColor">@color/white</color>
     <color name="transparentBlueColor">#102F80ED</color>
     <color name="drop_down_arrow_color">@color/black</color>
     <color name="grey">#647380</color>

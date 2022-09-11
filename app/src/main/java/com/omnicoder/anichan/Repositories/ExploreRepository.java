@@ -34,7 +34,6 @@ public class ExploreRepository {
     private static final String MANGA="manga";
     private static final String MANHWA="manhwa";
     private static final String MANHUA="manhua";
-    private static final String ONE_SHOTS="oneshots";
     private static final String UPCOMING="upcoming";
     private static final String FIELDS="media_type,mean,genres";
     MalApi malApi;
@@ -85,7 +84,7 @@ public class ExploreRepository {
 
 
     public Observable<Anime> getAnime(int id){
-        return malApi.getAnimeDetails(accessToken,id);
+        return malApi.getAnimeDetails(accessToken,id,Constants.ANIME_DETAILS_FIELDS);
     }
 
     public Observable<VideoResponse> getVideos(int id){

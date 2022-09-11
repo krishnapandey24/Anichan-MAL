@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.tabs.TabLayout;
 import com.omnicoder.anichan.Models.MangaResponse.Manga;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.AddAnimeBottomSheet;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.AddMangaBottomSheet;
 import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.CharactersFragment;
 import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.MangaSummaryFragment;
@@ -32,7 +31,7 @@ import java.util.Locale;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ViewMangaActivity extends AppCompatActivity implements AddAnimeBottomSheet.AnimeAdded {
+public class ViewMangaActivity extends AppCompatActivity implements AddMangaBottomSheet.MangaAdded {
     ActivityViewMangaBinding binding;
     MangaDetailsViewModel viewModel;
     boolean viewMore=true;

@@ -114,7 +114,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
 
 
     private void initSpinner() {
-        String[] statuses =getResources().getStringArray(R.array.Statuses2);
+        String[] statuses =getResources().getStringArray(R.array.AnimeStatuses);
         ArrayAdapter<String> statusAdapter= new ArrayAdapter<String>(getContext(),R.layout.drop_down3,statuses){
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -253,7 +253,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
 
         });
 
-        binding.minusButton2.setOnClickListener(v -> {
+        binding.minusButton.setOnClickListener(v -> {
             noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
             noOfEpisodes= noOfEpisodes!=0 ? noOfEpisodes-1 : 0;
             binding.editText.setText(String.valueOf(noOfEpisodes));

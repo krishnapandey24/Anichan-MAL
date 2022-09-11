@@ -95,7 +95,7 @@
         <item>All</item>
     </string-array>
 
-    <string-array name="Statuses2">
+    <string-array name="AnimeStatuses">
         <item>Watching</item>
         <item>Plan To Watch</item>
         <item>Completed</item>
@@ -103,6 +103,24 @@
         <item>Dropped</item>
         <item>Rewatching</item>
     </string-array>
+
+    <string-array name="MangaStatuses">
+        <item>Reading</item>
+        <item>Plan To Read</item>
+        <item>Completed</item>
+        <item>On Hold</item>
+        <item>Dropped</item>
+        <item>Rereading</item>
+    </string-array>
+
+    <string-array name="malMangaStatuses">
+        <item>reading</item>
+        <item>plan_to_read</item>
+        <item>completed</item>
+        <item>on_hold</item>
+        <item>dropped</item>
+    </string-array>
+
 
     <string-array name="mal_statuses">
         <item>watching</item>

@@ -9,26 +9,46 @@
     android:background="@drawable/model_bottom_sheet_background">
 
     <ImageButton
-        android:id="@+id/addButton2"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="@+id/editVolumes"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view6"
         app:layout_constraintTop_toTopOf="@+id/editVolumes" />
+
+    <ImageButton
+        android:id="@+id/addChapters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="@+id/editChapters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editChapters" />
 
     <ImageButton
         android:id="@+id/minusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_remove"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintStart_toEndOf="@+id/view6"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
+        app:layout_constraintBottom_toBottomOf="@+id/editVolumes"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="@+id/editVolumes" />
+
+    <ImageButton
+        android:id="@+id/minusChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/editChapters"
+        app:layout_constraintStart_toStartOf="@+id/chapters"
+        app:layout_constraintTop_toTopOf="@+id/editChapters" />
 
     <View
         android:id="@+id/view6"
@@ -58,11 +78,24 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Episodes: "
+        android:text="Volumes:"
+        android:textColor="@color/bottomSheetMainTextColor"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
+        android:id="@+id/chapters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Chapters"
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/view6"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -78,6 +111,7 @@
         tools:listitem="@layout/drop_down3" />
 
     <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -87,7 +121,7 @@
         app:layout_constraintTop_toTopOf="@+id/spinner" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editVolumes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -99,9 +133,26 @@
         android:backgroundTint="@color/pickDateColor"
         android:textColor="@color/pickDateColor"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/addButton2"
+        app:layout_constraintEnd_toStartOf="@+id/addButton"
         app:layout_constraintStart_toEndOf="@+id/minusButton"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <EditText
+        android:id="@+id/editChapters"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/pickDateColor"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="@color/pickDateColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/addChapters"
+        app:layout_constraintStart_toEndOf="@+id/minusChapter"
+        app:layout_constraintTop_toBottomOf="@+id/chapters" />
 
     <TextView
         android:id="@+id/textView20"
@@ -114,7 +165,7 @@
         android:textColor="@color/bottomSheetMainTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editVolumes" />
 
     <TextView
         android:id="@+id/givenScoreView"
@@ -127,7 +178,7 @@
         android:textColor="@color/notScoredYet"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editVolumes" />
 
     <SeekBar
         android:id="@+id/seekBar"
