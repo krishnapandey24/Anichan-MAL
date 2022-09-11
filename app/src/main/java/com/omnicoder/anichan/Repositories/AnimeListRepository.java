@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.omnicoder.anichan.Database.AnimeDB;
+import com.omnicoder.anichan.Database.UserListDB;
 import com.omnicoder.anichan.Database.AnimeDao;
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
@@ -12,7 +12,7 @@ import com.omnicoder.anichan.Models.AnimeListResponse.UserListAnime;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
-import com.omnicoder.anichan.Network.MalApi;
+import com.omnicoder.anichan.Models.UpdateAnimeResponse;
 import com.omnicoder.anichan.Network.MalApi;
 import com.omnicoder.anichan.Utils.Constants;
 
@@ -30,17 +30,17 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class AnimeListRepository {
     AnimeDao animeDao;
-    AnimeDB animeDB;
+    UserListDB userListDB;
     MalApi malApi;
     String accessToken;
 
 
     @Inject
-    public AnimeListRepository(AnimeDao animeDao, Context context, AnimeDB animeDB, MalApi malApi){
+    public AnimeListRepository(AnimeDao animeDao, Context context, UserListDB userListDB, MalApi malApi){
         this.animeDao=animeDao;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
         this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
-        this.animeDB=animeDB;
+        this.userListDB = userListDB;
         this.malApi=malApi;
 
     }
@@ -129,6 +129,54 @@ public class AnimeListRepository {
         }
 
     }
+
+
+    public Observable<UpdateAnimeResponse> updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
+        return malApi.updateAnime(accessToken,
+                id,
+                status,
+                isRewatching,
+                score,
+                numOfWatchedEpisodes,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
+
+
+    public Completable addOrUpdateAnimeInList(UserAnime userAnime){
+        return animeDao.insertOrUpdateAnime(userAnime);
+    }
+
+
+    public Completable addEpisode(int id,int numberOfEpisodesWatched){
+        return malApi.addEpisode(accessToken,id,numberOfEpisodesWatched);
+    }
+
+    public Completable animeCompleted(int id){
+        return malApi.animeCompleted(accessToken,id,"completed");
+    }
+
+    public Completable deleteAnime(int id){
+        return malApi.deleteAnimeFromList(accessToken,id);
+    }
+
+    public Completable addEpisodeInDB(int id,int numberOfEpisodesWatched){
+        return animeDao.addEpisode(id,numberOfEpisodesWatched);
+    }
+
+    public Completable animeCompletedInDB(int id){
+        return animeDao.animeCompleted(id,"completed");
+    }
+
+    public Completable deleteAnimeFromDB(int id){
+        return animeDao.deleteAnimeFromList(id);
+    }
+
+
 
 
 }

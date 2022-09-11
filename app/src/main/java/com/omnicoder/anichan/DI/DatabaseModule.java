@@ -4,7 +4,8 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.omnicoder.anichan.Database.AnimeDB;
+import com.omnicoder.anichan.Database.MangaDao;
+import com.omnicoder.anichan.Database.UserListDB;
 import com.omnicoder.anichan.Database.AnimeDao;
 
 import com.omnicoder.anichan.Utils.Constants;
@@ -22,8 +23,8 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    AnimeDB provideAnimeDB(Application application){
-        return Room.databaseBuilder(application,AnimeDB.class, Constants.DATABASE_NAME)
+    UserListDB provideAnimeDB(Application application){
+        return Room.databaseBuilder(application, UserListDB.class, Constants.DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
@@ -33,9 +34,19 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-     AnimeDao provideAnimeDao(AnimeDB animeDB){
-        return animeDB.animeDao();
+     AnimeDao provideAnimeDao(UserListDB userListDB){
+        return userListDB.animeDao();
     }
+
+    @Provides
+    @Singleton
+    MangaDao provideMangaDao(UserListDB userListDB){
+        return userListDB.mangaDao();
+    }
+
+
+
+
 
 
 

@@ -10,29 +10,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Database.AnimeList;
 import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.databinding.FragmentTabBinding;
 
 
-public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.PageHolder> implements UpdateAnimeBottomSheet.UpdateAnime, AnimeListAdapter.MyViewHolder.UpdateAnimeList {
+public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAdapter.PageHolder> implements UpdateAnimeBottomSheet.UpdateAnime, AnimeListAdapter.MyViewHolder.UpdateAnimeList {
     Context context;
     String[] tabs;
     FragmentTabBinding binding;
     AnimeListViewModel viewModel;
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
-    PagerAdapterInterface pagerAdapterInterface;
+    AnimePagerAdapterInterface animePagerAdapterInterface;
     String sortBy;
-    boolean b=true;
+    boolean updateList =true;
 
-    public ViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, PagerAdapterInterface pagerAdapterInterface, String sortBy){
+    public AnimeViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, AnimePagerAdapterInterface animePagerAdapterInterface, String sortBy){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
         this.lifecycleOwner=lifecycleOwner;
-        this.pagerAdapterInterface = pagerAdapterInterface;
+        this.animePagerAdapterInterface = animePagerAdapterInterface;
         this.sortBy=sortBy;
     }
 
@@ -46,14 +45,14 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     @Override
     public void onBindViewHolder(@NonNull PageHolder holder, int position) {
         viewModel.getAnimeList(position,sortBy).observe(lifecycleOwner, animeList-> {
-            if(b) {
+            if(updateList) {
                 recyclerView = holder.binding.recyclerView;
-                AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, ViewPagerAdapter.this,ViewPagerAdapter.this);
+                AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, AnimeViewPagerAdapter.this, AnimeViewPagerAdapter.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adapter);
             }
         });
-        b=true;
+        updateList=true;
     }
 
 
@@ -67,38 +66,38 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     @Override
     public void updateAnime(UserAnime userAnime, int position) {
-        pagerAdapterInterface.updateAnime(userAnime,position);
+        animePagerAdapterInterface.updateAnime(userAnime,position);
     }
 
     @Override
     public void deleteAnime(int id) {
-        b=true;
-        pagerAdapterInterface.deleteAnime(id);
+        updateList=true;
+        animePagerAdapterInterface.deleteAnime(id);
 
     }
 
     @Override
     public void addEpisode(int id,int noOfEpisodesWatched) {
-        b=false;
-        pagerAdapterInterface.addEpisode(id,noOfEpisodesWatched);
+        updateList =false;
+        animePagerAdapterInterface.addEpisode(id,noOfEpisodesWatched);
 
     }
 
     @Override
     public void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet) {
-        pagerAdapterInterface.showEditor(updateAnimeBottomSheet);
+        animePagerAdapterInterface.showEditor(updateAnimeBottomSheet);
 
     }
 
     @Override
     public void animeComplete(int id, String name) {
-        b=true;
-        pagerAdapterInterface.animeCompleted(id,name);
+        updateList =true;
+        animePagerAdapterInterface.animeCompleted(id,name);
 
     }
 
 
-    public interface PagerAdapterInterface {
+    public interface AnimePagerAdapterInterface {
         void updateAnime(UserAnime userAnime, int position);
         void addEpisode(int id,int noOfEpisodesWatched);
         void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);

@@ -160,7 +160,6 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
                         binding.givenScoreView.setText("10 (Masterpiece)");
                         binding.givenScoreView.setTextColor(blue);
                         break;
-
                 }
             }
 
@@ -184,7 +183,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         Context context = getContext();
         String title = manga.getTitle();
         binding.editVolumes.setText(String.valueOf(manga.getNoOfVolumesRead()));
-        binding.editChapters.setText(String.valueOf(manga.getGetNoOfChaptersRead()));
+        binding.editChapters.setText(String.valueOf(manga.getNoOfChaptersRead()));
         binding.addButton.setOnClickListener(v -> {
             noOfVolumes = Integer.parseInt(binding.editVolumes.getText().toString());
             if (noOfVolumes == totalVolumes) {
@@ -294,7 +293,6 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
 
     public interface UpdateManga {
         void updateManga(UserManga manga, int position);
-
         void deleteManga(int id);
     }
 

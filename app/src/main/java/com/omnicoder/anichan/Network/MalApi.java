@@ -4,6 +4,8 @@ package com.omnicoder.anichan.Network;
 import com.omnicoder.anichan.Models.AccessToken;
 import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.Models.AnimeResponse.Anime;
+import com.omnicoder.anichan.Models.MangaListResponse.UpdateMangaResponse;
+import com.omnicoder.anichan.Models.MangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.Models.MangaResponse.Manga;
 import com.omnicoder.anichan.Models.Responses.RankingResponse;
 import com.omnicoder.anichan.Models.UpdateAnimeResponse;
@@ -171,9 +173,50 @@ public interface MalApi {
     );
 
     @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters")
-    Observable<UserAnimeListResponse> getUserMangaList(
+    Observable<UserMangaListResponse> getUserMangaList(
             @Header("Authorization") String accessToken,
             @Query("limit") int limit
+    );
+
+    @FormUrlEncoded
+    @PATCH("manga/{manga_id}/my_list_status")
+    Completable mangaCompleted(
+            @Header("Authorization") String accessToken,
+            @Path("manga_id") Integer manga_id,
+            @Field("status") String status
+    );
+
+    @FormUrlEncoded
+    @DELETE("manga/{manga_id}/my_list_status")
+    Completable deleteMangaFromList(
+            @Header("Authorization") String accessToken,
+            @Path("manga_id") Integer manga_id
+    );
+
+
+    @FormUrlEncoded
+    @PATCH("manga/{manga_id}/my_list_status")
+    Observable<UpdateMangaResponse> updateManga(
+            @Header("Authorization") String accessToken,
+            @Path("manga_id") Integer manga_id,
+            @Field("status") String status,
+            @Field("is_rereading") Boolean is_rewatching,
+            @Field("score") Integer score,
+            @Field("num_volumes_read") Integer noOfVolumesRead,
+            @Field("num_chapters_read") Integer noOfChaptersRead,
+            @Field("priority") Integer priority,
+            @Field("num_times_reread") Integer numTimeReRead,
+            @Field("reread_value") Integer reReadValue,
+            @Field("tags") String tags,
+            @Field("comments") String comments
+    );
+
+    @FormUrlEncoded
+    @PATCH("anime/{anime_id}/my_list_status")
+    Completable addChapters(
+            @Header("Authorization") String accessToken,
+            @Path("anime_id") Integer anime_id,
+            @Field("num_chapters_read") Integer noOfChaptersRead
     );
 
 

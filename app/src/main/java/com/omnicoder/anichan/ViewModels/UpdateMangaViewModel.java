@@ -3,8 +3,10 @@ package com.omnicoder.anichan.ViewModels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Repositories.AnimeListRepository;
+import com.omnicoder.anichan.Database.UserManga;
+import com.omnicoder.anichan.Database.UserManga;
+import com.omnicoder.anichan.Repositories.MangaListRepository;
+import com.omnicoder.anichan.Repository;
 
 import javax.inject.Inject;
 
@@ -14,14 +16,14 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
-public class UpdateAnimeViewModel extends ViewModel {
+public class UpdateMangaViewModel extends ViewModel {
     MutableLiveData<Boolean> response = new MutableLiveData<>();
-    MutableLiveData<Boolean> updateAnimeResponse = new MutableLiveData<>();
+    MutableLiveData<Boolean> updateMangaResponse = new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
-    AnimeListRepository repository;
+    MangaListRepository repository;
 
     @Inject
-    public UpdateAnimeViewModel(AnimeListRepository repository){
+    public UpdateMangaViewModel(MangaListRepository repository){
         this.repository=repository;
     }
 
@@ -29,20 +31,20 @@ public class UpdateAnimeViewModel extends ViewModel {
         return response;
     }
 
-    public MutableLiveData<Boolean> getUpdateAnimeResponse() {
-        return updateAnimeResponse;
+    public MutableLiveData<Boolean> getUpdateMangaResponse() {
+        return updateMangaResponse;
     }
+    
 
-
-    public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
-        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
+    public void updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer noOfVolumesRead,Integer noOfChaptersRead){
+        compositeDisposable.add(repository.updateManga(id,status,isRewatching,score,noOfVolumesRead,noOfChaptersRead)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    if(response!=null){
-                        updateAnimeResponse.setValue(true);
+                    if(response!= null){
+                        updateMangaResponse.setValue(true);
                     }else{
-                        updateAnimeResponse.setValue(false);
+                        updateMangaResponse.setValue(false);
                     }
                 }, throwable -> {
                     response.setValue(false);
@@ -51,8 +53,8 @@ public class UpdateAnimeViewModel extends ViewModel {
         );
     }
 
-    public void insertOrUpdateAnimeInList(UserAnime userAnime){
-        compositeDisposable.add(repository.addOrUpdateAnimeInList(userAnime)
+    public void insertOrUpdateMangaInList(UserManga userManga){
+        compositeDisposable.add(repository.addOrUpdateMangaInList(userManga)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
@@ -61,47 +63,45 @@ public class UpdateAnimeViewModel extends ViewModel {
 
 
 
-    public void addEpisode(int id,int numberOfEpisodesWatched){
-        compositeDisposable.add(repository.addEpisode(id,numberOfEpisodesWatched)
+
+    public void addChapter(int id,int noOfChaptersRead){
+        compositeDisposable.add(repository.addChapter(id,noOfChaptersRead)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> response.setValue(true), e-> response.setValue(false))
         );
 
-        compositeDisposable.add(repository.addEpisodeInDB(id,numberOfEpisodesWatched)
+        compositeDisposable.add(repository.addChapterInDB(id,noOfChaptersRead)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         );
     }
-    public void animeCompleted(int id){
-        compositeDisposable.add(repository.animeCompleted(id)
+    public void mangaCompleted(int id){
+        compositeDisposable.add(repository.mangaCompleted(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         );
 
-        compositeDisposable.add(repository.animeCompletedInDB(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        );
-    }
-
-    public void deleteAnime(int id){
-        compositeDisposable.add(repository.deleteAnime(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        );
-        compositeDisposable.add(repository.deleteAnimeFromDB(id)
+        compositeDisposable.add(repository.mangaCompletedInDB(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         );
     }
 
-
-
+    public void deleteManga(int id){
+        compositeDisposable.add(repository.deleteManga(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+        compositeDisposable.add(repository.deleteMangaFromDB(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        );
+    }
 
 }

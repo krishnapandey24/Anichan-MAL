@@ -25,7 +25,7 @@ import com.omnicoder.anichan.Database.UserManga;
 import com.omnicoder.anichan.Models.MangaResponse.Manga;
 import com.omnicoder.anichan.Models.MangaResponse.MangaListStatus;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
+import com.omnicoder.anichan.ViewModels.UpdateMangaViewModel;
 import com.omnicoder.anichan.databinding.MangaBottomSheetBinding;
 
 import java.text.SimpleDateFormat;
@@ -325,12 +325,12 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             mangaAdded.startLoading();
             int volumes=Integer.parseInt(binding.editVolumes.getText().toString());
             int chapters=Integer.parseInt(binding.editChapters.getText().toString());
-            UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-            updateAnimeViewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
-            mangaAdded.setResponseToObserve(updateAnimeViewModel.getResponse());
+            UpdateMangaViewModel viewModel = new ViewModelProvider(this).get(UpdateMangaViewModel.class);
+            viewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
+            mangaAdded.setResponseToObserve(viewModel.getResponse());
             String mainPicture=manga.getMainPicture()==null ? "" : manga.getMainPicture().getMedium();
             UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading);
-            updateAnimeViewModel.insertOrUpdateMangaInList(userManga);
+            viewModel.insertOrUpdateMangaInList(userManga);
             mangaAdded.setStatus(status);
             dismiss();
         });

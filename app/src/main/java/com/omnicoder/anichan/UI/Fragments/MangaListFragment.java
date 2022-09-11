@@ -18,56 +18,55 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
-import com.omnicoder.anichan.Adapters.AnimeViewPagerAdapter;
-import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.Adapters.MangaViewPagerAdapter;
+import com.omnicoder.anichan.Database.UserManga;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
-import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
-import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
-import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
+import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateMangaBottomSheet;
+import com.omnicoder.anichan.ViewModels.MangaListViewModel;
+import com.omnicoder.anichan.ViewModels.UpdateMangaViewModel;
+import com.omnicoder.anichan.databinding.FragmentMangaListBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 
 @AndroidEntryPoint
-public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter.AnimePagerAdapterInterface {
-    private AnimeListFragmentBinding binding;
-    private AnimeListViewModel viewModel;
-    private UpdateAnimeViewModel updateAnimeViewModel;
+public class MangaListFragment extends Fragment implements MangaViewPagerAdapter.MangaPagerAdapterInterface {
+    private FragmentMangaListBinding binding;
+    private MangaListViewModel mangaListViewModel;
+    private UpdateMangaViewModel updateMangaViewModel;
     private Dialog sortDialog=null;
     private String[] tabs;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=AnimeListFragmentBinding.inflate(inflater,container,false);
+        binding=FragmentMangaListBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
-        viewModel.fetchUserAnimeList();
-        viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> binding.progressBar.setVisibility(View.GONE));
-        updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-        tabs = getResources().getStringArray(R.array.Statuses);
+        mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
+        mangaListViewModel.fetchUserMangaList();
+        mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> binding.progressBar.setVisibility(View.GONE));
+        updateMangaViewModel= new ViewModelProvider(this).get(UpdateMangaViewModel.class);
+        tabs = getResources().getStringArray(R.array.MangaStatuses);
         setTabLayout();
         setupToolbar();
     }
     private void setTabLayout(){
-        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,"t_id"));
+        binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,"t_id"));
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
     @Override
-    public void updateAnime(UserAnime userAnime, int position) {
+    public void updateManga(UserManga userManga, int position) {
         binding.progressBar.setVisibility(View.VISIBLE);
-        updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
-        updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
-        updateAnimeViewModel.getUpdateAnimeResponse().observe(getViewLifecycleOwner(),success -> {
-            binding.progressBar.setVisibility(View.GONE);
+        updateMangaViewModel.updateManga(userManga.getId(),userManga.getStatus(),userManga.isIs_rereading(),userManga.getScore(),userManga.getNoOfVolumesRead(),userManga.getNoOfChaptersRead());
+        updateMangaViewModel.insertOrUpdateMangaInList(userManga);
+        updateMangaViewModel.getUpdateMangaResponse().observe(getViewLifecycleOwner(),success -> {
             if(success){
-                Toast.makeText(getContext(),"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Manga Updated Successfully!", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(getContext(),"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
             }
@@ -75,13 +74,13 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     }
 
     @Override
-    public void addEpisode(int id,int noOfEpisodesWatched) {
+    public void addChapter(int id,int noOfChaptersRead) {
         binding.progressBar.setVisibility(View.VISIBLE);
-        updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
-        updateAnimeViewModel.getResponse().observe(getViewLifecycleOwner(), success -> {
+        updateMangaViewModel.addChapter(id,noOfChaptersRead);
+        updateMangaViewModel.getResponse().observe(getViewLifecycleOwner(), success -> {
             binding.progressBar.setVisibility(View.GONE);
             if(success){
-                Toast.makeText(getContext(),"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Manga Updated Successfully!", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(getContext(),"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
             }
@@ -90,19 +89,20 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     }
 
     @Override
-    public void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet) {
-        updateAnimeBottomSheet.show(getChildFragmentManager(), "UpdateAnimeSheet");
+    public void showEditor(UpdateMangaBottomSheet updateMangaBottomSheet) {
+        updateMangaBottomSheet.show(getChildFragmentManager(), "UpdateMangaSheet");
     }
 
+
     @Override
-    public void animeCompleted(int id,String name) {
-        updateAnimeViewModel.animeCompleted(id);
+    public void mangaCompleted(int id,String name) {
+        updateMangaViewModel.mangaCompleted(id);
         Toast.makeText(getContext(),name+" Completed!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void deleteAnime(int id) {
-        updateAnimeViewModel.deleteAnime(id);
+    public void deleteManga(int id) {
+        updateMangaViewModel.deleteManga(id);
     }
 
     private void setupToolbar(){
@@ -110,7 +110,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
             if(item.getItemId()== R.id.sort){
                 launchSortDialog();
             }else{
-                Navigation.findNavController(binding.toolbar).navigate(AnimeListFragmentDirections.actionAnimeListFragmentToSearchListFragment(true));
+                Navigation.findNavController(binding.toolbar).navigate(MangaListFragmentDirections.actionMangaListFragmentToSearchListFragment(false));
             }
             return true;
         });
@@ -143,7 +143,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
                         sortBy="t_id";
                         break;
                 }
-                binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,sortBy));
+                binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,sortBy));
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());

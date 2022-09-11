@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel;
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.Repositories.AnimeListRepository;
-import com.omnicoder.anichan.Repository;
 import com.omnicoder.anichan.Utils.Constants;
 
 import java.util.List;
@@ -24,29 +23,25 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class AnimeListViewModel extends ViewModel {
-    public MutableLiveData<List<UserAnime>> animeList= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList1= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList2= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList3= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList4= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList5= new MutableLiveData<>();
-    public MutableLiveData<List<UserAnime>> animeList6= new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> watching = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> planToWatch = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> completed = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> onHold = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> dropped = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> reWatching = new MutableLiveData<>();
+    public MutableLiveData<List<UserAnime>> all = new MutableLiveData<>();
     public MutableLiveData<List<UserAnime>> searchResults= new MutableLiveData<>();
     public MutableLiveData<String> nextPage= new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final MutableLiveData<Boolean> animeListFetched=new MutableLiveData<>();
-    private final AnimeListRepository animeListRepository;
-    Repository repository;
+    private final AnimeListRepository repository;
+
 
     @Inject
-    public AnimeListViewModel(AnimeListRepository animeListRepository, Repository repository){
-        this.animeListRepository = animeListRepository;
-        this.repository =repository;
+    public AnimeListViewModel(AnimeListRepository repository){
+        this.repository = repository;
 
     }
-
-
-
 
 
     public MutableLiveData<List<UserAnime>> getSearchResults() {
@@ -57,34 +52,34 @@ public class AnimeListViewModel extends ViewModel {
         switch (position){
             case 0:
                 fetchWatching(sortBy);
-                return animeList;
+                return watching;
             case 1:
                 fetchPlanToWatch(sortBy);
-                return animeList1;
+                return planToWatch;
             case 2:
                 fetchCompleted(sortBy);
-                return animeList2;
+                return completed;
             case 3:
                 fetchOnHold(sortBy);
-                return animeList3;
+                return onHold;
             case 4:
                 fetchDropped(sortBy);
-                return animeList4;
+                return dropped;
             case 5:
                 fetchReWatching(sortBy);
-                return animeList5;
+                return reWatching;
             case 6:
                 fetchAll(sortBy);
-                return animeList6;
+                return all;
         }
-        return animeList;
+        return watching;
     }
 
     private void fetchReWatching(String sortBy) {
-        compositeDisposable.add(animeListRepository.getReWatching(sortBy)
+        compositeDisposable.add(repository.getReWatching(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList::setValue,Throwable::printStackTrace)
+                .subscribe(watching::setValue,Throwable::printStackTrace)
         );
     }
 
@@ -92,55 +87,55 @@ public class AnimeListViewModel extends ViewModel {
 
 
     public void fetchWatching(String sortBy){
-        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.WATCHING,sortBy)
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.WATCHING,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList::setValue,Throwable::printStackTrace)
+                .subscribe(watching::setValue,Throwable::printStackTrace)
         );
     }
 
     public void fetchPlanToWatch(String sortBy){
-        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.PLAN_TO_WATCH,sortBy)
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.PLAN_TO_WATCH,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList1::setValue,Throwable::printStackTrace)
+                .subscribe(planToWatch::setValue,Throwable::printStackTrace)
         );
     }
 
     public void fetchCompleted(String sortBy){
-        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.COMPLETED,sortBy)
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.COMPLETED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList2::setValue,Throwable::printStackTrace)
+                .subscribe(completed::setValue,Throwable::printStackTrace)
         );
     }
 
     public void fetchOnHold(String sortBy){
-        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.ON_HOLD,sortBy)
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.ON_HOLD,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList3::setValue,Throwable::printStackTrace)
+                .subscribe(onHold::setValue,Throwable::printStackTrace)
         );
     }
 
     public void fetchDropped(String sortBy){
-        compositeDisposable.add(animeListRepository.getAnimeListByStatus(Constants.DROPPED,sortBy)
+        compositeDisposable.add(repository.getAnimeListByStatus(Constants.DROPPED,sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList4::setValue,Throwable::printStackTrace)
+                .subscribe(dropped::setValue,Throwable::printStackTrace)
         );
     }
 
     public void fetchAll(String sortBy){
-        compositeDisposable.add(animeListRepository.getAllAnime(sortBy)
+        compositeDisposable.add(repository.getAllAnime(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeList6::setValue,Throwable::printStackTrace)
+                .subscribe(all::setValue,Throwable::printStackTrace)
         );
     }
 
     public void searchAnime(CharSequence query){
-        compositeDisposable.add(animeListRepository.searchAnime(query.toString())
+        compositeDisposable.add(repository.searchAnime(query.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(searchResults::setValue,Throwable::printStackTrace)
@@ -165,7 +160,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void fetchUserAnimeList(){
-        compositeDisposable.add(animeListRepository.fetchUserAnimeList()
+        compositeDisposable.add(repository.fetchUserAnimeList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -173,12 +168,11 @@ public class AnimeListViewModel extends ViewModel {
                     insertDataInDatabase(response);
                     nextPage.setValue(response.getPaging().getNext());
                 })
-
         );
     }
 
     public void deleteAllAnime(){
-        compositeDisposable.add(animeListRepository.deleteAllAnime()
+        compositeDisposable.add(repository.deleteAllAnime()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe());
@@ -186,7 +180,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void insertDataInDatabase(UserAnimeListResponse userAnimeListResponse){
-        Single.fromCallable(() -> animeListRepository.insertAnimeInDB(userAnimeListResponse))
+        Single.fromCallable(() -> repository.insertAnimeInDB(userAnimeListResponse))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {

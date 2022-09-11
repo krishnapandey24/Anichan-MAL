@@ -10,10 +10,10 @@ public class UserManga {
     int t_id;
     int id;
     String title,main_picture,status,startDate,finishData;
-    int score,noOfVolumes,noOfChapters,noOfVolumesRead,getNoOfChaptersRead;
+    int score,noOfVolumes,noOfChapters,noOfVolumesRead, noOfChaptersRead;
     boolean is_rereading;
 
-    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishData, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int getNoOfChaptersRead, boolean is_rereading) {
+    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishData, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
@@ -24,7 +24,7 @@ public class UserManga {
         this.noOfVolumes = noOfVolumes;
         this.noOfChapters = noOfChapters;
         this.noOfVolumesRead = noOfVolumesRead;
-        this.getNoOfChaptersRead = getNoOfChaptersRead;
+        this.noOfChaptersRead = noOfChaptersRead;
         this.is_rereading = is_rereading;
     }
 
@@ -74,8 +74,8 @@ public class UserManga {
         return noOfVolumesRead;
     }
 
-    public int getGetNoOfChaptersRead() {
-        return getNoOfChaptersRead;
+    public int getNoOfChaptersRead() {
+        return noOfChaptersRead;
     }
 
     public void setId(int id) {
@@ -118,8 +118,12 @@ public class UserManga {
         this.noOfVolumesRead = noOfVolumesRead;
     }
 
-    public void setGetNoOfChaptersRead(int getNoOfChaptersRead) {
-        this.getNoOfChaptersRead = getNoOfChaptersRead;
+    public void setNoOfChaptersRead(int noOfChaptersRead) {
+        this.noOfChaptersRead = noOfChaptersRead;
+    }
+
+    public boolean isIs_rereading() {
+        return is_rereading;
     }
 
     public void setIs_rereading(boolean is_rereading) {
