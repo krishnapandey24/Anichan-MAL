@@ -47,7 +47,7 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
         viewModel.getAnimeList(position,sortBy).observe(lifecycleOwner, animeList-> {
             if(updateList) {
                 recyclerView = holder.binding.recyclerView;
-                AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, AnimeViewPagerAdapter.this, AnimeViewPagerAdapter.this);
+                AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, AnimeViewPagerAdapter.this, AnimeViewPagerAdapter.this,position);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adapter);
             }

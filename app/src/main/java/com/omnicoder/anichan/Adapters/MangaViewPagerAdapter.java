@@ -49,7 +49,7 @@ public class MangaViewPagerAdapter extends RecyclerView.Adapter<MangaViewPagerAd
         viewModel.getMangaList(position,sortBy).observe(lifecycleOwner, mangaList-> {
             if(updateList) {
                 recyclerView = holder.binding.recyclerView;
-                MangaListAdapter adapter = new MangaListAdapter(context, mangaList, MangaViewPagerAdapter.this, MangaViewPagerAdapter.this);
+                MangaListAdapter adapter = new MangaListAdapter(context, mangaList, MangaViewPagerAdapter.this, MangaViewPagerAdapter.this,position);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adapter);
             }
