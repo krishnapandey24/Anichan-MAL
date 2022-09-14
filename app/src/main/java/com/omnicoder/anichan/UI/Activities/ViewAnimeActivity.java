@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
@@ -157,13 +158,11 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();
-                Log.d("tagg","Error: ignore "+e.getMessage());
             }
             binding.progressBar.setVisibility(View.GONE);
         });
 
         viewModel.getNoInternet().observe(ViewAnimeActivity.this, NoInternet -> {
-            Log.d("tagg","No Internet connection"+NoInternet);
             if(NoInternet) {
                 showNoInternetConnectionDialog();
             }
@@ -204,16 +203,26 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
 
     @Override
     public void setResponseToObserve(MutableLiveData<Boolean> response) {
-        response.observe(ViewAnimeActivity.this, aBoolean -> {
-            Log.d("tagg","observer now");
+        observeAndShowToast(response);
+    }
+
+    @Override
+    public void observeDeleteAnime(MutableLiveData<Boolean> response) {
+        observeAndShowToast(response);
+    }
+
+    private void observeAndShowToast(MutableLiveData<Boolean> response){
+        response.observe(ViewAnimeActivity.this, success -> {
             binding.progressBar.setVisibility(View.GONE);
-            if(aBoolean){
+            if(success){
                 Toast.makeText(ViewAnimeActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(ViewAnimeActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 
 
 }

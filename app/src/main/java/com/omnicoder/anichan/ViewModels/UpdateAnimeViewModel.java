@@ -10,13 +10,17 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class UpdateAnimeViewModel extends ViewModel {
     MutableLiveData<Boolean> response = new MutableLiveData<>();
     MutableLiveData<Boolean> updateAnimeResponse = new MutableLiveData<>();
+    MutableLiveData<Boolean> deleteResponse = new MutableLiveData<>();
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     AnimeListRepository repository;
 
@@ -33,6 +37,9 @@ public class UpdateAnimeViewModel extends ViewModel {
         return updateAnimeResponse;
     }
 
+    public MutableLiveData<Boolean> deleteResponse(){
+        return deleteResponse;
+    }
 
     public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
         compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
@@ -45,7 +52,7 @@ public class UpdateAnimeViewModel extends ViewModel {
                         updateAnimeResponse.setValue(false);
                     }
                 }, throwable -> {
-                    response.setValue(false);
+                    updateAnimeResponse.setValue(false);
                     throwable.printStackTrace();
                 })
         );
@@ -89,11 +96,27 @@ public class UpdateAnimeViewModel extends ViewModel {
     }
 
     public void deleteAnime(int id){
-        compositeDisposable.add(repository.deleteAnime(id)
+        repository.deleteAnime(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
-        );
+                .subscribeWith(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        deleteResponse.setValue(true);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        deleteResponse.setValue(false);
+                        e.printStackTrace();
+                    }
+                });
+
         compositeDisposable.add(repository.deleteAnimeFromDB(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

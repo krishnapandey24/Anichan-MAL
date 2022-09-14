@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,6 +45,8 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
     MangaAdded mangaAdded;
     MangaListStatus mangaListStatus;
     boolean rereading =false;
+    private static final String update="Update";
+    private static final String remove="Remove";
 
 
     @Nullable
@@ -107,6 +110,8 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             score=mangaListStatus.getScore();
             binding.editVolumes.setText(String.valueOf(noOfVolumes));
             binding.editChapters.setText(String.valueOf(noOfChapters));
+            binding.addToListButton.setText(update);
+            binding.cancelButton.setText(remove);
         }
     }
 
@@ -246,10 +251,7 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
         Context context=getContext();
         binding.addButton.setOnClickListener(v -> {
             noOfVolumes=Integer.parseInt(binding.editVolumes.getText().toString());
-            if(totalVolumes==0){
-                Toast.makeText(context,"Volumes haven't released yet",Toast.LENGTH_SHORT).show();
-            }
-            else if(noOfVolumes==totalVolumes){
+            if(noOfVolumes==totalVolumes && totalVolumes!=0){
                 Toast.makeText(context,manga.getTitle()+" Only have "+totalVolumes+" volumes.",Toast.LENGTH_SHORT).show();
             }else {
                 noOfVolumes++;
@@ -266,10 +268,7 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
 
         binding.addChapters.setOnClickListener(v -> {
             noOfChapters=Integer.parseInt(binding.editChapters.getText().toString());
-            if(totalChapters==0){
-                Toast.makeText(context,"Chapters haven't released yet",Toast.LENGTH_SHORT).show();
-            }
-            else if(noOfChapters==totalChapters){
+            if(noOfChapters==totalChapters && totalChapters!=0){
                 Toast.makeText(context,manga.getTitle()+" Only have "+totalChapters+" chapters.",Toast.LENGTH_SHORT).show();
             }else {
                 noOfChapters++;
@@ -321,13 +320,13 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
 
     @SuppressLint("SetTextI18n")
     private void initButtons(){
+        UpdateMangaViewModel viewModel = new ViewModelProvider(this).get(UpdateMangaViewModel.class);
         binding.addToListButton.setOnClickListener(v -> {
             mangaAdded.startLoading();
             int volumes=Integer.parseInt(binding.editVolumes.getText().toString());
             int chapters=Integer.parseInt(binding.editChapters.getText().toString());
-            UpdateMangaViewModel viewModel = new ViewModelProvider(this).get(UpdateMangaViewModel.class);
             viewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
-            mangaAdded.setResponseToObserve(viewModel.getResponse());
+            mangaAdded.setResponseToObserve(viewModel.getUpdateMangaResponse());
             String mainPicture=manga.getMainPicture()==null ? "" : manga.getMainPicture().getMedium();
             UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading);
             viewModel.insertOrUpdateMangaInList(userManga);
@@ -335,13 +334,30 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             dismiss();
         });
 
-        binding.cancelButton.setOnClickListener(v -> dismiss());
+        if(mangaListStatus==null){
+            binding.cancelButton.setOnClickListener(v -> dismiss());
+        }else{
+            mangaAdded.startLoading();
+            AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
+            alterDialog.setTitle("Remove anime from the list");
+            alterDialog.setMessage("Are you sure you want to remove this from from your list?");
+            alterDialog.setPositiveButton("YES", (dialog, which) -> {
+                viewModel.deleteManga(manga.getId());
+                mangaAdded.observeDeleteResponse(viewModel.deleteResponse());
+                dismiss();
+            });
+            alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
+            alterDialog.show();
+        }
     }
+
+
 
     public interface MangaAdded{
         void setStatus(String status);
         void startLoading();
         void setResponseToObserve(MutableLiveData<Boolean> response);
+        void observeDeleteResponse(MutableLiveData<Boolean> response);
     }
 
 

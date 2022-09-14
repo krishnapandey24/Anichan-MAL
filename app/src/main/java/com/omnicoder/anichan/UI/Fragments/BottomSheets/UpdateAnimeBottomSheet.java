@@ -182,7 +182,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.editText.setText(String.valueOf(anime.getNum_episodes_watched()));
         binding.addButton2.setOnClickListener(v -> {
             noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            if(noOfEpisodes==totalEpisodes){
+            if(noOfEpisodes==totalEpisodes && totalEpisodes!=0){
                 Toast.makeText(context,title+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
             }else {
                 noOfEpisodes++;
@@ -248,7 +248,6 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     private void initButtons(){
         binding.addToListButton.setText("Update");
         binding.cancelButton.setText("Remove");
-
         binding.addToListButton.setOnClickListener(v -> {
             anime.setNum_episodes_watched(Integer.parseInt(binding.editText.getText().toString()));
             updateAnimeInterface.updateAnime(anime,position);

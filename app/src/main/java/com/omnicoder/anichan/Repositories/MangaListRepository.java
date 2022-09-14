@@ -35,76 +35,75 @@ public class MangaListRepository {
 
 
     @Inject
-    public MangaListRepository(MangaDao mangaDao, Context context, UserListDB userListDB, MalApi malApi){
-        this.mangaDao=mangaDao;
-        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
+    public MangaListRepository(MangaDao mangaDao, Context context, UserListDB userListDB, MalApi malApi) {
+        this.mangaDao = mangaDao;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
+        this.accessToken = " Bearer " + sharedPreferences.getString("accessToken", null);
         this.userListDB = userListDB;
-        this.malApi=malApi;
+        this.malApi = malApi;
 
     }
-    
 
-    public Flowable<List<UserManga>> searchManga(String title){
+
+    public Flowable<List<UserManga>> searchManga(String title) {
         return mangaDao.searchManga(title);
     }
 
 
-    public Flowable<List<UserManga>> getMangaListByStatus(String status, String sortBy){
-        return mangaDao.getMangaList(status,sortBy);
+    public Flowable<List<UserManga>> getMangaListByStatus(String status, String sortBy) {
+        return mangaDao.getMangaList(status, sortBy);
     }
 
-    public Completable addMangaToList(UserManga userManga){
+    public Completable addMangaToList(UserManga userManga) {
         return mangaDao.insertOrUpdateManga(userManga);
     }
 
-    public Flowable<List<UserManga>> getAllManga(String sortBy){
+    public Flowable<List<UserManga>> getAllManga(String sortBy) {
         return mangaDao.getAllManga(sortBy);
     }
 
 
-    public Flowable<List<UserManga>> getReReading(String sortBy){
+    public Flowable<List<UserManga>> getReReading(String sortBy) {
         return mangaDao.getReReading(sortBy);
     }
 
-    public Observable<UserMangaListResponse> fetchUserMangaList(){
-        return malApi.getUserMangaList(accessToken,Constants.LIMIT);
+    public Observable<UserMangaListResponse> fetchUserMangaList() {
+        return malApi.getUserMangaList(accessToken, Constants.LIMIT);
     }
 
-    public Completable deleteAllManga(){
+    public Completable deleteAllManga() {
         return mangaDao.deleteAllManga();
     }
 
 
-
-    public boolean insertMangaInDB(UserMangaListResponse response){
-        try{
-            List<UserListManga> userListMangaList=response.getData();
-            int size=userListMangaList.size();
-            List<UserManga> userMangaList =new ArrayList<>();
-            for(int i=0;i<size;i++){
-                UserListManga userListManga=userListMangaList.get(i);
-                Manga node= userListManga.getNode();
-                MangaListStatus listStatus= userListManga.getList_status();
-                String mainPicture=node.getMainPicture()==null ? "" : node.getMainPicture().getMedium();
-                userMangaList.add(new UserManga(node.getId(),node.getTitle(),mainPicture,listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(),node.getNum_volumes(),node.getNum_chapters(),listStatus.getNum_volumes_read(),listStatus.getNum_chapters_read(), listStatus.isIs_rereading()));
+    public boolean insertMangaInDB(UserMangaListResponse response) {
+        try {
+            List<UserListManga> userListMangaList = response.getData();
+            int size = userListMangaList.size();
+            List<UserManga> userMangaList = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                UserListManga userListManga = userListMangaList.get(i);
+                Manga node = userListManga.getNode();
+                MangaListStatus listStatus = userListManga.getList_status();
+                String mainPicture = node.getMainPicture() == null ? "" : node.getMainPicture().getMedium();
+                userMangaList.add(new UserManga(node.getId(), node.getTitle(), mainPicture, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), node.getNum_volumes(), node.getNum_chapters(), listStatus.getNum_volumes_read(), listStatus.getNum_chapters_read(), listStatus.isIs_rereading()));
             }
             mangaDao.insertAllManga(userMangaList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
-                    Log.d("tagg","on start");
+                    Log.d("tagg", "on start");
 
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.d("tagg","Completed");
+                    Log.d("tagg", "Completed");
 
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.d("tagg","Something wrong: "+e.getMessage());
+                    Log.d("tagg", "Something wrong: " + e.getMessage());
 
                 }
             });
@@ -112,14 +111,14 @@ public class MangaListRepository {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("tagg","Error: insertManga: "+e.getMessage());
+            Log.d("tagg", "Error: insertManga: " + e.getMessage());
             return false;
         }
 
     }
 
 
-    public Observable<UpdateMangaResponse> updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer volumesRead,Integer chaptersRead){
+    public Observable<UpdateMangaResponse> updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer volumesRead, Integer chaptersRead) {
         return malApi.updateManga(accessToken,
                 id,
                 status,
@@ -136,35 +135,34 @@ public class MangaListRepository {
     }
 
 
-    public Completable addOrUpdateMangaInList(UserManga userManga){
+    public Completable addOrUpdateMangaInList(UserManga userManga) {
         return mangaDao.insertOrUpdateManga(userManga);
     }
 
 
-    public Completable addChapter(int id,int noOfChaptersRead){
-        return malApi.addChapters(accessToken,id,noOfChaptersRead);
+    public Completable addChapter(int id, int noOfChaptersRead) {
+        return malApi.addChapters(accessToken, id, noOfChaptersRead);
     }
 
-    public Completable mangaCompleted(int id){
-        return malApi.mangaCompleted(accessToken,id,"completed");
+    public Completable mangaCompleted(int id) {
+        return malApi.mangaCompleted(accessToken, id, "completed");
     }
 
-    public Completable deleteManga(int id){
-        return malApi.deleteMangaFromList(accessToken,id);
+    public Completable deleteManga(int id) {
+        return malApi.deleteMangaFromList(accessToken, id);
     }
 
-    public Completable addChapterInDB(int id,int noOfChaptersRead){
-        return mangaDao.addChapters(id,noOfChaptersRead);
+    public Completable addChapterInDB(int id, int noOfChaptersRead) {
+        return mangaDao.addChapters(id, noOfChaptersRead);
     }
 
-    public Completable mangaCompletedInDB(int id){
-        return mangaDao.mangaCompleted(id,"completed");
+    public Completable mangaCompletedInDB(int id) {
+        return mangaDao.mangaCompleted(id, "completed");
     }
 
-    public Completable deleteMangaFromDB(int id){
+    public Completable deleteMangaFromDB(int id) {
         return mangaDao.deleteMangaFromList(id);
     }
-
 
 
 }

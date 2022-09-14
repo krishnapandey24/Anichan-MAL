@@ -3,7 +3,6 @@ package com.omnicoder.anichan.UI.Activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -72,6 +71,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
                         break;
                     case 2:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,reviewsFragment).commit();
+                        break;
                 }
             }
 
@@ -87,7 +87,6 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         });
 
     }
-
 
 
     private void setOnClickListeners() {
@@ -141,13 +140,11 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
                 binding.addToListButton.setText(manga.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();
-                Log.d("tagg","Error: ignore "+e.getMessage());
             }
             binding.progressBar.setVisibility(View.GONE);
         });
 
         viewModel.getNoInternet().observe(ViewMangaActivity.this, NoInternet -> {
-            Log.d("tagg","No Internet connection"+NoInternet);
             if(NoInternet) {
                 showNoInternetConnectionDialog();
             }
@@ -184,15 +181,21 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
 
     @Override
     public void setResponseToObserve(MutableLiveData<Boolean> response) {
-        response.observe(ViewMangaActivity.this, aBoolean -> {
-            Log.d("tagg","observer now");
-            binding.progressBar.setVisibility(View.GONE);
-            if(aBoolean){
-                Toast.makeText(ViewMangaActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(ViewMangaActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
-            }
-        });
+        response.observe(ViewMangaActivity.this, this::mangaListUpdateToast);
+    }
+
+    @Override
+    public void observeDeleteResponse(MutableLiveData<Boolean> response) {
+        response.observe(ViewMangaActivity.this, this::mangaListUpdateToast);
+    }
+
+    private void mangaListUpdateToast(boolean success){
+        binding.progressBar.setVisibility(View.GONE);
+        if(success){
+            Toast.makeText(ViewMangaActivity.this,"Manga List Updated Successfully",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(ViewMangaActivity.this,"Something went wrong! \n Please try again",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +27,7 @@ import com.omnicoder.anichan.Models.AnimeResponse.Anime;
 import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
 import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 
@@ -40,11 +42,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
     Anime anime;
-    String status="Plan To Watch",startDate,finishDate,todayDate,selectedStatus;
+    String startDate,finishDate,todayDate,selectedStatus;
     int score=0,noOfEpisodes=0,totalEpisodes,statusPosition;
     AnimeAdded animeAdded;
     AnimeListStatus animeListStatus;
     boolean rewatching=false;
+    private static final String update="Update";
+    private static final String remove="Remove";
+    private String status="Plan To Watch";
 
 
     @Nullable
@@ -105,6 +110,8 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             finishDate=animeListStatus.getFinish_date();
             score=animeListStatus.getScore();
             binding.editText.setText(String.valueOf(noOfEpisodes));
+            binding.addToListButton.setText(update);
+            binding.cancelButton.setText(remove);
         }
     }
 
@@ -241,10 +248,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         Context context=getContext();
         binding.addButton2.setOnClickListener(v -> {
             noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            if(totalEpisodes==0){
-                Toast.makeText(context,"Episodes haven't released yet",Toast.LENGTH_SHORT).show();
-            }
-            else if(noOfEpisodes==totalEpisodes){
+            if(noOfEpisodes==totalEpisodes && totalEpisodes!=0){
                 Toast.makeText(context,anime.getTitle()+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
             }else {
                 noOfEpisodes++;
@@ -296,11 +300,11 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
 
     @SuppressLint("SetTextI18n")
     private void initButtons(){
+        UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         binding.addToListButton.setOnClickListener(v -> {
             animeAdded.startLoading();
-            UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
             updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()));
-            animeAdded.setResponseToObserve(updateAnimeViewModel.getResponse());
+            animeAdded.setResponseToObserve(updateAnimeViewModel.getUpdateAnimeResponse());
             String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
             StartSeason startSeason= anime.getStart_season();
             String season;
@@ -315,13 +319,30 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             dismiss();
         });
 
-        binding.cancelButton.setOnClickListener(v -> dismiss());
+        if(animeListStatus==null){
+            binding.cancelButton.setOnClickListener(v -> dismiss());
+        }else{
+            animeAdded.startLoading();
+            AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
+            alterDialog.setTitle("Remove anime from the list");
+            alterDialog.setMessage("Are you sure you want to remove this from from your list?");
+            alterDialog.setPositiveButton("YES", (dialog, which) -> {
+                updateAnimeViewModel.deleteAnime(anime.getId());
+                animeAdded.observeDeleteAnime(updateAnimeViewModel.deleteResponse());
+                dismiss();
+            });
+            alterDialog.setNegativeButton("NO",(dialog,which)->{
+                dialog.cancel();
+            });
+            alterDialog.show();
+        }
     }
 
     public interface AnimeAdded{
         void setStatus(String status);
         void startLoading();
         void setResponseToObserve(MutableLiveData<Boolean> response);
+        void observeDeleteAnime(MutableLiveData<Boolean> response);
     }
 
 
@@ -339,6 +360,8 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         super.onAttach(context);
         animeAdded=(AnimeAdded) context;
     }
+
+
 
 
 }

@@ -186,7 +186,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         binding.editChapters.setText(String.valueOf(manga.getNoOfChaptersRead()));
         binding.addButton.setOnClickListener(v -> {
             noOfVolumes = Integer.parseInt(binding.editVolumes.getText().toString());
-            if (noOfVolumes == totalVolumes) {
+            if (noOfVolumes == totalVolumes && totalVolumes!=0) {
                 Toast.makeText(context, title + " Only have " + totalVolumes + " volumes.", Toast.LENGTH_SHORT).show();
             } else {
                 noOfVolumes++;
@@ -202,7 +202,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
 
         binding.addChapters.setOnClickListener(v -> {
             noOfChapters = Integer.parseInt(binding.editChapters.getText().toString());
-            if (noOfChapters == totalChapters) {
+            if (noOfChapters == totalChapters && totalChapters!=0) {
                 Toast.makeText(context, title + " Only have " + totalChapters + " chapters.", Toast.LENGTH_SHORT).show();
             } else {
                 noOfChapters++;

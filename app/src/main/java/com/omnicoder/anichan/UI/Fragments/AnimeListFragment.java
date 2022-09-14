@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -64,28 +65,14 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         binding.progressBar.setVisibility(View.VISIBLE);
         updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
         updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
-        updateAnimeViewModel.getUpdateAnimeResponse().observe(getViewLifecycleOwner(),success -> {
-            binding.progressBar.setVisibility(View.GONE);
-            if(success){
-                Toast.makeText(getContext(),"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getContext(),"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
     }
 
     @Override
     public void addEpisode(int id,int noOfEpisodesWatched) {
         binding.progressBar.setVisibility(View.VISIBLE);
         updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
-        updateAnimeViewModel.getResponse().observe(getViewLifecycleOwner(), success -> {
-            binding.progressBar.setVisibility(View.GONE);
-            if(success){
-                Toast.makeText(getContext(),"Anime Updated Successfully!", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getContext(),"Something went wrong! Please try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        observeAndShowToast(updateAnimeViewModel.getResponse());
 
     }
 
@@ -102,6 +89,8 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     @Override
     public void deleteAnime(int id) {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        observeAndShowToast(updateAnimeViewModel.deleteResponse());
         updateAnimeViewModel.deleteAnime(id);
     }
 
@@ -153,6 +142,19 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         }
 
     }
+
+    private void observeAndShowToast(MutableLiveData<Boolean> response) {
+        response.observe(getViewLifecycleOwner(), success -> {
+            binding.progressBar.setVisibility(View.GONE);
+            if (success) {
+                Toast.makeText(getContext(), "Manga List Updated Successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Something went wrong! \n Please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
 
 }
