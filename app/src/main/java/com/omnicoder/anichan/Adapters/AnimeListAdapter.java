@@ -29,13 +29,14 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     static final String notRatedYet="--";
     MyViewHolder.UpdateAnimeList updateAnimeList;
     UpdateAnimeBottomSheet.UpdateAnime updateAnime;
+    int viewPagerPosition;
 
-
-    public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime){
+    public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime,int viewPagerPosition){
         this.dataHolder= dataHolder;
         this.context= context;
         this.updateAnimeList=updateAnimeList;
         this.updateAnime=updateAnime;
+        this.viewPagerPosition=viewPagerPosition;
     }
 
     @NonNull
@@ -77,7 +78,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         });
         holder.editButton.setOnClickListener(v -> {
             UpdateAnimeBottomSheet updateAnimeBottomSheet=new UpdateAnimeBottomSheet();
-            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,position);
+            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,viewPagerPosition);
             updateAnimeList.showEditor(updateAnimeBottomSheet);
         });
         holder.constraintLayout.setOnClickListener(v -> {

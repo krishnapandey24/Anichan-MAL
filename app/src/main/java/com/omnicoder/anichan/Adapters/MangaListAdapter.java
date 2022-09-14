@@ -28,13 +28,16 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
     static final String notRatedYet="--";
     MyViewHolder.UpdateMangaList updateMangaList;
     UpdateMangaBottomSheet.UpdateManga updateManga;
+    int viewPagerPosition;
 
 
-    public MangaListAdapter(Context context, List<UserManga> dataHolder, MyViewHolder.UpdateMangaList updateMangaList, UpdateMangaBottomSheet.UpdateManga updateManga){
+    public MangaListAdapter(Context context, List<UserManga> dataHolder, MyViewHolder.UpdateMangaList updateMangaList, UpdateMangaBottomSheet.UpdateManga updateManga,int viewPagerPosition){
         this.dataHolder= dataHolder;
         this.context= context;
         this.updateMangaList=updateMangaList;
         this.updateManga=updateManga;
+        this.viewPagerPosition=viewPagerPosition;
+
     }
 
     @NonNull
@@ -81,7 +84,7 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
         });
         holder.editButton.setOnClickListener(v -> {
             UpdateMangaBottomSheet updateMangaBottomSheet=new UpdateMangaBottomSheet();
-            updateMangaBottomSheet.setManga(manga,updateManga,position);
+            updateMangaBottomSheet.setManga(manga,updateManga,viewPagerPosition);
             updateMangaList.showEditor(updateMangaBottomSheet);
         });
         holder.constraintLayout.setOnClickListener(v -> {
