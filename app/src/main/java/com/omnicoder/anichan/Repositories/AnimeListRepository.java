@@ -152,8 +152,19 @@ public class AnimeListRepository {
     }
 
 
-    public Completable addEpisode(int id,int numberOfEpisodesWatched){
-        return malApi.addEpisode(accessToken,id,numberOfEpisodesWatched);
+    public Observable<UpdateAnimeResponse> addEpisode(int id, int numberOfEpisodesWatched) {
+        return malApi.updateAnime(accessToken,
+                id,
+                null,
+                null,
+                null,
+                numberOfEpisodesWatched,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     public Completable animeCompleted(int id){

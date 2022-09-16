@@ -59,8 +59,10 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
         String title= manga.getTitle();
         Picasso.get().load(manga.getMain_picture()).into(holder.imageView);
         holder.titleView.setText(title);
-        holder.totalVolumesView.setText(totalVolumes==0 ? "Unknown" : String.valueOf(totalVolumes));
+        String volumesRead=manga.getNoOfVolumesRead()+"/"+(totalVolumes==0 ? "?" : String.valueOf(totalVolumes));
+        holder.totalVolumesView.setText(volumesRead);
         holder.givenScoreView.setText( score!=0 ? String.valueOf(score) : notRatedYet);
+        holder.chaptersReadView.setText(String.valueOf(chaptersRead[0]));
         if(totalChapters==0){
             holder.totalChaptersView.setText("?");
             holder.progressBar.setMax(100);

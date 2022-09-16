@@ -54,7 +54,7 @@ public class SearchListFragment extends Fragment {
         if(isAnimeList){
             AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            animeListViewModel.getSearchResults().observe(getViewLifecycleOwner(), animeLists -> binding.recyclerView.setAdapter(new AnimeListAdapter(context, animeLists, null, null)));
+            animeListViewModel.getSearchResults().observe(getViewLifecycleOwner(), animeLists -> binding.recyclerView.setAdapter(new AnimeListAdapter(context, animeLists, null, null,0)));
             binding.searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,7 +75,7 @@ public class SearchListFragment extends Fragment {
         }else{
             MangaListViewModel mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            mangaListViewModel.getSearchResults().observe(getViewLifecycleOwner(), mangaList -> binding.recyclerView.setAdapter(new MangaListAdapter(context, mangaList, null, null)));
+            mangaListViewModel.getSearchResults().observe(getViewLifecycleOwner(), mangaList -> binding.recyclerView.setAdapter(new MangaListAdapter(context, mangaList, null, null,0)));
             binding.searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

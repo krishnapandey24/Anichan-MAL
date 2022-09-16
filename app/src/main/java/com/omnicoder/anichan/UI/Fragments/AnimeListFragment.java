@@ -147,7 +147,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         response.observe(getViewLifecycleOwner(), success -> {
             binding.progressBar.setVisibility(View.GONE);
             if (success) {
-                Toast.makeText(getContext(), "Manga List Updated Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Anime List Updated Successfully", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "Something went wrong! \n Please try again", Toast.LENGTH_SHORT).show();
             }

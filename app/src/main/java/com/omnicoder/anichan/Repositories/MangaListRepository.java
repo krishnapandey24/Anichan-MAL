@@ -140,8 +140,20 @@ public class MangaListRepository {
     }
 
 
-    public Completable addChapter(int id, int noOfChaptersRead) {
-        return malApi.addChapters(accessToken, id, noOfChaptersRead);
+    public Observable<UpdateMangaResponse> addChapter(int id, int noOfChaptersRead) {
+        return malApi.updateManga(accessToken,
+                id,
+                null,
+                null,
+                null,
+                null,
+                noOfChaptersRead,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     public Completable mangaCompleted(int id) {

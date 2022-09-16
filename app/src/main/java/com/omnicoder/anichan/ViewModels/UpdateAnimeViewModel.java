@@ -72,7 +72,7 @@ public class UpdateAnimeViewModel extends ViewModel {
         compositeDisposable.add(repository.addEpisode(id,numberOfEpisodesWatched)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> response.setValue(true), e-> response.setValue(false))
+                .subscribe(animeResponse -> response.setValue(true), e-> response.setValue(false))
         );
 
         compositeDisposable.add(repository.addEpisodeInDB(id,numberOfEpisodesWatched)
@@ -96,7 +96,7 @@ public class UpdateAnimeViewModel extends ViewModel {
     }
 
     public void deleteAnime(int id){
-        repository.deleteAnime(id)
+        CompletableObserver deleteAnime=repository.deleteAnime(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new CompletableObserver() {

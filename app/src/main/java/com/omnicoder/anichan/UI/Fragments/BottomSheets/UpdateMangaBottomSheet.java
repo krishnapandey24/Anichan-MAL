@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void initSpinner() {
+        Log.d("tagg","Viewpager position"+position);
         String[] statuses = getResources().getStringArray(R.array.MangaStatuses);
         String[] malStatus = getResources().getStringArray(R.array.malMangaStatuses);
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(getContext(), R.layout.drop_down3, statuses) {
@@ -71,7 +73,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
             }
         };
         binding.spinner.setAdapter(statusAdapter);
-        binding.spinner.setSelection(1);
+        binding.spinner.setSelection(position);
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

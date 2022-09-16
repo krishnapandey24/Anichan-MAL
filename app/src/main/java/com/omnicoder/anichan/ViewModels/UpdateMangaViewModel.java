@@ -6,9 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.omnicoder.anichan.Database.UserManga;
-import com.omnicoder.anichan.Database.UserManga;
 import com.omnicoder.anichan.Repositories.MangaListRepository;
-import com.omnicoder.anichan.Repository;
 
 import javax.inject.Inject;
 
@@ -77,7 +75,12 @@ public class UpdateMangaViewModel extends ViewModel {
         compositeDisposable.add(repository.addChapter(id,noOfChaptersRead)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> response.setValue(true), e-> response.setValue(false))
+                .subscribe(mangaResponse->{
+                    response.setValue(true);
+                }, e-> {
+                    e.printStackTrace();
+                    response.setValue(false);
+                })
         );
 
         compositeDisposable.add(repository.addChapterInDB(id,noOfChaptersRead)

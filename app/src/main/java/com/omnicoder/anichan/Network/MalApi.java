@@ -44,13 +44,6 @@ public interface MalApi {
             @Field("comments") String comments
     );
 
-    @FormUrlEncoded
-    @PATCH("anime/{anime_id}/my_list_status")
-    Completable addEpisode(
-            @Header("Authorization") String accessToken,
-            @Path("anime_id") Integer anime_id,
-            @Field("num_watched_episodes") Integer noOfWatchedEpisodes
-    );
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
@@ -211,13 +204,6 @@ public interface MalApi {
             @Field("comments") String comments
     );
 
-    @FormUrlEncoded
-    @PATCH("anime/{anime_id}/my_list_status")
-    Completable addChapters(
-            @Header("Authorization") String accessToken,
-            @Path("anime_id") Integer anime_id,
-            @Field("num_chapters_read") Integer noOfChaptersRead
-    );
 
 
 
