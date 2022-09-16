@@ -13,7 +13,6 @@ import io.reactivex.rxjava3.core.Flowable;
 @Dao
 public interface MangaDao {
 
-    // TODO: 11-Sep-22 Complete this class
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllManga(List<UserManga> userMangaList);
 

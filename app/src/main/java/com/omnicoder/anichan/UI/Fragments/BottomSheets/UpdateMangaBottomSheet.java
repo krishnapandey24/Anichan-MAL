@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     UpdateManga updateMangaInterface;
     int position, score = -1, noOfVolumes, noOfChapters, totalVolumes, totalChapters;
     String todayDate;
+    int spinnerCounter=0; // counter to avoid OnItemSelectedListener while initializing the spinner
 
 
     @Nullable
@@ -55,12 +57,14 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         initDatePicker();
         initSpinner();
         initSeekbar();
-        initCounters();
         initButtons();
+        initCounters();
+
     }
 
+
+
     private void initSpinner() {
-        Log.d("tagg","Viewpager position"+position);
         String[] statuses = getResources().getStringArray(R.array.MangaStatuses);
         String[] malStatus = getResources().getStringArray(R.array.malMangaStatuses);
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(getContext(), R.layout.drop_down3, statuses) {
@@ -74,26 +78,28 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         };
         binding.spinner.setAdapter(statusAdapter);
         binding.spinner.setSelection(position);
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 manga.setStatus(malStatus[position]);
-                switch (position) {
-                    case 0:
-                        binding.pickStartDate.setText(todayDate);
-                        break;
-                    case 1:
-                        binding.editVolumes.setText("0");
-                        binding.editChapters.setText("0");
-                        break;
-                    case 2:
-                        binding.editVolumes.setText(String.valueOf(totalVolumes));
-                        binding.editChapters.setText(String.valueOf(totalChapters));
-                        break;
-                    case 5:
-                        manga.setStatus(malStatus[0]);
-                        manga.setIs_rereading(true);
-                        break;
+                if(++spinnerCounter>1){
+                    switch (position) {
+                        case 0:
+                            binding.pickStartDate.setText(todayDate);
+                            break;
+                        case 1:
+                            binding.editVolumes.setText("0");
+                            binding.editChapters.setText("0");
+                            break;
+                        case 2:
+                            binding.editVolumes.setText(String.valueOf(totalVolumes));
+                            binding.editChapters.setText(String.valueOf(totalChapters));
+                            break;
+                        case 5:
+                            manga.setStatus(malStatus[0]);
+                            manga.setIs_rereading(true);
+                            break;
+                    }
                 }
             }
 
@@ -273,7 +279,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
 
         binding.addToListButton.setOnClickListener(v -> {
             manga.setNoOfVolumesRead(Integer.parseInt(binding.editVolumes.getText().toString()));
-            manga.setNoOfChapters(Integer.parseInt(binding.editChapters.getText().toString()));
+            manga.setNoOfChaptersRead(Integer.parseInt(binding.editChapters.getText().toString()));
             updateMangaInterface.updateManga(manga, position);
             dismiss();
         });

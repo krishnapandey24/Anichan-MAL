@@ -49,7 +49,6 @@ public class UpdateMangaViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    Log.d("tagg","Updated manga response: "+response);
                     if(response!= null){
                         updateMangaResponse.setValue(true);
                     }else{

@@ -1,7 +1,6 @@
 package com.omnicoder.anichan.ViewModels;
 
 
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

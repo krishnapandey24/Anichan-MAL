@@ -36,13 +36,14 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
     UserAnime anime;
     UpdateAnime updateAnimeInterface;
-    int position,score=-1,noOfEpisodes,totalEpisodes;
+    int position, score = -1, noOfEpisodes, totalEpisodes;
     String todayDate;
+    int spinnerCounter = 0; // counter to avoid OnItemSelectedListener while initializing the spinner
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=AddAnimeBottomSheetBinding.inflate(inflater,container,false);
+        binding = AddAnimeBottomSheetBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -59,13 +60,13 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void initSpinner() {
-        String[] statuses=getResources().getStringArray(R.array.AnimeStatuses);
-        String[] mal_statuses=getResources().getStringArray(R.array.mal_statuses);
-        ArrayAdapter<String> statusAdapter= new ArrayAdapter<String>(getContext(),R.layout.drop_down3,statuses){
+        String[] statuses = getResources().getStringArray(R.array.AnimeStatuses);
+        String[] mal_statuses = getResources().getStringArray(R.array.mal_statuses);
+        ArrayAdapter<String> statusAdapter = new ArrayAdapter<String>(getContext(), R.layout.drop_down3, statuses) {
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, null, parent);
-                TextView textView= view.findViewById(R.id.spinner_text);
+                TextView textView = view.findViewById(R.id.spinner_text);
                 textView.setTextColor(getResources().getColor(R.color.textColor));
                 return view;
             }
@@ -76,20 +77,22 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 anime.setStatus(mal_statuses[position]);
-                switch (position){
-                    case 0:
-                        binding.pickStartDate.setText(todayDate);
-                        break;
-                    case 1:
-                        binding.editText.setText("0");
-                        break;
-                    case 2:
-                        binding.editText.setText(String.valueOf(totalEpisodes));
-                        break;
-                    case 5:
-                        anime.setStatus(mal_statuses[0]);
-                        anime.setIs_rewatching(true);
-                        break;
+                if (++spinnerCounter > 1) {
+                    switch (position) {
+                        case 0:
+                            binding.pickStartDate.setText(todayDate);
+                            break;
+                        case 1:
+                            binding.editText.setText("0");
+                            break;
+                        case 2:
+                            binding.editText.setText(String.valueOf(totalEpisodes));
+                            break;
+                        case 5:
+                            anime.setStatus(mal_statuses[0]);
+                            anime.setIs_rewatching(true);
+                            break;
+                    }
                 }
             }
 
@@ -100,20 +103,20 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         });
     }
 
-    private void initSeekbar(){
-        int red= Color.parseColor("#DA5E52");
+    private void initSeekbar() {
+        int red = Color.parseColor("#DA5E52");
         int yellow = Color.parseColor("#FFB74E");
-        int green= Color.parseColor("#87DE75");
-        int blue= Color.parseColor("#2F80ED");
-        int black= Color.parseColor("#FF000000");
-        int progress=anime.getScore();
+        int green = Color.parseColor("#87DE75");
+        int blue = Color.parseColor("#2F80ED");
+        int black = Color.parseColor("#FF000000");
+        int progress = anime.getScore();
         binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                score=progress;
+                score = progress;
                 anime.setScore(score);
-                switch (progress){
+                switch (progress) {
                     case 0:
                         binding.givenScoreView.setText("--");
                         binding.givenScoreView.setTextColor(black);
@@ -171,20 +174,20 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
 
             }
         });
-        if(progress!=-1){
+        if (progress != -1) {
             binding.seekBar.setProgress(progress);
         }
     }
 
-    private void initEpisodeCounter(){
-        Context context=getContext();
-        String title=anime.getTitle();
+    private void initEpisodeCounter() {
+        Context context = getContext();
+        String title = anime.getTitle();
         binding.editText.setText(String.valueOf(anime.getNum_episodes_watched()));
         binding.addButton2.setOnClickListener(v -> {
-            noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            if(noOfEpisodes==totalEpisodes && totalEpisodes!=0){
-                Toast.makeText(context,title+" Only have "+totalEpisodes+" Episodes.",Toast.LENGTH_SHORT).show();
-            }else {
+            noOfEpisodes = Integer.parseInt(binding.editText.getText().toString());
+            if (noOfEpisodes == totalEpisodes && totalEpisodes != 0) {
+                Toast.makeText(context, title + " Only have " + totalEpisodes + " Episodes.", Toast.LENGTH_SHORT).show();
+            } else {
                 noOfEpisodes++;
                 binding.editText.setText(String.valueOf(noOfEpisodes));
             }
@@ -192,65 +195,65 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         });
 
         binding.minusButton.setOnClickListener(v -> {
-            noOfEpisodes=Integer.parseInt(binding.editText.getText().toString());
-            noOfEpisodes= noOfEpisodes!=0 ? noOfEpisodes-1 : 0;
+            noOfEpisodes = Integer.parseInt(binding.editText.getText().toString());
+            noOfEpisodes = noOfEpisodes != 0 ? noOfEpisodes - 1 : 0;
             binding.editText.setText(String.valueOf(noOfEpisodes));
         });
     }
 
     @SuppressLint("SetTextI18n")
-    private void initDatePicker(){
-        String animeStartDate=anime.getStartDate();
-        String animeFinishDate=anime.getFinishData();
-        if(animeStartDate!=null){
+    private void initDatePicker() {
+        String animeStartDate = anime.getStartDate();
+        String animeFinishDate = anime.getFinishData();
+        if (animeStartDate != null) {
             binding.pickStartDate.setText(anime.getStart_season());
         }
-        if(animeFinishDate!=null){
+        if (animeFinishDate != null) {
             binding.pickFinishDate.setText(anime.getFinishData());
         }
-        FragmentManager fragmentManager=getChildFragmentManager();
-        final MaterialDatePicker<Long> materialDatePicker =MaterialDatePicker.Builder.datePicker().build();
+        FragmentManager fragmentManager = getChildFragmentManager();
+        final MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().build();
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-            String startDate=materialDatePicker.getHeaderText();
+            String startDate = materialDatePicker.getHeaderText();
             anime.setStartDate(startDate);
             binding.pickStartDate.setText(startDate);
         });
-        final MaterialDatePicker<Long> materialDatePicker2 =MaterialDatePicker.Builder.datePicker().build();
+        final MaterialDatePicker<Long> materialDatePicker2 = MaterialDatePicker.Builder.datePicker().build();
         materialDatePicker2.addOnPositiveButtonClickListener(selection -> {
-            String finishDate= materialDatePicker2.getHeaderText();
+            String finishDate = materialDatePicker2.getHeaderText();
             anime.setFinishData(finishDate);
             binding.pickFinishDate.setText(finishDate);
         });
-        binding.pickStartDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager,"DatePicker"));
-        binding.pickFinishDate.setOnClickListener(v -> materialDatePicker2.show(fragmentManager,"DatePicker2"));
+        binding.pickStartDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager, "DatePicker"));
+        binding.pickFinishDate.setOnClickListener(v -> materialDatePicker2.show(fragmentManager, "DatePicker2"));
 
-        todayDate= new SimpleDateFormat("d MMM yyyy", Locale.US).format(new Date());
+        todayDate = new SimpleDateFormat("d MMM yyyy", Locale.US).format(new Date());
         binding.startDateToday.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked){
+            if (isChecked) {
                 binding.pickStartDate.setText(todayDate);
                 anime.setStartDate(todayDate);
-            }else {
+            } else {
                 binding.pickStartDate.setText("Pick Start Date");
             }
         });
 
-        binding.finishDateToday.setOnCheckedChangeListener((buttonView,isChecked)->{
-            if(isChecked){
+        binding.finishDateToday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 binding.pickFinishDate.setText(todayDate);
                 anime.setFinishData(todayDate);
-            }else {
+            } else {
                 binding.pickFinishDate.setText("Pick Finish Date");
             }
         });
     }
 
     @SuppressLint("SetTextI18n")
-    private void initButtons(){
+    private void initButtons() {
         binding.addToListButton.setText("Update");
         binding.cancelButton.setText("Remove");
         binding.addToListButton.setOnClickListener(v -> {
             anime.setNum_episodes_watched(Integer.parseInt(binding.editText.getText().toString()));
-            updateAnimeInterface.updateAnime(anime,position);
+            updateAnimeInterface.updateAnime(anime, position);
             dismiss();
         });
 
@@ -262,7 +265,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
                 updateAnimeInterface.deleteAnime(anime.getId());
                 dismiss();
             });
-            alterDialog.setNegativeButton("NO",(dialog,which)->{
+            alterDialog.setNegativeButton("NO", (dialog, which) -> {
                 dialog.cancel();
             });
             alterDialog.show();
@@ -272,16 +275,16 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     }
 
 
-
-    public void setAnime(UserAnime anime, UpdateAnimeBottomSheet.UpdateAnime updateAnimeInterface, int position){
-        this.anime=anime;
-        this.updateAnimeInterface=updateAnimeInterface;
-        totalEpisodes=anime.getNum_episodes();
-        this.position=position;
+    public void setAnime(UserAnime anime, UpdateAnimeBottomSheet.UpdateAnime updateAnimeInterface, int position) {
+        this.anime = anime;
+        this.updateAnimeInterface = updateAnimeInterface;
+        totalEpisodes = anime.getNum_episodes();
+        this.position = position;
     }
 
-    public interface UpdateAnime{
+    public interface UpdateAnime {
         void updateAnime(UserAnime anime, int position);
+
         void deleteAnime(int id);
     }
 
