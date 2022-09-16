@@ -258,16 +258,14 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         });
 
         binding.cancelButton.setOnClickListener(v -> {
-            AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alterDialog = new AlertDialog.Builder(requireContext());
             alterDialog.setTitle("Remove anime from the list");
             alterDialog.setMessage("Are you sure you want to remove this from from your list?");
             alterDialog.setPositiveButton("YES", (dialog, which) -> {
                 updateAnimeInterface.deleteAnime(anime.getId());
                 dismiss();
             });
-            alterDialog.setNegativeButton("NO", (dialog, which) -> {
-                dialog.cancel();
-            });
+            alterDialog.setNegativeButton("NO", (dialog, which) -> dialog.cancel());
             alterDialog.show();
         });
 

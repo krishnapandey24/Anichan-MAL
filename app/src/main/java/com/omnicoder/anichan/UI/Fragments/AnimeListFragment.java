@@ -136,10 +136,9 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());
-            sortDialog.show();
             sortDialog.getWindow().setAttributes(layoutParams);
-
         }
+        sortDialog.show();
 
     }
 

@@ -85,7 +85,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     @Override
     public void mangaCompleted(int id,String name) {
         updateMangaViewModel.mangaCompleted(id);
-        Toast.makeText(getContext(),name+" Completed!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),name+" Moved to Completed!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -137,9 +137,10 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());
-            sortDialog.show();
             sortDialog.getWindow().setAttributes(layoutParams);
         }
+        sortDialog.show();
+
 
     }
 
