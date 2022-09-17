@@ -180,8 +180,10 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         noInternetConnectionDialog.show();
     }
 
-    private String convertDuration(int average_episode_duration) {
-        return average_episode_duration/60%24 + "h " + average_episode_duration%60+"m ";
+    private String convertDuration(int duration){
+        int min = (duration / 60)%60;
+        int hours = (duration/60)/60;
+        return hours + "h" + min + "m";
     }
 
     @Override
