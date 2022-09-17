@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.omnicoder.anichan.Adapters.Season2Adapter;
+import com.omnicoder.anichan.Adapters.SeasonAdapter;
 import com.omnicoder.anichan.Adapters.Top100Adapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
@@ -152,7 +152,7 @@ public class ExploreAnimeFragment extends Fragment{
 
 
     public void setTopUpcoming(List<Data> exploreViews){
-        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews,true);
+        SeasonAdapter seasonAdapter2 = new SeasonAdapter(getContext(), exploreViews,true);
         binding.upcomingView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.upcomingView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(binding.upcomingView);

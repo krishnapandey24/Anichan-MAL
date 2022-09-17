@@ -48,6 +48,7 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.MyViewHold
             Intent intent;
             if(isAnime){
                 intent = new Intent(context, ViewAnimeActivity.class);
+                intent.putExtra("media_type",Anime.getMedia_type());
             }else{
                 intent = new Intent(context, ViewMangaActivity.class);
             }

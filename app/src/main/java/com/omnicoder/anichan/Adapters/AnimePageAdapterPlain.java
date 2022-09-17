@@ -19,6 +19,7 @@ import com.omnicoder.anichan.Models.Responses.Genre;
 import com.omnicoder.anichan.Models.Responses.Node;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.omnicoder.anichan.Utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -28,10 +29,12 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
     public static final int LOADING_ITEM = 0;
     public static final int ANIME_ITEM = 1;
     Context context;
+    boolean isAnime;
 
-    public AnimePageAdapterPlain(DiffUtil.ItemCallback<Data> diffCallBack, Context context){
+    public AnimePageAdapterPlain(DiffUtil.ItemCallback<Data> diffCallBack, Context context,boolean isAnime){
         super(diffCallBack);
         this.context=context;
+        this.isAnime=isAnime;
     }
 
     @NonNull
@@ -60,8 +63,13 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
             holder.ratingView.setText(String.valueOf(currentAnime.getMean()));
             holder.imageView.setClipToOutline(true);
             holder.constraintLayout.setOnClickListener(v -> {
-                Intent intent= new Intent(context, ViewAnimeActivity.class);
-                intent.putExtra("media_type",currentAnime.getMedia_type());
+                Intent intent;
+                if(isAnime){
+                    intent = new Intent(context, ViewAnimeActivity.class);
+                    intent.putExtra("media_type",currentAnime.getMedia_type());
+                }else{
+                    intent = new Intent(context, ViewMangaActivity.class);
+                }
                 intent.putExtra("id",currentAnime.getId());
                 context.startActivity(intent);
             });

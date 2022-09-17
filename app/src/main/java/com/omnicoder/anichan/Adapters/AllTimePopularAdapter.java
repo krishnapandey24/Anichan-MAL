@@ -25,10 +25,12 @@ import java.util.List;
 public class AllTimePopularAdapter extends RecyclerView.Adapter<AllTimePopularAdapter.MyViewHolder> {
     List<Data> dataHolder;
     Context context;
+    boolean isAnime;
 
-    public AllTimePopularAdapter(Context context, List<Data> dataHolder){
+    public AllTimePopularAdapter(Context context, List<Data> dataHolder,boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.isAnime=isAnime;
     }
 
 
@@ -50,10 +52,11 @@ public class AllTimePopularAdapter extends RecyclerView.Adapter<AllTimePopularAd
         holder.imageView.setClipToOutline(true);
         holder.cardView.setOnClickListener(v -> {
             Intent intent;
-            if(Anime.getMedia_type().equals("manga")){
-                intent = new Intent(context, ViewMangaActivity.class);
-            }else{
+            if(isAnime){
                 intent = new Intent(context, ViewAnimeActivity.class);
+                intent.putExtra("media_type",Anime.getMedia_type());
+            }else{
+                intent = new Intent(context, ViewMangaActivity.class);
             }
             intent.putExtra("id",Anime.getId());
             context.startActivity(intent);

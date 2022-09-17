@@ -24,10 +24,13 @@ import java.util.List;
 public class RelatedAnimeAdapter extends RecyclerView.Adapter<RelatedAnimeAdapter.MyViewHolder> {
     List<RelatedAnime> dataHolder;
     Context context;
+    boolean isAnime;
 
-    public RelatedAnimeAdapter(Context context, List<RelatedAnime> dataHolder){
+    public RelatedAnimeAdapter(Context context, List<RelatedAnime> dataHolder,boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.isAnime=isAnime;
+
     }
 
 
@@ -54,10 +57,12 @@ public class RelatedAnimeAdapter extends RecyclerView.Adapter<RelatedAnimeAdapte
         holder.imageView.setClipToOutline(true);
         holder.cardView.setOnClickListener(v -> {
             Intent intent;
-            if(node.getMedia_type().equals("manga")){
-                intent= new Intent(context, ViewMangaActivity.class);
-            }else{
+            if(isAnime){
                 intent= new Intent(context, ViewAnimeActivity.class);
+                intent.putExtra("media_type",node.getMedia_type());
+            }else{
+                intent= new Intent(context, ViewMangaActivity.class);
+
             }
             intent.putExtra("id",node.getId());
             context.startActivity(intent);

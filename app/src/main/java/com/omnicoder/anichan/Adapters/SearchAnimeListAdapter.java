@@ -17,38 +17,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omnicoder.anichan.Database.UserAnime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Locale;
 
-public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyViewHolder>{
+public class SearchAnimeListAdapter extends RecyclerView.Adapter<SearchAnimeListAdapter.MyViewHolder>{
     List<UserAnime> dataHolder;
     Context context;
     static final String notRatedYet="--";
-    MyViewHolder.UpdateAnimeList updateAnimeList;
-    UpdateAnimeBottomSheet.UpdateAnime updateAnime;
-    int viewPagerPosition;
-
-    public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime,int viewPagerPosition){
+    public SearchAnimeListAdapter(Context context, List<UserAnime> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
-        this.updateAnimeList=updateAnimeList;
-        this.updateAnime=updateAnime;
-        this.viewPagerPosition=viewPagerPosition;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
-        View view= inflater.inflate(R.layout.anime_list_item_layout,parent,false);
+        View view= inflater.inflate(R.layout.search_anime_list_item_layout,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimeListAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAnimeListAdapter.MyViewHolder holder, int position) {
         UserAnime currentUserAnime = dataHolder.get(position);
         int id= currentUserAnime.getId();
         int score= currentUserAnime.getScore();
@@ -64,23 +56,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         holder.progressBar.setMax(totalEpisodes);
         holder.progressBar.setProgress(watchedEpisodes[0]);
         holder.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
-        holder.addButton.setOnClickListener(v -> {
-            if(watchedEpisodes[0]<totalEpisodes-1) {
-                holder.progressBar.setProgress(++watchedEpisodes[0]);
-                updateAnimeList.addEpisode(id,watchedEpisodes[0]);
-                holder.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
-            }else {
-                holder.progressBar.setProgress(++watchedEpisodes[0]);
-                holder.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
-                updateAnimeList.animeComplete(id,title);
-            }
-
-        });
-        holder.editButton.setOnClickListener(v -> {
-            UpdateAnimeBottomSheet updateAnimeBottomSheet=new UpdateAnimeBottomSheet();
-            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,viewPagerPosition);
-            updateAnimeList.showEditor(updateAnimeBottomSheet);
-        });
+        holder.statusView.setText(currentUserAnime.getStatus());
         holder.constraintLayout.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewAnimeActivity.class);
             intent.putExtra("media_type", currentUserAnime.getMedia_type());
@@ -97,7 +73,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView titleView,formatView,totalEpisodeView ,episodeCountView,givenScoreView,seasonView;
+        TextView titleView,formatView,totalEpisodeView ,episodeCountView,givenScoreView,seasonView,statusView;
         ProgressBar progressBar;
         ImageButton addButton,editButton;
         ImageView imageView;
@@ -115,13 +91,8 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
             editButton=itemView.findViewById(R.id.editButton);
             imageView=itemView.findViewById(R.id.imageView);
             constraintLayout=itemView.findViewById(R.id.layout);
+            statusView=itemView.findViewById(R.id.statusView);
  
-        }
-
-        public interface UpdateAnimeList{
-            void addEpisode(int id,int noOfEpisodesWatched);
-            void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
-            void animeComplete(int id,String title);
         }
 
 

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.omnicoder.anichan.Adapters.Season2Adapter;
+import com.omnicoder.anichan.Adapters.SeasonAdapter;
 import com.omnicoder.anichan.Adapters.Top100Adapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
@@ -127,7 +127,7 @@ public class ExploreMangaFragment extends Fragment{
 
     public void setTopManhwa(List<Data> exploreViews){
         RecyclerView recyclerView= binding.manhwaView;
-        Season2Adapter seasonAdapter2 = new Season2Adapter(getContext(), exploreViews,false);
+        SeasonAdapter seasonAdapter2 = new SeasonAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(recyclerView);

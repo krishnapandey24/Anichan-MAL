@@ -43,8 +43,8 @@ public class SeasonActivity extends AppCompatActivity {
         Intent intent= getIntent();
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
         setSpinners(intent.getIntExtra("SeasonIndex",0));
-        animePageAdapter = new AnimePageAdapter(new NodeComparator(), SeasonActivity.this);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), SeasonActivity.this);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), SeasonActivity.this,true);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), SeasonActivity.this,true);
 //        setAnime(selectedSeason,currentYear);
         setupToolbar();
     }

@@ -17,12 +17,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.AnimeListAdapter;
-import com.omnicoder.anichan.Adapters.MangaListAdapter;
+import com.omnicoder.anichan.Adapters.SearchAnimeListAdapter;
+import com.omnicoder.anichan.Adapters.SearchMangaListAdapter;
 import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
 import com.omnicoder.anichan.ViewModels.MangaListViewModel;
 import com.omnicoder.anichan.databinding.SearchListBottomSheetBinding;
-
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -52,9 +51,10 @@ public class SearchListFragment extends Fragment {
             return false;
         });
         if(isAnimeList){
+            binding.searchEditText.setHint("Search Anime");
             AnimeListViewModel animeListViewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            animeListViewModel.getSearchResults().observe(getViewLifecycleOwner(), animeLists -> binding.recyclerView.setAdapter(new AnimeListAdapter(context, animeLists, null, null,0)));
+            animeListViewModel.getSearchResults().observe(getViewLifecycleOwner(), animeLists -> binding.recyclerView.setAdapter(new SearchAnimeListAdapter(context, animeLists)));
             binding.searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,9 +73,10 @@ public class SearchListFragment extends Fragment {
                 }
             });
         }else{
+            binding.searchEditText.setHint("Search Manga");
             MangaListViewModel mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            mangaListViewModel.getSearchResults().observe(getViewLifecycleOwner(), mangaList -> binding.recyclerView.setAdapter(new MangaListAdapter(context, mangaList, null, null,0)));
+            mangaListViewModel.getSearchResults().observe(getViewLifecycleOwner(), mangaList -> binding.recyclerView.setAdapter(new SearchMangaListAdapter(context, mangaList)));
             binding.searchEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

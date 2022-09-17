@@ -37,6 +37,7 @@ public class MangaDetailsViewModel extends ViewModel {
     }
 
     public void fetchMangaDetails(int id){
+        Log.d("tagg","fetch id: "+id);
         compositeDisposable.add(repository.getManga(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

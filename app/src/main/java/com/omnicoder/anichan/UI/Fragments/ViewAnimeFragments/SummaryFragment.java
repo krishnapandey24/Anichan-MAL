@@ -93,8 +93,8 @@ public class SummaryFragment extends Fragment {
     }
 
     private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
-        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations);
-        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime);
+        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,true);
+        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,true);
         binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.recommendationRv.setAdapter(allTimePopularAdapter);
@@ -106,7 +106,7 @@ public class SummaryFragment extends Fragment {
             if((opening_themes==null || opening_themes.isEmpty()) && (ending_themes==null || ending_themes.isEmpty())){
                 Toast.makeText(context,"No opening or ending themes available",Toast.LENGTH_SHORT).show();
             }else{
-                BaseApplication application= (BaseApplication) getContext().getApplicationContext();
+                BaseApplication application= (BaseApplication) requireContext().getApplicationContext();
                 ArrayList<List<AnimeTheme>> arrayList= new ArrayList<>();
                 arrayList.add(opening_themes);
                 arrayList.add(ending_themes);

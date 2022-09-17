@@ -83,8 +83,8 @@ public class MangaSummaryFragment extends Fragment {
 
 
     private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
-        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations);
-        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime);
+        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,false);
+        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,false);
         binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.recommendationRv.setAdapter(allTimePopularAdapter);

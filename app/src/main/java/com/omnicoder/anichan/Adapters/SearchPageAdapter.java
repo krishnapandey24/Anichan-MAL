@@ -56,6 +56,8 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
                     intent = new Intent(context, ViewMangaActivity.class);
                 }else{
                     intent = new Intent(context, ViewAnimeActivity.class);
+                    intent.putExtra("media_type",node.getMedia_type());
+
                 }
                 intent.putExtra("id",node.getId());
                 context.startActivity(intent);

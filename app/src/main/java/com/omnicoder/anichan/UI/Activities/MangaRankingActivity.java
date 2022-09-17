@@ -59,8 +59,8 @@ public class MangaRankingActivity extends AppCompatActivity {
         });
 
         rankingType= mangaRankingTypes[rankingTypeIndex];
-        animePageAdapter = new AnimePageAdapter(new NodeComparator(), MangaRankingActivity.this);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), MangaRankingActivity.this);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), MangaRankingActivity.this,false);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), MangaRankingActivity.this,false);
         setManga(rankingType,three);
         setupToolbar();
 

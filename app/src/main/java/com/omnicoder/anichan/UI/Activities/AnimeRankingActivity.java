@@ -60,8 +60,8 @@ public class AnimeRankingActivity extends AppCompatActivity{
         });
 
         rankingType= rankingTypes[rankingTypeIndex];
-        animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this,true);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this,true);
         setAnime(rankingType,three);
         setupToolbar();
     }

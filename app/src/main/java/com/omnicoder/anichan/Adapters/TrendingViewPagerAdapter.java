@@ -58,6 +58,8 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
             Intent intent;
             if(isAnime){
                 intent = new Intent(context, ViewAnimeActivity.class);
+                intent.putExtra("media_type",Anime.getMedia_type());
+
             }else{
                 intent = new Intent(context, ViewMangaActivity.class);
             }
