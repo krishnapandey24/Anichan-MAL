@@ -333,22 +333,28 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             mangaAdded.setStatus(status);
             dismiss();
         });
+        binding.cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mangaListStatus==null){
+                    dismiss();
+                }else{
+                    mangaAdded.startLoading();
+                    AlertDialog.Builder alterDialog = new AlertDialog.Builder(requireContext());
+                    alterDialog.setTitle("Remove manga from the list");
+                    alterDialog.setMessage("Are you sure you want to remove this from from your list?");
+                    alterDialog.setPositiveButton("YES", (dialog, which) -> {
+                        viewModel.deleteManga(manga.getId());
+                        mangaAdded.observeDeleteResponse(viewModel.deleteResponse());
+                        dismiss();
+                    });
+                    alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
+                    alterDialog.show();
+                }
+            }
+        });
 
-        if(mangaListStatus==null){
-            binding.cancelButton.setOnClickListener(v -> dismiss());
-        }else{
-            mangaAdded.startLoading();
-            AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
-            alterDialog.setTitle("Remove anime from the list");
-            alterDialog.setMessage("Are you sure you want to remove this from from your list?");
-            alterDialog.setPositiveButton("YES", (dialog, which) -> {
-                viewModel.deleteManga(manga.getId());
-                mangaAdded.observeDeleteResponse(viewModel.deleteResponse());
-                dismiss();
-            });
-            alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
-            alterDialog.show();
-        }
+
     }
 
 

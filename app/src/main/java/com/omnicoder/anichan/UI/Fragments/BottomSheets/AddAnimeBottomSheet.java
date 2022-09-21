@@ -34,6 +34,7 @@ import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -319,23 +320,27 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             dismiss();
         });
 
-        if(animeListStatus==null){
-            binding.cancelButton.setOnClickListener(v -> dismiss());
-        }else{
-            animeAdded.startLoading();
-            AlertDialog.Builder alterDialog = new AlertDialog.Builder(getContext());
-            alterDialog.setTitle("Remove anime from the list");
-            alterDialog.setMessage("Are you sure you want to remove this from from your list?");
-            alterDialog.setPositiveButton("YES", (dialog, which) -> {
-                updateAnimeViewModel.deleteAnime(anime.getId());
-                animeAdded.observeDeleteAnime(updateAnimeViewModel.deleteResponse());
+        binding.cancelButton.setOnClickListener(v -> {
+            if(animeListStatus==null){
                 dismiss();
-            });
-            alterDialog.setNegativeButton("NO",(dialog,which)->{
-                dialog.cancel();
-            });
-            alterDialog.show();
-        }
+            }else{
+                animeAdded.startLoading();
+                AlertDialog.Builder alterDialog = new AlertDialog.Builder(requireContext());
+                alterDialog.setTitle("Remove anime from the list");
+                alterDialog.setMessage("Are you sure you want to remove this from from your list?");
+                alterDialog.setPositiveButton("YES", (dialog, which) -> {
+                    updateAnimeViewModel.deleteAnime(anime.getId());
+                    animeAdded.observeDeleteAnime(updateAnimeViewModel.deleteResponse());
+                    dismiss();
+                });
+                alterDialog.setNegativeButton("NO",(dialog,which)->{
+                    dialog.cancel();
+                });
+                alterDialog.show();
+            }
+        });
+
+
     }
 
     public interface AnimeAdded{

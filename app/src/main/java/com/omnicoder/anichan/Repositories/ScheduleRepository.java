@@ -15,7 +15,7 @@ public class ScheduleRepository {
         this.jikanAPI=jikanAPI;
     }
 
-    // TODO: 21-Sep-22 Migrate to V4 
+    // TODO: 21-Sep-22 Migrate to V4
     public Observable<Schedule> getAnimeSchedule(){
         return jikanAPI.getAnimeSchedule(URL);
     }
