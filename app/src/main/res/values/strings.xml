@@ -72,6 +72,18 @@
         <item>Favorites</item>
     </string-array>
 
+    <string-array name="weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Others</item>
+        <item>Unknown</item>
+    </string-array>
+
     <string-array name="MangaRankingTypes">
         <item>All</item>
         <item>Manga</item>

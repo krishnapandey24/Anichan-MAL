@@ -96,7 +96,6 @@ public class SearchListFragment extends Fragment {
             });
         }
 
-
         binding.backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
     }

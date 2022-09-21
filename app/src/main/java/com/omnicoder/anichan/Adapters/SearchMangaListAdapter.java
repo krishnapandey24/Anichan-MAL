@@ -20,6 +20,7 @@ import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class SearchMangaListAdapter extends RecyclerView.Adapter<SearchMangaListAdapter.MyViewHolder>{
     List<UserManga> dataHolder;
@@ -64,7 +65,7 @@ public class SearchMangaListAdapter extends RecyclerView.Adapter<SearchMangaList
         holder.progressBar.setProgress(chaptersRead[0]);
         holder.progressBar.setMax(totalChapters);
         holder.progressBar.setProgress(chaptersRead[0]);
-        holder.statusView.setText(manga.getStatus());
+        holder.statusView.setText(manga.getStatus().replaceAll("_"," ").toUpperCase(Locale.ROOT));
         holder.constraintLayout.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewMangaActivity.class);
             intent.putExtra("id",id);

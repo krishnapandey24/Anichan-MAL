@@ -2,7 +2,6 @@ package com.omnicoder.anichan.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.omnicoder.anichan.UI.Fragments.ExploreAnimeFragment;

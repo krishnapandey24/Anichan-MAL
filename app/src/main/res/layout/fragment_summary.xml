@@ -380,9 +380,11 @@
         android:layout_marginRight="16dp"
         android:inflatedId="@id/videoViewStub"
         android:layout="@layout/video_view_stub"
+        app:layout_constraintTop_toBottomOf="@+id/recommendationRv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view7" />
+        app:layout_constraintBottom_toBottomOf="parent"
+      />
 
     <TextView
         android:id="@+id/textView26"
@@ -395,7 +397,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoViewStub" />
+        app:layout_constraintTop_toBottomOf="@+id/view7" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/relatedRv"

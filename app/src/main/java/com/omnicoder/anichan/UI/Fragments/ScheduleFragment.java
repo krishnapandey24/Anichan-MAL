@@ -1,66 +1,100 @@
 package com.omnicoder.anichan.UI.Fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.omnicoder.anichan.Adapters.ScheduleAdapter;
+import com.omnicoder.anichan.Models.Schedule.Schedule;
+import com.omnicoder.anichan.Models.Schedule.ScheduleAnimeEntity;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.ViewModels.ScheduleViewModel;
+import com.omnicoder.anichan.databinding.FragmentScheduleBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ScheduleFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ScheduleFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentScheduleBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScheduleFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentScheduleBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ScheduleViewModel viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        viewModel.fetchSchedule();
+        viewModel.getSchedule().observe(getViewLifecycleOwner(), this::initSpinners);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+
+    private void initSpinners(Schedule schedule) {
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.weekdays, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.scheduleSpinner.setAdapter(arrayAdapter);
+        binding.scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        setRecyclerView(schedule.getMonday());
+                        break;
+                    case 1:
+                        setRecyclerView(schedule.getTuesday());
+                        break;
+                    case 2:
+                        setRecyclerView(schedule.getWednesday());
+                        break;
+                    case 3:
+                        setRecyclerView(schedule.getThursday());
+                        break;
+                    case 4:
+                        setRecyclerView(schedule.getFriday());
+                        break;
+                    case 5:
+                        setRecyclerView(schedule.getSaturday());
+                        break;
+                    case 6:
+                        setRecyclerView(schedule.getSunday());
+                        break;
+                    case 7:
+                        setRecyclerView(schedule.getOther());
+                        break;
+                    case 8:
+                        setRecyclerView(schedule.getUnknown());
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        binding.progressBar.setVisibility(View.GONE);
+    }
+
+    private void setRecyclerView(List<ScheduleAnimeEntity> weekdaySchedule) {
+        ScheduleAdapter adapter = new ScheduleAdapter(getContext(), weekdaySchedule);
+        binding.recyclerView.setAdapter(adapter);
     }
 }

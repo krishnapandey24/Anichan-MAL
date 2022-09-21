@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/searchBarBackground"
-                android:hint="Search Anime"
+                android:hint="Search Anime or Manga"
                 android:paddingHorizontal="8dp"
                 android:textSize="14sp"
                 android:visibility="visible"
