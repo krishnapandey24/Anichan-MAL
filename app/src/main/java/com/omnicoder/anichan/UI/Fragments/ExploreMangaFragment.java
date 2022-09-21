@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.omnicoder.anichan.Adapters.SeasonAdapter;
-import com.omnicoder.anichan.Adapters.Top100Adapter;
+import com.omnicoder.anichan.Adapters.AnimeAdapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
@@ -136,7 +136,7 @@ public class ExploreMangaFragment extends Fragment{
 
     public void setTopManhua(List<Data> exploreViews){
         RecyclerView recyclerView= binding.manhuaView;
-        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews,false);
+        AnimeAdapter seasonAdapter2 = new AnimeAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(recyclerView);

@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.omnicoder.anichan.Adapters.SeasonAdapter;
-import com.omnicoder.anichan.Adapters.Top100Adapter;
+import com.omnicoder.anichan.Adapters.AnimeAdapter;
 import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.Models.Responses.Data;
 import com.omnicoder.anichan.ViewModels.ExploreViewModel;
@@ -160,7 +160,7 @@ public class ExploreAnimeFragment extends Fragment{
     }
 
     public void setRecommendations(List<Data> exploreViews){
-        Top100Adapter seasonAdapter2 = new Top100Adapter(getContext(), exploreViews,true);
+        AnimeAdapter seasonAdapter2 = new AnimeAdapter(getContext(), exploreViews,true);
         binding.recommendationView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.recommendationView.setAdapter(seasonAdapter2);
         addOnItemTouchListener(binding.recommendationView);

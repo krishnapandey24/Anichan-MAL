@@ -49,6 +49,7 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initSpinners(Schedule schedule,int day) {
+        binding.progressBar.setVisibility(View.GONE);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.weekdays, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.scheduleSpinner.setAdapter(arrayAdapter);
@@ -93,7 +94,6 @@ public class ScheduleFragment extends Fragment {
             }
         });
         binding.scheduleSpinner.setSelection(day-1);
-        binding.progressBar.setVisibility(View.GONE);
     }
 
     private void setRecyclerView(List<ScheduleAnimeEntity> weekdaySchedule) {

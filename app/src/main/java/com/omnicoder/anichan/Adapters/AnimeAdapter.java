@@ -17,13 +17,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.MyViewHolder> {
+public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.MyViewHolder> {
     List<Data> dataHolder;
     Context context;
     LayoutBinding binding;
     boolean isAnime;
 
-    public Top100Adapter(Context context, List<Data> dataHolder,boolean isAnime){
+    public AnimeAdapter(Context context, List<Data> dataHolder, boolean isAnime){
         this.dataHolder= dataHolder;
         this.context= context;
         this.isAnime=isAnime;
@@ -37,7 +37,7 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Top100Adapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AnimeAdapter.MyViewHolder holder, int position) {
         Node Anime= dataHolder.get(position).getNode();
         String title= Anime.getTitle();
         String imageURL= Anime.getMainPicture().getMedium();

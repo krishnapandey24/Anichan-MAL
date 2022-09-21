@@ -145,16 +145,13 @@ public class SummaryFragment extends Fragment {
         binding=null;
     }
 
-    // TODO: 21-Sep-22 Fix videos not loading
     private void loadVideos(List<Promo> videos){
         Log.d("tagg","Videos is null "+(videos==null));
         if(videos!=null){
             VideoAdapter adapter = new VideoAdapter(context, videos);
-            if(binding.videoViewStub.getParent() == null) {
-                RecyclerView recyclerView = binding.videoViewStub.inflate().findViewById(R.id.videoViewRv);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                recyclerView.setAdapter(adapter);
-            }
+            RecyclerView recyclerView = binding.videoViewStub.inflate().findViewById(R.id.videoViewRv);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setAdapter(adapter);
         }
     }
     private String getAiringStatus(String status){
