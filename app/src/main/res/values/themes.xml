@@ -117,20 +117,14 @@
 
     <style name="SpinnerStyle">
         <item name="android:background">@drawable/spinner_bg</item>
-<!--        <item name="android:minWidth">@dimen/spinner_min_width</item>-->
-<!--        <item name="android:minHeight">@dimen/spinner_min_height</item>-->
         <item name="android:popupElevation">3dp</item>
-<!--        <item name="android:textAppearance">@style/TextAppearance.Sushi.B2</item>-->
         <item name="android:popupBackground">@color/contentBackground</item>
     </style>
 
 
     <style name="SpinnerStyle2">
         <item name="android:background">@drawable/spinner_bg</item>
-        <!--        <item name="android:minWidth">@dimen/spinner_min_width</item>-->
-        <!--        <item name="android:minHeight">@dimen/spinner_min_height</item>-->
         <item name="android:popupElevation">3dp</item>
-        <!--        <item name="android:textAppearance">@style/TextAppearance.Sushi.B2</item>-->
         <item name="android:popupBackground">@color/contentBackground</item>
         <item name="android:paddingRight">4dp</item>
     </style>
