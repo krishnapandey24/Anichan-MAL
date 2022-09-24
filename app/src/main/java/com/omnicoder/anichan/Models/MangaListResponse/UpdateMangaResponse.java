@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.MangaListResponse;
+package com.omnicoder.anichan.models.mangaListResponse;
 
 
 import java.util.List;

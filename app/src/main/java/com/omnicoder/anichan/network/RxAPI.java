@@ -1,19 +1,14 @@
-package com.omnicoder.anichan.Network;
+package com.omnicoder.anichan.network;
 
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Models.UpdateAnimeResponse;
-import com.omnicoder.anichan.UI.Activities.TestActivity;
-
-import java.util.List;
+import com.omnicoder.anichan.models.AccessToken;
+import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.responses.RankingResponse;
+import com.omnicoder.anichan.models.UpdateAnimeResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

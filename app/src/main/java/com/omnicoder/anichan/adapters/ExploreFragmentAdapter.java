@@ -1,12 +1,12 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.omnicoder.anichan.UI.Fragments.ExploreAnimeFragment;
-import com.omnicoder.anichan.UI.Fragments.ExploreMangaFragment;
-import com.omnicoder.anichan.UI.Fragments.ScheduleFragment;
+import com.omnicoder.anichan.ui.fragments.ExploreAnimeFragment;
+import com.omnicoder.anichan.ui.fragments.ExploreMangaFragment;
+import com.omnicoder.anichan.ui.fragments.ScheduleFragment;
 
 public class ExploreFragmentAdapter extends FragmentStateAdapter {
     ExploreAnimeFragment exploreAnimeFragment;

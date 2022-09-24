@@ -1,6 +1,6 @@
-package com.omnicoder.anichan.Utils;
+package com.omnicoder.anichan.utils;
 
-import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.models.responses.Data;
 
 import java.util.Comparator;
 

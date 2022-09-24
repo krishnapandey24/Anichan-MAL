@@ -1,6 +1,6 @@
-package com.omnicoder.anichan.Models.AnimeResponse.Staff;
+package com.omnicoder.anichan.models.animeResponse.Staff;
 
-import com.omnicoder.anichan.Models.AnimeResponse.Characters.Character;
+import com.omnicoder.anichan.models.animeResponse.Characters.Character;
 
 import java.util.List;
 

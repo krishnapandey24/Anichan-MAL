@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.os.Bundle;
 

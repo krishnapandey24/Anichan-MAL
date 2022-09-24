@@ -1,9 +1,8 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,13 +15,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.AddMangaBottomSheet;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.MangaSummaryFragment;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.RelatedFragment;
-import com.omnicoder.anichan.ViewModels.MangaDetailsViewModel;
+import com.omnicoder.anichan.ui.fragments.bottomSheets.AddMangaBottomSheet;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.MangaSummaryFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
+import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 import com.omnicoder.anichan.databinding.ActivityViewMangaBinding;
 import com.squareup.picasso.Picasso;
 

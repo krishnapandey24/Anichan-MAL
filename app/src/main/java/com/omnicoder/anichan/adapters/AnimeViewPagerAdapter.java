@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
-import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
+import com.omnicoder.anichan.database.UserAnime;
+import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
+import com.omnicoder.anichan.viewModels.AnimeListViewModel;
 import com.omnicoder.anichan.databinding.FragmentTabBinding;
 
 

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.AnimeResponse;
+package com.omnicoder.anichan.models.animeResponse;
 
 public class AnimeListStatus {
     String status,start_date,finish_date,updated_at;

@@ -1,15 +1,11 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Models.Schedule.Schedule;
-import com.omnicoder.anichan.Repositories.ScheduleRepository;
-
-import java.util.List;
+import com.omnicoder.anichan.models.jikan.Schedule;
+import com.omnicoder.anichan.repositories.ScheduleRepository;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.BottomSheets;
+package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
 import android.content.Context;
 import android.os.Bundle;

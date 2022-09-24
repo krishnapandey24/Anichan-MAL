@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Utils;
+package com.omnicoder.anichan.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.AnimeResponse;
+package com.omnicoder.anichan.models.animeResponse;
 
 public class Broadcast {
     String day_of_the_week;

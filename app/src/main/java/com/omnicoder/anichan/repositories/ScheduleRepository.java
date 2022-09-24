@@ -1,7 +1,7 @@
-package com.omnicoder.anichan.Repositories;
+package com.omnicoder.anichan.repositories;
 
-import com.omnicoder.anichan.Models.Schedule.Schedule;
-import com.omnicoder.anichan.Network.JikanAPI;
+import com.omnicoder.anichan.models.jikan.Schedule;
+import com.omnicoder.anichan.network.JikanAPI;
 
 import javax.inject.Inject;
 

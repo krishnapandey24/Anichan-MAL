@@ -1,8 +1,8 @@
-package com.omnicoder.anichan.DI;
+package com.omnicoder.anichan.di;
 
 import android.app.Application;
 
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeTheme;
+import com.omnicoder.anichan.models.animeResponse.AnimeTheme;
 
 import java.util.ArrayList;
 import java.util.List;

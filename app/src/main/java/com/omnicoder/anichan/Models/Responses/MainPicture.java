@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.Responses;
+package com.omnicoder.anichan.models.responses;
 
 public class MainPicture {
     String medium, large;

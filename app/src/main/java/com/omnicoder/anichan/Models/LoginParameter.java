@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
 public class LoginParameter {
     String client_id,code,code_verifier,grant_type="authorization_code";

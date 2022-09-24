@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.ViewModel;
 

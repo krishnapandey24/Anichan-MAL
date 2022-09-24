@@ -1,6 +1,4 @@
-package com.omnicoder.anichan.ViewModels;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.omnicoder.anichan.viewModels;
 
 import android.os.Bundle;
 
@@ -13,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.ShoppingViewModel;
+import com.omnicoder.anichan.ui.fragments.ShoppingViewModel;
 
 public class ShoppingFragment extends Fragment {
 

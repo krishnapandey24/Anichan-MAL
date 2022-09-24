@@ -1,12 +1,10 @@
-package com.omnicoder.anichan.ViewModels;
-
-import android.util.Log;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Database.UserManga;
-import com.omnicoder.anichan.Repositories.MangaListRepository;
+import com.omnicoder.anichan.database.UserManga;
+import com.omnicoder.anichan.repositories.MangaListRepository;
 
 import javax.inject.Inject;
 

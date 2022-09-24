@@ -1,20 +1,20 @@
-package com.omnicoder.anichan.Repositories;
+package com.omnicoder.anichan.repositories;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.omnicoder.anichan.Database.UserListDB;
-import com.omnicoder.anichan.Database.AnimeDao;
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
-import com.omnicoder.anichan.Models.AnimeListResponse.UserListAnime;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
-import com.omnicoder.anichan.Models.UpdateAnimeResponse;
-import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.database.UserListDB;
+import com.omnicoder.anichan.database.AnimeDao;
+import com.omnicoder.anichan.database.UserAnime;
+import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
+import com.omnicoder.anichan.models.animeListResponse.UserListAnime;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.AnimeListStatus;
+import com.omnicoder.anichan.models.animeResponse.StartSeason;
+import com.omnicoder.anichan.models.UpdateAnimeResponse;
+import com.omnicoder.anichan.network.MalApi;
+import com.omnicoder.anichan.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

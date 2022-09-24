@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.Schedule.ScheduleAnimeEntity;
+import com.omnicoder.anichan.models.jikan.ScheduleAnimeEntity;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
+import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

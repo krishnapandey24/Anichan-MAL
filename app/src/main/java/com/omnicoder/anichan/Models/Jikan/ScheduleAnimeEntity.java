@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.Schedule;
+package com.omnicoder.anichan.models.jikan;
 
 import java.util.List;
 

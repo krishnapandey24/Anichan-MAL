@@ -1,6 +1,6 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
-import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.database.UserAnime;
 
 import java.util.List;
 

@@ -1,15 +1,14 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Repositories.ExploreRepository;
-import com.omnicoder.anichan.Repositories.LoginRepository;
-import com.omnicoder.anichan.Utils.Constants;
-import com.omnicoder.anichan.Utils.PkceGenerator;
+import com.omnicoder.anichan.models.AccessToken;
+import com.omnicoder.anichan.repositories.LoginRepository;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.utils.PkceGenerator;
 
 import javax.inject.Inject;
 

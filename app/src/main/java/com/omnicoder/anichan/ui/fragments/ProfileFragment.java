@@ -1,6 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.os.Bundle;
 
@@ -13,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.ViewModels.ProfileViewModel;
+import com.omnicoder.anichan.viewModels.ProfileViewModel;
 
 public class ProfileFragment extends Fragment {
 

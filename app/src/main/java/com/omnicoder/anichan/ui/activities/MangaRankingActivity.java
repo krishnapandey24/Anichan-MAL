@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import com.omnicoder.anichan.Adapters.AnimePageAdapter;
-import com.omnicoder.anichan.Adapters.AnimePageAdapterPlain;
+import com.omnicoder.anichan.adapters.AnimePageAdapter;
+import com.omnicoder.anichan.adapters.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.Utils.NodeComparator;
-import com.omnicoder.anichan.ViewModels.MangaRankingViewModel;
+import com.omnicoder.anichan.utils.NodeComparator;
+import com.omnicoder.anichan.viewModels.MangaRankingViewModel;
 import com.omnicoder.anichan.databinding.ActivityMangaRankingBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

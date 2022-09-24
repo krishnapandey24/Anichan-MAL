@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.BottomSheets;
+package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,11 +22,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.UserManga;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
-import com.omnicoder.anichan.Models.MangaResponse.MangaListStatus;
+import com.omnicoder.anichan.database.UserManga;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.mangaResponse.MangaListStatus;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.ViewModels.UpdateMangaViewModel;
+import com.omnicoder.anichan.viewModels.UpdateMangaViewModel;
 import com.omnicoder.anichan.databinding.MangaBottomSheetBinding;
 
 import java.text.SimpleDateFormat;

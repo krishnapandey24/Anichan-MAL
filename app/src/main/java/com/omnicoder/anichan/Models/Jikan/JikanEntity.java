@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.Schedule;
+package com.omnicoder.anichan.models.jikan;
 
 public class JikanEntity {
     public int mal_id;

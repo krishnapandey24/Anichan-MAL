@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/explore_fragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.ExploreFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.ExploreFragment"
         android:label="home_fragment"
         tools:layout="@layout/explore_fragment" >
         <action
@@ -28,22 +28,22 @@
     </fragment>
     <fragment
         android:id="@+id/news_fragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.NewsFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.NewsFragment"
         android:label="news_fragment"
         tools:layout="@layout/news_fragment" />
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.ProfileFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
     <fragment
         android:id="@+id/shopping_fragment"
-        android:name="com.omnicoder.anichan.ViewModels.ShoppingFragment"
+        android:name="com.omnicoder.anichan.viewModels.ShoppingFragment"
         android:label="shopping_fragment"
         tools:layout="@layout/shopping_fragment" />
     <fragment
         android:id="@+id/anime_list_fragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.AnimeListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.AnimeListFragment"
         android:label="anime_list_fragment"
         tools:layout="@layout/anime_list_fragment" >
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <activity
         android:id="@+id/seasonActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.SeasonActivity"
+        android:name="com.omnicoder.anichan.ui.activities.SeasonActivity"
         android:label="SeasonActivity" >
         <argument
             android:name="SeasonIndex"
@@ -63,7 +63,7 @@
     </activity>
     <activity
         android:id="@+id/animeRankingActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.AnimeRankingActivity"
+        android:name="com.omnicoder.anichan.ui.activities.AnimeRankingActivity"
         android:label="activity_view_anime"
         app:action="action_viewAnimeActivity_to_anime_chart_bottom_sheet"
         tools:layout="@layout/activity_chart_anime">
@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/searchListFragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.SearchListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.SearchListFragment"
         android:label="SearchListFragment" >
         <argument
             android:name="isAnimeList"
@@ -83,7 +83,7 @@
     </fragment>
     <activity
         android:id="@+id/mangaRankingActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.MangaRankingActivity"
+        android:name="com.omnicoder.anichan.ui.activities.MangaRankingActivity"
         android:label="activity_manga_ranking"
         tools:layout="@layout/activity_manga_ranking" >
         <argument android:name="mangaTypeIndex"
@@ -92,16 +92,16 @@
     </activity>
     <activity
         android:id="@+id/scheduleActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.ScheduleActivity"
+        android:name="com.omnicoder.anichan.ui.activities.ScheduleActivity"
         android:label="activity_schedule"
         tools:layout="@layout/activity_schedule" />
     <activity
         android:id="@+id/searchActivity"
-        android:name="com.omnicoder.anichan.UI.Activities.SearchActivity"
+        android:name="com.omnicoder.anichan.ui.activities.SearchActivity"
         android:label="SearchActivity" />
     <fragment
         android:id="@+id/manga_list_fragment"
-        android:name="com.omnicoder.anichan.UI.Fragments.MangaListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.MangaListFragment"
         android:label="manga_list_fragment"
         tools:layout="@layout/fragment_manga_list" >
         <action

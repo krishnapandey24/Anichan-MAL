@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.BottomSheets;
+package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 

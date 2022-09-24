@@ -1,11 +1,11 @@
-package com.omnicoder.anichan.DI;
+package com.omnicoder.anichan.di;
 
 import android.content.Context;
 
-import com.omnicoder.anichan.Network.JikanAPI;
-import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Network.MovieDB;
-import com.omnicoder.anichan.Network.RxAPI;
+import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.network.MalApi;
+import com.omnicoder.anichan.network.MovieDB;
+import com.omnicoder.anichan.network.RxAPI;
 
 import javax.inject.Singleton;
 

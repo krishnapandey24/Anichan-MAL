@@ -1,20 +1,16 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelKt;
 import androidx.paging.PagingData;
-import androidx.paging.rxjava3.PagingRx;
 
-import com.omnicoder.anichan.Models.Animes;
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Repositories.ExploreRepository;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.repositories.ExploreRepository;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.core.Flowable;
-import kotlinx.coroutines.CoroutineScope;
 
 @HiltViewModel
 public class SearchViewModel extends ViewModel {

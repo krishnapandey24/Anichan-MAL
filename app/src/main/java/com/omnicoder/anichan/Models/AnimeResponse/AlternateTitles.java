@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.AnimeResponse;
+package com.omnicoder.anichan.models.animeResponse;
 
 
 import java.util.List;

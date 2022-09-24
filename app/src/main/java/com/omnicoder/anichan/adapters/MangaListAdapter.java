@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Database.UserManga;
+import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateMangaBottomSheet;
+import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
+import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateMangaBottomSheet;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.omnicoder.anichan.Models.AnimeListResponse;
+package com.omnicoder.anichan.models.animeListResponse;
 
 
-import com.omnicoder.anichan.Models.Responses.Paging;
+import com.omnicoder.anichan.models.responses.Paging;
 
 import java.util.List;
 

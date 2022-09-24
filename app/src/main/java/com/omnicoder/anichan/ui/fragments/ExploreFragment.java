@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,16 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.Adapters.ExploreFragmentAdapter;
+import com.omnicoder.anichan.adapters.ExploreFragmentAdapter;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.TestActivity;
-import com.omnicoder.anichan.ViewModels.ExploreViewModel;
+import com.omnicoder.anichan.ui.activities.TestActivity;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
 
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeTheme;
+import com.omnicoder.anichan.models.animeResponse.AnimeTheme;
 import com.omnicoder.anichan.R;
 
 import java.util.ArrayList;

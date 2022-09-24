@@ -1,13 +1,13 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Database.UserManga;
-import com.omnicoder.anichan.Models.MangaListResponse.UserMangaListResponse;
-import com.omnicoder.anichan.Repositories.MangaListRepository;
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.database.UserManga;
+import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
+import com.omnicoder.anichan.repositories.MangaListRepository;
+import com.omnicoder.anichan.utils.Constants;
 
 import java.util.List;
 

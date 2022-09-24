@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.DI;
+package com.omnicoder.anichan.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;

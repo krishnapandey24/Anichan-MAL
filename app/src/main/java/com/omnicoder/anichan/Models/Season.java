@@ -1,7 +1,5 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
-
-import android.util.Log;
 
 public class Season {
     String air_date,name,overview,poster_path;

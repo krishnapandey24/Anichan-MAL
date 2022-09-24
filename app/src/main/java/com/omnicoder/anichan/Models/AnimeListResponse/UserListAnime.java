@@ -1,8 +1,7 @@
-package com.omnicoder.anichan.Models.AnimeListResponse;
+package com.omnicoder.anichan.models.animeListResponse;
 
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.Responses.Node;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.AnimeListStatus;
 
 public class UserListAnime {
     Anime node;

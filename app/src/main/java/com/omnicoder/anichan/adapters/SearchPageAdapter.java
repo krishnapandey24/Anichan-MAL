@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,11 @@ import androidx.paging.PagingDataAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.Node;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.models.responses.Node;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewAnimeActivity;
-import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
+import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
+import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter.MyViewHolder> {

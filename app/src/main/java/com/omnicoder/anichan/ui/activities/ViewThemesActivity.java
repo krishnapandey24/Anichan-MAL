@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.Adapters.ThemesViewPagerAdapter;
-import com.omnicoder.anichan.DI.BaseApplication;
+import com.omnicoder.anichan.adapters.ThemesViewPagerAdapter;
+import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.databinding.ActivityViewThemesBinding;
 
 public class ViewThemesActivity extends AppCompatActivity {

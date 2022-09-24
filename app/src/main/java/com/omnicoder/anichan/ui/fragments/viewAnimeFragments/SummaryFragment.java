@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments;
+package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,19 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Adapters.AllTimePopularAdapter;
-import com.omnicoder.anichan.Adapters.RelatedAnimeAdapter;
-import com.omnicoder.anichan.Adapters.VideoAdapter;
-import com.omnicoder.anichan.DI.BaseApplication;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeTheme;
-import com.omnicoder.anichan.Models.AnimeResponse.RelatedAnime;
-import com.omnicoder.anichan.Models.AnimeResponse.Studio;
-import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
-import com.omnicoder.anichan.Models.Responses.Data;
+import com.omnicoder.anichan.adapters.AllTimePopularAdapter;
+import com.omnicoder.anichan.adapters.RelatedAnimeAdapter;
+import com.omnicoder.anichan.adapters.VideoAdapter;
+import com.omnicoder.anichan.di.BaseApplication;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.AnimeTheme;
+import com.omnicoder.anichan.models.animeResponse.RelatedAnime;
+import com.omnicoder.anichan.models.animeResponse.Studio;
+import com.omnicoder.anichan.models.animeResponse.videos.Promo;
+import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewThemesActivity;
-import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
+import com.omnicoder.anichan.ui.activities.ViewThemesActivity;
+import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.FragmentSummaryBinding;
 
 import java.util.ArrayList;

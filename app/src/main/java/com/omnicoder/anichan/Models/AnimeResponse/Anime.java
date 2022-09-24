@@ -1,9 +1,9 @@
-package com.omnicoder.anichan.Models.AnimeResponse;
+package com.omnicoder.anichan.models.animeResponse;
 
-import com.omnicoder.anichan.Models.AnimeResponse.videos.Video;
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.Genre;
-import com.omnicoder.anichan.Models.Responses.MainPicture;
+import com.omnicoder.anichan.models.animeResponse.videos.Video;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.models.responses.Genre;
+import com.omnicoder.anichan.models.responses.MainPicture;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Repositories.ExploreRepository;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.models.responses.RankingResponse;
+import com.omnicoder.anichan.repositories.ExploreRepository;
 
 import java.util.List;
 

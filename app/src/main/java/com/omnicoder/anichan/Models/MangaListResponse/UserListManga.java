@@ -1,9 +1,7 @@
-package com.omnicoder.anichan.Models.MangaListResponse;
+package com.omnicoder.anichan.models.mangaListResponse;
 
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
-import com.omnicoder.anichan.Models.MangaResponse.MangaListStatus;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.mangaResponse.MangaListStatus;
 
 public class UserListManga {
     Manga node;

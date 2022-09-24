@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.BottomSheets;
+package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.omnicoder.anichan.databinding.SeasonBottomSheetBinding;
-import com.omnicoder.anichan.databinding.ViewBottomSheetBinding;
 
 import org.jetbrains.annotations.NotNull;
 

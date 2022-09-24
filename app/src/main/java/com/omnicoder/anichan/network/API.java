@@ -1,7 +1,7 @@
-package com.omnicoder.anichan.Network;
+package com.omnicoder.anichan.network;
 
-import com.omnicoder.anichan.Models.SearchResponse;
-import com.omnicoder.anichan.Models.ViewAnime;
+import com.omnicoder.anichan.models.SearchResponse;
+import com.omnicoder.anichan.models.ViewAnime;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;

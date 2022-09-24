@@ -1,6 +1,6 @@
 package com.omnicoder.anichan;
 
-import com.omnicoder.anichan.Models.ExploreView;
+import com.omnicoder.anichan.models.ExploreView;
 
 import java.util.List;
 

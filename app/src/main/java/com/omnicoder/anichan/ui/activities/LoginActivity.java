@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,16 +10,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-import com.omnicoder.anichan.Utils.Constants;
-import com.omnicoder.anichan.Utils.Extensions;
-import com.omnicoder.anichan.ViewModels.LoginViewModel;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.utils.Extensions;
+import com.omnicoder.anichan.viewModels.LoginViewModel;
 import com.omnicoder.anichan.databinding.ActivityLoginBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 
 @AndroidEntryPoint

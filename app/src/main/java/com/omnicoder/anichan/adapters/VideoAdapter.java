@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.AnimeResponse.videos.Promo;
-import com.omnicoder.anichan.Models.AnimeResponse.videos.Video;
+import com.omnicoder.anichan.models.animeResponse.videos.Promo;
 import com.omnicoder.anichan.databinding.VideoItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 

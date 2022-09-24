@@ -1,9 +1,8 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,19 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.AddAnimeBottomSheet;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.StaffFragment;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.RelatedFragment;
-import com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments.SummaryFragment;
-import com.omnicoder.anichan.Utils.Constants;
-import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
+import com.omnicoder.anichan.ui.fragments.bottomSheets.AddAnimeBottomSheet;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.StaffFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.SummaryFragment;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
 import com.squareup.picasso.Picasso;
 

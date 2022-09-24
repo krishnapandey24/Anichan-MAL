@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

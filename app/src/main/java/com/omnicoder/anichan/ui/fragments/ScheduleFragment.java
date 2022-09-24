@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.omnicoder.anichan.Adapters.ScheduleAdapter;
-import com.omnicoder.anichan.Models.Schedule.Schedule;
-import com.omnicoder.anichan.Models.Schedule.ScheduleAnimeEntity;
+import com.omnicoder.anichan.adapters.ScheduleAdapter;
+import com.omnicoder.anichan.models.jikan.Schedule;
+import com.omnicoder.anichan.models.jikan.ScheduleAnimeEntity;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.ViewModels.ScheduleViewModel;
+import com.omnicoder.anichan.viewModels.ScheduleViewModel;
 import com.omnicoder.anichan.databinding.FragmentScheduleBinding;
 
 import java.util.Calendar;

@@ -1,6 +1,6 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
-public class User {
+public class MalUser {
     Integer id;
     String name,gender,birthday,location,joined_at,picture,message,error;
     UserAnimeStatistic anime_statistics;

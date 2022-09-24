@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.omnicoder.anichan.Adapters.SearchPageAdapter;
-import com.omnicoder.anichan.Utils.SearchPageComparator;
-import com.omnicoder.anichan.ViewModels.SearchViewModel;
+import com.omnicoder.anichan.adapters.SearchPageAdapter;
+import com.omnicoder.anichan.utils.SearchPageComparator;
+import com.omnicoder.anichan.viewModels.SearchViewModel;
 import com.omnicoder.anichan.databinding.ActivitySearchBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

@@ -1,18 +1,12 @@
-package com.omnicoder.anichan.Network;
+package com.omnicoder.anichan.network;
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Models.SearchResponse;
-import com.omnicoder.anichan.Models.ViewAnime;
+import com.omnicoder.anichan.models.AccessToken;
 
 
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface MovieDB {
     @FormUrlEncoded

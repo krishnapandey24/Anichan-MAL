@@ -1,8 +1,8 @@
-package com.omnicoder.anichan.Repositories;
+package com.omnicoder.anichan.repositories;
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Network.MovieDB;
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.models.AccessToken;
+import com.omnicoder.anichan.network.MovieDB;
+import com.omnicoder.anichan.utils.Constants;
 
 import javax.inject.Inject;
 

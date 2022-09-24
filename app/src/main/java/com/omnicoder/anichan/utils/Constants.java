@@ -1,6 +1,4 @@
-package com.omnicoder.anichan.Utils;
-
-import java.util.HashMap;
+package com.omnicoder.anichan.utils;
 
 public class Constants {
 

@@ -1,6 +1,4 @@
-package com.omnicoder.anichan.Models.MangaResponse;
-
-import android.util.Log;
+package com.omnicoder.anichan.models.mangaResponse;
 
 
 public class Author {

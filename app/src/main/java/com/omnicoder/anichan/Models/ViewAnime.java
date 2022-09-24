@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
 import android.os.Trace;
 
@@ -9,8 +9,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import kotlin.jvm.Transient;
 
 public class ViewAnime {
     private String poster_path,overview,release_date,original_language,title,backdrop_path,name,first_air_date,original_name,status,media_type,homepage,listStatus;

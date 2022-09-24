@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.BottomSheets;
+package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,19 +22,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.AnimeListStatus;
-import com.omnicoder.anichan.Models.AnimeResponse.StartSeason;
+import com.omnicoder.anichan.database.UserAnime;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.AnimeListStatus;
+import com.omnicoder.anichan.models.animeResponse.StartSeason;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Activities.ViewMangaActivity;
-import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
+import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AddAnimeBottomSheetBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

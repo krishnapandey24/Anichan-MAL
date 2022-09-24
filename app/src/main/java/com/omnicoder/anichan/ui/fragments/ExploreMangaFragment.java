@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.omnicoder.anichan.Adapters.SeasonAdapter;
-import com.omnicoder.anichan.Adapters.AnimeAdapter;
-import com.omnicoder.anichan.Adapters.TrendingViewPagerAdapter;
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.ViewModels.ExploreViewModel;
+import com.omnicoder.anichan.adapters.SeasonAdapter;
+import com.omnicoder.anichan.adapters.AnimeAdapter;
+import com.omnicoder.anichan.adapters.TrendingViewPagerAdapter;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.viewModels.ExploreViewModel;
 import com.omnicoder.anichan.databinding.ExploreMangaBinding;
 
 import org.jetbrains.annotations.NotNull;

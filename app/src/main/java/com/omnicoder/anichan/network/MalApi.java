@@ -1,14 +1,15 @@
-package com.omnicoder.anichan.Network;
+package com.omnicoder.anichan.network;
 
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Models.AnimeListResponse.UserAnimeListResponse;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.MangaListResponse.UpdateMangaResponse;
-import com.omnicoder.anichan.Models.MangaListResponse.UserMangaListResponse;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Models.UpdateAnimeResponse;
+import com.omnicoder.anichan.models.AccessToken;
+import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.mangaListResponse.UpdateMangaResponse;
+import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.responses.RankingResponse;
+import com.omnicoder.anichan.models.UpdateAnimeResponse;
+import com.omnicoder.anichan.models.MalUser;
 
 
 import io.reactivex.rxjava3.core.Completable;
@@ -203,6 +204,10 @@ public interface MalApi {
             @Field("tags") String tags,
             @Field("comments") String comments
     );
+
+
+    @GET("users/@me?fields=id,name,gender,location,joined_at,anime_statistics")
+    Observable<MalUser> getUserInfo();
 
 
 

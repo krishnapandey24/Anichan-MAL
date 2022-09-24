@@ -1,10 +1,10 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.Database.UserAnime;
-import com.omnicoder.anichan.Repositories.AnimeListRepository;
+import com.omnicoder.anichan.database.UserAnime;
+import com.omnicoder.anichan.repositories.AnimeListRepository;
 
 import javax.inject.Inject;
 

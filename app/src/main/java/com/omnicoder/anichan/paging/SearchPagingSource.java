@@ -1,14 +1,14 @@
-package com.omnicoder.anichan.Paging;
+package com.omnicoder.anichan.paging;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.paging.PagingState;
 import androidx.paging.rxjava3.RxPagingSource;
 
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Utils.Constants;
-import com.omnicoder.anichan.Utils.SearchComparator;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.network.MalApi;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.utils.SearchComparator;
 
 import java.util.Collections;
 import java.util.List;

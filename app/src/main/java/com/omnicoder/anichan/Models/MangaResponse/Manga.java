@@ -1,10 +1,10 @@
-package com.omnicoder.anichan.Models.MangaResponse;
+package com.omnicoder.anichan.models.mangaResponse;
 
-import com.omnicoder.anichan.Models.AnimeResponse.AlternateTitles;
-import com.omnicoder.anichan.Models.AnimeResponse.RelatedAnime;
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.Genre;
-import com.omnicoder.anichan.Models.Responses.MainPicture;
+import com.omnicoder.anichan.models.animeResponse.AlternateTitles;
+import com.omnicoder.anichan.models.animeResponse.RelatedAnime;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.models.responses.Genre;
+import com.omnicoder.anichan.models.responses.MainPicture;
 
 import java.util.List;
 

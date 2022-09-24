@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgWhite"
-    tools:context=".UI.Fragments.ExploreFragment">
+    tools:context=".ui.fragments.ExploreFragment">
 
 
     <androidx.appcompat.widget.Toolbar

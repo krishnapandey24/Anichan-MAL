@@ -1,14 +1,13 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Update;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.omnicoder.anichan.Models.UpdateAnimeResponse;
+import com.omnicoder.anichan.models.UpdateAnimeResponse;
 import com.omnicoder.anichan.R;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.omnicoder.anichan.Utils;
+package com.omnicoder.anichan.utils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.omnicoder.anichan.Models.ExplorePlainView;
+import com.omnicoder.anichan.models.ExplorePlainView;
 
 import org.jetbrains.annotations.NotNull;
 

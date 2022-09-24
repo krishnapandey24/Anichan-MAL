@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Activities;
+package com.omnicoder.anichan.ui.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,11 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.AnimePageAdapter;
-import com.omnicoder.anichan.Adapters.AnimePageAdapterPlain;
+import com.omnicoder.anichan.adapters.AnimePageAdapter;
+import com.omnicoder.anichan.adapters.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.Utils.NodeComparator;
-import com.omnicoder.anichan.ViewModels.AnimeChartViewModel;
+import com.omnicoder.anichan.utils.NodeComparator;
+import com.omnicoder.anichan.viewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

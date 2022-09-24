@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Adapters;
+package com.omnicoder.anichan.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.Models.AnimeResponse.Characters.Character;
-import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffData;
-import com.omnicoder.anichan.UI.Activities.ViewPersonActivity;
+import com.omnicoder.anichan.models.animeResponse.Characters.Character;
+import com.omnicoder.anichan.models.animeResponse.Staff.StaffData;
+import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
 import com.squareup.picasso.Picasso;
 

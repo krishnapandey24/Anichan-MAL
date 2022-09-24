@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.AnimeResponse.videos;
+package com.omnicoder.anichan.models.animeResponse.videos;
 
 public class VideoResponse {
     VideoData data;

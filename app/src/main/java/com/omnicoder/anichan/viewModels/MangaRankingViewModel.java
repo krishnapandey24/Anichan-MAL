@@ -1,10 +1,10 @@
-package com.omnicoder.anichan.ViewModels;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.ViewModel;
 import androidx.paging.PagingData;
 
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Repositories.MangaRankingRepository;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.repositories.MangaRankingRepository;
 
 import java.util.Locale;
 

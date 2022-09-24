@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Repositories;
+package com.omnicoder.anichan.repositories;
 
 
 import android.content.Context;
@@ -10,18 +10,18 @@ import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
-import com.omnicoder.anichan.Models.AccessToken;
-import com.omnicoder.anichan.Models.AnimeResponse.Anime;
-import com.omnicoder.anichan.Models.AnimeResponse.Characters.CharacterResponse;
-import com.omnicoder.anichan.Models.AnimeResponse.Staff.StaffResponse;
-import com.omnicoder.anichan.Models.AnimeResponse.videos.VideoResponse;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
-import com.omnicoder.anichan.Models.Responses.Data;
-import com.omnicoder.anichan.Models.Responses.RankingResponse;
-import com.omnicoder.anichan.Network.JikanAPI;
-import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Paging.SearchPagingSource;
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.models.AccessToken;
+import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
+import com.omnicoder.anichan.models.animeResponse.Staff.StaffResponse;
+import com.omnicoder.anichan.models.animeResponse.videos.VideoResponse;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.models.responses.RankingResponse;
+import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.network.MalApi;
+import com.omnicoder.anichan.paging.SearchPagingSource;
+import com.omnicoder.anichan.utils.Constants;
 
 import javax.inject.Inject;
 

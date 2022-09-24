@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 
 import android.content.Context;
@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.Adapters.SearchAnimeListAdapter;
-import com.omnicoder.anichan.Adapters.SearchMangaListAdapter;
-import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
-import com.omnicoder.anichan.ViewModels.MangaListViewModel;
+import com.omnicoder.anichan.adapters.SearchAnimeListAdapter;
+import com.omnicoder.anichan.adapters.SearchMangaListAdapter;
+import com.omnicoder.anichan.viewModels.AnimeListViewModel;
+import com.omnicoder.anichan.viewModels.MangaListViewModel;
 import com.omnicoder.anichan.databinding.SearchListBottomSheetBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

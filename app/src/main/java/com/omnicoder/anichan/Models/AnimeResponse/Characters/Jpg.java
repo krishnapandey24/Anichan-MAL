@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models.AnimeResponse.Characters;
+package com.omnicoder.anichan.models.animeResponse.Characters;
 
 public class Jpg {
     String image_url;

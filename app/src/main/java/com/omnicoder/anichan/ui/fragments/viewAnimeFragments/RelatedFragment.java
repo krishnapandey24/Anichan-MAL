@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments.ViewAnimeFragments;
+package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.omnicoder.anichan.ViewModels.MangaDetailsViewModel;
-import com.omnicoder.anichan.ViewModels.ViewAnimeViewModel;
+import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
+import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 
 

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Utils;
+package com.omnicoder.anichan.utils;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,19 +1,19 @@
-package com.omnicoder.anichan.Repositories;
+package com.omnicoder.anichan.repositories;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.omnicoder.anichan.Database.UserListDB;
-import com.omnicoder.anichan.Database.MangaDao;
-import com.omnicoder.anichan.Database.UserManga;
-import com.omnicoder.anichan.Models.MangaListResponse.UpdateMangaResponse;
-import com.omnicoder.anichan.Models.MangaListResponse.UserMangaListResponse;
-import com.omnicoder.anichan.Models.MangaListResponse.UserListManga;
-import com.omnicoder.anichan.Models.MangaResponse.Manga;
-import com.omnicoder.anichan.Models.MangaResponse.MangaListStatus;
-import com.omnicoder.anichan.Network.MalApi;
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.database.UserListDB;
+import com.omnicoder.anichan.database.MangaDao;
+import com.omnicoder.anichan.database.UserManga;
+import com.omnicoder.anichan.models.mangaListResponse.UpdateMangaResponse;
+import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
+import com.omnicoder.anichan.models.mangaListResponse.UserListManga;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.mangaResponse.MangaListStatus;
+import com.omnicoder.anichan.network.MalApi;
+import com.omnicoder.anichan.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Database;
+package com.omnicoder.anichan.database;
 
 
 import androidx.room.Entity;

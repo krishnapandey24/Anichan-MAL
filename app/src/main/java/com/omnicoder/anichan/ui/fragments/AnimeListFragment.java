@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.UI.Fragments;
+package com.omnicoder.anichan.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -19,12 +19,12 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
-import com.omnicoder.anichan.Adapters.AnimeViewPagerAdapter;
-import com.omnicoder.anichan.Database.UserAnime;
+import com.omnicoder.anichan.adapters.AnimeViewPagerAdapter;
+import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.UI.Fragments.BottomSheets.UpdateAnimeBottomSheet;
-import com.omnicoder.anichan.ViewModels.AnimeListViewModel;
-import com.omnicoder.anichan.ViewModels.UpdateAnimeViewModel;
+import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
+import com.omnicoder.anichan.viewModels.AnimeListViewModel;
+import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;

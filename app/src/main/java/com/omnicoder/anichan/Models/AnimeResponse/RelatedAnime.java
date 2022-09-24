@@ -1,6 +1,6 @@
-package com.omnicoder.anichan.Models.AnimeResponse;
+package com.omnicoder.anichan.models.animeResponse;
 
-import com.omnicoder.anichan.Models.Responses.Node;
+import com.omnicoder.anichan.models.responses.Node;
 
 public class RelatedAnime {
     Node node;

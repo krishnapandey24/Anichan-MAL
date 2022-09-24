@@ -1,14 +1,14 @@
-package com.omnicoder.anichan.DI;
+package com.omnicoder.anichan.di;
 
 import android.app.Application;
 
 import androidx.room.Room;
 
-import com.omnicoder.anichan.Database.MangaDao;
-import com.omnicoder.anichan.Database.UserListDB;
-import com.omnicoder.anichan.Database.AnimeDao;
+import com.omnicoder.anichan.database.MangaDao;
+import com.omnicoder.anichan.database.UserListDB;
+import com.omnicoder.anichan.database.AnimeDao;
 
-import com.omnicoder.anichan.Utils.Constants;
+import com.omnicoder.anichan.utils.Constants;
 
 import javax.inject.Singleton;
 

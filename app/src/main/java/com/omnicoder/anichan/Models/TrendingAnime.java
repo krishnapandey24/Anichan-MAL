@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.Models;
+package com.omnicoder.anichan.models;
 
 public class TrendingAnime {
     int animeID;
