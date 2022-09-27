@@ -45,6 +45,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadingDialog=new LoadingDialog(this);
+        loadingDialog.startLoadingForActivity();
         binding = ActivityViewMangaBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);

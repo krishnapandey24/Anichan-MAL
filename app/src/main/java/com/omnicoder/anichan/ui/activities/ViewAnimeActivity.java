@@ -49,9 +49,9 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadingDialog=new LoadingDialog(this);
+        loadingDialog.startLoadingForActivity();
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(ViewAnimeViewModel.class);
         Intent intent = getIntent();
         viewModel.fetchAnimeDetails(intent.getIntExtra("id", 0));
