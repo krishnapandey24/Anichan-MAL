@@ -18,6 +18,7 @@ import com.omnicoder.anichan.adapters.ScheduleAdapter;
 import com.omnicoder.anichan.models.jikan.Schedule;
 import com.omnicoder.anichan.models.jikan.ScheduleAnimeEntity;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ScheduleViewModel;
 import com.omnicoder.anichan.databinding.FragmentScheduleBinding;
 
@@ -28,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ScheduleFragment extends Fragment {
-
+    private LoadingDialog loadingDialog;
     private FragmentScheduleBinding binding;
 
 
@@ -41,6 +42,8 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadingDialog=new LoadingDialog(this,getContext());
+        loadingDialog.startLoading();
         ScheduleViewModel viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         viewModel.fetchSchedule();
@@ -49,7 +52,7 @@ public class ScheduleFragment extends Fragment {
 
 
     private void initSpinners(Schedule schedule,int day) {
-        binding.progressBar.setVisibility(View.GONE);
+        loadingDialog.stopLoading();
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.weekdays, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.scheduleSpinner.setAdapter(arrayAdapter);
