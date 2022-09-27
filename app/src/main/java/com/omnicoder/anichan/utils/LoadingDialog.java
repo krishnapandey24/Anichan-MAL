@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.utils;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.animation.Animation;
@@ -16,10 +17,15 @@ public class LoadingDialog {
     Fragment fragment;
     Dialog dialog;
     Context context;
+    Activity activity;
 
     public LoadingDialog(Fragment fragment,Context context){
         this.fragment=fragment;
         this.context=context;
+    }
+
+    public LoadingDialog(Activity activity){
+        this.activity=activity;
     }
 
     public void startLoading(){
@@ -33,6 +39,19 @@ public class LoadingDialog {
             imageView.setAnimation(rotate);
         }
         dialog.show();    
+    }
+
+    public void startLoadingForActivity(){
+        if(dialog==null){
+            dialog= new Dialog(activity);
+            dialog.setContentView(R.layout.loading_dialog);
+            dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(activity,R.drawable.dialog_background));
+            dialog.setCancelable(false);
+            Animation rotate= AnimationUtils.loadAnimation(dialog.getContext().getApplicationContext(),R.anim.rotating_animation);
+            ImageView imageView=dialog.findViewById(R.id.nartuomaki);
+            imageView.setAnimation(rotate);
+        }
+        dialog.show();
     }
 
     public void stopLoading(){

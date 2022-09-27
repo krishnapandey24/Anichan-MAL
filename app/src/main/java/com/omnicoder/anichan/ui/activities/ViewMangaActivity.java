@@ -21,6 +21,7 @@ import com.omnicoder.anichan.ui.fragments.bottomSheets.AddMangaBottomSheet;
 import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
 import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.MangaSummaryFragment;
 import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
+import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 import com.omnicoder.anichan.databinding.ActivityViewMangaBinding;
 import com.squareup.picasso.Picasso;
@@ -37,11 +38,13 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     MangaSummaryFragment summary;
     AddMangaBottomSheet addMangaBottomSheet;
     boolean addedToList=false;
+    LoadingDialog loadingDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingDialog=new LoadingDialog(this);
         binding = ActivityViewMangaBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -141,7 +144,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
             }catch (Exception e){
                 e.printStackTrace();
             }
-            binding.progressBar.setVisibility(View.GONE);
+            loadingDialog.stopLoading();
         });
 
         viewModel.getNoInternet().observe(ViewMangaActivity.this, NoInternet -> {
@@ -176,7 +179,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
 
     @Override
     public void startLoading() {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
     }
 
     @Override
@@ -190,7 +193,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     }
 
     private void mangaListUpdateToast(boolean success){
-        binding.progressBar.setVisibility(View.GONE);
+        loadingDialog.stopLoading();
         if(success){
             Toast.makeText(ViewMangaActivity.this,"Manga List Updated Successfully",Toast.LENGTH_SHORT).show();
         }else{

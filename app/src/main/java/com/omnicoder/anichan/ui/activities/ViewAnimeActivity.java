@@ -23,6 +23,7 @@ import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.StaffFragment;
 import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
 import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.SummaryFragment;
 import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
 import com.squareup.picasso.Picasso;
@@ -39,6 +40,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     SummaryFragment summary;
     AddAnimeBottomSheet addAnimeBottomSheet;
     boolean addedToList=false;
+    LoadingDialog loadingDialog;
 
 
     // TODO: 25-Sep-22 Put viewpager here
@@ -46,6 +48,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingDialog=new LoadingDialog(this);
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -159,7 +162,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
             }catch (Exception e){
                 e.printStackTrace();
             }
-            binding.progressBar.setVisibility(View.GONE);
+            loadingDialog.stopLoading();
         });
 
         viewModel.getNoInternet().observe(ViewAnimeActivity.this, NoInternet -> {
@@ -200,7 +203,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
 
     @Override
     public void startLoading() {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
     }
 
     @Override
@@ -215,7 +218,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
 
     private void observeAndShowToast(MutableLiveData<Boolean> response){
         response.observe(ViewAnimeActivity.this, success -> {
-            binding.progressBar.setVisibility(View.GONE);
+            loadingDialog.stopLoading();
             if(success){
                 Toast.makeText(ViewAnimeActivity.this,"Anime List Updated Successfully",Toast.LENGTH_SHORT).show();
             }else{
