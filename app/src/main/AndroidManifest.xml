@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
+
         <activity
             android:name=".ui.activities.ViewMangaActivity"
-            android:parentActivityName=".ui.activities.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.TestActivity"
             android:exported="false" />
@@ -70,8 +71,8 @@
             android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

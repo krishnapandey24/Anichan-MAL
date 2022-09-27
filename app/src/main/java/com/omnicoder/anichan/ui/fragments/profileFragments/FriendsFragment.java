@@ -18,7 +18,6 @@ import com.omnicoder.anichan.NavGraphDirections;
 import com.omnicoder.anichan.adapters.FriendsAdapter;
 import com.omnicoder.anichan.databinding.FragmentFriendsBinding;
 import com.omnicoder.anichan.models.jikan.FriendData;
-import com.omnicoder.anichan.ui.activities.MainActivity;
 import com.omnicoder.anichan.viewModels.ProfileViewModel;
 
 import java.util.List;

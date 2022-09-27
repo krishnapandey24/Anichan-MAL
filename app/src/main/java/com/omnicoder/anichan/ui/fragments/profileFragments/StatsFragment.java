@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.FragmentStatsBinding;
 import com.omnicoder.anichan.models.jikan.JikanUserStatistic;
 
@@ -19,9 +18,8 @@ public class StatsFragment extends Fragment {
     FragmentStatsBinding binding;
 
 
-    public StatsFragment(){
-        //Empty constructor
-    }
+    public StatsFragment(){}
+
     public StatsFragment(JikanUserStatistic statistics) {
         this.statistics=statistics;
     }
