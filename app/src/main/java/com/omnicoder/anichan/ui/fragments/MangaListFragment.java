@@ -23,6 +23,7 @@ import com.omnicoder.anichan.adapters.MangaViewPagerAdapter;
 import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateMangaBottomSheet;
+import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaListViewModel;
 import com.omnicoder.anichan.viewModels.UpdateMangaViewModel;
 import com.omnicoder.anichan.databinding.FragmentMangaListBinding;
@@ -37,6 +38,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     private UpdateMangaViewModel updateMangaViewModel;
     private Dialog sortDialog=null;
     private String[] tabs;
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,9 +49,11 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadingDialog=new LoadingDialog(this,getContext());
+        loadingDialog.startLoading();
         mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
         mangaListViewModel.fetchUserMangaList();
-        mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> binding.progressBar.setVisibility(View.GONE));
+        mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateMangaViewModel= new ViewModelProvider(this).get(UpdateMangaViewModel.class);
         tabs = getResources().getStringArray(R.array.MangaStatuses);
         setTabLayout();
@@ -62,7 +66,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
 
     @Override
     public void updateManga(UserManga userManga, int position) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
         updateMangaViewModel.updateManga(userManga.getId(),userManga.getStatus(),userManga.isIs_rereading(),userManga.getScore(),userManga.getNoOfVolumesRead(),userManga.getNoOfChaptersRead());
         updateMangaViewModel.insertOrUpdateMangaInList(userManga);
@@ -71,7 +75,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
 
     @Override
     public void addChapter(int id,int noOfChaptersRead) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         observeAndShowToast(updateMangaViewModel.getResponse());
         updateMangaViewModel.addChapter(id,noOfChaptersRead);
     }
@@ -90,7 +94,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
 
     @Override
     public void deleteManga(int id) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         observeAndShowToast(updateMangaViewModel.deleteResponse());
         updateMangaViewModel.deleteManga(id);
     }
@@ -146,7 +150,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
 
     private void observeAndShowToast(MutableLiveData<Boolean> response) {
         response.observe(getViewLifecycleOwner(), success -> {
-            binding.progressBar.setVisibility(View.GONE);
+            loadingDialog.stopLoading();
             if (success) {
                 Toast.makeText(getContext(), "Manga List Updated Successfully", Toast.LENGTH_SHORT).show();
             } else {

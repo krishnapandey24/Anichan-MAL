@@ -23,6 +23,7 @@ import com.omnicoder.anichan.adapters.AnimeViewPagerAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
+import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
 import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
 import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
@@ -37,6 +38,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     private UpdateAnimeViewModel updateAnimeViewModel;
     private Dialog sortDialog=null;
     private String[] tabs;
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,9 +49,11 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadingDialog=new LoadingDialog(this,getContext());
+        loadingDialog.startLoading();
         viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
         viewModel.fetchUserAnimeList();
-        viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> binding.progressBar.setVisibility(View.GONE));
+        viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         tabs = getResources().getStringArray(R.array.Statuses);
         setTabLayout();
@@ -62,7 +66,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     @Override
     public void updateAnime(UserAnime userAnime, int position) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
         updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
         observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
@@ -70,7 +74,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     @Override
     public void addEpisode(int id,int noOfEpisodesWatched) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
         observeAndShowToast(updateAnimeViewModel.getResponse());
 
@@ -89,7 +93,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     @Override
     public void deleteAnime(int id) {
-        binding.progressBar.setVisibility(View.VISIBLE);
+        loadingDialog.startLoading();
         observeAndShowToast(updateAnimeViewModel.deleteResponse());
         updateAnimeViewModel.deleteAnime(id);
     }
@@ -144,7 +148,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     private void observeAndShowToast(MutableLiveData<Boolean> response) {
         response.observe(getViewLifecycleOwner(), success -> {
-            binding.progressBar.setVisibility(View.GONE);
+            loadingDialog.stopLoading();
             if (success) {
                 Toast.makeText(getContext(), "Anime  List Updated Successfully", Toast.LENGTH_SHORT).show();
             } else {

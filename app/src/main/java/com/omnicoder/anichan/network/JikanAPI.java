@@ -3,8 +3,9 @@ package com.omnicoder.anichan.network;
 import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.models.animeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.models.animeResponse.videos.VideoResponse;
-import com.omnicoder.anichan.models.jikan.JikanUser;
+import com.omnicoder.anichan.models.jikan.JikanUserResponse;
 import com.omnicoder.anichan.models.jikan.Schedule;
+import com.omnicoder.anichan.models.jikan.UserFriendResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -28,7 +29,12 @@ public interface JikanAPI {
     @GET
     Observable<Schedule> getAnimeSchedule(@Url String url);
 
-    @GET("user/{userName}/")
-    Observable<JikanUser> getUserInfo(@Path("userName") String username);
+    @GET("users/{userName}/full")
+    Observable<JikanUserResponse> getUserInfo(@Path("userName") String username);
+
+    @GET("users/{userName}/friends")
+    Observable<UserFriendResponse> getUserFriends(@Path("userName") String username);
+
+
 
 }

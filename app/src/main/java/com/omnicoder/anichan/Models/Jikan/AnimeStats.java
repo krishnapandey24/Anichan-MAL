@@ -2,7 +2,7 @@ package com.omnicoder.anichan.models.jikan;
 
 import com.squareup.moshi.Json;
 
-public class AnimeStatus {
+public class AnimeStats {
     @Json(name = "completed")
     Integer completed;
     @Json(name = "days_watched")
@@ -22,7 +22,7 @@ public class AnimeStatus {
     @Json(name = "total_entries")
     Integer totalEntries;
     @Json(name = "watching")
-    Integer watchingInt;
+    Integer watching;
 
     public Integer getCompleted() {
         return completed;
@@ -60,7 +60,7 @@ public class AnimeStatus {
         return totalEntries;
     }
 
-    public Integer getWatchingInt() {
-        return watchingInt;
+    public Integer getWatching() {
+        return watching;
     }
 }

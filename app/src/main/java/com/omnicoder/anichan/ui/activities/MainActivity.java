@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Anichan);
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -42,14 +41,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
     }
 
-
-    public void showNoInternetConnectionDialog(){
-        Dialog noInternetConnectionDialog= new Dialog(MainActivity.this);
-        noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
-        noInternetConnectionDialog.setCancelable(false);
-        Button okButton=noInternetConnectionDialog.findViewById(R.id.okButton);
-        okButton.setOnClickListener(v -> noInternetConnectionDialog.dismiss());
-    }
 
     @Override
     protected void onDestroy() {

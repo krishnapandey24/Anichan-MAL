@@ -60,6 +60,13 @@
         <item>Schedule</item>
     </string-array>
 
+    <string-array name="ProfileTabs">
+        <item>Stats</item>
+        <item>Favorites</item>
+        <item>Friends</item>
+    </string-array>
+
+
     <string-array name="RankingTypes">
         <item>All</item>
         <item>Airing</item>

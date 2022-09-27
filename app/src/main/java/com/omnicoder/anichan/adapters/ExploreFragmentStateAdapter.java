@@ -8,12 +8,12 @@ import com.omnicoder.anichan.ui.fragments.ExploreAnimeFragment;
 import com.omnicoder.anichan.ui.fragments.ExploreMangaFragment;
 import com.omnicoder.anichan.ui.fragments.ScheduleFragment;
 
-public class ExploreFragmentAdapter extends FragmentStateAdapter {
+public class ExploreFragmentStateAdapter extends FragmentStateAdapter {
     ExploreAnimeFragment exploreAnimeFragment;
     ExploreMangaFragment exploreMangaFragment;
     ScheduleFragment scheduleFragment;
 
-    public ExploreFragmentAdapter(@NonNull Fragment fragment) {
+    public ExploreFragmentStateAdapter(@NonNull Fragment fragment) {
         super(fragment);
     }
 

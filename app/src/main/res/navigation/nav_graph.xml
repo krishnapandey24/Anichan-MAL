@@ -35,12 +35,13 @@
         android:id="@+id/profile_fragment"
         android:name="com.omnicoder.anichan.ui.fragments.ProfileFragment"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" />
-    <fragment
-        android:id="@+id/shopping_fragment"
-        android:name="com.omnicoder.anichan.viewModels.ShoppingFragment"
-        android:label="shopping_fragment"
-        tools:layout="@layout/shopping_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/anime_list_fragment"
         android:name="com.omnicoder.anichan.ui.fragments.AnimeListFragment"
@@ -108,6 +109,13 @@
             android:id="@+id/action_manga_list_fragment_to_searchListFragment"
             app:destination="@id/searchListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.profileFragments.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
 
+    <action android:id="@+id/moveToParentFragment"
+        app:destination="@id/profile_fragment"/>
 
 </navigation>

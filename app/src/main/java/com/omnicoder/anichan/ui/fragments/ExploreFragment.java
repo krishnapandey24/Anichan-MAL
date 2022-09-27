@@ -14,7 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.adapters.ExploreFragmentAdapter;
+import com.omnicoder.anichan.adapters.ExploreFragmentStateAdapter;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.activities.TestActivity;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
@@ -46,7 +46,7 @@ public class ExploreFragment extends Fragment{
         ViewPager2 viewPager;
         viewPager=binding.viewPager;
         FragmentStateAdapter fragmentStateAdapter;
-        fragmentStateAdapter=new ExploreFragmentAdapter(this);
+        fragmentStateAdapter=new ExploreFragmentStateAdapter(this);
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }

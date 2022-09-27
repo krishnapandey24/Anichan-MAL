@@ -41,6 +41,8 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     boolean addedToList=false;
 
 
+    // TODO: 25-Sep-22 Put viewpager here
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
