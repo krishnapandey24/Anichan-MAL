@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -86,6 +87,6 @@ public class FriendsFragment extends Fragment implements FriendsAdapter.ViewUser
 
     @Override
     public void viewUser(String username) {
-        Navigation.findNavController(binding.getRoot()).navigate(NavGraphDirections.moveToParentFragment(username));
+        Navigation.findNavController(binding.getRoot()).navigate((NavDirections) NavGraphDirections.moveToParentFragment(username));
     }
 }

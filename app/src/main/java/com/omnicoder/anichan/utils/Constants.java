@@ -42,6 +42,9 @@ public class Constants {
     public static final String PEOPLE="people";
 
 
+    public static final String FAVORITES_TYPE="favorites_type";
+
+
 
 
 

@@ -120,11 +120,20 @@
 
 
 
+
     <fragment
         android:id="@+id/viewFavoritesFragment"
         android:name="com.omnicoder.anichan.ui.fragments.profileFragments.ViewFavoritesFragment"
-        android:label="ViewFavoritesFragment" />
-
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites"
+        >
+        <argument
+            android:name="favorites"
+            app:argType="com.omnicoder.anichan.models.jikan.Favorites" />
+        <argument
+            android:name="favorites_type"
+            app:argType="string" />
+    </fragment>
     <action android:id="@+id/moveToFavoritesFragment"
         app:destination="@id/viewFavoritesFragment"/>
 
