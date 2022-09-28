@@ -36,5 +36,13 @@ public class Constants {
 
 
 
+    public static final String ANIME="anime";
+    public static final String MANGA="manga";
+    public static final String CHARACTERS="characters";
+    public static final String PEOPLE="people";
+
+
+
+
 
 }

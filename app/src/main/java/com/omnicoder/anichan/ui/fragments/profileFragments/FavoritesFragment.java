@@ -1,25 +1,24 @@
 package com.omnicoder.anichan.ui.fragments.profileFragments;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
+import static com.omnicoder.anichan.utils.Constants.CHARACTERS;
+import static com.omnicoder.anichan.utils.Constants.MANGA;
+import static com.omnicoder.anichan.utils.Constants.PEOPLE;
+
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.JikanEntityAdapter;
-import com.omnicoder.anichan.adapters.SeasonAdapter;
 import com.omnicoder.anichan.databinding.FragmentFavoritesBinding;
 import com.omnicoder.anichan.models.jikan.Favorites;
-import com.omnicoder.anichan.models.jikan.JikanSubEntity;
-import com.omnicoder.anichan.models.responses.Data;
-
-import java.util.List;
 
 public class FavoritesFragment extends Fragment {
     private static final int RECYCLER_VIEW_ITEM_COUNT=9;
@@ -42,16 +41,25 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        JikanEntityAdapter animeAdapter= new JikanEntityAdapter(getContext(),favorites.getAnime(),true,RECYCLER_VIEW_ITEM_COUNT);
-        JikanEntityAdapter mangaAdapter= new JikanEntityAdapter(getContext(),favorites.getManga(),false,RECYCLER_VIEW_ITEM_COUNT);
-        JikanEntityAdapter characterAdapter= new JikanEntityAdapter(getContext(),favorites.getCharacters(),false,RECYCLER_VIEW_ITEM_COUNT);
-        JikanEntityAdapter peopleAdapter= new JikanEntityAdapter(getContext(),favorites.getPeople(),false,RECYCLER_VIEW_ITEM_COUNT);
-        binding.animeView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        binding.mangaView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        Context context=getContext();
+        JikanEntityAdapter animeAdapter= new JikanEntityAdapter(context,favorites.getAnime(),ANIME,RECYCLER_VIEW_ITEM_COUNT);
+        JikanEntityAdapter mangaAdapter= new JikanEntityAdapter(context,favorites.getManga(),MANGA,RECYCLER_VIEW_ITEM_COUNT);
+        JikanEntityAdapter characterAdapter= new JikanEntityAdapter(context,favorites.getCharacters(),CHARACTERS,RECYCLER_VIEW_ITEM_COUNT);
+        JikanEntityAdapter peopleAdapter= new JikanEntityAdapter(context,favorites.getPeople(),PEOPLE,RECYCLER_VIEW_ITEM_COUNT);
+        binding.animeView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.mangaView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.charactersView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        binding.peopleView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         binding.animeView.setAdapter(animeAdapter);
         binding.mangaView.setAdapter(mangaAdapter);
+        binding.charactersView.setAdapter(characterAdapter);
+        binding.peopleView.setAdapter(peopleAdapter);
+        binding.anime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
 
     }
 }

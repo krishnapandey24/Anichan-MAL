@@ -118,4 +118,15 @@
     <action android:id="@+id/moveToParentFragment"
         app:destination="@id/profile_fragment"/>
 
+
+
+    <fragment
+        android:id="@+id/viewFavoritesFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.profileFragments.ViewFavoritesFragment"
+        android:label="ViewFavoritesFragment" />
+
+    <action android:id="@+id/moveToFavoritesFragment"
+        app:destination="@id/viewFavoritesFragment"/>
+
+
 </navigation>

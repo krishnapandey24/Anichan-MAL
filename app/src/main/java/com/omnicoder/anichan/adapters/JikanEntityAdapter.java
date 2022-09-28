@@ -1,5 +1,10 @@
 package com.omnicoder.anichan.adapters;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
+import static com.omnicoder.anichan.utils.Constants.CHARACTERS;
+import static com.omnicoder.anichan.utils.Constants.MANGA;
+import static com.omnicoder.anichan.utils.Constants.PEOPLE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
+import com.omnicoder.anichan.ui.activities.ViewCharacterActivity;
 import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
+import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,13 +27,13 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
     List<JikanSubEntity> dataHolder;
     Context context;
     LayoutBinding binding;
-    boolean isAnime;
+    String entityType;
     int count;
 
-    public JikanEntityAdapter(Context context, List<JikanSubEntity> dataHolder, boolean isAnime, int count){
+    public JikanEntityAdapter(Context context, List<JikanSubEntity> dataHolder, String entityType, int count){
         this.dataHolder= dataHolder;
         this.context= context;
-        this.isAnime=isAnime;
+        this.entityType=entityType;
         this.count=count;
     }
 
@@ -46,12 +53,24 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {
-            Intent intent;
-            if(isAnime){
-                intent = new Intent(context, ViewAnimeActivity.class);
-                intent.putExtra("media_type",entity.getType());
-            }else{
-                intent = new Intent(context, ViewMangaActivity.class);
+            Intent intent = null;
+            switch (entityType){
+                case ANIME:
+                    intent = new Intent(context, ViewAnimeActivity.class);
+                    intent.putExtra("media_type",entity.getType());
+                    break;
+                case MANGA:
+                    intent = new Intent(context, ViewMangaActivity.class);
+                    break;
+                case CHARACTERS:
+                    intent= new Intent(context, ViewCharacterActivity.class);
+                    break;
+                case PEOPLE:
+                    break;
+                default:
+                    intent= new Intent(context, ViewPersonActivity.class);
+                    break;
+
             }
             intent.putExtra("id",entity.getMalId());
             context.startActivity(intent);
