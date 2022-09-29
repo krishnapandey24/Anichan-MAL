@@ -50,7 +50,6 @@ public class FriendsFragment extends Fragment implements FriendsAdapter.ViewUser
             }
         }else{
             if(getArguments()!=null){
-                viewModel=new ViewModelProvider(this).get(ProfileViewModel.class);
                 username=getArguments().getString(USERNAME);
             }
         }
@@ -76,7 +75,6 @@ public class FriendsFragment extends Fragment implements FriendsAdapter.ViewUser
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         viewModel.fetchUserFriends(username);
         viewModel.getUserFriends().observe(getViewLifecycleOwner(), userFriendResponse -> setRecyclerView(userFriendResponse.getData()));
-
     }
 
     public void setRecyclerView(List<FriendData> friends){

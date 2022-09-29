@@ -1,12 +1,10 @@
 package com.omnicoder.anichan.ui.activities;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -23,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
             finish();
         }
-        NavController navController= Navigation.findNavController(this,R.id.fragmentContainerView);
+        navController= Navigation.findNavController(this,R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
     }
 
@@ -47,4 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         binding=null;
     }
+
+
+    // TODO: 29-Sep-22 Change viewmodel intialization of all fragments
+
+
 }

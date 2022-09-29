@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.adapters;
 
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -20,7 +21,6 @@ public class ProfileFragmentStateAdapter extends FragmentStateAdapter {
     Favorites favorites;
     String username;
     ProfileViewModel viewModel;
-
     public ProfileFragmentStateAdapter(@NonNull Fragment fragment, JikanUserStatistic statistics, Favorites favorites, String username, ProfileViewModel viewModel) {
         super(fragment);
         this.statistics=statistics;
