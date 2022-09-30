@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -69,17 +71,25 @@ public class ProfileFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // TODO: 25-Sep-22 Do something about the username
-            Log.d("tagg","savedInstanceState null null");
         loadingDialog = new LoadingDialog(this, getContext());
         loadingDialog.startLoading();
         viewModel.getUserInfo().observe(getViewLifecycleOwner(), jikanUserResponse -> {
-            UserData data = jikanUserResponse.getData();
-            setUpTabLayout(data.getStatistics(), data.getFavorites());
-            Picasso.get().load(data.getImages().getJpg().getImage_url()).into(binding.profileImageView);
-            binding.userNameView.setText(data.getUsername());
-            binding.joinedView.setText(formatDate(data.getJoined()));
-            binding.locationView.setText(data.getLocation());
+            if(jikanUserResponse==null){
+                // TODO: 29-Sep-22 Create error message
+                Toast.makeText(getContext(),"Unable to find data",Toast.LENGTH_SHORT).show();
+                if(showingFriend){
+                    Navigation.findNavController(binding.getRoot()).navigateUp();
+                }
+            }else{
+                UserData data = jikanUserResponse.getData();
+                setUpTabLayout(data.getStatistics(), data.getFavorites());
+                Picasso.get().load(data.getImages().getJpg().getImage_url()).into(binding.profileImageView);
+                binding.userNameView.setText(data.getUsername());
+                binding.joinedView.setText(formatDate(data.getJoined()));
+                binding.locationView.setText(data.getLocation());
+            }
             loadingDialog.stopLoading();
+
         });
 
     }

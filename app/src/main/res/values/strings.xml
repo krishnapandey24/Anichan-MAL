@@ -289,6 +289,8 @@
     <string name="manga_list">Manga List</string>
     <string name="people">People</string>
     <string name="characters">Characters</string>
+    <string name="anime_statistics">Anime Statistics</string>
+    <string name="manga_statistics">Manga Statistics</string>
 
 
 </resources>

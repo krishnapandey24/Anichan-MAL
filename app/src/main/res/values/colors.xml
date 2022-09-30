@@ -57,4 +57,21 @@
     <color name="lightdarkbackgroud">#1E2129</color>
     <color name="nightbuttoncolor">#01ABD2</color>
     <color name="recycler_view_background_color">@color/white</color>
+    
+    //Statistics colors
+
+    <color name="colorWatching">#78e08f</color>
+    <color name="colorCompleted">#6a89cc</color>
+    <color name="colorOnHold">#fad390</color>
+    <color name="colorDropped">#e55039</color>
+    <color name="colorPlanToWatch">#9cafb5</color>
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </resources>

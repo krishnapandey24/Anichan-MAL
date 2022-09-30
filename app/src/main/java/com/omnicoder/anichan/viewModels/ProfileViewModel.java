@@ -39,7 +39,10 @@ public class ProfileViewModel extends ViewModel {
         compositeDisposable.add(repository.getUserInfoFromJikan(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userInfo::setValue, Throwable::printStackTrace)
+                .subscribe(userInfo::setValue, e->{
+                    userInfo.setValue(null);
+                    e.printStackTrace();
+                })
         );
     }
 
@@ -47,7 +50,9 @@ public class ProfileViewModel extends ViewModel {
         compositeDisposable.add(repository.getUserFriends(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userFriends::setValue, Throwable::printStackTrace)
+                .subscribe(userFriends::setValue, e->{
+                    userFriends.setValue(null);
+                })
         );
     }
 

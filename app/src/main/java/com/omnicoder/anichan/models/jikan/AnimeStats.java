@@ -28,20 +28,8 @@ public class AnimeStats {
         return completed;
     }
 
-    public Double getDaysWatched() {
-        return daysWatched;
-    }
-
     public Integer getDropped() {
         return dropped;
-    }
-
-    public Integer getEpisodesWatched() {
-        return episodesWatched;
-    }
-
-    public Double getMeanScore() {
-        return meanScore;
     }
 
     public Integer getOnHold() {
@@ -56,11 +44,47 @@ public class AnimeStats {
         return rewatched;
     }
 
+    public Integer getWatching() {
+        return watching;
+    }
+
+    public float getCompletedFloat() {
+        return completed==null ? 0.0f : completed.floatValue();
+    }
+
+    public Double getDaysWatched() {
+        return daysWatched;
+    }
+
+    public float getDroppedFloat() {
+        return dropped==null ? 0.0f : dropped.floatValue();
+    }
+
+    public Integer getEpisodesWatched() {
+        return episodesWatched;
+    }
+
+    public Double getMeanScore() {
+        return meanScore;
+    }
+
+    public float getOnHoldFloat() {
+        return onHold==null ? 0.0f : onHold.floatValue();
+    }
+
+    public float getPlanToWatchFloat() {
+        return planToWatch==null ? 0.0f : planToWatch.floatValue();
+    }
+
+    public float getRewatchedFloat() {
+        return rewatched==null ? 0.0f : rewatched.floatValue();
+    }
+
     public Integer getTotalEntries() {
         return totalEntries;
     }
 
-    public Integer getWatching() {
-        return watching;
+    public float getWatchingFloat() {
+        return watching==null ? 0.0f : watching.floatValue();
     }
 }
