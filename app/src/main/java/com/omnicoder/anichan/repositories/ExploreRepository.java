@@ -52,17 +52,17 @@ public class ExploreRepository {
 
 
     public Observable<RankingResponse> get9TrendingAnime(){
-//        return malApi.getAnimeRanking(accessToken,AIRING,9,FIELDS);
+//        return malApi.getAnimeRanking(AIRING,9,FIELDS);
         return malApi.getAnimeRanking2(AIRING,9,FIELDS);
     }
 
     public Observable<RankingResponse> getSuggestions(){
-        return malApi.getSuggestions(accessToken,9,FIELDS);
+        return malApi.getSuggestions(9,FIELDS);
     }
 
 
     public Observable<RankingResponse> get9TopUpcomingAnime(){
-        return malApi.getAnimeRanking(accessToken,UPCOMING,9,FIELDS);
+        return malApi.getAnimeRanking(UPCOMING,9,FIELDS);
     }
 
 
@@ -77,13 +77,13 @@ public class ExploreRepository {
 
 
     public Flowable<PagingData<Data>> searchAnime(String query, int isAnime){
-        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query,accessToken, nsfw,isAnime);
+        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query, nsfw,isAnime);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
     }
 
 
     public Observable<Anime> getAnime(int id){
-        return malApi.getAnimeDetails(accessToken,id,Constants.ANIME_DETAILS_FIELDS);
+        return malApi.getAnimeDetails(id,Constants.ANIME_DETAILS_FIELDS);
     }
 
     public Observable<VideoResponse> getVideos(int id){
@@ -105,23 +105,23 @@ public class ExploreRepository {
 
 
     public Observable<Manga> getManga(int id){
-        return malApi.getMangaDetails(accessToken,id,Constants.MANGA_DETAILS_FIELDS);
+        return malApi.getMangaDetails(id,Constants.MANGA_DETAILS_FIELDS);
     }
 
     public Observable<RankingResponse> get9TopManga(){
-        return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
+        return malApi.getMangaRanking(MANGA,9,FIELDS);
     }
 
     public Observable<RankingResponse> get9TopManhwa(){
-        return malApi.getMangaRanking(accessToken,MANHWA,9,FIELDS);
+        return malApi.getMangaRanking(MANHWA,9,FIELDS);
     }
 
     public Observable<RankingResponse> get9TopManhua(){
-        return malApi.getMangaRanking(accessToken,MANHUA,9,FIELDS);
+        return malApi.getMangaRanking(MANHUA,9,FIELDS);
     }
 
     public Observable<RankingResponse> get9OneShots(){
-        return malApi.getMangaRanking(accessToken,MANGA,9,FIELDS);
+        return malApi.getMangaRanking(MANGA,9,FIELDS);
     }
 
     public Observable<CharacterResponse> getMangaCharacters(int id){

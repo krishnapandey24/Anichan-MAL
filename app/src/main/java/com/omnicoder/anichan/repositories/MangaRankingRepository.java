@@ -31,7 +31,7 @@ public class MangaRankingRepository {
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){
-        MangaRankingPagingSource rankingPagingSource= new MangaRankingPagingSource(malApi,rankingType,accessToken,nsfw);
+        MangaRankingPagingSource rankingPagingSource= new MangaRankingPagingSource(malApi,rankingType,nsfw);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 

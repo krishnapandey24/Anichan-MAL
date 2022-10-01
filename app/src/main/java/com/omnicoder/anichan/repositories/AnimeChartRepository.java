@@ -20,24 +20,22 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class AnimeChartRepository {
     MalApi malApi;
-    String accessToken;
     boolean nsfw;
 
     @Inject
     public AnimeChartRepository(MalApi malApi,Context context){
         this.malApi= malApi;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
         this.nsfw=sharedPreferences.getBoolean("nsfw",false);
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){
-        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,accessToken,nsfw);
+        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,nsfw);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
     public Flowable<PagingData<Data>> getSeason(String year,String season){
-        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,accessToken,year,season,nsfw);
+        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
     }
 

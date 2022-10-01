@@ -51,11 +51,11 @@ public class ExploreAnimeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ExploreViewModel.class);
         loadingDialog = new LoadingDialog(this, getContext());
-//        loadingDialog.startLoading();
+        loadingDialog.startLoading();
         observeData();
         viewModel.fetchTrending();
-//        viewModel.fetchSuggestions();
-//        viewModel.fetchTopUpcoming();
+        viewModel.fetchSuggestions();
+        viewModel.fetchTopUpcoming();
         if (Build.VERSION.SDK_INT >= 25) {
             SnapHelper pagerSnapHelper = new PagerSnapHelper();
             pagerSnapHelper.attachToRecyclerView(binding.trendingView);
@@ -119,9 +119,8 @@ public class ExploreAnimeFragment extends Fragment {
 
 
         binding.viewWinter.setOnClickListener(v -> {
-            viewModel.fetchTrending();
-//            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action = ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0, "Winter");
-//            Navigation.findNavController(v).navigate(action);
+            ExploreFragmentDirections.ActionExploreFragmentToSeasonActivity action = ExploreFragmentDirections.actionExploreFragmentToSeasonActivity(0, "Winter");
+            Navigation.findNavController(v).navigate(action);
         });
 
         binding.viewSpring.setOnClickListener(v -> {

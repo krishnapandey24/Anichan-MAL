@@ -19,13 +19,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
-    private final String year,season,accessToken;
+    private final String year,season;
     private final boolean nsfw;
 
 
-    public SeasonPagingSource(MalApi malApi, String accessToken, String year, String season, boolean nsfw){
+    public SeasonPagingSource(MalApi malApi, String year, String season, boolean nsfw){
         this.malApi=malApi;
-        this.accessToken=accessToken;
         this.year=year;
         this.season=season.toLowerCase(Locale.ROOT);
         this.nsfw=nsfw;
@@ -43,7 +42,7 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return malApi.getSeason(accessToken,year,season,Constants.SEASON_SORT,Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getSeason(year,season,Constants.SEASON_SORT,Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{

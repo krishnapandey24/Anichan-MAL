@@ -1,7 +1,6 @@
 package com.omnicoder.anichan.repositories;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.util.Log;
 
 import com.omnicoder.anichan.database.UserListDB;
@@ -32,14 +31,12 @@ public class AnimeListRepository {
     AnimeDao animeDao;
     UserListDB userListDB;
     MalApi malApi;
-    String accessToken;
+    // TODO: 01-Oct-22 add nsfw option
 
 
     @Inject
-    public AnimeListRepository(AnimeDao animeDao, Context context, UserListDB userListDB, MalApi malApi){
+    public AnimeListRepository(AnimeDao animeDao, UserListDB userListDB, MalApi malApi){
         this.animeDao=animeDao;
-        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
         this.userListDB = userListDB;
         this.malApi=malApi;
 
@@ -70,7 +67,7 @@ public class AnimeListRepository {
     }
 
     public Observable<UserAnimeListResponse> fetchUserAnimeList(){
-        return malApi.getUserAnimeList(accessToken,Constants.LIMIT);
+        return malApi.getUserAnimeList(Constants.LIMIT);
     }
 
     public Completable deleteAllAnime(){
@@ -132,7 +129,7 @@ public class AnimeListRepository {
 
 
     public Observable<UpdateAnimeResponse> updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
-        return malApi.updateAnime(accessToken,
+        return malApi.updateAnime(
                 id,
                 status,
                 isRewatching,
@@ -153,7 +150,7 @@ public class AnimeListRepository {
 
 
     public Observable<UpdateAnimeResponse> addEpisode(int id, int numberOfEpisodesWatched) {
-        return malApi.updateAnime(accessToken,
+        return malApi.updateAnime(
                 id,
                 null,
                 null,
@@ -168,11 +165,11 @@ public class AnimeListRepository {
     }
 
     public Completable animeCompleted(int id){
-        return malApi.animeCompleted(accessToken,id,"completed");
+        return malApi.animeCompleted(id,"completed");
     }
 
     public Completable deleteAnime(int id){
-        return malApi.deleteAnimeFromList(accessToken,id);
+        return malApi.deleteAnimeFromList(id);
     }
 
     public Completable addEpisodeInDB(int id,int numberOfEpisodesWatched){

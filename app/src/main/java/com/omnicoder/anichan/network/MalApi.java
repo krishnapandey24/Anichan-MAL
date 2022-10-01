@@ -32,7 +32,6 @@ public interface MalApi {
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
     Observable<UpdateAnimeResponse> updateAnime(
-            @Header("Authorization") String accessToken,
             @Path("anime_id") Integer anime_id,
             @Field("status") String status,
             @Field("is_rewatching") Boolean is_rewatching,
@@ -49,7 +48,6 @@ public interface MalApi {
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
     Completable animeCompleted(
-            @Header("Authorization") String accessToken,
             @Path("anime_id") Integer anime_id,
             @Field("status") String status
     );
@@ -57,7 +55,6 @@ public interface MalApi {
     @FormUrlEncoded
     @DELETE("anime/{anime_id}/my_list_status")
     Completable deleteAnimeFromList(
-            @Header("Authorization") String accessToken,
             @Path("anime_id") Integer anime_id
     );
 
@@ -74,7 +71,6 @@ public interface MalApi {
 
     @GET("anime/ranking")
     Observable<RankingResponse> getAnimeRanking(
-            @Header("Authorization") String accessToken,
             @Query("ranking_type") String rankingType,
             @Query("limit") int limit,
             @Query("fields") String fields
@@ -90,7 +86,6 @@ public interface MalApi {
 
     @GET("anime/suggestions")
     Observable<RankingResponse> getSuggestions(
-            @Header("Authorization") String accessToken,
             @Query("limit") int limit,
             @Query("fields") String fields
     );
@@ -98,7 +93,6 @@ public interface MalApi {
 
     @GET("anime/ranking")
     Single<RankingResponse> getAnimeRanking(
-            @Header("Authorization") String accessToken,
             @Query("ranking_type") String rankingType,
             @Query("limit") int limit,
             @Query("fields") String fields,
@@ -108,7 +102,6 @@ public interface MalApi {
 
     @GET("anime/season/{year}/{season}")
     Single<RankingResponse> getSeason(
-            @Header("Authorization") String accessToken,
             @Path("year") String year,
             @Path("season") String season,
             @Query("sort") String sort,
@@ -120,7 +113,6 @@ public interface MalApi {
 
     @GET("{animeOrManga}")
     Single<RankingResponse> searchAnime(
-            @Header("Authorization") String accessToken,
             @Path("animeOrManga") String animeOrManga,
             @Query("q") String query,
             @Query("limit") int limit,
@@ -132,7 +124,6 @@ public interface MalApi {
 
     @GET("anime/{anime_id}?")
     Observable<Anime> getAnimeDetails(
-            @Header("Authorization") String accessToken,
             @Path("anime_id") int id,
             @Query("fields") String fields
     );
@@ -140,7 +131,6 @@ public interface MalApi {
 
     @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
     Observable<UserAnimeListResponse> getUserAnimeList(
-            @Header("Authorization") String accessToken,
             @Query("limit") int limit
     );
 
@@ -150,7 +140,6 @@ public interface MalApi {
 
     @GET("manga/ranking")
     Observable<RankingResponse> getMangaRanking(
-            @Header("Authorization") String accessToken,
             @Query("ranking_type") String rankingType,
             @Query("limit") int limit,
             @Query("fields") String fields
@@ -158,7 +147,6 @@ public interface MalApi {
 
     @GET("manga/ranking")
     Single<RankingResponse> getMangaRanking(
-            @Header("Authorization") String accessToken,
             @Query("ranking_type") String rankingType,
             @Query("limit") int limit,
             @Query("fields") String fields,
@@ -168,7 +156,6 @@ public interface MalApi {
 
     @GET("manga/{manga_id}")
     Observable<Manga> getMangaDetails(
-            @Header("Authorization") String accessToken,
             @Path("manga_id") int id,
             @Query("fields") String fields
 
@@ -176,14 +163,12 @@ public interface MalApi {
 
     @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters")
     Observable<UserMangaListResponse> getUserMangaList(
-            @Header("Authorization") String accessToken,
             @Query("limit") int limit
     );
 
     @FormUrlEncoded
     @PATCH("manga/{manga_id}/my_list_status")
     Completable mangaCompleted(
-            @Header("Authorization") String accessToken,
             @Path("manga_id") Integer manga_id,
             @Field("status") String status
     );
@@ -191,7 +176,6 @@ public interface MalApi {
     @FormUrlEncoded
     @DELETE("manga/{manga_id}/my_list_status")
     Completable deleteMangaFromList(
-            @Header("Authorization") String accessToken,
             @Path("manga_id") Integer manga_id
     );
 
@@ -199,7 +183,6 @@ public interface MalApi {
     @FormUrlEncoded
     @PATCH("manga/{manga_id}/my_list_status")
     Observable<UpdateMangaResponse> updateManga(
-            @Header("Authorization") String accessToken,
             @Path("manga_id") Integer manga_id,
             @Field("status") String status,
             @Field("is_rereading") Boolean is_rewatching,

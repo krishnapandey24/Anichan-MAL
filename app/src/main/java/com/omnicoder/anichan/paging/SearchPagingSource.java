@@ -19,17 +19,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
     private final String query;
-    private final String accessToken;
     private final boolean nsfw;
     private final int isAnime;
     private static final String ANIME= "anime";
     private static final String MANGA="manga";
 
 
-    public SearchPagingSource(MalApi malApi, String query, String accessToken, boolean nsfw, int isAnime){
+    public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime){
         this.malApi=malApi;
         this.query = query;
-        this.accessToken=accessToken;
         this.nsfw = nsfw;
         this.isAnime=isAnime;
     }
@@ -49,7 +47,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return malApi.searchAnime(accessToken,isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,"media_type")
+            return malApi.searchAnime(isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,"media_type")
                     .subscribeOn(Schedulers.io())
                     .flattenAsObservable(searchResponse -> {
                         List<Data> results=searchResponse.getData();

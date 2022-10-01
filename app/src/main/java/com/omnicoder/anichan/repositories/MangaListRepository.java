@@ -31,14 +31,12 @@ public class MangaListRepository {
     MangaDao mangaDao;
     UserListDB userListDB;
     MalApi malApi;
-    String accessToken;
+    // TODO: 01-Oct-22 add nsfw option
 
 
     @Inject
     public MangaListRepository(MangaDao mangaDao, Context context, UserListDB userListDB, MalApi malApi) {
         this.mangaDao = mangaDao;
-        SharedPreferences sharedPreferences = context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        this.accessToken = " Bearer " + sharedPreferences.getString("accessToken", null);
         this.userListDB = userListDB;
         this.malApi = malApi;
 
@@ -68,7 +66,7 @@ public class MangaListRepository {
     }
 
     public Observable<UserMangaListResponse> fetchUserMangaList() {
-        return malApi.getUserMangaList(accessToken, Constants.LIMIT);
+        return malApi.getUserMangaList(Constants.LIMIT);
     }
 
     public Completable deleteAllManga() {
@@ -119,7 +117,7 @@ public class MangaListRepository {
 
 
     public Observable<UpdateMangaResponse> updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer volumesRead, Integer chaptersRead) {
-        return malApi.updateManga(accessToken,
+        return malApi.updateManga(
                 id,
                 status,
                 isRewatching,
@@ -141,7 +139,7 @@ public class MangaListRepository {
 
 
     public Observable<UpdateMangaResponse> addChapter(int id, int noOfChaptersRead) {
-        return malApi.updateManga(accessToken,
+        return malApi.updateManga(
                 id,
                 null,
                 null,
@@ -157,11 +155,11 @@ public class MangaListRepository {
     }
 
     public Completable mangaCompleted(int id) {
-        return malApi.mangaCompleted(accessToken, id, "completed");
+        return malApi.mangaCompleted(id, "completed");
     }
 
     public Completable deleteManga(int id) {
-        return malApi.deleteMangaFromList(accessToken, id);
+        return malApi.deleteMangaFromList(id);
     }
 
     public Completable addChapterInDB(int id, int noOfChaptersRead) {

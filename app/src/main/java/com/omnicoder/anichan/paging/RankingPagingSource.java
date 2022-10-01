@@ -18,14 +18,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
     private final String rankingType;
-    private final String accessToken;
     private final boolean nsfw;
 
 
-    public RankingPagingSource(MalApi malApi, String rankingType, String accessToken, boolean nsfw){
+    public RankingPagingSource(MalApi malApi, String rankingType, boolean nsfw){
         this.malApi=malApi;
         this.rankingType=rankingType;
-        this.accessToken=accessToken;
         this.nsfw=nsfw;
 
     }
@@ -42,7 +40,7 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return malApi.getAnimeRanking(accessToken,rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getAnimeRanking(rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(LoadResult.Error::new);

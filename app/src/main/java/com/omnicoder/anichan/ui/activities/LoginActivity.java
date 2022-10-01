@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityLoginBinding binding;
+        viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
         if(sessionManager.checkLogin()){
             if(sessionManager.isTokenExpired()){
                 binding = ActivityLoginBinding.inflate(getLayoutInflater());
@@ -54,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             binding = ActivityLoginBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
-            viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
             binding.button.setOnClickListener(v -> {
                 Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.loginUrl));
                 try{
