@@ -20,4 +20,6 @@ public class AppModule {
     SharedPreferences SharedPreferences(@ApplicationContext Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
+
+
 }

@@ -139,6 +139,15 @@
     </fragment>
     <action android:id="@+id/moveToFavoritesFragment"
         app:destination="@id/viewFavoritesFragment"/>
+    <fragment
+        android:id="@+id/account_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_profile_fragment"
+            app:destination="@id/profile_fragment" />
+    </fragment>
 
 
 </navigation>

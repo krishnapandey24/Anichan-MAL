@@ -8,6 +8,10 @@ public class Constants {
     public static final String IMAGE_URL= "https://image.tmdb.org/t/p/w500/";
     public static final String ANICHAN_PAGE_LINK = "anichan://anichan.page.link/";
     public static final String CLIENT_ID="48b4816727db6871c4f7bd68ce8a8233";
+    public static final String GRANT_TYPE= "authorization_code";
+    public static final String REFRESH_GRANT_CODE= "refresh_token";
+    public static final Long REFRESH_TOKEN_LIMIT = 432000000L;
+    public static final String ACCESS_TOKEN = "AccessToken";
     public static final String LOGIN_URL="https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=%s&code_challenge=%s&state=%s";
     public static final int LIMIT=20;
     public static final int USER_LIST_LIMIT=50;

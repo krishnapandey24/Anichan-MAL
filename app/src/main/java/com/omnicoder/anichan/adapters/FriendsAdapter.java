@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
 import com.omnicoder.anichan.databinding.FriendsItemLayoutBinding;
 import com.omnicoder.anichan.models.jikan.FriendData;
 import com.omnicoder.anichan.models.jikan.UserFriend;

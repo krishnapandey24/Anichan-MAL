@@ -14,6 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
+import com.omnicoder.anichan.utils.SessionManager;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -22,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        SharedPreferences sharedPreferences= getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        if(!sharedPreferences.getBoolean("userLogged",false)){
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            finish();
-        }
+//        SharedPreferences sharedPreferences= getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
+//        if(!sharedPreferences.getBoolean("userLogged",false)){
+//            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+//            finish();
+//        }
         navController= Navigation.findNavController(this,R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);

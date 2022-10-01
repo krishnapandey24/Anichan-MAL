@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.omnicoder.anichan.network.JikanAPI;
 import com.omnicoder.anichan.network.MalApi;
-import com.omnicoder.anichan.network.MovieDB;
+import com.omnicoder.anichan.network.MalAuthApi;
 import com.omnicoder.anichan.network.RxAPI;
+import com.omnicoder.anichan.network.interceptors.MalInterceptor;
+import com.omnicoder.anichan.utils.SessionManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,10 +39,14 @@ public class NetworkModule {
                 .create(RxAPI.class);
     }
 
+
+
+
     @Provides
     @Singleton
-    public static MalApi provideMalApi(){
+    public static MalApi provideMalApi(MalInterceptor malInterceptor){
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .addInterceptor(malInterceptor)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
@@ -51,6 +57,15 @@ public class NetworkModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build().create(MalApi.class);
     }
+
+    @Singleton
+    @Provides
+    public static MalInterceptor provideMalInterceptor(SessionManager sessionManager){
+        return new MalInterceptor(sessionManager);
+    }
+
+
+
 
     @Provides
     @Singleton
@@ -65,13 +80,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static MovieDB provideMovieDB(){
+    public static MalAuthApi provideMovieDB(){
         return new Retrofit.Builder()
                 .baseUrl("https://myanimelist.net/v1/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
-                .create(MovieDB.class);
+                .create(MalAuthApi.class);
     }
 
 
@@ -83,3 +98,4 @@ public class NetworkModule {
     }
 
 }
+

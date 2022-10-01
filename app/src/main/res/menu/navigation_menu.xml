@@ -18,9 +18,9 @@
 
 
     <item
-        android:id="@+id/profile_fragment"
+        android:id="@+id/account_fragment"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/profile_fragment"/>
+        android:title="@string/account"/>
 
 
 

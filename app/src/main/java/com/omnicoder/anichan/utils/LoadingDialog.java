@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -53,6 +54,22 @@ public class LoadingDialog {
         }
         dialog.show();
     }
+
+    public void startLoadingForRefreshToken(){
+        if(dialog==null){
+            dialog= new Dialog(activity);
+            dialog.setContentView(R.layout.loading_dialog);
+            dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(activity,R.drawable.dialog_background));
+            dialog.setCancelable(false);
+            Animation rotate= AnimationUtils.loadAnimation(dialog.getContext().getApplicationContext(),R.anim.rotating_animation);
+            ImageView imageView=dialog.findViewById(R.id.nartuomaki);
+            imageView.setAnimation(rotate);
+            TextView textView=dialog.findViewById(R.id.message);
+            textView.setText("Refreshing token \n Please wait....");
+        }
+        dialog.show();
+    }
+
 
     public void stopLoading(){
         if(dialog==null) return;

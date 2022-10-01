@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="user_profile_image_width_and_height">100dp</dimen>
+    <dimen name="account_profile_image_width_and_height">80dp</dimen>
 
 </resources>

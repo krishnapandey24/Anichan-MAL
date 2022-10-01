@@ -46,15 +46,14 @@ public class ExploreRepository {
         this.malApi= malApi;
         this.jikanAPI=jikanAPI;
         SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE);
-        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
-        Log.d("tagg","ac:\n"+accessToken);
         this.nsfw= sharedPreferences.getBoolean("nsfw",false);
     }
 
 
 
     public Observable<RankingResponse> get9TrendingAnime(){
-        return malApi.getAnimeRanking(accessToken,AIRING,9,FIELDS);
+//        return malApi.getAnimeRanking(accessToken,AIRING,9,FIELDS);
+        return malApi.getAnimeRanking2(AIRING,9,FIELDS);
     }
 
     public Observable<RankingResponse> getSuggestions(){
