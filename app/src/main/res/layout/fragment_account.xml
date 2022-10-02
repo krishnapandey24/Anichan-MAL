@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.fragments.AccountFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.fragments.AccountFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -154,6 +159,118 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/general"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:maxLines="2"
+        android:text="General"
+
+        android:textColor="@color/headingTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view10" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/settingsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_title="@string/settings"
+        app:item_description="@string/setting_list_description"
+        app:item_icon="@drawable/ic_baseline_settings_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/general" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/faqView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_title="@string/faq"
+        app:item_description="@string/faqDescription"
+        app:item_icon="@drawable/ic_faq"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settingsView" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/aboutView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_description="@string/aboutAppDescription"
+        app:item_icon="@drawable/ic_baseline_info_24"
+        app:item_title="@string/aboutApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/faqView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/support"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:maxLines="2"
+        android:text="Support"
+        android:textColor="@color/headingTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutView" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/rateAndReviewView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_title="@string/rateAndReview"
+        app:item_description="@string/rateAndReviewDescription"
+        app:item_icon="@drawable/ic_review"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/support" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:item_title="@string/sendFeedback"
+        app:item_description="@string/sendFeedbackDescription"
+        app:item_icon="@drawable/ic_baseline_feedback_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateAndReviewView" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/reportBug"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_description="@string/reportBugDescription"
+        app:item_icon="@drawable/ic_baseline_bug_report_24"
+        app:item_title="@string/reportBug"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedback" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>

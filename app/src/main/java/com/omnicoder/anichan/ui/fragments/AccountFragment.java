@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.FragmentAccountBinding;
 import com.omnicoder.anichan.viewModels.AccountViewModel;
 import com.squareup.picasso.Picasso;
@@ -30,24 +31,17 @@ public class AccountFragment extends Fragment  {
     private static final String datePattern = "dd MMMM yyyy";
 
 
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding=FragmentAccountBinding.inflate(inflater,container,false);
+        viewModel=new ViewModelProvider(this).get(AccountViewModel.class);
+        viewModel.fetchUserInfo();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel=new ViewModelProvider(this).get(AccountViewModel.class);
         viewModel.getUserInfo().observe(getViewLifecycleOwner(), userInfo -> {
             Picasso.get().load(userInfo.getPicture()).into(binding.profileImageView);
             binding.userNameView.setText(userInfo.getName());
@@ -60,7 +54,7 @@ public class AccountFragment extends Fragment  {
             binding.profileImageView.setOnClickListener(onClickListener);
             binding.userDetailsView.setOnClickListener(onClickListener);
         });
-        viewModel.fetchUserInfo();
+        binding.settingsView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.settingsFragment));
 
     }
 

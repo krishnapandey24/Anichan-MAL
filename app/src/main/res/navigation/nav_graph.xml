@@ -151,7 +151,15 @@
         <action
             android:id="@+id/action_accountFragment_to_profile_fragment"
             app:destination="@id/profile_fragment" />
+        <action
+            android:id="@+id/action_account_fragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 
 
 </navigation>

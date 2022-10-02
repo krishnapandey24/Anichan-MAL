@@ -20,4 +20,5 @@
     <string name="recommendation">Recommendation</string>
     <string name="itemLayout" />
     <string name="manga">Manga</string>
+    <string name="faqDescription">Answers to some common questions</string>
 </resources>

@@ -103,6 +103,7 @@ public class SummaryFragment extends Fragment {
     }
 
     private void setupOpeningAndEndingThemes(List<AnimeTheme> opening_themes, List<AnimeTheme> ending_themes) {
+        // TODO: 02-Oct-22 Change the activity to fragment
         View.OnClickListener onClickListener= v -> {
             if((opening_themes==null || opening_themes.isEmpty()) && (ending_themes==null || ending_themes.isEmpty())){
                 Toast.makeText(context,"No opening or ending themes available",Toast.LENGTH_SHORT).show();

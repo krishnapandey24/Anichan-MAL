@@ -34,6 +34,8 @@ public class Constants {
     public static final String COMPLETED= "completed";
     public static final String ON_HOLD= "on_hold";
     public static final String DROPPED="dropped";
+    public static final String NSFW_TAG = "nsfw";
+    public static final String DARK_MODE_TAG="dark_mode";
 
     public static final String JIKAN_API_FRIENDS_URL="https://api.jikan.moe/v4/users/%s/friends/%s";
 
