@@ -9,7 +9,7 @@ import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.models.responses.RankingResponse;
 import com.omnicoder.anichan.models.UpdateAnimeResponse;
-import com.omnicoder.anichan.models.MalUser;
+import com.omnicoder.anichan.models.UserInfo;
 
 
 import io.reactivex.rxjava3.core.Completable;
@@ -19,7 +19,6 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -198,7 +197,7 @@ public interface MalApi {
 
 
     @GET("users/@me?fields=id,name,gender,location,joined_at,anime_statistics")
-    Observable<MalUser> getUserInfo();
+    Observable<UserInfo> getUserInfo();
 
 
 

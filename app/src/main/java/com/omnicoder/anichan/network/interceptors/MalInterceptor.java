@@ -28,7 +28,9 @@ public class MalInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder requestBuilder=chain.request().newBuilder();
-        requestBuilder.addHeader("Authorization","Bearer "+currentSession.get(ACCESS_TOKEN));
+        String header= "Bearer "+currentSession.get(ACCESS_TOKEN);
+        Log.d("tagg","Header: "+header);
+        requestBuilder.addHeader("Authorization",header);
         Response response= chain.proceed(requestBuilder.build());
         if(!response.isSuccessful()){
             if(response.code()==429 || response.code()==401){

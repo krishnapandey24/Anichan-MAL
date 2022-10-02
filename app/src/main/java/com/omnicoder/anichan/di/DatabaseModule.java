@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.omnicoder.anichan.database.MangaDao;
+import com.omnicoder.anichan.database.UserInfoDao;
 import com.omnicoder.anichan.database.UserListDB;
 import com.omnicoder.anichan.database.AnimeDao;
 
@@ -42,6 +43,13 @@ public class DatabaseModule {
     @Singleton
     MangaDao provideMangaDao(UserListDB userListDB){
         return userListDB.mangaDao();
+    }
+
+
+    @Provides
+    @Singleton
+    UserInfoDao provideUserInfoDao(UserListDB userListDB){
+        return userListDB.userInfoDao();
     }
 
 

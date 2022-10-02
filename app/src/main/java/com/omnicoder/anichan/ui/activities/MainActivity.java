@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -13,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
 import com.omnicoder.anichan.utils.SessionManager;
+import com.omnicoder.anichan.viewModels.MainViewModel;
 
 import javax.inject.Inject;
 
@@ -37,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
             finish();
         }
+        MainViewModel mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.fetchUserInfo();
         navController= Navigation.findNavController(this,R.id.fragmentContainerView);
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
     }
 
@@ -52,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // TODO: 29-Sep-22 Change viewmodel intialization of all fragments
+
+    // TODO: 29-Sep-22 Change viewModel initialization of all fragments
 
 
 }

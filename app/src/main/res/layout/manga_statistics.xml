@@ -296,7 +296,7 @@
         android:layout_marginTop="4dp"
         android:drawablePadding="5dp"
         android:fontFamily="sans-serif"
-        android:text="Plan To Read"
+        android:text="Plan To Read: "
         android:textColor="@color/listItemTitleTextColor"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_circle"

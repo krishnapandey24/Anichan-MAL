@@ -48,15 +48,13 @@ public class ProfileFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        username = "kinochan";
         if (getArguments() != null) {
-            String friendUsername = getArguments().getString("username");
-            if (friendUsername != null) {
-                username = friendUsername;
-                showingFriend = true;
+            username = getArguments().getString("username");
+            showingFriend=getArguments().getBoolean("friend");
+            if (username != null) {
+                viewModel.fetchUserInfo(username);
             }
         }
-        viewModel.fetchUserInfo(username);
     }
 
     @Override

@@ -43,6 +43,10 @@
         <action
             android:id="@+id/action_profile_fragment_to_viewFavoritesFragment"
             app:destination="@id/viewFavoritesFragment" />
+        <argument
+            android:name="friend"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
