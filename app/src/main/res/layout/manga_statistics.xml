@@ -149,7 +149,7 @@
         android:layout_marginTop="16dp"
         app:donut_gapAngle="90"
         app:donut_gapWidth="20"
-        app:donut_strokeWidth="16dp"
+        app:donut_strokeWidth="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/today_title" />
 
