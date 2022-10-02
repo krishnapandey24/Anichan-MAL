@@ -103,12 +103,17 @@ public class SessionManager {
 
     public boolean checkLogin() {
         return sharedPreferences.getBoolean(LOGGED_IN, false);
+
     }
 
     public boolean isTokenExpired(){
         Long currentTime = System.currentTimeMillis();
         Long savedTime = sharedPreferences.getLong(SAVED_TIME, 0);
         return currentTime-savedTime >= REFRESH_TOKEN_LIMIT;
+    }
+
+    public boolean notLoggedInOrTokenExpired(){
+        return !checkLogin() && isTokenExpired();
     }
 
 

@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
             if(sessionManager.isTokenExpired()){
                 binding = ActivityLoginBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
-                viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
                 viewModel.refreshAccessToken(sessionManager.getLatestRefreshToken());
                 LoadingDialog loadingDialog=new LoadingDialog(LoginActivity.this);
                 loadingDialog.startLoadingForRefreshToken();
