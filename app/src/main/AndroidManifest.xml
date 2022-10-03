@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
 
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admobId" />
+
         <activity
             android:name=".ui.activities.ViewMangaActivity"
             android:exported="false"

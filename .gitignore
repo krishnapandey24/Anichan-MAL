@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+Anichan/app/src/main/res/values/string-array.xml
+
