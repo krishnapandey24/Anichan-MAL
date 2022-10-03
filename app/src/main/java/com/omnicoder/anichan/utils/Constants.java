@@ -46,7 +46,7 @@ public class Constants {
     public static final String MANGA="manga";
     public static final String CHARACTERS="characters";
     public static final String PEOPLE="people";
-    private static final String IS_PRO_USER = "is_pro_user";
+    public static final String IS_PRO_USER = "is_pro_user";
 
     public static final String FAVORITES_TYPE="favorites_type";
 

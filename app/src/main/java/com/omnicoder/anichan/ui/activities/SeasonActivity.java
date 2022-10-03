@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NavUtils;
@@ -14,6 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
 import com.omnicoder.anichan.adapters.AnimePageAdapter;
 import com.omnicoder.anichan.adapters.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
@@ -47,6 +51,21 @@ public class SeasonActivity extends AppCompatActivity {
         animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), SeasonActivity.this,true);
 //        setAnime(selectedSeason,currentYear);
         setupToolbar();
+        AdRequest adRequest= new AdRequest.Builder().build();
+        com.google.android.gms.ads.AdView adView = binding.adView;
+        adView.loadAd(adRequest);
+        AdListener adListener=new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+            }
+        };
+        adView.setAdListener(adListener);
     }
 
 

@@ -70,17 +70,19 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/white_rectangle.xml" value="1.08125" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/account_list_item_view.xml" value="0.264" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_base.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_chart_anime.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_chart_anime.xml" value="0.1" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_main.xml" value="0.144" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_manga_ranking.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_schedule.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_season.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_anime.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_character.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_jikan_entity.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_manga.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_themes.xml" value="0.176" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/ad_layout.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/add_anime_bottom_sheet.xml" value="0.2" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/add_manga_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/anime_list_fragment.xml" value="0.2" />
@@ -124,6 +126,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/manga_bottom_sheet.xml" value="0.128" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/manga_list_item_layout.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/manga_statistics.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/native_ad_layout.xml" value="0.18984375" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/news_fragment.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/no_internet_connection_dialog.xml" value="0.16" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/opending_ending_themes_view_stub_layout.xml" value="0.2" />

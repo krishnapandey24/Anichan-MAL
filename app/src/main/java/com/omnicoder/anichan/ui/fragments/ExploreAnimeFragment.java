@@ -1,5 +1,8 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.Constants.IS_PRO_USER;
+
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +21,13 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.omnicoder.anichan.BuildConfig;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.SeasonAdapter;
 import com.omnicoder.anichan.adapters.AnimeAdapter;
 import com.omnicoder.anichan.adapters.TrendingViewPagerAdapter;
@@ -31,6 +41,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -39,6 +51,8 @@ public class ExploreAnimeFragment extends Fragment {
     private ExploreViewModel viewModel;
     private LoadingDialog loadingDialog;
     private int fetchCount=0;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +67,7 @@ public class ExploreAnimeFragment extends Fragment {
         loadingDialog = new LoadingDialog(this, getContext());
         loadingDialog.startLoading();
         observeData();
+        initializeGoogleAdmob();
         viewModel.fetchTrending();
         viewModel.fetchSuggestions();
         viewModel.fetchTopUpcoming();
@@ -62,6 +77,29 @@ public class ExploreAnimeFragment extends Fragment {
         }
         setOnClickListeners();
 
+    }
+
+    private void initializeGoogleAdmob(){
+//        if(!BuildConfig.DEBUG){
+            if (!sharedPreferences.getBoolean(IS_PRO_USER, false)) {
+                MobileAds.initialize(requireContext());
+                AdRequest adRequest= new AdRequest.Builder().build();
+                com.google.android.gms.ads.AdView adView = binding.adView;
+                adView.loadAd(adRequest);
+                AdListener adListener=new AdListener() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        super.onAdFailedToLoad(loadAdError);
+                    }
+
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+                    }
+                };
+                adView.setAdListener(adListener);
+            }
+//        }
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView) {
