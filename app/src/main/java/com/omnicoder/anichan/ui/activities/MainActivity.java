@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.activities;
 
 import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
+import static com.omnicoder.anichan.utils.Constants.IS_PRO_USER;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +15,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.omnicoder.anichan.BuildConfig;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
 import com.omnicoder.anichan.utils.SessionManager;
@@ -27,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
     ActivityMainBinding binding;
     NavController navController;
     @Inject
@@ -56,6 +60,32 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
+    }
+
+    private void initializeGoogleAdmob(){
+        if(!BuildConfig.DEBUG){
+            if (!sharedPreferences.getBoolean(IS_PRO_USER, false)) {
+                MobileAds.initialize(this);
+
+                googleAdView = findViewById(R.id.adView)
+                val adRequest = AdRequest.Builder().build()
+                googleAdView.loadAd(adRequest)
+                googleAdView.adListener = object : AdListener(){
+
+                    override fun onAdFailedToLoad(p0: LoadAdError) {
+                        super.onAdFailedToLoad(p0)
+                        Timber.e("Failed To Load Ad")
+                    }
+
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        fragmentContainerView.setPadding(0,0,0,140)
+                        googleAdView.show()
+                        Timber.e("Ad Loaded Successfully")
+                    }
+                }
+            }
+        }
     }
 
 
