@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 import static com.omnicoder.anichan.utils.Constants.IS_PRO_USER;
 
 import android.content.SharedPreferences;
@@ -21,25 +22,21 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.omnicoder.anichan.BuildConfig;
-import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.adapters.SeasonAdapter;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.adapters.AnimeAdapter;
+import com.omnicoder.anichan.adapters.SeasonAdapter;
 import com.omnicoder.anichan.adapters.TrendingViewPagerAdapter;
+import com.omnicoder.anichan.databinding.ExploreAnimeFragmentBinding;
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ExploreViewModel;
-import com.omnicoder.anichan.databinding.ExploreAnimeFragmentBinding;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
 
 import javax.inject.Inject;
 
@@ -53,6 +50,7 @@ public class ExploreAnimeFragment extends Fragment {
     private int fetchCount=0;
     @Inject
     SharedPreferences sharedPreferences;
+    NativeAd nativeAd;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,26 +78,21 @@ public class ExploreAnimeFragment extends Fragment {
     }
 
     private void initializeGoogleAdmob(){
-//        if(!BuildConfig.DEBUG){
-            if (!sharedPreferences.getBoolean(IS_PRO_USER, false)) {
-                MobileAds.initialize(requireContext());
-                AdRequest adRequest= new AdRequest.Builder().build();
-                com.google.android.gms.ads.AdView adView = binding.adView;
-                adView.loadAd(adRequest);
-                AdListener adListener=new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        super.onAdFailedToLoad(loadAdError);
-                    }
-
-                    @Override
-                    public void onAdLoaded() {
-                        super.onAdLoaded();
-                    }
-                };
-                adView.setAdListener(adListener);
+        AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
+            if (requireActivity().isDestroyed()) {
+                nativeAd.destroy();
+                return;
             }
-//        }
+
+            if(this.nativeAd!=null){
+                this.nativeAd.destroy();
+            }
+            this.nativeAd=nativeAd;
+            binding.adView.setNativeAd(nativeAd);
+        }).build();
+        AdRequest nativeAdRequest = new AdRequest.Builder().build();
+        adLoader.loadAd(nativeAdRequest);
+        binding.adView.destroyNativeAd();
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView) {
@@ -226,6 +219,10 @@ public class ExploreAnimeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (nativeAd != null) {
+            nativeAd.destroy();
+        }
+
     }
 
 }

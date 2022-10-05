@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
+import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.adapters.AllTimePopularAdapter;
 import com.omnicoder.anichan.adapters.RelatedAnimeAdapter;
 import com.omnicoder.anichan.adapters.VideoAdapter;
@@ -35,6 +40,7 @@ import java.util.List;
 
 public class SummaryFragment extends Fragment {
     Anime anime;
+    NativeAd nativeAd;
     FragmentSummaryBinding binding;
     boolean viewMore=true;
     final String viewMore2="View More";
@@ -62,6 +68,7 @@ public class SummaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         context=getContext();
         viewModel.fetchVideos(anime.getId());
+        initializeGoogleAdmob();
         observeData();
         binding.statusView.setText(getAiringStatus(anime.getStatus()));
         if(anime.getBroadcast()!=null){
@@ -91,6 +98,25 @@ public class SummaryFragment extends Fragment {
             }
             viewMore=!viewMore;
         });
+    }
+
+
+    private void initializeGoogleAdmob(){
+        AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
+            if (requireActivity().isDestroyed()) {
+                nativeAd.destroy();
+                return;
+            }
+
+            if(this.nativeAd!=null){
+                this.nativeAd.destroy();
+            }
+            this.nativeAd=nativeAd;
+            binding.nativeAdView.setNativeAd(nativeAd);
+        }).build();
+        AdRequest nativeAdRequest = new AdRequest.Builder().build();
+        adLoader.loadAd(nativeAdRequest);
+        binding.nativeAdView.destroyNativeAd();
     }
 
     private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
@@ -178,5 +204,12 @@ public class SummaryFragment extends Fragment {
         return title;
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding=null;
+        if(this.nativeAd!=null){
+            nativeAd.destroy();
+        }
+    }
 }

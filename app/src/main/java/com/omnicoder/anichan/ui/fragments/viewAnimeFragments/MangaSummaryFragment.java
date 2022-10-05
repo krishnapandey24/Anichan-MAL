@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
+import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.adapters.AllTimePopularAdapter;
 import com.omnicoder.anichan.adapters.RelatedAnimeAdapter;
 import com.omnicoder.anichan.models.animeResponse.RelatedAnime;
@@ -23,6 +28,7 @@ import java.util.List;
 
 public class MangaSummaryFragment extends Fragment {
     Manga manga;
+    NativeAd nativeAd;
     FragmentMangaSummaryBinding binding;
     boolean viewMore=true;
     final String viewMore2="View More";
@@ -80,6 +86,24 @@ public class MangaSummaryFragment extends Fragment {
         return name.substring(0,name.length()-2);
     }
 
+    private void initializeGoogleAdmob(){
+        AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
+            if (requireActivity().isDestroyed()) {
+                nativeAd.destroy();
+                return;
+            }
+
+            if(this.nativeAd!=null){
+                this.nativeAd.destroy();
+            }
+            this.nativeAd=nativeAd;
+            binding.nativeAdView.setNativeAd(nativeAd);
+        }).build();
+        AdRequest nativeAdRequest = new AdRequest.Builder().build();
+        adLoader.loadAd(nativeAdRequest);
+        binding.nativeAdView.destroyNativeAd();
+    }
+
 
     private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
         AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,false);
@@ -120,5 +144,12 @@ public class MangaSummaryFragment extends Fragment {
         return title;
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding=null;
+        if(nativeAd!=null){
+            nativeAd.destroy();
+        }
+    }
 }

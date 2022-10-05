@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable-hdpi/gnt_outline_shape.xml" value="0.242" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable-hdpi/white_rectangle.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable-xxhdpi/transparent_blue2.xml" value="0.1707236842105263" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/drawable/back_arrow.xml" value="0.2595" />
@@ -81,6 +82,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_character.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_jikan_entity.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_manga.xml" value="0.176" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_person.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/activity_view_themes.xml" value="0.176" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/ad_layout.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/add_anime_bottom_sheet.xml" value="0.2" />
@@ -113,6 +115,7 @@
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_view.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/fragment_view_favorites.xml" value="0.20854700854700856" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/friends_item_layout.xml" value="0.2" />
+        <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/gnt_small_template_view.xml" value="0.190625" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/just_recycler_view.xml" value="0.16052631578947368" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout.xml" value="0.4" />
         <entry key="..\:/Users/krish/AndroidStudioProjects/Anichan/app/src/main/res/layout/layout2.xml" value="0.16052631578947368" />

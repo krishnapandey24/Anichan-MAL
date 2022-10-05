@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,9 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.adapters.SeasonAdapter;
 import com.omnicoder.anichan.adapters.AnimeAdapter;
 import com.omnicoder.anichan.adapters.TrendingViewPagerAdapter;
@@ -33,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ExploreMangaFragment extends Fragment{
-
+    private NativeAd nativeAd;
     private ExploreMangaBinding binding;
     private ExploreViewModel viewModel;
 
@@ -51,11 +56,30 @@ public class ExploreMangaFragment extends Fragment{
         viewModel.fetchTopManga();
         viewModel.fetchTopManhwa();
         viewModel.fetchTopManhua();
+        initializeGoogleAdmob();
         if (Build.VERSION.SDK_INT >= 25) {
             SnapHelper pagerSnapHelper= new PagerSnapHelper();
             pagerSnapHelper.attachToRecyclerView(binding.mangaView);
         }
         setOnClickListeners();
+    }
+
+    private void initializeGoogleAdmob(){
+        AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
+            if (requireActivity().isDestroyed()) {
+                nativeAd.destroy();
+                return;
+            }
+
+            if(this.nativeAd!=null){
+                this.nativeAd.destroy();
+            }
+            this.nativeAd=nativeAd;
+            binding.adView.setNativeAd(nativeAd);
+        }).build();
+        AdRequest nativeAdRequest = new AdRequest.Builder().build();
+        adLoader.loadAd(nativeAdRequest);
+        binding.adView.destroyNativeAd();
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView){
@@ -152,6 +176,9 @@ public class ExploreMangaFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         binding=null;
+        if(nativeAd!=null){
+            nativeAd.destroy();
+        }
     }
 
 }

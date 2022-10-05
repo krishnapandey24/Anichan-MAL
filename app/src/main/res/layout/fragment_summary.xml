@@ -437,5 +437,17 @@
         tools:listitem="@layout/layout" />
 
 
+    <com.omnicoder.anichan.views.ads.TemplateView
+        android:id="@+id/nativeAdView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:gnt_template_type="@layout/gnt_small_template_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommendationRv" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
