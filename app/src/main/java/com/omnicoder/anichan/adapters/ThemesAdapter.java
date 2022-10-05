@@ -72,7 +72,9 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.MyViewHold
     String getCleanName(String name){
         name=name.replace(" ","+");
         int size=name.length();
-        name=name.substring(4,size);
+        if (name.startsWith("#")) {
+            name = name.substring(4, size)
+        }
         int index=name.indexOf("(eps");
         if(index==-1){
             return name.replace(" ","+");
