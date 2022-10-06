@@ -3,9 +3,11 @@ package com.omnicoder.anichan.ui.fragments;
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 import static com.omnicoder.anichan.utils.Constants.IS_PRO_USER;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -79,20 +81,19 @@ public class ExploreAnimeFragment extends Fragment {
 
     private void initializeGoogleAdmob(){
         AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
-            if (requireActivity().isDestroyed()) {
+            if (isAdded() && requireActivity().isDestroyed()) {
                 nativeAd.destroy();
                 return;
             }
-
             if(this.nativeAd!=null){
                 this.nativeAd.destroy();
             }
+
             this.nativeAd=nativeAd;
             binding.adView.setNativeAd(nativeAd);
         }).build();
         AdRequest nativeAdRequest = new AdRequest.Builder().build();
         adLoader.loadAd(nativeAdRequest);
-        binding.adView.destroyNativeAd();
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView) {
@@ -223,6 +224,12 @@ public class ExploreAnimeFragment extends Fragment {
             nativeAd.destroy();
         }
 
+
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        loadingDialog.stopLoading();
+    }
 }

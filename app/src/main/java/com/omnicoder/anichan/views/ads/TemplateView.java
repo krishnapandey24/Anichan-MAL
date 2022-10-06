@@ -234,7 +234,10 @@ public class TemplateView extends FrameLayout {
 
 
   public void destroyNativeAd() {
-    nativeAd.destroy();
+    if(nativeAd!=null){
+      nativeAd.destroy();
+
+    }
   }
 
 

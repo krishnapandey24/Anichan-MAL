@@ -59,11 +59,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
         MobileAds.initialize(this);
-
-
-
-
-
     }
 
 

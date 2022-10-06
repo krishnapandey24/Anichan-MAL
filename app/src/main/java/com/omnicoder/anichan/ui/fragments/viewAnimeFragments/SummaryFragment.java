@@ -102,8 +102,9 @@ public class SummaryFragment extends Fragment {
 
 
     private void initializeGoogleAdmob(){
+        // TODO: 06-Oct-22 Fix bug
         AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
-            if (requireActivity().isDestroyed()) {
+            if (isAdded() && requireActivity().isDestroyed()) {
                 nativeAd.destroy();
                 return;
             }
@@ -116,7 +117,6 @@ public class SummaryFragment extends Fragment {
         }).build();
         AdRequest nativeAdRequest = new AdRequest.Builder().build();
         adLoader.loadAd(nativeAdRequest);
-        binding.nativeAdView.destroyNativeAd();
     }
 
     private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {

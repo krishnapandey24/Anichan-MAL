@@ -66,7 +66,7 @@ public class ExploreMangaFragment extends Fragment{
 
     private void initializeGoogleAdmob(){
         AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
-            if (requireActivity().isDestroyed()) {
+            if (isAdded() && requireActivity().isDestroyed()) {
                 nativeAd.destroy();
                 return;
             }
@@ -79,7 +79,6 @@ public class ExploreMangaFragment extends Fragment{
         }).build();
         AdRequest nativeAdRequest = new AdRequest.Builder().build();
         adLoader.loadAd(nativeAdRequest);
-        binding.adView.destroyNativeAd();
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView){

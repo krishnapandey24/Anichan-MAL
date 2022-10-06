@@ -73,13 +73,13 @@ public class ThemesAdapter extends RecyclerView.Adapter<ThemesAdapter.MyViewHold
         name=name.replace(" ","+");
         int size=name.length();
         if (name.startsWith("#")) {
-            name = name.substring(4, size)
+            name = name.substring(4, size);
         }
-        int index=name.indexOf("(eps");
+        int index=name.indexOf("(ep");
         if(index==-1){
-            return name.replace(" ","+");
+            return name;
         }else{
-            return (name.substring(0,index-1)).replace(" ","+");
+            return (name.substring(0,index-1));
         }
     }
 }
