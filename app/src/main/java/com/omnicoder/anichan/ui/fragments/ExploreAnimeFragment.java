@@ -219,7 +219,6 @@ public class ExploreAnimeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
         if (nativeAd != null) {
             nativeAd.destroy();
         }

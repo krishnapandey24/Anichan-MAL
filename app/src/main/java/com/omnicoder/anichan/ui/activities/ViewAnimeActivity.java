@@ -3,29 +3,26 @@ package com.omnicoder.anichan.ui.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
-import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
+import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
+import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddAnimeBottomSheet;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.StaffFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.SummaryFragment;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
-import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
@@ -37,7 +34,6 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     ActivityViewAnimeBinding binding;
     ViewAnimeViewModel viewModel;
     boolean viewMore=true;
-    SummaryFragment summary;
     AddAnimeBottomSheet addAnimeBottomSheet;
     boolean addedToList=false;
     LoadingDialog loadingDialog;
@@ -59,41 +55,15 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         setOnClickListeners();
     }
 
-    private void setTabLayout(Anime anime) {
-        Fragment charactersFragment= new CharactersFragment(anime.getId(),viewModel);
-        Fragment staffFragment=new StaffFragment(anime.getId(),viewModel);
-        Fragment reviewsFragment= new RelatedFragment(anime.getId(),viewModel);
 
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position= tab.getPosition();
-                switch (position){
-                    case 0:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
-                        break;
-                    case 1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,charactersFragment).commit();
-                        break;
-                    case 2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,reviewsFragment).commit();
-                    case 3:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,staffFragment).commit();
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+    private void setTabLayout(ViewAnimeViewModel viewModel, Anime anime){
+        String[] tabs=getResources().getStringArray(R.array.ViewTabs);
+        ViewPager2 viewPager;
+        viewPager=binding.fragmentContainerView;
+        FragmentStateAdapter fragmentStateAdapter;
+        fragmentStateAdapter=new ViewAnimeStateAdapter(this,viewModel,anime);
+        viewPager.setAdapter(fragmentStateAdapter);
+        new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
 
@@ -144,7 +114,6 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 }else{
                     binding.studioView.setText(anime.getStudios().get(0).getName());
                 }
-                summary=new SummaryFragment(anime,viewModel);
                 if(anime.getMedia_type().equals(Constants.MOVIE)){
                     String duration=convertDuration(anime.getAverage_episode_duration());
                     String duration2="Duration";
@@ -154,8 +123,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                     binding.seasonAndDurationView.setText(String.valueOf(anime.getNum_episodes()));
                 }
                 addAnimeBottomSheet.setData(anime);
-                setTabLayout(anime);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
+                setTabLayout(viewModel,anime);
                 binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();

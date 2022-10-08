@@ -60,6 +60,14 @@
         <item>Schedule</item>
     </string-array>
 
+
+    <string-array name="ViewTabs">
+        <item>Summary</item>
+        <item>Characters</item>
+        <item>Reviews</item>
+        <item>Staff</item>
+    </string-array>
+
     <string-array name="ProfileTabs">
         <item>Stats</item>
         <item>Favorites</item>

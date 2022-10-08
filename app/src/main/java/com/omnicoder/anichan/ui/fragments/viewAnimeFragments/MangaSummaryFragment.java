@@ -73,6 +73,7 @@ public class MangaSummaryFragment extends Fragment {
             }
             viewMore=!viewMore;
         });
+        initializeGoogleAdmob();
     }
 
     private String getAuthors(List<Author> authors) {
@@ -147,7 +148,6 @@ public class MangaSummaryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        binding=null;
         if(nativeAd!=null){
             nativeAd.destroy();
         }

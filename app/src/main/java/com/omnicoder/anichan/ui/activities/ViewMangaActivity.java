@@ -13,8 +13,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
+import com.omnicoder.anichan.adapters.stateAdapters.ViewMangaStateAdapter;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddMangaBottomSheet;
@@ -35,7 +40,6 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     ActivityViewMangaBinding binding;
     MangaDetailsViewModel viewModel;
     boolean viewMore=true;
-    MangaSummaryFragment summary;
     AddMangaBottomSheet addMangaBottomSheet;
     boolean addedToList=false;
     LoadingDialog loadingDialog;
@@ -59,37 +63,13 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     }
 
     private void setTabLayout(Manga manga) {
-        Fragment charactersFragment= new CharactersFragment(manga.getId(),viewModel);
-        Fragment reviewsFragment= new RelatedFragment(manga.getId(),viewModel);
-
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position= tab.getPosition();
-                switch (position){
-                    case 0:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
-                        break;
-                    case 1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,charactersFragment).commit();
-                        break;
-                    case 2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,reviewsFragment).commit();
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+        String[] tabs=getResources().getStringArray(R.array.ViewTabs);
+        ViewPager2 viewPager;
+        viewPager=binding.fragmentContainerView;
+        FragmentStateAdapter fragmentStateAdapter;
+        fragmentStateAdapter=new ViewMangaStateAdapter(this,viewModel,manga);
+        viewPager.setAdapter(fragmentStateAdapter);
+        new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
 
@@ -137,10 +117,8 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
                 String popularity="#"+manga.getPopularity();
                 binding.popularityView.setText(popularity);
                 binding.rankView.setText(ranked);
-                summary=new MangaSummaryFragment(manga);
                 addMangaBottomSheet.setData(manga);
                 setTabLayout(manga);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,summary).commit();
                 binding.addToListButton.setText(manga.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
                 e.printStackTrace();

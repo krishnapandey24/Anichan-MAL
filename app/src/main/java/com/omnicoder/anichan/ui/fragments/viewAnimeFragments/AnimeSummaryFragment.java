@@ -37,7 +37,7 @@ import com.omnicoder.anichan.databinding.FragmentSummaryBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SummaryFragment extends Fragment {
+public class AnimeSummaryFragment extends Fragment {
     Anime anime;
     NativeAd nativeAd;
     FragmentSummaryBinding binding;
@@ -49,7 +49,7 @@ public class SummaryFragment extends Fragment {
     Context context;
     ViewAnimeViewModel viewModel;
 
-    public SummaryFragment(Anime anime, ViewAnimeViewModel viewModel){
+    public AnimeSummaryFragment(Anime anime, ViewAnimeViewModel viewModel){
         this.anime= anime;
         this.viewModel=viewModel;
 
