@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.adapters;
+package com.omnicoder.anichan.adapters.recyclerViews;
 
 import android.content.Context;
 import android.content.Intent;

@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.omnicoder.anichan.adapters.SearchAnimeListAdapter;
-import com.omnicoder.anichan.adapters.SearchMangaListAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.SearchAnimeListAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.SearchMangaListAdapter;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
 import com.omnicoder.anichan.viewModels.MangaListViewModel;
 import com.omnicoder.anichan.databinding.SearchListBottomSheetBinding;

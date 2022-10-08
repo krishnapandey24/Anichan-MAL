@@ -16,7 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omnicoder.anichan.NavGraphDirections;
-import com.omnicoder.anichan.adapters.FriendsAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.FriendsAdapter;
 import com.omnicoder.anichan.databinding.FragmentFriendsBinding;
 import com.omnicoder.anichan.models.jikan.FriendData;
 import com.omnicoder.anichan.viewModels.ProfileViewModel;

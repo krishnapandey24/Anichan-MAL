@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.adapters;
+package com.omnicoder.anichan.adapters.stateAdapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

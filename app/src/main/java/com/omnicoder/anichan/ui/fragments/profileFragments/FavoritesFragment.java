@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omnicoder.anichan.NavGraphDirections;
-import com.omnicoder.anichan.adapters.JikanEntityAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.JikanEntityAdapter;
 import com.omnicoder.anichan.databinding.FragmentFavoritesBinding;
 import com.omnicoder.anichan.models.jikan.Favorites;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;

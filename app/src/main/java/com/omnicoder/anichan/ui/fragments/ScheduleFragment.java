@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.omnicoder.anichan.adapters.ScheduleAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.ScheduleAdapter;
 import com.omnicoder.anichan.models.jikan.Schedule;
 import com.omnicoder.anichan.models.jikan.ScheduleAnimeEntity;
 import com.omnicoder.anichan.R;

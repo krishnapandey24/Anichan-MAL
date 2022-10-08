@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.adapters;
+package com.omnicoder.anichan.adapters.recyclerViews;
 
 import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.CHARACTERS;

@@ -16,7 +16,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.tabs.TabLayout;
-import com.omnicoder.anichan.adapters.SearchPageAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.SearchPageAdapter;
 import com.omnicoder.anichan.utils.SearchPageComparator;
 import com.omnicoder.anichan.viewModels.SearchViewModel;
 import com.omnicoder.anichan.databinding.ActivitySearchBinding;

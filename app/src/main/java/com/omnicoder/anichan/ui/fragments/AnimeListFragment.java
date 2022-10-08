@@ -19,7 +19,7 @@ import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
-import com.omnicoder.anichan.adapters.AnimeViewPagerAdapter;
+import com.omnicoder.anichan.adapters.viewpagers.AnimeViewPagerAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;

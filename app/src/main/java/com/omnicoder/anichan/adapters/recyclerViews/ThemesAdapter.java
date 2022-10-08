@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.adapters;
+package com.omnicoder.anichan.adapters.recyclerViews;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 

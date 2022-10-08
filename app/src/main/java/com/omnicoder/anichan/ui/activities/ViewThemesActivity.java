@@ -11,7 +11,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.adapters.ThemesViewPagerAdapter;
+import com.omnicoder.anichan.adapters.viewpagers.ThemesViewPagerAdapter;
 import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.databinding.ActivityViewThemesBinding;
 

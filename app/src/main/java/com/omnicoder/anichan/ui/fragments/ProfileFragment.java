@@ -2,7 +2,6 @@ package com.omnicoder.anichan.ui.fragments;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.adapters.ProfileFragmentStateAdapter;
+import com.omnicoder.anichan.adapters.stateAdapters.ProfileFragmentStateAdapter;
 import com.omnicoder.anichan.databinding.ProfileFragmentBinding;
 import com.omnicoder.anichan.models.jikan.Favorites;
 import com.omnicoder.anichan.models.jikan.JikanUserStatistic;
