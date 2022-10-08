@@ -56,6 +56,11 @@ public class SummaryFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel.fetchVideos(anime.getId());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +72,6 @@ public class SummaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context=getContext();
-        viewModel.fetchVideos(anime.getId());
         initializeGoogleAdmob();
         observeData();
         binding.statusView.setText(getAiringStatus(anime.getStatus()));
@@ -173,7 +177,6 @@ public class SummaryFragment extends Fragment {
     }
 
     private void loadVideos(List<Promo> videos){
-        Log.d("tagg","Videos is null "+(videos==null));
         if(videos!=null){
             VideoAdapter adapter = new VideoAdapter(context, videos);
             RecyclerView recyclerView = binding.videoViewStub.inflate().findViewById(R.id.videoViewRv);
@@ -207,7 +210,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        binding=null;
+//        binding=null;
         if(this.nativeAd!=null){
             nativeAd.destroy();
         }

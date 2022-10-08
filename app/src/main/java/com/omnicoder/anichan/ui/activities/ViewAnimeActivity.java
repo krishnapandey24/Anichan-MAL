@@ -43,8 +43,6 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     LoadingDialog loadingDialog;
 
 
-    // TODO: 25-Sep-22 Put viewpager here
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,6 +226,10 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     }
 
 
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        loadingDialog.stopLoading();
+        loadingDialog=null;
+    }
 }

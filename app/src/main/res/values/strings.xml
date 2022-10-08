@@ -304,9 +304,14 @@
     <string name="sendFeedbackDescription">Send your feedback and suggestions</string>
     <string name="reportBug">Report A Bug</string>
     <string name="reportBugDescription">Report a bug or any issues</string>
-
-
-
+    <string name="krishnaPandey">Krishna Pandey</string>
+    <string name="an_myanimelist_client">A MyAnimeList Client</string>
+    <string name="developer">Developer</string>
+    <string name="developerDescription">About Developer</string>
+    <string name="librariesUsedDescription">List of libraries used</string>
+    <string name="librariesUsed">Libraries used</string>
+    <string name="changelog">Changelog</string>
+    <string name="changelogDescription">Changelog of current version</string>
 
 
 </resources>

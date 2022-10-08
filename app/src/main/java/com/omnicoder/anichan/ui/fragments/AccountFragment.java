@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.Constants.EMAIL;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -56,17 +58,19 @@ public class AccountFragment extends Fragment  {
             binding.profileImageView.setOnClickListener(onClickListener);
             binding.userDetailsView.setOnClickListener(onClickListener);
         });
+        binding.aboutView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.aboutFragment));
+        
         binding.settingsView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.settingsFragment));
         binding.reportBug.setOnClickListener(v -> {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto","omnicoderofficial@gmail.com", null));
+                    "mailto",EMAIL, null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporting a bug");
             startActivity(Intent.createChooser(emailIntent, "Report a bug"));
         });
 
         binding.feedback.setOnClickListener(v -> {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto","omnicoderofficial@gmail.com", null));
+                    "mailto",EMAIL, null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Anichan:Feedback");
             startActivity(Intent.createChooser(emailIntent, "Feedback"));
         });

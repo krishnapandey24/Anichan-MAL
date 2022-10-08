@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Anichan);
+//        setTheme(R.style.Theme_Anichan);
         if(sharedPreferences.getBoolean(DARK_MODE_TAG,false)){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
-        MobileAds.initialize(this);
+
     }
 
 

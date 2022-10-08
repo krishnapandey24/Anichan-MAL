@@ -55,7 +55,7 @@ public class ViewAnimeViewModel extends ViewModel {
         compositeDisposable.add(repository.getVideos(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(videoResponse -> videos.setValue(videoResponse.getData().getPromo()))
+                .subscribe(videoResponse -> videos.setValue(videoResponse.getData().getPromo()),Throwable::printStackTrace)
         );
     }
 

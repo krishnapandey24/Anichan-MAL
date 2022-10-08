@@ -51,6 +51,10 @@ public class Constants {
     public static final String FAVORITES_TYPE="favorites_type";
 
 
+    public static final String EMAIL = "krishnaapps@gmail.com";
+
+
+
 
 
 
