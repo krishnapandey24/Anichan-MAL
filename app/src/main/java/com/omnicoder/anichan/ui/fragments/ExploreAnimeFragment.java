@@ -52,6 +52,15 @@ public class ExploreAnimeFragment extends Fragment {
     NativeAd nativeAd;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(ExploreViewModel.class);
+        viewModel.fetchTrending();
+        viewModel.fetchSuggestions();
+        viewModel.fetchTopUpcoming();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = ExploreAnimeFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -60,14 +69,10 @@ public class ExploreAnimeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(ExploreViewModel.class);
         loadingDialog = new LoadingDialog(this, getContext());
         loadingDialog.startLoading();
         observeData();
         initializeGoogleAdmob();
-        viewModel.fetchTrending();
-        viewModel.fetchSuggestions();
-        viewModel.fetchTopUpcoming();
         if (Build.VERSION.SDK_INT >= 25) {
             SnapHelper pagerSnapHelper = new PagerSnapHelper();
             pagerSnapHelper.attachToRecyclerView(binding.trendingView);

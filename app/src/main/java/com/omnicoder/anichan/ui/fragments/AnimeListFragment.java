@@ -40,6 +40,14 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     private String[] tabs;
     private LoadingDialog loadingDialog;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
+        viewModel.fetchUserAnimeList();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=AnimeListFragmentBinding.inflate(inflater,container,false);
@@ -51,8 +59,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        viewModel= new ViewModelProvider(this).get(AnimeListViewModel.class);
-        viewModel.fetchUserAnimeList();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         tabs = getResources().getStringArray(R.array.Statuses);

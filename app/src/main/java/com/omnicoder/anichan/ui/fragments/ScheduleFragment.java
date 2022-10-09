@@ -31,7 +31,16 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ScheduleFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private FragmentScheduleBinding binding;
+    private ScheduleViewModel viewModel;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        viewModel.fetchSchedule();
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +53,7 @@ public class ScheduleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        ScheduleViewModel viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        viewModel.fetchSchedule();
         viewModel.getSchedule().observe(getViewLifecycleOwner(), schedule -> initSpinners(schedule,Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
     }
 

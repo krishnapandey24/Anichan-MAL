@@ -42,6 +42,16 @@ public class ExploreMangaFragment extends Fragment{
     private ExploreMangaBinding binding;
     private ExploreViewModel viewModel;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel= new ViewModelProvider(this).get(ExploreViewModel.class);
+        viewModel.fetchTopManga();
+        viewModel.fetchTopManhwa();
+        viewModel.fetchTopManhua();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=ExploreMangaBinding.inflate(inflater,container,false);
@@ -51,11 +61,7 @@ public class ExploreMangaFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel= new ViewModelProvider(this).get(ExploreViewModel.class);
         observeData();
-        viewModel.fetchTopManga();
-        viewModel.fetchTopManhwa();
-        viewModel.fetchTopManhua();
         initializeGoogleAdmob();
         if (Build.VERSION.SDK_INT >= 25) {
             SnapHelper pagerSnapHelper= new PagerSnapHelper();

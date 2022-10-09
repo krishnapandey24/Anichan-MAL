@@ -40,6 +40,14 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     private String[] tabs;
     private LoadingDialog loadingDialog;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
+        mangaListViewModel.fetchUserMangaList();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentMangaListBinding.inflate(inflater,container,false);
@@ -51,8 +59,6 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        mangaListViewModel = new ViewModelProvider(this).get(MangaListViewModel.class);
-        mangaListViewModel.fetchUserMangaList();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateMangaViewModel= new ViewModelProvider(this).get(UpdateMangaViewModel.class);
         tabs = getResources().getStringArray(R.array.MangaStatuses);
