@@ -102,6 +102,7 @@ public class ExploreAnimeFragment extends Fragment {
     }
 
     private void addOnItemTouchListener(RecyclerView recyclerView) {
+        // TODO: 09-Oct-22 Fix user can't scroll back
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {

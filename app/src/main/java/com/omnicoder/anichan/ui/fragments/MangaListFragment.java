@@ -2,6 +2,7 @@ package com.omnicoder.anichan.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
 import com.omnicoder.anichan.adapters.viewpagers.MangaViewPagerAdapter;
 import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.ui.activities.SearchActivity;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateMangaBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaListViewModel;
@@ -57,6 +58,8 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // TODO: 09-Oct-22 Add paging
+        // TODO: 09-Oct-22 Fix sorting list
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
@@ -110,7 +113,8 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
             if(item.getItemId()== R.id.sort){
                 launchSortDialog();
             }else{
-                Navigation.findNavController(binding.toolbar).navigate(MangaListFragmentDirections.actionMangaListFragmentToSearchListFragment(false));
+                Intent intent=new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
             }
             return true;
         });

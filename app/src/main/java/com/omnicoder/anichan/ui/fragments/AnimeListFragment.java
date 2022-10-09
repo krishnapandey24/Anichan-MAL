@@ -2,6 +2,7 @@ package com.omnicoder.anichan.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.omnicoder.anichan.adapters.viewpagers.AnimeViewPagerAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.ui.activities.SearchActivity;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
@@ -57,6 +59,8 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // TODO: 09-Oct-22 Add Paging
+        // TODO: 09-Oct-22 Fix sorting
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
@@ -109,7 +113,8 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
             if(item.getItemId()== R.id.sort){
                 launchSortDialog();
             }else{
-                Navigation.findNavController(binding.toolbar).navigate(AnimeListFragmentDirections.actionAnimeListFragmentToSearchListFragment(true));
+                Intent intent=new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
             }
             return true;
         });
