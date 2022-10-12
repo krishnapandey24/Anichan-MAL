@@ -1,6 +1,9 @@
 package com.omnicoder.anichan.repositories;
 
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.omnicoder.anichan.database.UserListDB;
@@ -31,15 +34,16 @@ public class AnimeListRepository {
     AnimeDao animeDao;
     UserListDB userListDB;
     MalApi malApi;
+    boolean nsfw;
     // TODO: 01-Oct-22 add nsfw option
 
 
     @Inject
-    public AnimeListRepository(AnimeDao animeDao, UserListDB userListDB, MalApi malApi){
+    public AnimeListRepository(AnimeDao animeDao, UserListDB userListDB, MalApi malApi, SharedPreferences sharedPreferences){
         this.animeDao=animeDao;
         this.userListDB = userListDB;
         this.malApi=malApi;
-
+        this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
     }
 
 

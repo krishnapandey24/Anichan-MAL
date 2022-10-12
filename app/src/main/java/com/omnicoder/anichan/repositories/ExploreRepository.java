@@ -40,6 +40,8 @@ public class ExploreRepository {
     String accessToken;
     JikanAPI jikanAPI;
     boolean nsfw;
+    // TODO: 09-Oct-22 Add Nsfw
+
 
     @Inject
     public ExploreRepository(MalApi malApi, Context context, JikanAPI jikanAPI){
@@ -52,8 +54,7 @@ public class ExploreRepository {
 
 
     public Observable<RankingResponse> get9TrendingAnime(){
-//        return malApi.getAnimeRanking(AIRING,9,FIELDS);
-        return malApi.getAnimeRanking2(AIRING,9,FIELDS);
+        return malApi.getAnimeRanking(AIRING,9,FIELDS);
     }
 
     public Observable<RankingResponse> getSuggestions(){

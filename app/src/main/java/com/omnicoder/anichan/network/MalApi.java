@@ -75,13 +75,6 @@ public interface MalApi {
             @Query("fields") String fields
     );
 
-    @GET("anime/ranking")
-    Observable<RankingResponse> getAnimeRanking2(
-            @Query("ranking_type") String rankingType,
-            @Query("limit") int limit,
-            @Query("fields") String fields
-    );
-
 
     @GET("anime/suggestions")
     Observable<RankingResponse> getSuggestions(

@@ -21,6 +21,8 @@ public class MangaRankingRepository {
     MalApi malApi;
     String accessToken;
     boolean nsfw;
+    // TODO: 09-Oct-22 Add Nsfw
+
 
     @Inject
     public MangaRankingRepository(MalApi malApi, Context context){

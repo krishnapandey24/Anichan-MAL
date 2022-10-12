@@ -42,6 +42,8 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: 09-Oct-22 Add Genres
+        // TODO: 09-Oct-22 Add Pictures view
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());

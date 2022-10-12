@@ -89,6 +89,7 @@ public class AnimeSummaryFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
+        // TODO: 12-Oct-22 Fix horizontal scrolling
         setupOpeningAndEndingThemes(anime.getOpening_themes(),anime.getEnding_themes());
         setRecyclerViews(anime.getRelated_anime(),anime.getRecommendations(),getContext());
         binding.viewMore2.setOnClickListener(v -> {
