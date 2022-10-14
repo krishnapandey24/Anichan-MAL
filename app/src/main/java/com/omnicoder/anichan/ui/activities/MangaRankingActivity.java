@@ -1,13 +1,17 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NavUtils;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -44,8 +48,14 @@ public class MangaRankingActivity extends AppCompatActivity {
         binding=ActivityMangaRankingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel=new ViewModelProvider(this).get(MangaRankingViewModel.class);
+        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+        String[] mangaRankingTypes;
+        if(sharedPreferences.getBoolean(NSFW_TAG,false)){
+            mangaRankingTypes= getResources().getStringArray(R.array.MangaRankingTypes_NSFW);
+        }else{
+            mangaRankingTypes= getResources().getStringArray(R.array.MangaRankingTypes);
+        }
         rankingTypeIndex=getIntent().getIntExtra("mangaTypeIndex",0);
-        String[] mangaRankingTypes= getResources().getStringArray(R.array.MangaRankingTypes);
         ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(MangaRankingActivity.this,R.array.MangaRankingTypes,android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.mangaRankingSpinner.setAdapter(arrayAdapter);

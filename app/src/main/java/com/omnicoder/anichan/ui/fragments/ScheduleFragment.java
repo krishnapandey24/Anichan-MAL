@@ -38,7 +38,7 @@ public class ScheduleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-        viewModel.fetchSchedule();
+//        viewModel.fetchSchedule();
 
     }
 

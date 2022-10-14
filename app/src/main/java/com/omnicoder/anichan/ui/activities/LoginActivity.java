@@ -43,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(success){
                         onLoginSuccess();
                     }else{
-                        Toast.makeText(LoginActivity.this, "Failed to refresh token", Toast.LENGTH_LONG).show();
-                        // TODO: 01-Oct-22 Do something when things go wrong
+                        Toast.makeText(LoginActivity.this, "Failed to refresh token \n Please try again", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -71,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 onLoginSuccess();
             }else{
                 Toast.makeText(this,"Token null",Toast.LENGTH_SHORT).show();
-                // TODO: 01-Oct-22 Do something to help user fix the error
+                finish();
             }
 
         });

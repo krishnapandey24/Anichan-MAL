@@ -35,7 +35,6 @@ public class AnimeListRepository {
     UserListDB userListDB;
     MalApi malApi;
     boolean nsfw;
-    // TODO: 01-Oct-22 add nsfw option
 
 
     @Inject
@@ -71,7 +70,7 @@ public class AnimeListRepository {
     }
 
     public Observable<UserAnimeListResponse> fetchUserAnimeList(){
-        return malApi.getUserAnimeList(Constants.LIMIT);
+        return malApi.getUserAnimeList(Constants.LIMIT,nsfw);
     }
 
     public Completable deleteAllAnime(){
@@ -82,7 +81,6 @@ public class AnimeListRepository {
 
     public boolean insertAnimeInDB(UserAnimeListResponse response){
         try{
-            Log.d("tagg","functions called");
             List<UserListAnime> userListAnimeList=response.getData();
             int size=userListAnimeList.size();
             List<UserAnime> userAnimeList =new ArrayList<>();
@@ -120,12 +118,10 @@ public class AnimeListRepository {
 
                 }
             });
-            Log.d("tagg","inserted!!!!!!");
 
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("tagg","Error: insertAnime: "+e.getMessage());
             return false;
         }
 

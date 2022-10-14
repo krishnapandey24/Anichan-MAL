@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -31,14 +33,15 @@ public class MangaListRepository {
     MangaDao mangaDao;
     UserListDB userListDB;
     MalApi malApi;
-    // TODO: 01-Oct-22 add nsfw option
+    boolean nsfw;
 
 
     @Inject
-    public MangaListRepository(MangaDao mangaDao, Context context, UserListDB userListDB, MalApi malApi) {
+    public MangaListRepository(MangaDao mangaDao, UserListDB userListDB, MalApi malApi, SharedPreferences sharedPreferences) {
         this.mangaDao = mangaDao;
         this.userListDB = userListDB;
         this.malApi = malApi;
+        this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,nsfw);
 
     }
 
@@ -66,7 +69,7 @@ public class MangaListRepository {
     }
 
     public Observable<UserMangaListResponse> fetchUserMangaList() {
-        return malApi.getUserMangaList(Constants.LIMIT);
+        return malApi.getUserMangaList(Constants.LIMIT,nsfw);
     }
 
     public Completable deleteAllManga() {

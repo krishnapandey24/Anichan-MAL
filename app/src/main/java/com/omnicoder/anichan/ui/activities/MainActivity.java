@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    // TODO: 29-Sep-22 Change viewModel initialization of all fragments
 
 
 }

@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -19,17 +21,13 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class MangaRankingRepository {
     MalApi malApi;
-    String accessToken;
     boolean nsfw;
-    // TODO: 09-Oct-22 Add Nsfw
 
 
     @Inject
-    public MangaRankingRepository(MalApi malApi, Context context){
+    public MangaRankingRepository(MalApi malApi, SharedPreferences sharedPreferences){
         this.malApi= malApi;
-        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken", Context.MODE_PRIVATE);
-        this.accessToken=" Bearer "+sharedPreferences.getString("accessToken",null);
-        this.nsfw=sharedPreferences.getBoolean("nsfw",false);
+        this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){

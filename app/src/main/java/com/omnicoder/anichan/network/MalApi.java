@@ -72,14 +72,16 @@ public interface MalApi {
     Observable<RankingResponse> getAnimeRanking(
             @Query("ranking_type") String rankingType,
             @Query("limit") int limit,
-            @Query("fields") String fields
+            @Query("fields") String fields,
+            @Query("nsfw") Boolean nsfw
     );
 
 
     @GET("anime/suggestions")
     Observable<RankingResponse> getSuggestions(
             @Query("limit") int limit,
-            @Query("fields") String fields
+            @Query("fields") String fields,
+            @Query("nsfw") Boolean nsfw
     );
 
 
@@ -123,7 +125,8 @@ public interface MalApi {
 
     @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
     Observable<UserAnimeListResponse> getUserAnimeList(
-            @Query("limit") int limit
+            @Query("limit") Integer limit,
+            @Query("nsfw") Boolean nsfw
     );
 
 
@@ -133,17 +136,19 @@ public interface MalApi {
     @GET("manga/ranking")
     Observable<RankingResponse> getMangaRanking(
             @Query("ranking_type") String rankingType,
-            @Query("limit") int limit,
-            @Query("fields") String fields
+            @Query("limit") Integer limit,
+            @Query("fields") String fields,
+            @Query("nsfw") Boolean nsfw
+
     );
 
     @GET("manga/ranking")
     Single<RankingResponse> getMangaRanking(
             @Query("ranking_type") String rankingType,
-            @Query("limit") int limit,
+            @Query("limit") Integer limit,
             @Query("fields") String fields,
             @Query("nsfw") Boolean nsfw,
-            @Query("offset") int offset
+            @Query("offset") Integer offset
     );
 
     @GET("manga/{manga_id}")
@@ -155,7 +160,8 @@ public interface MalApi {
 
     @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters")
     Observable<UserMangaListResponse> getUserMangaList(
-            @Query("limit") int limit
+            @Query("limit") Integer limit,
+            @Query("nsfw") Boolean nsfw
     );
 
     @FormUrlEncoded
@@ -191,21 +197,5 @@ public interface MalApi {
 
     @GET("users/@me?fields=id,name,gender,location,joined_at,anime_statistics")
     Observable<UserInfo> getUserInfo();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

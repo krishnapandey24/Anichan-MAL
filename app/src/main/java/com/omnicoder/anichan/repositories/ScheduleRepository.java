@@ -1,5 +1,9 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
+import android.content.SharedPreferences;
+
 import com.omnicoder.anichan.models.jikan.Schedule;
 import com.omnicoder.anichan.network.JikanAPI;
 
@@ -9,10 +13,11 @@ import io.reactivex.rxjava3.core.Observable;
 
 public class ScheduleRepository {
     JikanAPI jikanAPI;
-    private static final String URL="https://api.jikan.moe/v3/schedule";
+    private final String URL;
     @Inject
-    ScheduleRepository(JikanAPI jikanAPI){
+    ScheduleRepository(JikanAPI jikanAPI, SharedPreferences sharedPreferences){
         this.jikanAPI=jikanAPI;
+        this.URL="https://api.jikan.moe/v4/schedule?sfw="+sharedPreferences.getBoolean(NSFW_TAG,false);
     }
 
     // TODO: 21-Sep-22 Migrate to V4

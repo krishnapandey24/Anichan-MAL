@@ -1,6 +1,8 @@
 package com.omnicoder.anichan.repositories;
 
 
+import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -37,42 +39,30 @@ public class ExploreRepository {
     private static final String UPCOMING="upcoming";
     private static final String FIELDS="media_type,mean,genres";
     MalApi malApi;
-    String accessToken;
     JikanAPI jikanAPI;
     boolean nsfw;
-    // TODO: 09-Oct-22 Add Nsfw
 
 
     @Inject
-    public ExploreRepository(MalApi malApi, Context context, JikanAPI jikanAPI){
+    public ExploreRepository(MalApi malApi, JikanAPI jikanAPI, SharedPreferences sharedPreferences){
         this.malApi= malApi;
         this.jikanAPI=jikanAPI;
-        SharedPreferences sharedPreferences=context.getSharedPreferences("AccessToken",Context.MODE_PRIVATE);
-        this.nsfw= sharedPreferences.getBoolean("nsfw",false);
+        this.nsfw= sharedPreferences.getBoolean(NSFW_TAG,false);
     }
 
 
 
     public Observable<RankingResponse> get9TrendingAnime(){
-        return malApi.getAnimeRanking(AIRING,9,FIELDS);
+        return malApi.getAnimeRanking(AIRING,9,FIELDS,nsfw);
     }
 
     public Observable<RankingResponse> getSuggestions(){
-        return malApi.getSuggestions(9,FIELDS);
+        return malApi.getSuggestions(9,FIELDS,nsfw);
     }
 
 
     public Observable<RankingResponse> get9TopUpcomingAnime(){
-        return malApi.getAnimeRanking(UPCOMING,9,FIELDS);
-    }
-
-
-
-
-    public Observable<AccessToken> getAccessToken(String code, String codeVerified){
-        String clientId= Constants.CLIENT_ID;
-        String grantType= "authorization_code";
-        return malApi.getAccessToken(clientId,code,codeVerified,grantType);
+        return malApi.getAnimeRanking(UPCOMING,9,FIELDS,nsfw);
     }
 
 
@@ -110,47 +100,26 @@ public class ExploreRepository {
     }
 
     public Observable<RankingResponse> get9TopManga(){
-        return malApi.getMangaRanking(MANGA,9,FIELDS);
+        return malApi.getMangaRanking(MANGA,9,FIELDS,nsfw);
     }
 
     public Observable<RankingResponse> get9TopManhwa(){
-        return malApi.getMangaRanking(MANHWA,9,FIELDS);
+        return malApi.getMangaRanking(MANHWA,9,FIELDS,nsfw);
     }
 
     public Observable<RankingResponse> get9TopManhua(){
-        return malApi.getMangaRanking(MANHUA,9,FIELDS);
+        return malApi.getMangaRanking(MANHUA,9,FIELDS,nsfw);
     }
 
     public Observable<RankingResponse> get9OneShots(){
-        return malApi.getMangaRanking(MANGA,9,FIELDS);
+        return malApi.getMangaRanking(MANGA,9,FIELDS,nsfw);
     }
 
     public Observable<CharacterResponse> getMangaCharacters(int id){
         return jikanAPI.getMangaCharacters(id);
     }
 
-    public Observable<StaffResponse> getAuthors(int id){
-        return jikanAPI.getStaff(id);
-    }
 
-
-
-
-
-    
-    
-    
-    /*
-    all	All
-manga	Top Manga
-novels	Top Novels
-oneshots	Top One-shots
-doujin	Top Doujinshi
-manhwa	Top Manhwa
-manhua	Top Manhua
-bypopularity	Most Popular
-favorite	Most Favorited
-     */
 
 
 }
