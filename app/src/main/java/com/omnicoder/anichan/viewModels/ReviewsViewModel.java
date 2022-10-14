@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
+package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.ViewModel;
 

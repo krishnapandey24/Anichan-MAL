@@ -27,6 +27,18 @@ public class CharactersFragment extends Fragment {
     int id;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(animeViewModel==null){
+            mangaViewModel.fetchCharacters(id);
+            mangaViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
+        }else{
+            animeViewModel.fetchCharacters(id);
+            animeViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
+        }
+    }
+
     public CharactersFragment(int id, MangaDetailsViewModel mangaViewModel) {
         this.mangaViewModel = mangaViewModel;
         this.id=id;

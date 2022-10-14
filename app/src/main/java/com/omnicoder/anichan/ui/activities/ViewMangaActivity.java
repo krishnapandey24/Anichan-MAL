@@ -10,25 +10,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
-import com.omnicoder.anichan.adapters.stateAdapters.ViewMangaStateAdapter;
-import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.adapters.stateAdapters.ViewMangaStateAdapter;
+import com.omnicoder.anichan.databinding.ActivityViewMangaBinding;
+import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddMangaBottomSheet;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.MangaSummaryFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.RelatedFragment;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
-import com.omnicoder.anichan.databinding.ActivityViewMangaBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;

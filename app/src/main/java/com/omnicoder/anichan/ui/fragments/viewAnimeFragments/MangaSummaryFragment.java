@@ -42,6 +42,7 @@ public class MangaSummaryFragment extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding= FragmentMangaSummaryBinding.inflate(inflater,container,false);

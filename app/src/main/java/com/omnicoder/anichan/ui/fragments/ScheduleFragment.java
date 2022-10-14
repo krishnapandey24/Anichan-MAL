@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class ScheduleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        Log.d("onCreate","OnCreate Schedule");
+
 //        viewModel.fetchSchedule();
 
     }
@@ -45,14 +48,18 @@ public class ScheduleFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentScheduleBinding.inflate(inflater, container, false);
+        Log.d("onCreate","OnCreateView Schedule");
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadingDialog=new LoadingDialog(this,getContext());
-        loadingDialog.startLoading();
+        Log.d("onCreate","OnViewCreate Schedule");
+
+//        loadingDialog=new LoadingDialog(this,getContext());
+//        loadingDialog.startLoading();
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         viewModel.getSchedule().observe(getViewLifecycleOwner(), schedule -> initSpinners(schedule,Calendar.getInstance().get(Calendar.DAY_OF_WEEK)));
     }

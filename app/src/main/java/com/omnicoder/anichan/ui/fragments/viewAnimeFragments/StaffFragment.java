@@ -21,6 +21,13 @@ public class StaffFragment extends Fragment {
     int id;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel.fetchStaff(id);
+
+    }
+
     public StaffFragment(int id, ViewAnimeViewModel viewModel) {
         this.viewModel=viewModel;
         this.id=id;
@@ -33,7 +40,6 @@ public class StaffFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel.fetchStaff(id);
         viewModel.getStaff().observe(getViewLifecycleOwner(), staffData -> {
             CrewAdapter adapter = new CrewAdapter(getContext(),staffData);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));

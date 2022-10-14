@@ -32,6 +32,8 @@ public class RelatedFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding=FragmentSeasonDetailsBinding.inflate(inflater,container,false);

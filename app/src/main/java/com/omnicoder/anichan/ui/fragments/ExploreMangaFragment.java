@@ -50,6 +50,7 @@ public class ExploreMangaFragment extends Fragment{
         viewModel.fetchTopManga();
         viewModel.fetchTopManhwa();
         viewModel.fetchTopManhua();
+
     }
 
     @Override

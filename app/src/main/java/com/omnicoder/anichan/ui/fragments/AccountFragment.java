@@ -36,10 +36,16 @@ public class AccountFragment extends Fragment  {
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding=FragmentAccountBinding.inflate(inflater,container,false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         viewModel=new ViewModelProvider(this).get(AccountViewModel.class);
         viewModel.fetchUserInfo();
+
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding=FragmentAccountBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 

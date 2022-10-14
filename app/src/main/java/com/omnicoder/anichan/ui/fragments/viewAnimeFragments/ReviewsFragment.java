@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.viewModels.ReviewsViewModel;
 
 public class ReviewsFragment extends Fragment {
 
