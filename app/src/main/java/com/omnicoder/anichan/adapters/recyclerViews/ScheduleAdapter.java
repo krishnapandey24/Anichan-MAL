@@ -2,6 +2,7 @@ package com.omnicoder.anichan.adapters.recyclerViews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.omnicoder.anichan.models.jikan.ScheduleAnimeEntity;
+import com.omnicoder.anichan.models.jikan.JikanSubEntity;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
 import com.squareup.picasso.Picasso;
@@ -20,12 +21,14 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyViewHolder> {
-    List<ScheduleAnimeEntity> dataHolder;
+    List<JikanSubEntity> dataHolder;
     Context context;
+    int size;
 
-    public ScheduleAdapter(Context context, List<ScheduleAnimeEntity> dataHolder){
+    public ScheduleAdapter(Context context, List<JikanSubEntity> dataHolder){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.size=dataHolder.size();
     }
 
     @NonNull
@@ -37,24 +40,23 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
     }
     @Override
     public void onBindViewHolder(@NonNull ScheduleAdapter.MyViewHolder holder, int position) {
-        ScheduleAnimeEntity anime= dataHolder.get(position);
+        JikanSubEntity anime= dataHolder.get(size-position-1);
         String title= anime.getTitle();
-        String imageURL= anime.getImage_url();
+        String imageURL= anime.getImages().getJpg().getImage_url();
         Picasso.get().load(imageURL).into(holder.imageView);
         holder.titleView.setText(title);
         holder.imageView.setClipToOutline(true);
         holder.constraintLayout.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewAnimeActivity.class);
             intent.putExtra("media_type","anime");
-            intent.putExtra("id",anime.getMal_id());
+            intent.putExtra("id",anime.getMalId());
             context.startActivity(intent);
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return size;
     }
 
 
@@ -69,7 +71,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
             constraintLayout=itemView.findViewById(R.id.cardView2);
 
         }
-
 
     }
 
