@@ -108,6 +108,12 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         updateMangaViewModel.deleteManga(id);
     }
 
+    @Override
+    public void fetchMore() {
+        Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
+        mangaListViewModel.fetchNextPage();
+    }
+
     private void setupToolbar(){
         binding.toolbar.setOnMenuItemClickListener(item -> {
             if(item.getItemId()== R.id.sort){

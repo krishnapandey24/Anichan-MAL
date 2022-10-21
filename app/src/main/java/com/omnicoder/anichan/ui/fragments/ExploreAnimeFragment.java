@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.fragments;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+import static com.omnicoder.anichan.utils.Constants.LIST_SPACE_HEIGHT;
 
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.omnicoder.anichan.adapters.recyclerViews.SeasonAdapter;
 import com.omnicoder.anichan.adapters.viewpagers.TrendingViewPagerAdapter;
 import com.omnicoder.anichan.databinding.ExploreAnimeFragmentBinding;
 import com.omnicoder.anichan.models.responses.Data;
+import com.omnicoder.anichan.utils.ListItemHorizontalDecor;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ExploreViewModel;
 
@@ -63,6 +65,8 @@ public class ExploreAnimeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = ExploreAnimeFragmentBinding.inflate(inflater, container, false);
+        binding.trendingView.addItemDecoration(new ListItemHorizontalDecor(LIST_SPACE_HEIGHT));
+        binding.trendingView.setHasFixedSize(true);
         return binding.getRoot();
     }
 
@@ -101,37 +105,6 @@ public class ExploreAnimeFragment extends Fragment {
 
     }
 
-    private void addOnItemTouchListener(RecyclerView recyclerView) {
-        // TODO: 09-Oct-22 Fix user can't scroll back
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                int action = e.getAction();
-                if (recyclerView.canScrollHorizontally(RecyclerView.FOCUS_FORWARD)) {
-                    if (action == MotionEvent.ACTION_MOVE) {
-                        rv.getParent().requestDisallowInterceptTouchEvent(true);
-                    }
-                    return false;
-                } else {
-                    if (action == MotionEvent.ACTION_MOVE) {
-                        rv.getParent().requestDisallowInterceptTouchEvent(false);
-                    }
-                    recyclerView.removeOnItemTouchListener(this);
-                    return true;
-                }
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
-    }
 
     private void setOnClickListeners() {
         binding.todayTitle.setOnClickListener(v -> {
@@ -192,7 +165,6 @@ public class ExploreAnimeFragment extends Fragment {
         TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews, true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
-        addOnItemTouchListener(recyclerView);
         stopLoading();
     }
 
@@ -202,7 +174,6 @@ public class ExploreAnimeFragment extends Fragment {
         SeasonAdapter seasonAdapter2 = new SeasonAdapter(getContext(), exploreViews, true);
         binding.upcomingView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.upcomingView.setAdapter(seasonAdapter2);
-        addOnItemTouchListener(binding.upcomingView);
         stopLoading();
     }
 
@@ -211,7 +182,6 @@ public class ExploreAnimeFragment extends Fragment {
         AnimeAdapter seasonAdapter2 = new AnimeAdapter(getContext(), exploreViews, true);
         binding.recommendationView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.recommendationView.setAdapter(seasonAdapter2);
-        addOnItemTouchListener(binding.recommendationView);
         stopLoading();
     }
 

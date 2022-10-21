@@ -59,7 +59,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: 09-Oct-22 Add Paging
         // TODO: 09-Oct-22 Fix sorting
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
@@ -106,6 +105,12 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         loadingDialog.startLoading();
         observeAndShowToast(updateAnimeViewModel.deleteResponse());
         updateAnimeViewModel.deleteAnime(id);
+    }
+
+    @Override
+    public void fetchMore() {
+        Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
+        viewModel.fetchNextPage();
     }
 
     private void setupToolbar(){

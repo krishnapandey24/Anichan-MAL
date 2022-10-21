@@ -5,7 +5,6 @@ import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -88,37 +87,6 @@ public class ExploreMangaFragment extends Fragment{
         adLoader.loadAd(nativeAdRequest);
     }
 
-    private void addOnItemTouchListener(RecyclerView recyclerView){
-        // TODO: 09-Oct-22 Fix user can't scroll back
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                int action=e.getAction();
-                if(recyclerView.canScrollHorizontally(RecyclerView.FOCUS_FORWARD)){
-                    if(action==MotionEvent.ACTION_MOVE){
-                        rv.getParent().requestDisallowInterceptTouchEvent(true);
-                    }
-                    return false;
-                }else{
-                    if(action==MotionEvent.ACTION_MOVE){
-                        rv.getParent().requestDisallowInterceptTouchEvent(false);
-                    }
-                    recyclerView.removeOnItemTouchListener(this);
-                    return true;
-                }
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
-    }
 
     private void setOnClickListeners() {
         binding.topMangaTitle.setOnClickListener(v -> {
@@ -151,7 +119,6 @@ public class ExploreMangaFragment extends Fragment{
         TrendingViewPagerAdapter adapter = new TrendingViewPagerAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(adapter);
-        addOnItemTouchListener(recyclerView);
 
     }
 
@@ -161,7 +128,6 @@ public class ExploreMangaFragment extends Fragment{
         SeasonAdapter seasonAdapter2 = new SeasonAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
-        addOnItemTouchListener(recyclerView);
 
     }
 
@@ -170,7 +136,6 @@ public class ExploreMangaFragment extends Fragment{
         AnimeAdapter seasonAdapter2 = new AnimeAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
-        addOnItemTouchListener(recyclerView);
 
     }
 
