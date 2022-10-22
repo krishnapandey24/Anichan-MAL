@@ -89,7 +89,6 @@ public class AnimeSummaryFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
-        // TODO: 12-Oct-22 Fix horizontal scrolling
         setupOpeningAndEndingThemes(anime.getOpening_themes(),anime.getEnding_themes());
         setRecyclerViews(anime.getRelated_anime(),anime.getRecommendations(),getContext());
         binding.viewMore2.setOnClickListener(v -> {
@@ -106,7 +105,6 @@ public class AnimeSummaryFragment extends Fragment {
 
 
     private void initializeGoogleAdmob(){
-        // TODO: 06-Oct-22 Fix bug
         AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
             if (isAdded() && requireActivity().isDestroyed()) {
                 nativeAd.destroy();
@@ -133,7 +131,6 @@ public class AnimeSummaryFragment extends Fragment {
     }
 
     private void setupOpeningAndEndingThemes(List<AnimeTheme> opening_themes, List<AnimeTheme> ending_themes) {
-        // TODO: 02-Oct-22 Change the activity to fragment
         View.OnClickListener onClickListener= v -> {
             if((opening_themes==null || opening_themes.isEmpty()) && (ending_themes==null || ending_themes.isEmpty())){
                 Toast.makeText(context,"No opening or ending themes available",Toast.LENGTH_SHORT).show();
