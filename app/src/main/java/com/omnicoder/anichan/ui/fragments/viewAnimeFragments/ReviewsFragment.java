@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.databinding.FragmentReviewsBinding;
 import com.omnicoder.anichan.viewModels.ReviewsViewModel;
 
 public class ReviewsFragment extends Fragment {
 
     private ReviewsViewModel mViewModel;
     int id;
+    FragmentReviewsBinding binding;
 
     public ReviewsFragment(int id) {
         this.id=id;
@@ -28,14 +30,21 @@ public class ReviewsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reviews, container, false);
+        binding=FragmentReviewsBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
-        // TODO: Use the ViewModel
+        // TODO: Create Review fragment
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.getRoot().requestLayout();
     }
 
 }

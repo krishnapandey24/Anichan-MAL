@@ -210,9 +210,14 @@ public class AnimeSummaryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        binding=null;
         if(this.nativeAd!=null){
             nativeAd.destroy();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.getRoot().requestLayout();
     }
 }

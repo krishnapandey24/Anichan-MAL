@@ -32,10 +32,8 @@ public class CharactersFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(animeViewModel==null){
             mangaViewModel.fetchCharacters(id);
-            mangaViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
         }else{
             animeViewModel.fetchCharacters(id);
-            animeViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
         }
     }
 
@@ -59,10 +57,8 @@ public class CharactersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("tagg","characetr fagment");
         if(animeViewModel==null){
-            mangaViewModel.fetchCharacters(id);
             mangaViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
         }else{
-            animeViewModel.fetchCharacters(id);
             animeViewModel.getCharacters().observe(getViewLifecycleOwner(), this::setCharacters);
         }
 
@@ -72,6 +68,13 @@ public class CharactersFragment extends Fragment {
         CharactersAdapter adapter = new CharactersAdapter(getContext(),characterData);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         binding.recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.getRoot().requestLayout();
     }
 
 

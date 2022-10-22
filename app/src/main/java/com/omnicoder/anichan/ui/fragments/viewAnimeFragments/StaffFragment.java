@@ -48,6 +48,12 @@ public class StaffFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.getRoot().requestLayout();
+    }
+
 
 
 
