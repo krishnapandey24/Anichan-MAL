@@ -90,7 +90,8 @@ public class AnimeSummaryFragment extends Fragment {
             e.printStackTrace();
         }
         setupOpeningAndEndingThemes(anime.getOpening_themes(),anime.getEnding_themes());
-        setRecyclerViews(anime.getRelated_anime(),anime.getRecommendations(),getContext());
+        setRecommendations(anime.getRecommendations(),getContext());
+        setRelatedAnime(anime.getRelated_anime(),getContext());
         binding.viewMore2.setOnClickListener(v -> {
             if(viewMore){
                 binding.synonymsView.setMaxLines(15);
@@ -121,13 +122,28 @@ public class AnimeSummaryFragment extends Fragment {
         adLoader.loadAd(nativeAdRequest);
     }
 
-    private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
-        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,true);
-        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,true);
-        binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        binding.recommendationRv.setAdapter(allTimePopularAdapter);
-        binding.relatedRv.setAdapter(relatedAnimeAdapter);
+    private void setRecommendations(List<Data> recommendations, Context context){
+        if(recommendations.size()>0){
+            AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,true);
+            binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+            binding.recommendationRv.setAdapter(allTimePopularAdapter);
+        }else{
+            binding.recommendations.setVisibility(View.GONE);
+            binding.recommendationRv.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void setRelatedAnime(List<RelatedAnime> related_anime, Context context) {
+        if(related_anime.size()>0){
+            RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,true);
+            binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+            binding.relatedRv.setAdapter(relatedAnimeAdapter);
+        }else{
+            binding.related.setVisibility(View.GONE);
+            binding.relatedRv.setVisibility(View.GONE);
+        }
+
     }
 
     private void setupOpeningAndEndingThemes(List<AnimeTheme> opening_themes, List<AnimeTheme> ending_themes) {

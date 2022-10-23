@@ -63,7 +63,8 @@ public class MangaSummaryFragment extends Fragment {
         String chapters= manga.getNum_chapters() == 0 ? "Unknown" : String.valueOf(manga.getNum_chapters());
         binding.volumesView.setText(volumes);
         binding.chaptersView.setText(chapters);
-        setRecyclerViews(manga.getRelated_manga(),manga.getRecommendations(),getContext());
+        setRecommendations(manga.getRecommendations(),getContext());
+        setRelatedAnime(manga.getRelated_manga(),getContext());
         binding.viewMore2.setOnClickListener(v -> {
             if(viewMore){
                 binding.synonymsView.setMaxLines(15);
@@ -107,15 +108,30 @@ public class MangaSummaryFragment extends Fragment {
     }
 
 
-    private void setRecyclerViews(List<RelatedAnime> related_anime, List<Data> recommendations, Context context) {
-        AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,false);
-        RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,false);
-        binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
-        binding.recommendationRv.setAdapter(allTimePopularAdapter);
-        binding.relatedRv.setAdapter(relatedAnimeAdapter);
+
+    private void setRecommendations(List<Data> recommendations, Context context){
+        if(recommendations.size()>0){
+            AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,true);
+            binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+            binding.recommendationRv.setAdapter(allTimePopularAdapter);
+        }else{
+            binding.recommendations.setVisibility(View.GONE);
+            binding.recommendationRv.setVisibility(View.GONE);
+        }
+
     }
 
+    private void setRelatedAnime(List<RelatedAnime> related_anime, Context context) {
+        if(related_anime.size()>0){
+            RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,true);
+            binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+            binding.relatedRv.setAdapter(relatedAnimeAdapter);
+        }else{
+            binding.related.setVisibility(View.GONE);
+            binding.relatedRv.setVisibility(View.GONE);
+        }
+
+    }
 
     @Override
     public void onDestroyView() {

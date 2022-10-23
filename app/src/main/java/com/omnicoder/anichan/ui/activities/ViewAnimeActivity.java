@@ -1,30 +1,39 @@
 package com.omnicoder.anichan.ui.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
 import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.responses.Genre;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddAnimeBottomSheet;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -66,6 +75,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         fragmentStateAdapter=new ViewAnimeStateAdapter(this,viewModel,anime);
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
+        viewPager.setUserInputEnabled(false);
     }
 
 
@@ -124,6 +134,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 }else{
                     binding.seasonAndDurationView.setText(String.valueOf(anime.getNum_episodes()));
                 }
+                addGenres(anime.getGenres());
                 addAnimeBottomSheet.setData(anime);
                 setTabLayout(viewModel,anime);
                 binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
@@ -139,6 +150,19 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
             }
         });
 
+    }
+
+    private void addGenres(List<Genre> genres) {
+        ChipGroup chipGroup=binding.genres;
+        for(Genre genre: genres){
+            Chip chip=new Chip(this);
+            chip.setText(genre.getName());
+            chip.setEnabled(false);
+            chip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.transparentBlue3)));
+            chip.setTextColor(getResources().getColor(R.color.viewAnimeMainTextColor));
+            chipGroup.addView(chip);
+
+        }
     }
 
     public void showNoInternetConnectionDialog(){
