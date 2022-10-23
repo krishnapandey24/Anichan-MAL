@@ -2,6 +2,7 @@ package com.omnicoder.anichan.ui.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,16 +16,23 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.ViewMangaStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewMangaBinding;
+import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
+import com.omnicoder.anichan.models.responses.Genre;
+import com.omnicoder.anichan.models.responses.MainPicture;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddMangaBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -42,7 +50,6 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: 09-Oct-22 Add Manga
         // TODO: 09-Oct-22 Add Pictures view
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
@@ -92,12 +99,20 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         viewModel.getMangaDetails().observe(ViewMangaActivity.this, manga -> {
             try {
                 String posterPath;
-                if(manga.getMainPicture()!=null){
-                    Picasso.get().load(manga.getMainPicture().getLarge()).into(binding.posterView);
-                }
                 if(!manga.getPictures().isEmpty()){
                     posterPath=manga.getPictures().get(0).getMedium();
                     Picasso.get().load(posterPath).into(binding.backgroundPoster);
+                }
+                if(manga.getMainPicture()!=null){
+                    MainPicture mainPicture=manga.getMainPicture();
+                    List<MainPicture> pictures=manga.getPictures();
+                    pictures.add(0,mainPicture);
+                    Picasso.get().load(manga.getMainPicture().getLarge()).into(binding.posterView);
+                    binding.posterView.setOnClickListener(v -> {
+                        BaseApplication application=(BaseApplication) getApplicationContext();
+                        application.setPictures(pictures);
+                        startActivity(new Intent(ViewMangaActivity.this,PosterViewActivity.class));
+                    });
                 }
                 String meanScore;
                 float mean=manga.getMean();
@@ -115,6 +130,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
                 binding.popularityView.setText(popularity);
                 binding.rankView.setText(ranked);
                 addMangaBottomSheet.setData(manga);
+                addGenres(manga.getGenres());
                 setTabLayout(manga);
                 binding.addToListButton.setText(manga.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_"," "));
             }catch (Exception e){
@@ -152,6 +168,20 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         binding.addToListButton.setText(status);
         addedToList=true;
     }
+
+    private void addGenres(List<Genre> genres) {
+        ChipGroup chipGroup=binding.genres;
+        ColorStateList colorStateList= ColorStateList.valueOf(ContextCompat.getColor(this,R.color.transparentBlue3));
+        for(Genre genre: genres){
+            Chip chip=new Chip(this);
+            chip.setText(genre.getName());
+            chip.setEnabled(false);
+            chip.setChipBackgroundColor(colorStateList);
+            chip.setTextAppearance(R.style.GenresChipStyle);
+            chipGroup.addView(chip);
+        }
+    }
+
 
     @Override
     public void startLoading() {

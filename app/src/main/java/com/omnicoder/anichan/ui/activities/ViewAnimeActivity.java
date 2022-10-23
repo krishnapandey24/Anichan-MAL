@@ -1,11 +1,14 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -22,11 +26,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.omnicoder.anichan.NavGraphDirections;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
+import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.models.responses.Genre;
+import com.omnicoder.anichan.models.responses.MainPicture;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.AddAnimeBottomSheet;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.LoadingDialog;
@@ -51,7 +58,6 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: 09-Oct-22 Add Genres
         // TODO: 09-Oct-22 Add Pictures view
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
@@ -102,12 +108,20 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
                 String posterPath;
-                if(anime.getMainPicture()!=null){
-                    Picasso.get().load(anime.getMainPicture().getLarge()).into(binding.posterView);
-                }
                 if(!anime.getPictures().isEmpty()){
                     posterPath=anime.getPictures().get(0).getMedium();
                     Picasso.get().load(posterPath).into(binding.backgroundPoster);
+                }
+                if(anime.getMainPicture()!=null){
+                    MainPicture mainPicture=anime.getMainPicture();
+                    Picasso.get().load(mainPicture.getLarge()).into(binding.posterView);
+                    List<MainPicture> pictures=anime.getPictures();
+                    pictures.add(0,mainPicture);
+                    binding.posterView.setOnClickListener(v -> {
+                        BaseApplication application=(BaseApplication) getApplicationContext();
+                        application.setPictures(pictures);
+                        startActivity(new Intent(ViewAnimeActivity.this,PosterViewActivity.class));
+                    });
                 }
                 String meanScore;
                 float mean=anime.getMean();
@@ -154,14 +168,14 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
 
     private void addGenres(List<Genre> genres) {
         ChipGroup chipGroup=binding.genres;
+        ColorStateList colorStateList= ColorStateList.valueOf(ContextCompat.getColor(this,R.color.transparentBlue3));
         for(Genre genre: genres){
             Chip chip=new Chip(this);
             chip.setText(genre.getName());
             chip.setEnabled(false);
-            chip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.transparentBlue3)));
-            chip.setTextColor(getResources().getColor(R.color.viewAnimeMainTextColor));
+            chip.setChipBackgroundColor(colorStateList);
+            chip.setTextAppearance(R.style.GenresChipStyle);
             chipGroup.addView(chip);
-
         }
     }
 
@@ -224,6 +238,5 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     protected void onPause() {
         super.onPause();
         loadingDialog.stopLoading();
-        loadingDialog=null;
     }
 }
