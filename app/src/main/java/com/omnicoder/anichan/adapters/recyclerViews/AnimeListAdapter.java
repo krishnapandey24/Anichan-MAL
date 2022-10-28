@@ -2,6 +2,7 @@ package com.omnicoder.anichan.adapters.recyclerViews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     MyViewHolder.UpdateAnimeList updateAnimeList;
     UpdateAnimeBottomSheet.UpdateAnime updateAnime;
     int viewPagerPosition;
+    int size;
 
     public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime,int viewPagerPosition){
         this.dataHolder= dataHolder;
@@ -37,6 +39,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         this.updateAnimeList=updateAnimeList;
         this.updateAnime=updateAnime;
         this.viewPagerPosition=viewPagerPosition;
+        this.size=dataHolder.size();
     }
 
     @NonNull
@@ -88,11 +91,15 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
             context.startActivity(intent);
         });
 
+        if(position==size-2){
+            updateAnimeList.fetchMore();
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return size;
     }
 
 
@@ -122,6 +129,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
             void addEpisode(int id,int noOfEpisodesWatched);
             void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
             void animeComplete(int id,String title);
+            void fetchMore();
         }
 
 

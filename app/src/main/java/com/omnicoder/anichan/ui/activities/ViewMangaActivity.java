@@ -1,5 +1,10 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
+import static com.omnicoder.anichan.utils.Constants.POSTERS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -31,7 +36,6 @@ import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,12 +49,11 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
     AddMangaBottomSheet addMangaBottomSheet;
     boolean addedToList=false;
     LoadingDialog loadingDialog;
-
+    FragmentStateAdapter fragmentStateAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: 09-Oct-22 Add Pictures view
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         binding = ActivityViewMangaBinding.inflate(getLayoutInflater());
@@ -69,8 +72,9 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         String[] tabs=getResources().getStringArray(R.array.ViewTabs);
         ViewPager2 viewPager;
         viewPager=binding.fragmentContainerView;
-        FragmentStateAdapter fragmentStateAdapter;
-        fragmentStateAdapter=new ViewMangaStateAdapter(this,viewModel,manga);
+        if(fragmentStateAdapter==null){
+            fragmentStateAdapter=new ViewMangaStateAdapter(this,viewModel,manga);
+        }
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
         viewPager.setUserInputEnabled(false);
@@ -78,19 +82,18 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
 
 
     private void setOnClickListeners() {
-        String viewMore2="View More";
-        String viewLess="View Less";
-        binding.viewMore.setOnClickListener(v -> {
+        View.OnClickListener onClickListener=v -> {
             if(viewMore){
                 binding.description.setMaxLines(50);
-                binding.viewMore.setText(viewLess);
+                binding.viewMore.setText(VIEW_LESS);
             }else {
                 binding.description.setMaxLines(5);
-                binding.viewMore.setText(viewMore2);
+                binding.viewMore.setText(VIEW_MORE);
             }
             viewMore=!viewMore;
-        });
-
+        };
+        binding.viewMore.setOnClickListener(onClickListener);
+        binding.description.setOnClickListener(onClickListener);
         binding.backButton2.setOnClickListener(v -> finish());
         binding.addToListButton.setOnClickListener(v -> addMangaBottomSheet.show(getSupportFragmentManager(),"AddAnimeBottomSheet"));
     }
@@ -111,7 +114,9 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
                     binding.posterView.setOnClickListener(v -> {
                         BaseApplication application=(BaseApplication) getApplicationContext();
                         application.setPictures(pictures);
-                        startActivity(new Intent(ViewMangaActivity.this,PosterViewActivity.class));
+                        Intent intent=new Intent(ViewMangaActivity.this,PosterViewActivity.class);
+                        intent.putExtra(IMAGE_TYPE,POSTERS);
+                        startActivity(intent);
                     });
                 }
                 String meanScore;

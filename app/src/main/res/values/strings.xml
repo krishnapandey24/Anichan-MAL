@@ -68,6 +68,12 @@
         <item>Staff</item>
     </string-array>
 
+    <string-array name="ViewCharacterTabs">
+        <item>Voices</item>
+        <item>Anime</item>
+        <item>Manga</item>
+    </string-array>
+
     <string-array name="ProfileTabs">
         <item>Stats</item>
         <item>Favorites</item>
@@ -95,8 +101,6 @@
         <item>Thursday</item>
         <item>Friday</item>
         <item>Saturday</item>
-        <item>Others</item>
-        <item>Unknown</item>
     </string-array>
 
     <string-array name="MangaRankingTypes">
@@ -130,7 +134,6 @@
         <item>On Hold</item>
         <item>Dropped</item>
         <item>Rewatching</item>
-        <item>All</item>
     </string-array>
 
     <string-array name="AnimeStatuses">
@@ -331,6 +334,7 @@
     <string name="librariesUsed">Libraries used</string>
     <string name="changelog">Changelog</string>
     <string name="changelogDescription">Changelog of current version</string>
+    <string name="anya_kanji">(アーニャ・フォージャー)</string>
 
 
 </resources>

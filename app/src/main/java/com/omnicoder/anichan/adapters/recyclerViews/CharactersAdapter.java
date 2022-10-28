@@ -15,6 +15,7 @@ import com.omnicoder.anichan.models.animeResponse.Characters.Character;
 import com.omnicoder.anichan.models.animeResponse.Characters.CharacterData;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.activities.ViewCharacterActivity;
+import com.omnicoder.anichan.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,14 +44,14 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.My
         try{
             Picasso.get().load(character.getImages().getJpg().getImage_url()).into(holder.imageView);
         }catch (Exception e){
-            //
+            e.printStackTrace();
         }
         holder.titleView.setText(character.getName());
         holder.imageView.setClipToOutline(true);
         holder.roleView.setText(data.getRole());
         holder.itemView.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewCharacterActivity.class);
-            intent.putExtra("id",character.getMal_id());
+            intent.putExtra(Constants.MAL_ID,character.getMal_id());
             context.startActivity(intent);
         });
     }

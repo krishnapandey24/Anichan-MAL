@@ -24,10 +24,10 @@ public class MangaViewPagerAdapter extends RecyclerView.Adapter<MangaViewPagerAd
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
     MangaPagerAdapterInterface adapterInterface;
-    String sortBy;
+    int sortBy;
     boolean updateList =true;
 
-    public MangaViewPagerAdapter(Context context, String[] tabs, MangaListViewModel viewModel, LifecycleOwner lifecycleOwner, MangaPagerAdapterInterface adapterInterface, String sortBy){
+    public MangaViewPagerAdapter(Context context, String[] tabs, MangaListViewModel viewModel, LifecycleOwner lifecycleOwner, MangaPagerAdapterInterface adapterInterface, int sortBy){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
@@ -82,6 +82,11 @@ public class MangaViewPagerAdapter extends RecyclerView.Adapter<MangaViewPagerAd
     }
 
     @Override
+    public void fetchMore() {
+        adapterInterface.fetchMore();
+    }
+
+    @Override
     public void updateManga(UserManga manga, int position) {
         adapterInterface.updateManga(manga,position);
     }
@@ -100,6 +105,7 @@ public class MangaViewPagerAdapter extends RecyclerView.Adapter<MangaViewPagerAd
         void showEditor(UpdateMangaBottomSheet updateMangaBottomSheet);
         void mangaCompleted(int id,String name);
         void deleteManga(int id);
+        void fetchMore();
     }
 
     public static class PageHolder extends RecyclerView.ViewHolder{

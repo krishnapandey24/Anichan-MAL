@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.database.UserListDB;
 import com.omnicoder.anichan.database.MangaDao;
 import com.omnicoder.anichan.database.UserManga;
@@ -27,6 +30,7 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MangaListRepository {
@@ -51,21 +55,32 @@ public class MangaListRepository {
     }
 
 
-    public Flowable<List<UserManga>> getMangaListByStatus(String status, String sortBy) {
-        return mangaDao.getMangaList(status, sortBy);
+    public Flowable<List<UserManga>> getMangaListByStatus(String status, int sortBy) {
+        switch (sortBy) {
+            case R.id.title:
+                return mangaDao.getMangaListByTitle(status);
+            case R.id.score:
+                return mangaDao.getMangaListByMean(status);
+            default:
+                return mangaDao.getMangaListByID(status);
+        }    
     }
 
     public Completable addMangaToList(UserManga userManga) {
         return mangaDao.insertOrUpdateManga(userManga);
     }
-
-    public Flowable<List<UserManga>> getAllManga(String sortBy) {
-        return mangaDao.getAllManga(sortBy);
-    }
+    
 
 
-    public Flowable<List<UserManga>> getReReading(String sortBy) {
-        return mangaDao.getReReading(sortBy);
+    public Flowable<List<UserManga>> getReReading(int sortBy) {
+        switch (sortBy) {
+            case R.id.title:
+                return mangaDao.getReReadingByTitle();
+            case R.id.score:
+                return mangaDao.getReReadingByMean();
+            default:
+                return mangaDao.getReReadingById();
+        }
     }
 
     public Observable<UserMangaListResponse> fetchUserMangaList() {
@@ -87,7 +102,7 @@ public class MangaListRepository {
                 Manga node = userListManga.getNode();
                 MangaListStatus listStatus = userListManga.getList_status();
                 String mainPicture = node.getMainPicture() == null ? "" : node.getMainPicture().getMedium();
-                userMangaList.add(new UserManga(node.getId(), node.getTitle(), mainPicture, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), node.getNum_volumes(), node.getNum_chapters(), listStatus.getNum_volumes_read(), listStatus.getNum_chapters_read(), listStatus.isIs_rereading()));
+                userMangaList.add(new UserManga(node.getId(), node.getTitle(), mainPicture, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), node.getNum_volumes(), node.getNum_chapters(), listStatus.getNum_volumes_read(), listStatus.getNum_chapters_read(), listStatus.isIs_rereading(),node.getMean()));
             }
             mangaDao.insertAllManga(userMangaList).subscribeWith(new CompletableObserver() {
                 @Override
@@ -178,4 +193,7 @@ public class MangaListRepository {
     }
 
 
+    public Observable<UserMangaListResponse> fetchNextPage(String nextPage) {
+        return malApi.getUserMangaList(nextPage);
+    }
 }

@@ -21,7 +21,6 @@ public class LoadingDialog {
     Activity activity;
 
     public LoadingDialog(Fragment fragment,Context context){
-        // TODO: 06-Oct-22 Fix memory leak by adding onPause
         this.fragment=fragment;
         this.context=context;
     }

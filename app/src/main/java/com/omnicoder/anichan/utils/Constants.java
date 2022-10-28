@@ -13,7 +13,7 @@ public class Constants {
     public static final Long REFRESH_TOKEN_LIMIT = 432000000L;
     public static final String ACCESS_TOKEN = "AccessToken";
     public static final String LOGIN_URL="https://myanimelist.net/v1/oauth2/authorize?response_type=code&client_id=%s&code_challenge=%s&state=%s";
-    public static final int LIMIT=20;
+    public static final int LIMIT=100;
     public static final int USER_LIST_LIMIT=50;
     public static final int OFFSET=0;
     public static final int SEARCH_LIMIT=10;
@@ -26,6 +26,8 @@ public class Constants {
     public static final String MANGA_DETAILS_FIELDS="id,title,main_picture,synopsis,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status{start_date,finish_date},num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations";
     public static final String ANIME_DETAILS_FIELDS="id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics,opening_themes,ending_themes,my_list_status{start_date,finish_date}";
     public static final String USERNAME="username";
+    public static final int FIRST_LIST_ITEM_SPACE_HEIGHT = 32;
+    public static final int LIST_SPACE_HEIGHT = 26;
 
     public static final String WATCHING="watching";
     public static final String READING="reading";
@@ -35,11 +37,17 @@ public class Constants {
     public static final String ON_HOLD= "on_hold";
     public static final String DROPPED="dropped";
     public static final String NSFW_TAG = "nsfw";
+    public static final String KIDS_TAG = "kids";
     public static final String DARK_MODE_TAG="dark_mode";
 
     public static final String JIKAN_API_FRIENDS_URL="https://api.jikan.moe/v4/users/%s/friends/%s";
 
-
+    public static final String VIEW_MORE="View More";
+    public static final String VIEW_LESS="View Less";
+    public static final String IMAGE_TYPE = "image_type";
+    public static final String POSTERS = "posters";
+    public static final String PERSON_PHOTOS = "person_photos";
+    public static final String CHARACTER_IMAGES = "character_images";
 
 
     public static final String ANIME="anime";
@@ -54,8 +62,6 @@ public class Constants {
     public static final String EMAIL = "krishnaapps@gmail.com";
 
 
-
-
-
-
+    public static final String MAL_ID = "mal_id";
+    public static final String ID = "id";
 }

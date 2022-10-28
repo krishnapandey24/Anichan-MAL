@@ -16,8 +16,14 @@ public interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllAnime(List<UserAnime> userAnimeList);
 
-    @Query("SELECT * from ANIME WHERE status=:status ORDER BY :sortBy DESC")
-    Flowable<List<UserAnime>> getAnimeList(String status, String sortBy);
+    @Query("SELECT * from ANIME WHERE status=:status ORDER BY t_id DESC")
+    Flowable<List<UserAnime>> getAnimeListByID(String status);
+
+    @Query("SELECT * from ANIME WHERE status=:status ORDER BY mean DESC")
+    Flowable<List<UserAnime>> getAnimeListByMean(String status);
+
+    @Query("SELECT * from ANIME WHERE status=:status ORDER BY title DESC")
+    Flowable<List<UserAnime>> getAnimeListByTitle(String status);
 
     @Query("SELECT * from ANIME WHERE title like :query || '%' ")
     Flowable<List<UserAnime>> searchAnime(String query);
@@ -28,8 +34,14 @@ public interface AnimeDao {
     @Query("SELECT * from  ANIME ORDER BY :sortBy")
     Flowable<List<UserAnime>> getAllAnime(String sortBy);
 
-    @Query("SELECT * from anime WHERE is_rewatching==1 ORDER BY :sortBy")
-    Flowable<List<UserAnime>> getReWatching(String sortBy);
+    @Query("SELECT * from anime WHERE is_rewatching==1 ORDER BY t_id DESC")
+    Flowable<List<UserAnime>> getReWatchingById();
+
+    @Query("SELECT * from anime WHERE is_rewatching==1 ORDER BY title ASC")
+    Flowable<List<UserAnime>> getReWatchingByTitle();
+
+    @Query("SELECT * from anime WHERE is_rewatching==1 ORDER BY mean DESC")
+    Flowable<List<UserAnime>> getReWatchingByMean();
 
     @Query("UPDATE ANIME SET num_episodes_watched=:noOfEpisodesWatched WHERE id=:id")
     Completable addEpisode(int id,int noOfEpisodesWatched);
@@ -42,5 +54,7 @@ public interface AnimeDao {
 
     @Query("DELETE FROM ANIME")
     Completable deleteAllAnime();
+
+
 
 }

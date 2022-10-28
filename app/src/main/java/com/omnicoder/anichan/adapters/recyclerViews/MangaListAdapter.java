@@ -29,6 +29,7 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
     MyViewHolder.UpdateMangaList updateMangaList;
     UpdateMangaBottomSheet.UpdateManga updateManga;
     int viewPagerPosition;
+    int size;
 
 
     public MangaListAdapter(Context context, List<UserManga> dataHolder, MyViewHolder.UpdateMangaList updateMangaList, UpdateMangaBottomSheet.UpdateManga updateManga,int viewPagerPosition){
@@ -37,6 +38,7 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
         this.updateMangaList=updateMangaList;
         this.updateManga=updateManga;
         this.viewPagerPosition=viewPagerPosition;
+        this.size=dataHolder.size();
 
     }
 
@@ -95,11 +97,15 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
             context.startActivity(intent);
         });
 
+        if(position==size-2){
+            updateMangaList.fetchMore();
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return size;
     }
 
 
@@ -129,6 +135,7 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
             void addChapter(int id,int noOfChaptersRead);
             void showEditor(UpdateMangaBottomSheet updateMangaBottomSheet);
             void mangaComplete(int id,String title);
+            void fetchMore();
         }
 
     }

@@ -11,6 +11,12 @@ public class JikanSubEntity {
     String name;
     String url;
     String type;
+    @Json(name = "title_english")
+    String englishTitle;
+
+    public String getEnglishTitle() {
+        return englishTitle;
+    }
 
     public JikanImage getImages() {
         return images;

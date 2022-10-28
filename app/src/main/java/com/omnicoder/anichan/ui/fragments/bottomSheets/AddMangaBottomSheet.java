@@ -328,29 +328,26 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             viewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
             mangaAdded.setResponseToObserve(viewModel.getUpdateMangaResponse());
             String mainPicture=manga.getMainPicture()==null ? "" : manga.getMainPicture().getMedium();
-            UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading);
+            UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading,manga.getMean());
             viewModel.insertOrUpdateMangaInList(userManga);
             mangaAdded.setStatus(status);
             dismiss();
         });
-        binding.cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mangaListStatus==null){
+        binding.cancelButton.setOnClickListener(v -> {
+            if(mangaListStatus==null){
+                dismiss();
+            }else{
+                mangaAdded.startLoading();
+                AlertDialog.Builder alterDialog = new AlertDialog.Builder(requireContext());
+                alterDialog.setTitle("Remove manga from the list");
+                alterDialog.setMessage("Are you sure you want to remove this from from your list?");
+                alterDialog.setPositiveButton("YES", (dialog, which) -> {
+                    viewModel.deleteManga(manga.getId());
+                    mangaAdded.observeDeleteResponse(viewModel.deleteResponse());
                     dismiss();
-                }else{
-                    mangaAdded.startLoading();
-                    AlertDialog.Builder alterDialog = new AlertDialog.Builder(requireContext());
-                    alterDialog.setTitle("Remove manga from the list");
-                    alterDialog.setMessage("Are you sure you want to remove this from from your list?");
-                    alterDialog.setPositiveButton("YES", (dialog, which) -> {
-                        viewModel.deleteManga(manga.getId());
-                        mangaAdded.observeDeleteResponse(viewModel.deleteResponse());
-                        dismiss();
-                    });
-                    alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
-                    alterDialog.show();
-                }
+                });
+                alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
+                alterDialog.show();
             }
         });
 

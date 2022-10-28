@@ -2,10 +2,9 @@ package com.omnicoder.anichan.di;
 
 import android.content.Context;
 
-import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.network.JikanApi;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.network.MalAuthApi;
-import com.omnicoder.anichan.network.RxAPI;
 import com.omnicoder.anichan.network.interceptors.MalInterceptor;
 import com.omnicoder.anichan.utils.SessionManager;
 
@@ -28,16 +27,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
 
-    @Provides
-    @Singleton
-    public static RxAPI provideRxAPI(){
-        return new Retrofit.Builder()
-                .baseUrl("https://api.myanimelist.net/v2/")
-                .addConverterFactory(MoshiConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build()
-                .create(RxAPI.class);
-    }
 
 
 
@@ -69,13 +58,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static JikanAPI provideJikanAPI(){
+    public static JikanApi provideJikanAPI(){
         return  new Retrofit.Builder()
                 .baseUrl("https://api.jikan.moe/v4/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
-                .create(JikanAPI.class);
+                .create(JikanApi.class);
     }
 
     @Provides

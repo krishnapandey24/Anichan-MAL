@@ -1,28 +1,32 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.KIDS_TAG;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
 
-import com.omnicoder.anichan.models.jikan.Schedule;
-import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.models.jikan.ScheduleResponse;
+import com.omnicoder.anichan.network.JikanApi;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Observable;
 
 public class ScheduleRepository {
-    JikanAPI jikanAPI;
-    private final String URL;
+    JikanApi jikanAPI;
+    boolean nsfw,kids;
+
+
+
     @Inject
-    ScheduleRepository(JikanAPI jikanAPI, SharedPreferences sharedPreferences){
+    ScheduleRepository(JikanApi jikanAPI, SharedPreferences sharedPreferences){
         this.jikanAPI=jikanAPI;
-        this.URL="https://api.jikan.moe/v4/schedule?sfw="+sharedPreferences.getBoolean(NSFW_TAG,false);
+        this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
+        this.nsfw=sharedPreferences.getBoolean(KIDS_TAG,false);
     }
 
-    // TODO: 21-Sep-22 Migrate to V4
-    public Observable<Schedule> getAnimeSchedule(){
-        return jikanAPI.getAnimeSchedule(URL);
+    public Observable<ScheduleResponse> getAnimeSchedule(String day){
+        return jikanAPI.getSchedule(day,nsfw,kids);
     }
 
 

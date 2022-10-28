@@ -1,6 +1,8 @@
 package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,17 +44,15 @@ public class AnimeSummaryFragment extends Fragment {
     NativeAd nativeAd;
     FragmentSummaryBinding binding;
     boolean viewMore=true;
-    final String viewMore2="View More";
-    final String viewLess="View Less";
     private static final String FINISHED_AIRING="finished_airing";
     private static final String CURRENTLY_AIRING="currently_airing";
     Context context;
     ViewAnimeViewModel viewModel;
 
+
     public AnimeSummaryFragment(Anime anime, ViewAnimeViewModel viewModel){
         this.anime= anime;
         this.viewModel=viewModel;
-
     }
 
     @Override
@@ -95,10 +95,10 @@ public class AnimeSummaryFragment extends Fragment {
         binding.viewMore2.setOnClickListener(v -> {
             if(viewMore){
                 binding.synonymsView.setMaxLines(15);
-                binding.viewMore2.setText(viewLess);
+                binding.viewMore2.setText(VIEW_LESS);
             }else {
                 binding.synonymsView.setMaxLines(3);
-                binding.viewMore2.setText(viewMore2);
+                binding.viewMore2.setText(VIEW_MORE);
             }
             viewMore=!viewMore;
         });
@@ -116,7 +116,9 @@ public class AnimeSummaryFragment extends Fragment {
                 this.nativeAd.destroy();
             }
             this.nativeAd=nativeAd;
-            binding.nativeAdView.setNativeAd(nativeAd);
+            if(binding!=null){
+                binding.nativeAdView.setNativeAd(nativeAd);
+            }
         }).build();
         AdRequest nativeAdRequest = new AdRequest.Builder().build();
         adLoader.loadAd(nativeAdRequest);

@@ -1,32 +1,29 @@
 package com.omnicoder.anichan.ui.activities;
 
-import static com.omnicoder.anichan.utils.Constants.ANIME;
+import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
+import static com.omnicoder.anichan.utils.Constants.POSTERS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.NavGraphDirections;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.ViewAnimeStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewAnimeBinding;
@@ -53,12 +50,13 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     AddAnimeBottomSheet addAnimeBottomSheet;
     boolean addedToList=false;
     LoadingDialog loadingDialog;
+    FragmentStateAdapter fragmentStateAdapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: 09-Oct-22 Add Pictures view
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());
@@ -77,8 +75,9 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         String[] tabs=getResources().getStringArray(R.array.ViewTabs);
         ViewPager2 viewPager;
         viewPager=binding.fragmentContainerView;
-        FragmentStateAdapter fragmentStateAdapter;
-        fragmentStateAdapter=new ViewAnimeStateAdapter(this,viewModel,anime);
+        if(fragmentStateAdapter==null){
+            fragmentStateAdapter=new ViewAnimeStateAdapter(this,viewModel,anime);
+        }
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
         viewPager.setUserInputEnabled(false);
@@ -87,19 +86,18 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
 
 
     private void setOnClickListeners() {
-        String viewMore2="View More";
-        String viewLess="View Less";
-        binding.viewMore.setOnClickListener(v -> {
+        View.OnClickListener onClickListener=v -> {
             if(viewMore){
                 binding.description.setMaxLines(50);
-                binding.viewMore.setText(viewLess);
+                binding.viewMore.setText(VIEW_LESS);
             }else {
                 binding.description.setMaxLines(5);
-                binding.viewMore.setText(viewMore2);
+                binding.viewMore.setText(VIEW_MORE);
             }
             viewMore=!viewMore;
-        });
-
+        };
+        binding.viewMore.setOnClickListener(onClickListener);
+        binding.description.setOnClickListener(onClickListener);
         binding.backButton2.setOnClickListener(v -> finish());
         binding.addToListButton.setOnClickListener(v -> addAnimeBottomSheet.show(getSupportFragmentManager(),"AddAnimeBottomSheet"));
     }
@@ -120,7 +118,9 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                     binding.posterView.setOnClickListener(v -> {
                         BaseApplication application=(BaseApplication) getApplicationContext();
                         application.setPictures(pictures);
-                        startActivity(new Intent(ViewAnimeActivity.this,PosterViewActivity.class));
+                        Intent intent=new Intent(ViewAnimeActivity.this,PosterViewActivity.class);
+                        intent.putExtra(IMAGE_TYPE,POSTERS);
+                        startActivity(intent);
                     });
                 }
                 String meanScore;

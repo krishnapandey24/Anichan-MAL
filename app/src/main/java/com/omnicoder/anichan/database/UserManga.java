@@ -12,8 +12,9 @@ public class UserManga {
     String title,main_picture,status,startDate,finishData;
     int score,noOfVolumes,noOfChapters,noOfVolumesRead, noOfChaptersRead;
     boolean is_rereading;
+    float mean;
 
-    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishData, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading) {
+    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishData, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading,float mean) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
@@ -26,6 +27,7 @@ public class UserManga {
         this.noOfVolumesRead = noOfVolumesRead;
         this.noOfChaptersRead = noOfChaptersRead;
         this.is_rereading = is_rereading;
+        this.mean=mean;
     }
 
     public int getT_id() {
@@ -128,5 +130,9 @@ public class UserManga {
 
     public void setIs_rereading(boolean is_rereading) {
         this.is_rereading = is_rereading;
+    }
+
+    public float getMean() {
+        return mean;
     }
 }

@@ -16,7 +16,7 @@ public class Manga {
     String start_date;
     String end_date;
     String synopsis;
-    float mean;
+    Float mean;
     int rank;
     int popularity;
     int num_list_users;

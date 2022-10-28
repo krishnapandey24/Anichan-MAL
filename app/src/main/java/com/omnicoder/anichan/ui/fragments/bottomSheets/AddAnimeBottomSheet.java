@@ -312,7 +312,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             }else{
                 season=startSeason.getSeason() + " " + startSeason.getYear();
             }
-            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching);
+            UserAnime userAnime=new UserAnime(anime.getId(),anime.getTitle(),mainPicture,anime.getMedia_type(),season,selectedStatus,startDate,finishDate,score,Integer.parseInt(binding.editText.getText().toString()), anime.getNum_episodes(),rewatching,anime.getMean());
             updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
             animeAdded.setStatus(status);
             dismiss();
@@ -331,9 +331,7 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
                     animeAdded.observeDeleteAnime(updateAnimeViewModel.deleteResponse());
                     dismiss();
                 });
-                alterDialog.setNegativeButton("NO",(dialog,which)->{
-                    dialog.cancel();
-                });
+                alterDialog.setNegativeButton("NO",(dialog,which)-> dialog.cancel());
                 alterDialog.show();
             }
         });

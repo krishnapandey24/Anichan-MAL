@@ -20,9 +20,10 @@
             android:id="@+id/backgroundPoster"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="-16dp"
             android:outlineProvider="background"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="@+id/posterView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +34,8 @@
             android:layout_height="0dp"
             android:src="@drawable/fade_effect"
             app:layout_constraintBottom_toBottomOf="@+id/backgroundPoster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -128,14 +131,6 @@
             app:layout_constraintStart_toEndOf="@+id/posterView"
             app:layout_constraintTop_toBottomOf="@+id/formatView" />
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/posterView" />
 
         <TextView
             android:id="@+id/seasonAndDurationView"
@@ -225,7 +220,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+            app:layout_constraintBottom_toTopOf="@+id/genresView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/studioView2" />
@@ -271,22 +266,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
+        <HorizontalScrollView
+            android:id="@+id/genresView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewMore">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+   
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:background="@color/bgWhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewMore"
-            app:tabTextColor="@color/textColor"
-            app:tabSelectedTextColor="@color/viewAnimeMainTextColor"
+            app:layout_constraintTop_toBottomOf="@+id/genresView"
             app:tabIndicatorColor="@color/viewAnimeMainTextColor"
-            app:tabMode="auto">
+            app:tabMode="auto"
+            app:tabSelectedTextColor="@color/viewAnimeMainTextColor"
+            app:tabTextColor="@color/textColor">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -316,7 +328,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout" />

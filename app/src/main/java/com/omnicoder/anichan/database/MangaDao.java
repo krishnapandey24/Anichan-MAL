@@ -16,8 +16,14 @@ public interface MangaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllManga(List<UserManga> userMangaList);
 
-    @Query("SELECT * from MANGA WHERE status=:status ORDER BY :sortBy DESC")
-    Flowable<List<UserManga>> getMangaList(String status, String sortBy);
+    @Query("SELECT * from MANGA WHERE status=:status ORDER BY t_id DESC")
+    Flowable<List<UserManga>> getMangaListByID(String status);
+
+    @Query("SELECT * from MANGA WHERE status=:status ORDER BY mean DESC")
+    Flowable<List<UserManga>> getMangaListByMean(String status);
+
+    @Query("SELECT * from MANGA WHERE status=:status ORDER BY title DESC")
+    Flowable<List<UserManga>> getMangaListByTitle(String status);
 
     @Query("SELECT * from MANGA WHERE title like :query || '%' ")
     Flowable<List<UserManga>> searchManga(String query);
@@ -28,8 +34,15 @@ public interface MangaDao {
     @Query("SELECT * from  MANGA ORDER BY :sortBy")
     Flowable<List<UserManga>> getAllManga(String sortBy);
 
-    @Query("SELECT * from manga WHERE is_rereading==1 ORDER BY :sortBy")
-    Flowable<List<UserManga>> getReReading(String sortBy);
+    @Query("SELECT * from manga WHERE is_rereading==1 ORDER BY t_id DESC")
+    Flowable<List<UserManga>> getReReadingById();
+
+    @Query("SELECT * from manga WHERE is_rereading==1 ORDER BY title ASC")
+    Flowable<List<UserManga>> getReReadingByTitle();
+
+    @Query("SELECT * from manga WHERE is_rereading==1 ORDER BY mean DESC")
+    Flowable<List<UserManga>> getReReadingByMean();
+
 
     @Query("UPDATE MANGA SET noOfChaptersRead=:noOfChapters WHERE id=:id")
     Completable addChapters(int id, int noOfChapters);

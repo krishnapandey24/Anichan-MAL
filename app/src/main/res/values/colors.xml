@@ -34,6 +34,7 @@
     <color name="bgWhite">@color/white</color>
     <color name="transparentBlue">#902F80ED</color>
     <color name="transparentBlue2">#352F80ED</color>
+    <color name="transparentBlue3">#102F80ED</color>
     <color name="bottomSheetMainTextColor">@color/black</color>
     <color name="notScoredYet">@color/black</color>
 <!--    <color name="transparentBlueColor">#252F80ED</color>-->

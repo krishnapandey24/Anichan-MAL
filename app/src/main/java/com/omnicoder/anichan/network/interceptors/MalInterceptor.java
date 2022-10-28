@@ -28,16 +28,12 @@ public class MalInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder requestBuilder=chain.request().newBuilder();
-        String header= "Bearer "+currentSession.get(ACCESS_TOKEN);
-        Log.d("tagg","Header: "+header);
-        requestBuilder.addHeader("Authorization",header);
+        requestBuilder.addHeader("Authorization","Bearer "+currentSession.get(ACCESS_TOKEN));
         Response response= chain.proceed(requestBuilder.build());
         if(!response.isSuccessful()){
             if(response.code()==429 || response.code()==401){
                 Log.d("tagg","Too many request");
             }
-        }else{
-            Log.d("tagg","sucess"+response.message());
         }
         return response;
     }

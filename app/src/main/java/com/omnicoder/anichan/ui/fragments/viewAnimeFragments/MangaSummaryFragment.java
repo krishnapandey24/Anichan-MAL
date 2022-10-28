@@ -1,6 +1,8 @@
 package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
+import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
+import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -31,8 +33,6 @@ public class MangaSummaryFragment extends Fragment {
     NativeAd nativeAd;
     FragmentMangaSummaryBinding binding;
     boolean viewMore=true;
-    final String viewMore2="View More";
-    final String viewLess="View Less";
     private static final String CURRENTLY_PUBLISHING="finished_airing";
     private static final String NOT_YET_PUBLISHED="currently_airing";
     Context context;
@@ -68,10 +68,10 @@ public class MangaSummaryFragment extends Fragment {
         binding.viewMore2.setOnClickListener(v -> {
             if(viewMore){
                 binding.synonymsView.setMaxLines(15);
-                binding.viewMore2.setText(viewLess);
+                binding.viewMore2.setText(VIEW_LESS);
             }else {
                 binding.synonymsView.setMaxLines(3);
-                binding.viewMore2.setText(viewMore2);
+                binding.viewMore2.setText(VIEW_MORE);
             }
             viewMore=!viewMore;
         });

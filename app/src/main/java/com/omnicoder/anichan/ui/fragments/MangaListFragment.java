@@ -58,8 +58,6 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: 09-Oct-22 Add paging
-        // TODO: 09-Oct-22 Fix sorting list
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
@@ -69,7 +67,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         setupToolbar();
     }
     private void setTabLayout(){
-        binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,"t_id"));
+        binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,-1));
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
@@ -110,8 +108,10 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
 
     @Override
     public void fetchMore() {
-        Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
-        mangaListViewModel.fetchNextPage();
+        if(mangaListViewModel.getNextPage()!=null){
+            Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
+            mangaListViewModel.fetchNextPage();
+        }
     }
 
     private void setupToolbar(){
@@ -141,19 +141,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                String sortBy;
-                switch (checkedRadioButton){
-                    case R.id.title:
-                        sortBy="title";
-                        break;
-                    case R.id.score:
-                        sortBy="score";
-                        break;
-                    default:
-                        sortBy="t_id";
-                        break;
-                }
-                binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,sortBy));
+                binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,checkedRadioButton));
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());

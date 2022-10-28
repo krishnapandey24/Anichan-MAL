@@ -2,7 +2,7 @@ package com.omnicoder.anichan.repositories;
 
 import com.omnicoder.anichan.models.jikan.JikanUserResponse;
 import com.omnicoder.anichan.models.jikan.UserFriendResponse;
-import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.network.JikanApi;
 import com.omnicoder.anichan.network.MalApi;
 
 import javax.inject.Inject;
@@ -11,11 +11,11 @@ import io.reactivex.rxjava3.core.Observable;
 
 public class ProfileRepository {
     MalApi malApi;
-    JikanAPI jikanAPI;
+    JikanApi jikanAPI;
     String nextFriendPage="";
 
     @Inject
-    public ProfileRepository(MalApi malApi, JikanAPI jikanAPI){
+    public ProfileRepository(MalApi malApi, JikanApi jikanAPI){
         this.malApi= malApi;
         this.jikanAPI=jikanAPI;
     }

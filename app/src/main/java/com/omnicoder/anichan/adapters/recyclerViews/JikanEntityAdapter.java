@@ -19,6 +19,7 @@ import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
 import com.omnicoder.anichan.ui.activities.ViewCharacterActivity;
 import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
 import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
+import com.omnicoder.anichan.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {
-            Intent intent = null;
+            Intent intent;
             switch (entityType){
                 case ANIME:
                     intent = new Intent(context, ViewAnimeActivity.class);
@@ -65,14 +66,11 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
                 case CHARACTERS:
                     intent= new Intent(context, ViewCharacterActivity.class);
                     break;
-                case PEOPLE:
-                    break;
                 default:
                     intent= new Intent(context, ViewPersonActivity.class);
                     break;
-
             }
-            intent.putExtra("id",entity.getMalId());
+            intent.putExtra(Constants.MAL_ID,entity.getMalId());
             context.startActivity(intent);
         });
     }

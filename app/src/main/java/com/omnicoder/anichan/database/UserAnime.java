@@ -11,8 +11,9 @@ public class UserAnime {
     String title,main_picture,media_type,start_season,status,startDate,finishData;
     int score,num_episodes_watched,num_episodes;
     boolean is_rewatching;
+    float mean;
 
-    public UserAnime(int id, String title, String main_picture, String media_type, String start_season, String status, String startDate, String finishData, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching) {
+    public UserAnime(int id, String title, String main_picture, String media_type, String start_season, String status, String startDate, String finishData, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching, float mean) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
@@ -25,6 +26,7 @@ public class UserAnime {
         this.num_episodes_watched = num_episodes_watched;
         this.num_episodes = num_episodes;
         this.is_rewatching = is_rewatching;
+        this.mean=mean;
     }
 
     public int getT_id() {
@@ -131,6 +133,10 @@ public class UserAnime {
 
     public void setIs_rewatching(boolean is_rewatching) {
         this.is_rewatching = is_rewatching;
+    }
+
+    public float getMean() {
+        return mean;
     }
 }
 

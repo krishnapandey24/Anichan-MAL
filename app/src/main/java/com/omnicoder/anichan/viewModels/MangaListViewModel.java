@@ -22,32 +22,35 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class MangaListViewModel extends ViewModel {
-    public MutableLiveData<List<UserManga>> reading= new MutableLiveData<>();
+    public MutableLiveData<List<UserManga>> reading = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> planToRead = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> completed = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> onHold = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> dropped = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> reReading = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> all = new MutableLiveData<>();
-    public MutableLiveData<List<UserManga>> searchResults= new MutableLiveData<>();
-    public MutableLiveData<String> nextPage= new MutableLiveData<>();
-    CompositeDisposable compositeDisposable= new CompositeDisposable();
-    private final MutableLiveData<Boolean> mangaListFetched=new MutableLiveData<>();
+    public MutableLiveData<List<UserManga>> searchResults = new MutableLiveData<>();
+    public String nextPage = "";
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final MutableLiveData<Boolean> mangaListFetched = new MutableLiveData<>();
     private final MangaListRepository repository;
 
     @Inject
-    public MangaListViewModel(MangaListRepository mangaListRepository){
+    public MangaListViewModel(MangaListRepository mangaListRepository) {
         this.repository = mangaListRepository;
 
     }
 
+    public String getNextPage() {
+        return nextPage;
+    }
 
     public MutableLiveData<List<UserManga>> getSearchResults() {
         return searchResults;
     }
 
-    public MutableLiveData<List<UserManga>> getMangaList(int position, String sortBy){
-        switch (position){
+    public MutableLiveData<List<UserManga>> getMangaList(int position, int sortBy) {
+        switch (position) {
             case 0:
                 fetchReading(sortBy);
                 return reading;
@@ -66,95 +69,83 @@ public class MangaListViewModel extends ViewModel {
             case 5:
                 fetchReReading(sortBy);
                 return reReading;
-            case 6:
-                fetchAll(sortBy);
-                return all;
         }
         return reading;
     }
 
-    private void fetchReReading(String sortBy) {
+    private void fetchReReading(int sortBy) {
         compositeDisposable.add(repository.getReReading(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(reading::setValue,Throwable::printStackTrace)
+                .subscribe(reading::setValue, Throwable::printStackTrace)
         );
     }
 
 
-
-
-    public void fetchReading(String sortBy){
-        compositeDisposable.add(repository.getMangaListByStatus(Constants.READING,sortBy)
+    public void fetchReading(int sortBy) {
+        compositeDisposable.add(repository.getMangaListByStatus(Constants.READING, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(reading::setValue,Throwable::printStackTrace)
+                .subscribe(reading::setValue, Throwable::printStackTrace)
         );
     }
 
-    public void fetchPlanToWatch(String sortBy){
-        compositeDisposable.add(repository.getMangaListByStatus(Constants.PLAN_TO_READ,sortBy)
+    public void fetchPlanToWatch(int sortBy) {
+        compositeDisposable.add(repository.getMangaListByStatus(Constants.PLAN_TO_READ, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(planToRead::setValue,Throwable::printStackTrace)
+                .subscribe(planToRead::setValue, Throwable::printStackTrace)
         );
     }
 
-    public void fetchCompleted(String sortBy){
-        compositeDisposable.add(repository.getMangaListByStatus(Constants.COMPLETED,sortBy)
+    public void fetchCompleted(int sortBy) {
+        compositeDisposable.add(repository.getMangaListByStatus(Constants.COMPLETED, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(completed::setValue,Throwable::printStackTrace)
+                .subscribe(completed::setValue, Throwable::printStackTrace)
         );
     }
 
-    public void fetchOnHold(String sortBy){
-        compositeDisposable.add(repository.getMangaListByStatus(Constants.ON_HOLD,sortBy)
+    public void fetchOnHold(int sortBy) {
+        compositeDisposable.add(repository.getMangaListByStatus(Constants.ON_HOLD, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onHold::setValue,Throwable::printStackTrace)
+                .subscribe(onHold::setValue, Throwable::printStackTrace)
         );
     }
 
-    public void fetchDropped(String sortBy){
-        compositeDisposable.add(repository.getMangaListByStatus(Constants.DROPPED,sortBy)
+    public void fetchDropped(int sortBy) {
+        compositeDisposable.add(repository.getMangaListByStatus(Constants.DROPPED, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(dropped::setValue,Throwable::printStackTrace)
+                .subscribe(dropped::setValue, Throwable::printStackTrace)
         );
     }
 
-    public void fetchAll(String sortBy){
-        compositeDisposable.add(repository.getAllManga(sortBy)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(all::setValue,Throwable::printStackTrace)
-        );
-    }
+ 
 
-    public void searchManga(CharSequence query){
+    public void searchManga(CharSequence query) {
         compositeDisposable.add(repository.searchManga(query.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(searchResults::setValue,Throwable::printStackTrace)
+                .subscribe(searchResults::setValue, Throwable::printStackTrace)
         );
     }
 
 
-    public void fetchUserMangaList(){
+    public void fetchUserMangaList() {
         compositeDisposable.add(repository.fetchUserMangaList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     deleteAllManga();
                     insertDataInDatabase(response);
-                    nextPage.setValue(response.getPaging().getNext());
+                    nextPage=response.getPaging().getNext();
                 })
-
         );
     }
 
-    public void deleteAllManga(){
+    public void deleteAllManga() {
         compositeDisposable.add(repository.deleteAllManga()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -162,19 +153,17 @@ public class MangaListViewModel extends ViewModel {
 
     }
 
-    public void insertDataInDatabase(UserMangaListResponse userMangaListResponse){
+    public void insertDataInDatabase(UserMangaListResponse userMangaListResponse) {
         Single.fromCallable(() -> repository.insertMangaInDB(userMangaListResponse))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
-                    if(aBoolean){
+                    if (aBoolean) {
                         mangaListFetched.setValue(true);
-                    }else{
+                    } else {
                         mangaListFetched.setValue(false);
                     }
                 });
-
-
     }
 
     public MutableLiveData<Boolean> getMangaListFetchedStatus() {
@@ -185,5 +174,17 @@ public class MangaListViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         compositeDisposable.clear();
+    }
+
+    public void fetchNextPage() {
+        if(nextPage==null) return;
+        compositeDisposable.add(repository.fetchNextPage(nextPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    insertDataInDatabase(response);
+                    nextPage=response.getPaging().getNext();
+                })
+        );
     }
 }

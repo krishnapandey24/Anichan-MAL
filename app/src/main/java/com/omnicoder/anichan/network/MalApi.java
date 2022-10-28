@@ -4,6 +4,7 @@ package com.omnicoder.anichan.network;
 import com.omnicoder.anichan.models.AccessToken;
 import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.models.animeResponse.Anime;
+import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.models.mangaListResponse.UpdateMangaResponse;
 import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
@@ -23,6 +24,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface MalApi {
 
@@ -123,15 +125,20 @@ public interface MalApi {
     );
 
 
-    @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast")
+    @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast,mean")
     Observable<UserAnimeListResponse> getUserAnimeList(
             @Query("limit") Integer limit,
             @Query("nsfw") Boolean nsfw
     );
 
+    @GET
+    Observable<UserAnimeListResponse> getNextPage(
+            @Url String url
+    );
 
 
-    // For Manga
+
+
 
     @GET("manga/ranking")
     Observable<RankingResponse> getMangaRanking(
@@ -158,10 +165,15 @@ public interface MalApi {
 
     );
 
-    @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters")
+    @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters,mean")
     Observable<UserMangaListResponse> getUserMangaList(
             @Query("limit") Integer limit,
             @Query("nsfw") Boolean nsfw
+    );
+
+    @GET
+    Observable<UserMangaListResponse> getUserMangaList(
+            @Url String url
     );
 
     @FormUrlEncoded
@@ -197,5 +209,7 @@ public interface MalApi {
 
     @GET("users/@me?fields=id,name,gender,location,joined_at,anime_statistics")
     Observable<UserInfo> getUserInfo();
+
+
 
 }

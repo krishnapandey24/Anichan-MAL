@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: 25-Sep-22 Do something about the username
         loadingDialog = new LoadingDialog(this, getContext());
         loadingDialog.startLoading();
         viewModel.getUserInfo().observe(getViewLifecycleOwner(), jikanUserResponse -> {

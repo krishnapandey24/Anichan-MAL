@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
@@ -59,7 +58,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // TODO: 09-Oct-22 Fix sorting
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
@@ -69,7 +67,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         setupToolbar();
     }
     private void setTabLayout(){
-        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,"t_id"));
+        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,-1));
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
@@ -109,8 +107,10 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
 
     @Override
     public void fetchMore() {
-        Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
-        viewModel.fetchNextPage();
+        if(viewModel.getNextPage()!=null){
+            Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
+            viewModel.fetchNextPage();
+        }
     }
 
     private void setupToolbar(){
@@ -140,19 +140,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                String sortBy;
-                switch (checkedRadioButton){
-                    case R.id.title:
-                        sortBy="title";
-                        break;
-                    case R.id.score:
-                        sortBy="score";
-                        break;
-                    default:
-                        sortBy="t_id";
-                        break;
-                }
-                binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,sortBy));
+                binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,checkedRadioButton));
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());

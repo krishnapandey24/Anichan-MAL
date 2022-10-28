@@ -39,6 +39,8 @@
     <color name="bgWhite">#121212</color>
     <color name="transparentBlue">#902F80ED</color>
     <color name="transparentBlue2">#352F80ED</color>
+    <color name="transparentBlue3">#102F80ED</color>
+
     <color name="contentBackground">#303134</color>
     <color name="green">#82D75F</color>
     <color name="textColor">@color/searchBarIconColor</color>

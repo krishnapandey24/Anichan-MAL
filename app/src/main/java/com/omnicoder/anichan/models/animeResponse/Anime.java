@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.models.animeResponse;
 
+
 import com.omnicoder.anichan.models.animeResponse.videos.Video;
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.models.responses.Genre;

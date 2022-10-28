@@ -3,16 +3,13 @@ package com.omnicoder.anichan.repositories;
 
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
-import com.omnicoder.anichan.models.AccessToken;
 import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.models.animeResponse.Staff.StaffResponse;
@@ -20,7 +17,7 @@ import com.omnicoder.anichan.models.animeResponse.videos.VideoResponse;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.models.responses.RankingResponse;
-import com.omnicoder.anichan.network.JikanAPI;
+import com.omnicoder.anichan.network.JikanApi;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.paging.SearchPagingSource;
 import com.omnicoder.anichan.utils.Constants;
@@ -39,12 +36,12 @@ public class ExploreRepository {
     private static final String UPCOMING="upcoming";
     private static final String FIELDS="media_type,mean,genres";
     MalApi malApi;
-    JikanAPI jikanAPI;
+    JikanApi jikanAPI;
     boolean nsfw;
 
 
     @Inject
-    public ExploreRepository(MalApi malApi, JikanAPI jikanAPI, SharedPreferences sharedPreferences){
+    public ExploreRepository(MalApi malApi, JikanApi jikanAPI, SharedPreferences sharedPreferences){
         this.malApi= malApi;
         this.jikanAPI=jikanAPI;
         this.nsfw= sharedPreferences.getBoolean(NSFW_TAG,false);

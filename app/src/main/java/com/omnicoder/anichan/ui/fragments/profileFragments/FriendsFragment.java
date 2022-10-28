@@ -85,6 +85,6 @@ public class FriendsFragment extends Fragment implements FriendsAdapter.ViewUser
 
     @Override
     public void viewUser(String username) {
-        Navigation.findNavController(binding.getRoot()).navigate((NavDirections) NavGraphDirections.moveToParentFragment(username));
+        Navigation.findNavController(binding.getRoot()).navigate(NavGraphDirections.moveToParentFragment(username));
     }
 }

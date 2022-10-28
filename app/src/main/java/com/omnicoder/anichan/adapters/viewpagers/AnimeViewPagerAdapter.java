@@ -24,10 +24,10 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
     AnimePagerAdapterInterface animePagerAdapterInterface;
-    String sortBy;
+    int sortBy;
     boolean updateList =true;
 
-    public AnimeViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, AnimePagerAdapterInterface animePagerAdapterInterface, String sortBy){
+    public AnimeViewPagerAdapter(Context context, String[] tabs, AnimeListViewModel viewModel, LifecycleOwner lifecycleOwner, AnimePagerAdapterInterface animePagerAdapterInterface, int sortBy){
         this.context=context;
         this.tabs=tabs;
         this.viewModel=viewModel;
@@ -57,12 +57,10 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
     }
 
 
-
     @Override
     public int getItemCount() {
         return 6;
     }
-
 
 
     @Override
@@ -97,6 +95,12 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
 
     }
 
+    @Override
+    public void fetchMore() {
+        animePagerAdapterInterface.fetchMore();
+
+    }
+
 
     public interface AnimePagerAdapterInterface {
         void updateAnime(UserAnime userAnime, int position);
@@ -104,6 +108,7 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
         void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet);
         void animeCompleted(int id,String name);
         void deleteAnime(int id);
+        void fetchMore();
     }
 
     public static class PageHolder extends RecyclerView.ViewHolder{
