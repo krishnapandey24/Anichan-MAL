@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
+package com.omnicoder.anichan.ui.fragments.viewAnime;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;

@@ -7,7 +7,7 @@
     android:elevation="3dp"
     android:background="@color/bgWhite"
     android:paddingBottom="16dp"
-    tools:context=".ui.fragments.profileFragments.StatsFragment">
+    tools:context=".ui.fragments.profile.StatsFragment">
 
     <View
         android:id="@+id/center"

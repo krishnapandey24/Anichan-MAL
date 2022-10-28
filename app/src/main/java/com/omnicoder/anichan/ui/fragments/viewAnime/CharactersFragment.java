@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
+package com.omnicoder.anichan.ui.fragments.viewAnime;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omnicoder.anichan.adapters.recyclerViews.CharactersAdapter;
+import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 import com.omnicoder.anichan.models.animeResponse.Characters.CharacterData;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
-import com.omnicoder.anichan.databinding.FragmentSeasonDetailsBinding;
 
 import java.util.List;
 

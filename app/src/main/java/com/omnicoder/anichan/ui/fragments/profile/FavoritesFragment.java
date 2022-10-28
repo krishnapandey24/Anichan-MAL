@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.profileFragments;
+package com.omnicoder.anichan.ui.fragments.profile;
 
 import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.CHARACTERS;

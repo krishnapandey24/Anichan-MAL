@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anichan">
         <activity
+            android:name=".ui.activities.ViewPersonActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.PosterViewActivity"
             android:exported="false" />
 

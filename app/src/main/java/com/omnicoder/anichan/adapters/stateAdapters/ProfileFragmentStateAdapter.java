@@ -7,9 +7,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.omnicoder.anichan.models.jikan.Favorites;
 import com.omnicoder.anichan.models.jikan.JikanUserStatistic;
-import com.omnicoder.anichan.ui.fragments.profileFragments.FavoritesFragment;
-import com.omnicoder.anichan.ui.fragments.profileFragments.FriendsFragment;
-import com.omnicoder.anichan.ui.fragments.profileFragments.StatsFragment;
+import com.omnicoder.anichan.ui.fragments.profile.FavoritesFragment;
+import com.omnicoder.anichan.ui.fragments.profile.FriendsFragment;
+import com.omnicoder.anichan.ui.fragments.profile.StatsFragment;
 import com.omnicoder.anichan.viewModels.ProfileViewModel;
 
 

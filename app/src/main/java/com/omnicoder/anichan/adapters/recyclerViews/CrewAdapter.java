@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
+import static com.omnicoder.anichan.utils.Constants.ID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.omnicoder.anichan.models.animeResponse.Characters.Character;
 import com.omnicoder.anichan.models.animeResponse.Staff.StaffData;
-import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
+import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,7 +50,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> 
         }
         holder.binding.cardView2.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewPersonActivity.class);
-            intent.putExtra("id",person.getMal_id());
+            intent.putExtra(ID,person.getMal_id());
             context.startActivity(intent);
         });
     }

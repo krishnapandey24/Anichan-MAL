@@ -4,14 +4,13 @@ import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.models.animeResponse.Staff.StaffResponse;
 import com.omnicoder.anichan.models.animeResponse.videos.VideoResponse;
 import com.omnicoder.anichan.models.jikan.CharacterDetailsResponse;
-import com.omnicoder.anichan.models.jikan.CharacterImageResponse;
+import com.omnicoder.anichan.models.jikan.ImageResponse;
 import com.omnicoder.anichan.models.jikan.JikanUserResponse;
-import com.omnicoder.anichan.models.jikan.Schedule;
+import com.omnicoder.anichan.models.jikan.PersonDetailsResponse;
 import com.omnicoder.anichan.models.jikan.UserFriendResponse;
 import com.omnicoder.anichan.models.jikan.ScheduleResponse;
 
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -52,7 +51,15 @@ public interface JikanApi {
     Observable<CharacterDetailsResponse> getCharactersDetails(@Path("id") int id);
 
     @GET("characters/{id}/pictures")
-    Observable<CharacterImageResponse> getCharacterImages(@Path("id") int id);
+    Observable<ImageResponse> getCharacterImages(@Path("id") int id);
+
+
+    @GET("people/{id}/full")
+    Observable<PersonDetailsResponse> getPersonDetails(@Path("id") int id);
+
+    @GET("people/{id}/pictures")
+    Observable<ImageResponse> getPersonImages(@Path("id") int id);
+
 
 
 

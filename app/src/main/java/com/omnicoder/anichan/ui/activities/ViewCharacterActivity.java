@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.activities;
 
 import static com.omnicoder.anichan.utils.Constants.CHARACTER_IMAGES;
+import static com.omnicoder.anichan.utils.Constants.ID;
 import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
@@ -46,6 +47,7 @@ public class ViewCharacterActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,30 +57,12 @@ public class ViewCharacterActivity extends AppCompatActivity {
         loadingDialog.startLoadingForActivity();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         viewModel=new ViewModelProvider(this).get(CharacterViewModel.class);
-        viewModel.fetchCharacterDetails(getIntent().getIntExtra(Constants.MAL_ID,0));
+        viewModel.fetchCharacterDetails(getIntent().getIntExtra(ID,0));
         viewModel.getCharacterDetails().observe(this, this::initViews);
-        viewModel.getCharacterImages().observe(this, jpgs -> {
-            try{
-                if(jpgs!=null && jpgs.size()>0){
-                    Picasso.get().load(jpgs.get(0).getJpg().getImage_url()).into(binding.backgroundPoster);
-                    binding.characterImageView.setOnClickListener(v -> {
-                        if(characterImage!=null){
-                            jpgs.add(0,characterImage);
-                        }
-                        BaseApplication application=(BaseApplication) getApplicationContext();
-                        application.setCharacterImages(jpgs);
-                        Intent intent=new Intent(ViewCharacterActivity.this,PosterViewActivity.class);
-                        intent.putExtra(IMAGE_TYPE,CHARACTER_IMAGES);
-                        startActivity(intent);
-                    });
-
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
+        viewModel.getCharacterImages().observe(this, this::setImages);
         setOnClickListeners();
     }
+
 
     private void setOnClickListeners() {
         View.OnClickListener onClickListener= v -> {
@@ -110,6 +94,27 @@ public class ViewCharacterActivity extends AppCompatActivity {
         binding.favoriteCount.setText(String.valueOf(character.getFavorites()));
         binding.about.setText(character.getAbout());
         setTabLayout(character.getVoices(),character.getAnime(),character.getManga());
+    }
+
+    private void setImages(List<ImageData> jpgs){
+        try{
+            if(jpgs!=null && jpgs.size()>0){
+                Picasso.get().load(jpgs.get(0).getJpg().getImage_url()).into(binding.backgroundPoster);
+                binding.characterImageView.setOnClickListener(v -> {
+                    if(characterImage!=null){
+                        jpgs.add(0,characterImage);
+                    }
+                    BaseApplication application=(BaseApplication) getApplicationContext();
+                    application.setCharacterImages(jpgs);
+                    Intent intent=new Intent(ViewCharacterActivity.this,PosterViewActivity.class);
+                    intent.putExtra(IMAGE_TYPE,CHARACTER_IMAGES);
+                    startActivity(intent);
+                });
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void setTabLayout(List<CharacterVoiceActor> voicesActors, List<CharacterAnime> anime, List<CharacterManga> manga){

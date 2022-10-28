@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.omnicoder.anichan.models.mangaResponse.Manga;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.MangaSummaryFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.ReviewsFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.CharactersFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.MangaSummaryFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.ReviewsFragment;
 import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 
 

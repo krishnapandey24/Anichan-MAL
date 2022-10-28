@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
+import static com.omnicoder.anichan.utils.Constants.ID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -51,7 +53,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.My
         holder.roleView.setText(data.getRole());
         holder.itemView.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewCharacterActivity.class);
-            intent.putExtra(Constants.MAL_ID,character.getMal_id());
+            intent.putExtra(ID,character.getMal_id());
             context.startActivity(intent);
         });
     }

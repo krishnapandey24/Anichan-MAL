@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.ID;
 import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
 import static com.omnicoder.anichan.utils.Constants.POSTERS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
@@ -61,7 +62,7 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         setContentView(view);
         viewModel = new ViewModelProvider(this).get(MangaDetailsViewModel.class);
         Intent intent = getIntent();
-        viewModel.fetchMangaDetails(intent.getIntExtra("id", 0));
+        viewModel.fetchMangaDetails(intent.getIntExtra(ID, 0));
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         addMangaBottomSheet=new AddMangaBottomSheet();
         observeData();

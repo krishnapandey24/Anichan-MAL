@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewAnimeFragments;
+package com.omnicoder.anichan.ui.fragments.viewAnime;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.FragmentReviewsBinding;
 import com.omnicoder.anichan.viewModels.ReviewsViewModel;
 
@@ -30,7 +29,7 @@ public class ReviewsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding=FragmentReviewsBinding.inflate(inflater,container,false);
+        binding= FragmentReviewsBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 

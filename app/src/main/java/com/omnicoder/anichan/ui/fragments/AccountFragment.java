@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.Constants.DATE_PATTERN;
 import static com.omnicoder.anichan.utils.Constants.EMAIL;
 
 import android.content.Intent;
@@ -32,7 +33,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class AccountFragment extends Fragment  {
     FragmentAccountBinding binding;
     AccountViewModel viewModel;
-    private static final String datePattern = "dd MMMM yyyy";
 
 
     @Override
@@ -93,7 +93,7 @@ public class AccountFragment extends Fragment  {
         try {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date date = formatter.parse(joinedDate);
-            SimpleDateFormat newFormat = new SimpleDateFormat(datePattern, Locale.getDefault());
+            SimpleDateFormat newFormat = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault());
             assert date != null;
             return newFormat.format(date);
         } catch (Exception e) {

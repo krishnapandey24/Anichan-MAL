@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
 import com.omnicoder.anichan.models.jikan.CharacterAnime;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;
@@ -38,9 +39,12 @@ public class CharacterAnimeAdapter extends RecyclerView.Adapter<CharacterAnimeAd
     public void onBindViewHolder(@NonNull CharacterAnimeAdapter.MyViewHolder holder, int position) {
         CharacterAnime anime=dataHolder.get(position);
         JikanSubEntity entity = anime.getAnime();
+        try{
+            Picasso.get().load(entity.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
+        }catch (Exception e){
+            holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
         String title = entity.getTitle();
-        String imageURL = entity.getImages().getJpg().getImage_url();
-        Picasso.get().load(imageURL).into(holder.binding.imageView);
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.characterName.setText(anime.getRole());

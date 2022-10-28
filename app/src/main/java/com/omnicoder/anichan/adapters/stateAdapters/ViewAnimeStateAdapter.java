@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.omnicoder.anichan.models.animeResponse.Anime;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.CharactersFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.ReviewsFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.StaffFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnimeFragments.AnimeSummaryFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.CharactersFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.ReviewsFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.StaffFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.AnimeSummaryFragment;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 
 public class ViewAnimeStateAdapter extends FragmentStateAdapter {

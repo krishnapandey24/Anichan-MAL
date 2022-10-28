@@ -102,7 +102,6 @@ public class ExploreAnimeFragment extends Fragment {
             AdRequest nativeAdRequest = new AdRequest.Builder().build();
             adLoader.loadAd(nativeAdRequest);
         });
-
     }
 
 
@@ -198,8 +197,6 @@ public class ExploreAnimeFragment extends Fragment {
         if (nativeAd != null) {
             nativeAd.destroy();
         }
-
-
     }
 
     @Override

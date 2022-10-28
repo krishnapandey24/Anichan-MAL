@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.profileFragments;
+package com.omnicoder.anichan.ui.fragments.profile;
 
 import android.graphics.Color;
 import android.os.Bundle;

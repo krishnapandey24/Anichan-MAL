@@ -1,6 +1,8 @@
 package com.omnicoder.anichan.ui.fragments;
 
 
+import static com.omnicoder.anichan.utils.Constants.DATE_PATTERN;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +39,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ProfileFragment extends Fragment{
     private ProfileViewModel viewModel;
     private ProfileFragmentBinding binding;
-    private static final String datePattern = "dd MMMM yyyy";
     String username;
     boolean showingFriend = false;
     LoadingDialog loadingDialog;
@@ -98,7 +99,7 @@ public class ProfileFragment extends Fragment{
         try {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date date = formatter.parse(joinedDate);
-            SimpleDateFormat newFormat = new SimpleDateFormat(datePattern, Locale.getDefault());
+            SimpleDateFormat newFormat = new SimpleDateFormat(DATE_PATTERN, Locale.getDefault());
             assert date != null;
             return newFormat.format(date);
         } catch (Exception e) {
@@ -113,6 +114,8 @@ public class ProfileFragment extends Fragment{
         fragmentStateAdapter = new ProfileFragmentStateAdapter(this, statistics, favorites, username, viewModel);
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
+        viewPager.setUserInputEnabled(false);
+
     }
 
 

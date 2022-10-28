@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewCharacter;
+package com.omnicoder.anichan.ui.fragments.viewPerson;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 
@@ -18,21 +18,21 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.adapters.recyclerViews.VoiceActorsAdapter;
+import com.omnicoder.anichan.adapters.recyclerViews.CharacterMangaAdapter;
 import com.omnicoder.anichan.databinding.FragmentVoiceActorsBinding;
-import com.omnicoder.anichan.models.jikan.CharacterVoiceActor;
+import com.omnicoder.anichan.models.jikan.CharacterManga;
 
 import java.util.List;
 
 
-public class VoiceActorsFragment extends Fragment {
-    List<CharacterVoiceActor> voiceActors;
+public class PersonMangaFragment extends Fragment {
+    List<CharacterManga> manga;
     NativeAd nativeAd;
     FragmentVoiceActorsBinding binding;
 
 
-    public VoiceActorsFragment(List<CharacterVoiceActor> voiceActors) {
-        this.voiceActors = voiceActors;
+    public PersonMangaFragment(List<CharacterManga> manga) {
+        this.manga = manga;
     }
 
     @Override
@@ -44,13 +44,12 @@ public class VoiceActorsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        VoiceActorsAdapter voiceActorsAdapter=new VoiceActorsAdapter(getContext(),voiceActors);
+        CharacterMangaAdapter characterMangaAdapter=new CharacterMangaAdapter(getContext(),manga);
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(voiceActorsAdapter);
+        recyclerView.setAdapter(characterMangaAdapter);
         initializeGoogleAdmob();
     }
-
 
     private void initializeGoogleAdmob(){
         MobileAds.initialize(requireContext(), initializationStatus -> {
@@ -85,5 +84,4 @@ public class VoiceActorsFragment extends Fragment {
         super.onResume();
         binding.getRoot().requestLayout();
     }
-
 }

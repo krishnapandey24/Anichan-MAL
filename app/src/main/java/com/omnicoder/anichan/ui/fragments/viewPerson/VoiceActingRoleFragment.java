@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.viewCharacter;
+package com.omnicoder.anichan.ui.fragments.viewPerson;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 
@@ -18,20 +18,22 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.adapters.recyclerViews.VoiceActingRoleAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.VoiceActorsAdapter;
 import com.omnicoder.anichan.databinding.FragmentVoiceActorsBinding;
 import com.omnicoder.anichan.models.jikan.CharacterVoiceActor;
+import com.omnicoder.anichan.models.jikan.VoiceActingRole;
 
 import java.util.List;
 
 
-public class VoiceActorsFragment extends Fragment {
-    List<CharacterVoiceActor> voiceActors;
+public class VoiceActingRoleFragment extends Fragment {
+    List<VoiceActingRole> voiceActors;
     NativeAd nativeAd;
     FragmentVoiceActorsBinding binding;
 
 
-    public VoiceActorsFragment(List<CharacterVoiceActor> voiceActors) {
+    public VoiceActingRoleFragment(List<VoiceActingRole> voiceActors) {
         this.voiceActors = voiceActors;
     }
 
@@ -44,7 +46,7 @@ public class VoiceActorsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        VoiceActorsAdapter voiceActorsAdapter=new VoiceActorsAdapter(getContext(),voiceActors);
+        VoiceActingRoleAdapter voiceActorsAdapter=new VoiceActingRoleAdapter(getContext(),voiceActors);
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(voiceActorsAdapter);

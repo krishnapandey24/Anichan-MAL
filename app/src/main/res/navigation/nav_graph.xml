@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/friendsFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.profileFragments.FriendsFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.profile.FriendsFragment"
         android:label="fragment_friends"
         tools:layout="@layout/fragment_friends" />
 
@@ -128,7 +128,7 @@
 
     <fragment
         android:id="@+id/viewFavoritesFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.profileFragments.ViewFavoritesFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.profile.ViewFavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_favorites"
         >

@@ -61,7 +61,7 @@ public class Constants {
 
     public static final String EMAIL = "krishnaapps@gmail.com";
 
+    public static final String DATE_PATTERN = "dd MMMM yyyy";
 
-    public static final String MAL_ID = "mal_id";
     public static final String ID = "id";
 }

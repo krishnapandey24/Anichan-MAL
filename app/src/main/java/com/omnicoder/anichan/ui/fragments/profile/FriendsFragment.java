@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments.profileFragments;
+package com.omnicoder.anichan.ui.fragments.profile;
 
 import static com.omnicoder.anichan.utils.Constants.USERNAME;
 
@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 

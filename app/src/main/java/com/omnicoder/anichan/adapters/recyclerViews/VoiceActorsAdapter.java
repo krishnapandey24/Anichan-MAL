@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
-import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.omnicoder.anichan.models.jikan.CharacterVoiceActor;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;
 import com.omnicoder.anichan.ui.activities.ViewPersonActivity;
@@ -47,7 +46,7 @@ public class VoiceActorsAdapter extends RecyclerView.Adapter<VoiceActorsAdapter.
         holder.binding.characterName.setText(voiceActor.getLanguage());
         holder.binding.getRoot().setOnClickListener(v -> {
             Intent intent=new Intent(context, ViewPersonActivity.class);
-            intent.putExtra(Constants.MAL_ID,entity.getMalId());
+            intent.putExtra(Constants.ID,entity.getMalId());
             context.startActivity(intent);
         });
     }
