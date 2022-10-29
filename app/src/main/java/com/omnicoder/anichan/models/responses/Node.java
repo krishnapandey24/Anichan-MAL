@@ -6,12 +6,16 @@ import java.util.List;
 public class Node {
     int id;
     float mean;
+    Integer popularity;
     String title,media_type;
     MainPicture main_picture;
     List<Genre> genres;
     List<MainPicture> pictures;
 
 
+    public Integer getPopularity() {
+        return popularity;
+    }
 
     public int getId() {
         return id;

@@ -8,9 +8,7 @@ import androidx.paging.rxjava3.RxPagingSource;
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.utils.Constants;
-import com.omnicoder.anichan.utils.SearchComparator;
 
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -23,7 +21,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private final int isAnime;
     private static final String ANIME= "anime";
     private static final String MANGA="manga";
-// TODO: 29-Oct-22 Improve search
+    public static final String FIELDS="media_type,popularity";
 
     public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime){
         this.malApi=malApi;
@@ -47,15 +45,9 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return malApi.searchAnime(isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,"media_type")
+            return malApi.searchAnime(isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,FIELDS)
                     .subscribeOn(Schedulers.io())
-                    .flattenAsObservable(searchResponse -> {
-                        List<Data> results=searchResponse.getData();
-                        Collections.sort(results,new SearchComparator());
-                        return results;
-                    })
-                    .toList()
-                    .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
+                    .map(rankingResponse -> toLoadResult(rankingResponse.getData(),offset,limit))
                     .onErrorReturn(LoadResult.Error::new);
 
     }
