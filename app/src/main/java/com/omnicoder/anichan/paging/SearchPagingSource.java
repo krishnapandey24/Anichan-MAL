@@ -23,7 +23,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private final int isAnime;
     private static final String ANIME= "anime";
     private static final String MANGA="manga";
-
+// TODO: 29-Oct-22 Improve search
 
     public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime){
         this.malApi=malApi;

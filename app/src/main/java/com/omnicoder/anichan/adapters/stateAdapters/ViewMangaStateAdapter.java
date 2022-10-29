@@ -15,7 +15,6 @@ import com.omnicoder.anichan.viewModels.MangaDetailsViewModel;
 public class ViewMangaStateAdapter extends FragmentStateAdapter {
     CharactersFragment charactersFragment;
     MangaSummaryFragment mangaSummaryFragment;
-    ReviewsFragment reviewsFragment;
     int mangaId;
     MangaDetailsViewModel viewModel;
     Manga manga;
@@ -42,11 +41,6 @@ public class ViewMangaStateAdapter extends FragmentStateAdapter {
                     charactersFragment = new CharactersFragment(mangaId, viewModel);
                 }
                 return charactersFragment;
-            case 2:
-                if (reviewsFragment == null) {
-                    reviewsFragment = new ReviewsFragment(mangaId);
-                }
-                return reviewsFragment;
             default:
                 return mangaSummaryFragment;
         }
@@ -55,7 +49,7 @@ public class ViewMangaStateAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 
 

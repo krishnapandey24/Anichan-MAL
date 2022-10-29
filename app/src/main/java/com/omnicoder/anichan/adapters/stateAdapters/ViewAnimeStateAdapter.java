@@ -16,7 +16,6 @@ public class ViewAnimeStateAdapter extends FragmentStateAdapter {
     CharactersFragment charactersFragment;
     AnimeSummaryFragment animeSummaryFragment;
     StaffFragment staffFragment;
-    ReviewsFragment reviewsFragment;
     int animeId;
     ViewAnimeViewModel viewModel;
     Anime anime;
@@ -44,11 +43,6 @@ public class ViewAnimeStateAdapter extends FragmentStateAdapter {
                 }
                 return charactersFragment;
             case 2:
-                if (reviewsFragment == null) {
-                    reviewsFragment = new ReviewsFragment(animeId);
-                }
-                return reviewsFragment;
-            case 3:
                 if (staffFragment == null) {
                     staffFragment = new StaffFragment(animeId, viewModel);
                 }
@@ -61,7 +55,7 @@ public class ViewAnimeStateAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 
 

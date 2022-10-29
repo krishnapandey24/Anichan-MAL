@@ -20,15 +20,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.adapters.stateAdapters.CharacterFragmentsStateAdapter;
 import com.omnicoder.anichan.adapters.stateAdapters.PersonFragmentsStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewPersonBinding;
 import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.models.animeResponse.Characters.Person;
-import com.omnicoder.anichan.models.jikan.CharacterAnime;
-import com.omnicoder.anichan.models.jikan.CharacterManga;
-import com.omnicoder.anichan.models.jikan.CharacterVoiceActor;
 import com.omnicoder.anichan.models.jikan.ImageData;
 import com.omnicoder.anichan.models.jikan.PersonAnime;
 import com.omnicoder.anichan.models.jikan.PersonManga;
