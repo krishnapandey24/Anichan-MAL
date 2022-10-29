@@ -62,6 +62,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
+        observeAndShowToast(updateAnimeViewModel.getResponse());
         tabs = getResources().getStringArray(R.array.Statuses);
         setTabLayout();
         setupToolbar();
@@ -83,8 +84,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     public void addEpisode(int id,int noOfEpisodesWatched) {
         loadingDialog.startLoading();
         updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
-        observeAndShowToast(updateAnimeViewModel.getResponse());
-
     }
 
     @Override

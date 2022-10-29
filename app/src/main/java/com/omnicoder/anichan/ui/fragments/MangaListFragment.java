@@ -62,6 +62,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateMangaViewModel= new ViewModelProvider(this).get(UpdateMangaViewModel.class);
+        observeAndShowToast(updateMangaViewModel.getResponse());
         tabs = getResources().getStringArray(R.array.MangaStatuses);
         setTabLayout();
         setupToolbar();
@@ -83,7 +84,6 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
     @Override
     public void addChapter(int id,int noOfChaptersRead) {
         loadingDialog.startLoading();
-        observeAndShowToast(updateMangaViewModel.getResponse());
         updateMangaViewModel.addChapter(id,noOfChaptersRead);
     }
 

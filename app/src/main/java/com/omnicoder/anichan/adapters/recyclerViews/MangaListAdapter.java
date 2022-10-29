@@ -73,7 +73,6 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
             holder.progressBar.setMax(totalChapters);
         }
         holder.progressBar.setProgress(chaptersRead[0]);
-        holder.progressBar.setMax(totalChapters);
         holder.progressBar.setProgress(chaptersRead[0]);
         holder.addButton.setOnClickListener(v -> {
             if(chaptersRead[0]<totalChapters-1 || totalChapters==0) {

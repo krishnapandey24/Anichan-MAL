@@ -61,10 +61,15 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         Picasso.get().load(currentUserAnime.getMain_picture()).into(holder.imageView);
         holder.titleView.setText(title);
         holder.formatView.setText(currentUserAnime.getMedia_type().toUpperCase());
-        holder.totalEpisodeView.setText(String.valueOf(totalEpisodes));
         holder.episodeCountView.setText(String.valueOf(currentUserAnime.getNum_episodes_watched()));
         holder.givenScoreView.setText( score!=0 ? String.valueOf(score) : notRatedYet);
-        holder.progressBar.setMax(totalEpisodes);
+        if(totalEpisodes==0){
+            holder.totalEpisodeView.setText("?");
+            holder.progressBar.setMax(100);
+        }else{
+            holder.totalEpisodeView.setText(String.valueOf(totalEpisodes));
+            holder.progressBar.setMax(totalEpisodes);
+        }
         holder.progressBar.setProgress(watchedEpisodes[0]);
         holder.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
         holder.addButton.setOnClickListener(v -> {
