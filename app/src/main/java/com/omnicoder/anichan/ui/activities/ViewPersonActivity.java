@@ -1,9 +1,11 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.CHARACTER_IMAGES;
 import static com.omnicoder.anichan.utils.Constants.DATE_PATTERN;
 import static com.omnicoder.anichan.utils.Constants.ID;
 import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
+import static com.omnicoder.anichan.utils.Constants.MANGA;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -30,12 +33,16 @@ import com.omnicoder.anichan.models.jikan.ImageData;
 import com.omnicoder.anichan.models.jikan.PersonAnime;
 import com.omnicoder.anichan.models.jikan.PersonManga;
 import com.omnicoder.anichan.models.jikan.VoiceActingRole;
+import com.omnicoder.anichan.ui.fragments.viewPerson.PersonAnimeFragment;
+import com.omnicoder.anichan.ui.fragments.viewPerson.PersonMangaFragment;
+import com.omnicoder.anichan.ui.fragments.viewPerson.VoiceActingRoleFragment;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.PersonViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -45,11 +52,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ViewPersonActivity extends AppCompatActivity {
+    private static final String VOICES = "Voice";
     ActivityViewPersonBinding binding;
     boolean viewMore=true;
     FragmentStateAdapter fragmentStateAdapter;
     LoadingDialog loadingDialog;
     ImageData characterImage;
+    ArrayList<Fragment> fragments;
 
 
     @Override
@@ -106,28 +115,30 @@ public class ViewPersonActivity extends AppCompatActivity {
     }
 
     private void setTabLayout(List<VoiceActingRole> voicesActors, List<PersonAnime> anime, List<PersonManga> manga){
-        String[] tabs=getResources().getStringArray(R.array.ViewCharacterTabs);
+        List<String> tabs=new ArrayList<>();
         ViewPager2 viewPager;
         viewPager=binding.fragmentContainerView;
+        if(fragments==null){
+            fragments=new ArrayList<>();
+            if(voicesActors!=null && !voicesActors.isEmpty()){
+                fragments.add(new VoiceActingRoleFragment(voicesActors));
+                tabs.add(VOICES);
+            }
+            if(anime!=null && !anime.isEmpty()){
+                fragments.add(new PersonAnimeFragment(anime));
+                tabs.add(ANIME);
+            }
+            if(manga!=null && !manga.isEmpty()){
+                fragments.add(new PersonMangaFragment(manga));
+                tabs.add(MANGA);
+            }
+        }
+
         if(fragmentStateAdapter==null){
-            fragmentStateAdapter=new PersonFragmentsStateAdapter(ViewPersonActivity.this,voicesActors,anime,manga);
+            fragmentStateAdapter=new PersonFragmentsStateAdapter(ViewPersonActivity.this,fragments);
         }
         viewPager.setAdapter(fragmentStateAdapter);
-        new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
-        if(voicesActors.size()<1){
-            binding.tabLayout.removeTabAt(0);
-        }
-
-        if(anime.size()<1){
-            binding.tabLayout.removeTabAt(1);
-        }
-
-        if(manga.size()<1){
-            binding.tabLayout.removeTabAt(2);
-        }
-
-
-        viewPager.setUserInputEnabled(false);
+        new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs.get(position))).attach();
     }
 
     private void setOnClickListeners() {

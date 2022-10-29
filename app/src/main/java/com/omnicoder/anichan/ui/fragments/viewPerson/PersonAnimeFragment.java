@@ -21,16 +21,17 @@ import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.CharacterAnimeAdapter;
 import com.omnicoder.anichan.databinding.FragmentVoiceActorsBinding;
 import com.omnicoder.anichan.models.jikan.CharacterAnime;
+import com.omnicoder.anichan.models.jikan.PersonAnime;
 
 import java.util.List;
 
 
 public class PersonAnimeFragment extends Fragment {
-    List<CharacterAnime> anime;
+    List<PersonAnime> anime;
     NativeAd nativeAd;
     FragmentVoiceActorsBinding binding;
 
-    public PersonAnimeFragment(List<CharacterAnime> anime) {
+    public PersonAnimeFragment(List<PersonAnime> anime) {
         this.anime = anime;
     }
 
@@ -43,7 +44,7 @@ public class PersonAnimeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CharacterAnimeAdapter characterAnimeAdapter=new CharacterAnimeAdapter(getContext(),anime);
+        CharacterAnimeAdapter characterAnimeAdapter=new CharacterAnimeAdapter(null,anime,false,getContext(),anime.size());
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(characterAnimeAdapter);

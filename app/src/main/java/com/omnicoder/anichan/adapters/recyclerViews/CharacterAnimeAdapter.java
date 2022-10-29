@@ -12,6 +12,8 @@ import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
 import com.omnicoder.anichan.models.jikan.CharacterAnime;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;
+import com.omnicoder.anichan.models.jikan.PersonAnime;
+import com.omnicoder.anichan.models.jikan.PersonManga;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
 import com.omnicoder.anichan.utils.Constants;
 import com.squareup.picasso.Picasso;
@@ -19,13 +21,20 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CharacterAnimeAdapter extends RecyclerView.Adapter<CharacterAnimeAdapter.MyViewHolder> {
-    List<CharacterAnime> dataHolder;
+    List<CharacterAnime> characterAnime;
+    List<PersonAnime> personAnime;
+    boolean isCharacterAnime;
     Context context;
     CastItemLayoutBinding binding;
+    int size;
 
-    public CharacterAnimeAdapter(Context context, List<CharacterAnime> dataHolder) {
-        this.dataHolder = dataHolder;
+
+    public CharacterAnimeAdapter(List<CharacterAnime> characterAnime, List<PersonAnime> personAnime, boolean isCharacterAnime, Context context,int size) {
+        this.characterAnime = characterAnime;
+        this.personAnime = personAnime;
+        this.isCharacterAnime = isCharacterAnime;
         this.context = context;
+        this.size=size;
     }
 
     @NonNull
@@ -37,28 +46,36 @@ public class CharacterAnimeAdapter extends RecyclerView.Adapter<CharacterAnimeAd
 
     @Override
     public void onBindViewHolder(@NonNull CharacterAnimeAdapter.MyViewHolder holder, int position) {
-        CharacterAnime anime=dataHolder.get(position);
-        JikanSubEntity entity = anime.getAnime();
-        try{
+        JikanSubEntity entity;
+        if (isCharacterAnime) {
+            CharacterAnime anime = characterAnime.get(position);
+            entity = anime.getAnime();
+            holder.binding.characterName.setText(anime.getRole());
+        } else {
+            PersonAnime anime = personAnime.get(position);
+            entity = anime.getAnime();
+            holder.binding.characterName.setText(anime.getPosition());
+        }
+        try {
             Picasso.get().load(entity.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
-        }catch (Exception e){
+        } catch (Exception e) {
             holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         String title = entity.getTitle();
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
-        holder.binding.characterName.setText(anime.getRole());
         holder.binding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewAnimeActivity.class);
             intent.putExtra("media_type", entity.getType());
             intent.putExtra(Constants.ID, entity.getMalId());
             context.startActivity(intent);
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return size;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

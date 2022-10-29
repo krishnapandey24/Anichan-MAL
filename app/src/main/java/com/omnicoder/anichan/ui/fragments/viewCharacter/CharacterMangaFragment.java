@@ -44,7 +44,7 @@ public class CharacterMangaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CharacterMangaAdapter characterMangaAdapter=new CharacterMangaAdapter(getContext(),manga);
+        CharacterMangaAdapter characterMangaAdapter=new CharacterMangaAdapter(getContext(),manga,null,true,manga.size());
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(characterMangaAdapter);

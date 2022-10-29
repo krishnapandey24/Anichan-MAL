@@ -20,18 +20,18 @@ import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.CharacterMangaAdapter;
 import com.omnicoder.anichan.databinding.FragmentVoiceActorsBinding;
-import com.omnicoder.anichan.models.jikan.CharacterManga;
+import com.omnicoder.anichan.models.jikan.PersonManga;
 
 import java.util.List;
 
 
 public class PersonMangaFragment extends Fragment {
-    List<CharacterManga> manga;
+    List<PersonManga> manga;
     NativeAd nativeAd;
     FragmentVoiceActorsBinding binding;
 
 
-    public PersonMangaFragment(List<CharacterManga> manga) {
+    public PersonMangaFragment(List<PersonManga> manga) {
         this.manga = manga;
     }
 
@@ -44,7 +44,7 @@ public class PersonMangaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CharacterMangaAdapter characterMangaAdapter=new CharacterMangaAdapter(getContext(),manga);
+        CharacterMangaAdapter characterMangaAdapter=new CharacterMangaAdapter(getContext(),null,manga,false,manga.size());
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(characterMangaAdapter);

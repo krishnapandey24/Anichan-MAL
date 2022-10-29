@@ -64,7 +64,6 @@ public class VoiceActingRoleFragment extends Fragment {
                 if(this.nativeAd!=null){
                     this.nativeAd.destroy();
                 }
-
                 this.nativeAd=nativeAd;
                 binding.adView.setNativeAd(nativeAd);
             }).build();

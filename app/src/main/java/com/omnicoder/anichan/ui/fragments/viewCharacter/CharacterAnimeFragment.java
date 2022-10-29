@@ -44,7 +44,7 @@ public class CharacterAnimeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CharacterAnimeAdapter characterAnimeAdapter=new CharacterAnimeAdapter(getContext(),anime);
+        CharacterAnimeAdapter characterAnimeAdapter=new CharacterAnimeAdapter(anime,null,true,getContext(), anime.size());
         RecyclerView recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(characterAnimeAdapter);

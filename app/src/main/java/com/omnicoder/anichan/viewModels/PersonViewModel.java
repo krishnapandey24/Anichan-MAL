@@ -41,10 +41,7 @@ public class PersonViewModel extends ViewModel {
         compositeDisposable.add(jikanApi.getPersonDetails(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> personDetails.setValue(response.getData()), e->{
-                    personDetails.setValue(null);
-                    e.printStackTrace();
-                })
+                .subscribe(response -> personDetails.setValue(response.getData()), Throwable::printStackTrace)
         );
 
         compositeDisposable.add(jikanApi.getPersonImages(id)

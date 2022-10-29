@@ -126,7 +126,6 @@ public class ViewCharacterActivity extends AppCompatActivity {
         }
         viewPager.setAdapter(fragmentStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
-        viewPager.setUserInputEnabled(false);
     }
 
     @Override
