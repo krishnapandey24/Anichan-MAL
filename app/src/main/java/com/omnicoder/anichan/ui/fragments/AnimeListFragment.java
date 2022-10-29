@@ -60,7 +60,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        // TODO: 28-Oct-22 Do something when episode count is 0 or unknown
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
         updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         tabs = getResources().getStringArray(R.array.Statuses);

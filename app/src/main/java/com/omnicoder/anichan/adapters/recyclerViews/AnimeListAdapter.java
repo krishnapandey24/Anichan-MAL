@@ -68,7 +68,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         holder.progressBar.setProgress(watchedEpisodes[0]);
         holder.seasonView.setText(currentUserAnime.getStart_season().toUpperCase(Locale.ROOT));
         holder.addButton.setOnClickListener(v -> {
-            if(watchedEpisodes[0]<totalEpisodes-1) {
+            if(watchedEpisodes[0]<totalEpisodes-1 || totalEpisodes==0) {
                 holder.progressBar.setProgress(++watchedEpisodes[0]);
                 updateAnimeList.addEpisode(id,watchedEpisodes[0]);
                 holder.episodeCountView.setText(String.valueOf(watchedEpisodes[0]));
