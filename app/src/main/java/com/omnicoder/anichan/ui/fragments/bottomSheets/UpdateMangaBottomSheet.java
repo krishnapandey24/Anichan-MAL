@@ -38,7 +38,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     MangaBottomSheetBinding binding;
     UserManga manga;
     UpdateManga updateMangaInterface;
-    int position, score = -1, noOfVolumes, noOfChapters, totalVolumes, totalChapters;
+    int position, score = -1, noOfVolumes, noOfChapters, totalVolumes, totalChapters, readChapters;
     String todayDate;
     int spinnerCounter=0; // counter to avoid OnItemSelectedListener while initializing the spinner
 
@@ -189,7 +189,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     private void initCounters() {
         Context context = getContext();
         String title = manga.getTitle();
-        binding.editVolumes.setText(String.valueOf(manga.getNoOfVolumesRead()));
+        binding.editVolumes.setText(String.valueOf(readChapters));
         binding.editChapters.setText(String.valueOf(manga.getNoOfChaptersRead()));
         binding.addButton.setOnClickListener(v -> {
             noOfVolumes = Integer.parseInt(binding.editVolumes.getText().toString());
@@ -304,11 +304,12 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     }
 
 
-    public void setManga(UserManga manga, UpdateMangaBottomSheet.UpdateManga updateMangaInterface, int position) {
+    public void setManga(UserManga manga, UpdateMangaBottomSheet.UpdateManga updateMangaInterface, int position, int readChapters) {
         this.manga = manga;
         this.updateMangaInterface = updateMangaInterface;
         totalVolumes = manga.getNoOfVolumes();
         totalChapters = manga.getNoOfChapters();
+        this.readChapters=readChapters;
         this.position = position;
     }
 

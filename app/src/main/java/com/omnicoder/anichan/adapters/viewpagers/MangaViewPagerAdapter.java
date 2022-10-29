@@ -89,6 +89,7 @@ public class MangaViewPagerAdapter extends RecyclerView.Adapter<MangaViewPagerAd
     @Override
     public void updateManga(UserManga manga, int position) {
         adapterInterface.updateManga(manga,position);
+        notifyItemChanged(position);
     }
 
     @Override

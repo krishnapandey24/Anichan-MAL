@@ -86,7 +86,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         });
         holder.editButton.setOnClickListener(v -> {
             UpdateAnimeBottomSheet updateAnimeBottomSheet=new UpdateAnimeBottomSheet();
-            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,viewPagerPosition);
+            updateAnimeBottomSheet.setAnime(currentUserAnime,updateAnime,viewPagerPosition,watchedEpisodes[0]);
             updateAnimeList.showEditor(updateAnimeBottomSheet);
         });
         holder.constraintLayout.setOnClickListener(v -> {

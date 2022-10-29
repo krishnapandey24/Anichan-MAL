@@ -87,7 +87,7 @@ public class MangaListAdapter extends RecyclerView.Adapter<MangaListAdapter.MyVi
         });
         holder.editButton.setOnClickListener(v -> {
             UpdateMangaBottomSheet updateMangaBottomSheet=new UpdateMangaBottomSheet();
-            updateMangaBottomSheet.setManga(manga,updateManga,viewPagerPosition);
+            updateMangaBottomSheet.setManga(manga,updateManga,viewPagerPosition,chaptersRead[0]);
             updateMangaList.showEditor(updateMangaBottomSheet);
         });
         holder.constraintLayout.setOnClickListener(v -> {

@@ -16,6 +16,8 @@ import com.omnicoder.anichan.viewModels.AnimeListViewModel;
 import com.omnicoder.anichan.databinding.FragmentTabBinding;
 
 
+
+
 public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAdapter.PageHolder> implements UpdateAnimeBottomSheet.UpdateAnime, AnimeListAdapter.MyViewHolder.UpdateAnimeList {
     Context context;
     String[] tabs;
@@ -64,8 +66,9 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
 
 
     @Override
-    public void updateAnime(UserAnime userAnime, int position) {
-        animePagerAdapterInterface.updateAnime(userAnime,position);
+    public void updateAnime(UserAnime userAnime, int viewPagerPosition) {
+        animePagerAdapterInterface.updateAnime(userAnime,viewPagerPosition);
+        notifyItemChanged(viewPagerPosition);
     }
 
     @Override

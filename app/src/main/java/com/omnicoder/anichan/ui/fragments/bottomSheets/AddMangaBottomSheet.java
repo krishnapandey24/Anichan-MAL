@@ -93,7 +93,7 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
             }
             binding.spinner.setSelection(statusPosition);
             binding.editVolumes.setText(String.valueOf(mangaListStatus.getNum_volumes_read()));
-            binding.editChapters.setText(String.valueOf(manga.getNum_chapters()));
+            binding.editChapters.setText(String.valueOf(mangaListStatus.getNum_chapters_read()));
             binding.seekBar.setProgress(mangaListStatus.getScore());
             startDate=mangaListStatus.getStart_date();
             if(startDate!=null){

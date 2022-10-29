@@ -36,7 +36,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     AddAnimeBottomSheetBinding binding;
     UserAnime anime;
     UpdateAnime updateAnimeInterface;
-    int position, score = -1, noOfEpisodes, totalEpisodes;
+    int viewPagerPosition, score = -1, noOfEpisodes, totalEpisodes, watchedEpisodes;
     String todayDate;
     int spinnerCounter = 0; // counter to avoid OnItemSelectedListener while initializing the spinner
 
@@ -72,7 +72,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
             }
         };
         binding.spinner.setAdapter(statusAdapter);
-        binding.spinner.setSelection(position);
+        binding.spinner.setSelection(viewPagerPosition);
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -182,7 +182,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     private void initEpisodeCounter() {
         Context context = getContext();
         String title = anime.getTitle();
-        binding.editText.setText(String.valueOf(anime.getNum_episodes_watched()));
+        binding.editText.setText(String.valueOf(watchedEpisodes));
         binding.addButton2.setOnClickListener(v -> {
             noOfEpisodes = Integer.parseInt(binding.editText.getText().toString());
             if (noOfEpisodes == totalEpisodes && totalEpisodes != 0) {
@@ -253,7 +253,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.cancelButton.setText("Remove");
         binding.addToListButton.setOnClickListener(v -> {
             anime.setNum_episodes_watched(Integer.parseInt(binding.editText.getText().toString()));
-            updateAnimeInterface.updateAnime(anime, position);
+            updateAnimeInterface.updateAnime(anime, viewPagerPosition);
             dismiss();
         });
 
@@ -273,16 +273,16 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     }
 
 
-    public void setAnime(UserAnime anime, UpdateAnimeBottomSheet.UpdateAnime updateAnimeInterface, int position) {
+    public void setAnime(UserAnime anime, UpdateAnimeBottomSheet.UpdateAnime updateAnimeInterface, int position,int totalEpisodesWatched) {
         this.anime = anime;
         this.updateAnimeInterface = updateAnimeInterface;
         totalEpisodes = anime.getNum_episodes();
-        this.position = position;
+        this.watchedEpisodes=totalEpisodesWatched;
+        this.viewPagerPosition = position;
     }
 
     public interface UpdateAnime {
-        void updateAnime(UserAnime anime, int position);
-
+        void updateAnime(UserAnime anime, int viewPagerPosition);
         void deleteAnime(int id);
     }
 
