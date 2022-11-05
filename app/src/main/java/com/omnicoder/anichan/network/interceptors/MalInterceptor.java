@@ -34,6 +34,9 @@ public class MalInterceptor implements Interceptor {
                 Log.d("tagg","Too many request");
             }
         }
+        if(response.code()==404){
+            Log.d("tagg","response 404: "+response.body().string());
+        }
         return response;
     }
 }

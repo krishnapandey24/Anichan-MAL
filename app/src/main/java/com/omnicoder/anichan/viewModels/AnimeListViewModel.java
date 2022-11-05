@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.viewModels;
 
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -31,7 +30,7 @@ public class AnimeListViewModel extends ViewModel {
     public MutableLiveData<List<UserAnime>> reWatching = new MutableLiveData<>();
     public MutableLiveData<List<UserAnime>> all = new MutableLiveData<>();
     public MutableLiveData<List<UserAnime>> searchResults= new MutableLiveData<>();
-    public String nextPage= "";
+    public String nextPage= null;
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final MutableLiveData<Boolean> animeListFetched=new MutableLiveData<>();
     private final AnimeListRepository repository;
@@ -134,22 +133,6 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-    public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
-        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(updateAnimeResponse -> {
-                    if(updateAnimeResponse!=null){
-                        Log.d("tagg","status: "+updateAnimeResponse.getStatus());
-                    }
-                }, throwable -> {
-                    throwable.printStackTrace();
-                    Log.d("tagg","Error: "+throwable.getMessage());
-                })
-        );
-
-    }
-
     public void fetchUserAnimeList(){
         compositeDisposable.add(repository.fetchUserAnimeList()
                 .subscribeOn(Schedulers.io())
@@ -192,7 +175,9 @@ public class AnimeListViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response->{
                     nextPage=response.getPaging().getNext();
-                    insertDataInDatabase(response);
+                    if(response.getData().size()>0){
+                        insertDataInDatabase(response);
+                    }
                 },Throwable::printStackTrace)
         );
     }
