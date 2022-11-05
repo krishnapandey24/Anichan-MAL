@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityLoginBinding binding;
         viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
+        // TODO: 05-Nov-22 Complete Login Activity
         if(sessionManager.checkLogin()){
             if(sessionManager.isTokenExpired()){
                 binding = ActivityLoginBinding.inflate(getLayoutInflater());

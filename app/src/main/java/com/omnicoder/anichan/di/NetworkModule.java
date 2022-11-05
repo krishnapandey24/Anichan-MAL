@@ -5,6 +5,7 @@ import android.content.Context;
 import com.omnicoder.anichan.network.JikanApi;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.network.MalAuthApi;
+import com.omnicoder.anichan.network.interceptors.JikanInterceptor;
 import com.omnicoder.anichan.network.interceptors.MalInterceptor;
 import com.omnicoder.anichan.utils.SessionManager;
 
@@ -53,14 +54,27 @@ public class NetworkModule {
         return new MalInterceptor(sessionManager);
     }
 
+    @Singleton
+    @Provides
+    public static JikanInterceptor provideJikanInterceptor(){
+        return new JikanInterceptor();
+    }
+
 
 
 
     @Provides
     @Singleton
-    public static JikanApi provideJikanAPI(){
+    public static JikanApi provideJikanAPI(JikanInterceptor jikanInterceptor){
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .addInterceptor(jikanInterceptor)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
         return  new Retrofit.Builder()
                 .baseUrl("https://api.jikan.moe/v4/")
+                .client(okHttpClient)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
