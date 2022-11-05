@@ -1,14 +1,10 @@
 package com.omnicoder.anichan.viewModels;
 
-import static com.omnicoder.anichan.utils.Constants.ANICHAN_PAGE_LINK;
-
-import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.models.AccessToken;
 import com.omnicoder.anichan.repositories.LoginRepository;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.PkceGenerator;
@@ -82,30 +78,5 @@ public class LoginViewModel extends ViewModel {
                 })
         );
     }
-
-
-    public void onAuthentication(String code){
-        getAccessToken(code);
-    }
-
-    public void onAuthenticationCompleted(){
-//        _authenticationCode.value = null
-//        _authComplete.value = null
-    }
-
-    public void extractAuthCode(Uri uri){
-        if (uri.toString().startsWith(ANICHAN_PAGE_LINK)) {
-            String authCode = uri.getQueryParameter("code");
-//            _authenticationCode.value = authCode;
-        }
-    }
-
-
-
-
-
-
-
-
 
 }

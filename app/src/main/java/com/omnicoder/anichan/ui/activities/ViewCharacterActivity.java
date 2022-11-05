@@ -53,13 +53,13 @@ public class ViewCharacterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityViewCharacterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loadingDialog=new LoadingDialog(this);
-        loadingDialog.startLoadingForActivity();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         viewModel=new ViewModelProvider(this).get(CharacterViewModel.class);
         viewModel.fetchCharacterDetails(getIntent().getIntExtra(ID,0));
         viewModel.getCharacterDetails().observe(this, this::initViews);
         viewModel.getCharacterImages().observe(this, this::setImages);
+        loadingDialog=new LoadingDialog(this);
+        loadingDialog.startLoadingForActivity();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setOnClickListeners();
     }
 
@@ -82,7 +82,6 @@ public class ViewCharacterActivity extends AppCompatActivity {
 
 
     private void initViews(CharacterDetailsData character) {
-        loadingDialog.stopLoading();
         try{
             Picasso.get().load(character.getImages().getJpg().getImage_url()).into(binding.characterImageView);
             characterImage=new ImageData(character.getImages().getJpg());
@@ -94,6 +93,7 @@ public class ViewCharacterActivity extends AppCompatActivity {
         binding.favoriteCount.setText(String.valueOf(character.getFavorites()));
         binding.about.setText(character.getAbout());
         setTabLayout(character.getVoices(),character.getAnime(),character.getManga());
+        loadingDialog.stopLoading();
     }
 
     private void setImages(List<ImageData> jpgs){

@@ -97,6 +97,9 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         binding.viewMore.setOnClickListener(onClickListener);
         binding.description.setOnClickListener(onClickListener);
         binding.backButton2.setOnClickListener(v -> finish());
+        binding.menuButton.setOnClickListener(v -> {
+            // TODO: 29-Oct-22 Complete this menu
+        });
         binding.addToListButton.setOnClickListener(v -> addAnimeBottomSheet.show(getSupportFragmentManager(), "AddAnimeBottomSheet"));
     }
 

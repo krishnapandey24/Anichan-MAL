@@ -69,7 +69,7 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static MalAuthApi provideMovieDB(){
+    public static MalAuthApi provideMalAuthApi(){
         return new Retrofit.Builder()
                 .baseUrl("https://myanimelist.net/v1/")
                 .addConverterFactory(MoshiConverterFactory.create())
@@ -87,4 +87,3 @@ public class NetworkModule {
     }
 
 }
-

@@ -78,6 +78,10 @@ public class SessionManager {
         return currentSession;
     }
 
+    public String getAccessToken(){
+        return sharedPreferences.getString(ACCESS_TOKEN,"");
+    }
+
     public String getLatestToken(){
         return sharedPreferences.getString(ACCESS_TOKEN,null);
     }

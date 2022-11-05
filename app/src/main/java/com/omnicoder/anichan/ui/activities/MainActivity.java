@@ -28,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     NavController navController;
     @Inject
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if(sessionManager.notLoggedInOrTokenExpired()){
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
             finish();
+            return;
         }
         MainViewModel mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.fetchUserInfo();
@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
 
     }
-
-
-
 
     @Override
     protected void onDestroy() {

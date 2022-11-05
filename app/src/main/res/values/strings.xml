@@ -334,6 +334,9 @@
     <string name="changelog">Changelog</string>
     <string name="changelogDescription">Changelog of current version</string>
     <string name="anya_kanji">(アーニャ・フォージャー)</string>
+    <string name="share">Share</string>
+    <string name="open_in_myanimelist">Open in MyAnimeList</string>
+    <string name="copy_link">Copy link</string>
 
 
 </resources>
