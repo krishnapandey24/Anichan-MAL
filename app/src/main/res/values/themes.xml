@@ -145,4 +145,8 @@
     <style name="circularImageView" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="mal_progress_bar">
+        <item name="colorAccent">@color/mal_blue</item>
+    </style>
 </resources>

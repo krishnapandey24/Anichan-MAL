@@ -62,4 +62,6 @@
     <color name="lightdarkbackgroud">#1E2129</color>
     <color name="nightbuttoncolor">#01ABD2</color>
     <color name="recycler_view_background_color">@color/black</color>
+
+    <color name="mal_blue">#2e51a2</color>
 </resources>

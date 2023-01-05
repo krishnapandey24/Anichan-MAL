@@ -3,6 +3,8 @@ package com.omnicoder.anichan.ui.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewStub;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -27,24 +29,24 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel viewModel;
     @Inject
     SessionManager sessionManager;
+    ActivityLoginBinding binding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityLoginBinding binding;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
-        // TODO: 05-Nov-22 Complete Login Activity
         if(sessionManager.checkLogin()){
             if(sessionManager.isTokenExpired()){
                 binding = ActivityLoginBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
+                startStopProgressBar(true);
                 viewModel.refreshAccessToken(sessionManager.getLatestRefreshToken());
-                LoadingDialog loadingDialog=new LoadingDialog(LoginActivity.this);
-                loadingDialog.startLoadingForRefreshToken();
                 Toast.makeText(this,"Token has expired. Getting a new one....",Toast.LENGTH_LONG).show();
                 viewModel.getRefreshComplete().observe(this, success -> {
-                    loadingDialog.stopLoading();
+                    startStopProgressBar(false);
                     if(success){
                         onLoginSuccess();
                     }else{
@@ -58,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             binding = ActivityLoginBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
-//            Picasso.get().load(R.drawable.login_background_2).into(binding.imageView);
             binding.button.setOnClickListener(v -> {
                 Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.loginUrl));
                 try{
@@ -73,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         viewModel.getNewAccessToken.observe(this, success -> {
+            startStopProgressBar(false);
             if(success){
                 onLoginSuccess();
             }else{
@@ -96,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         String code= uri.getQueryParameter("code");
         String receivedState= uri.getQueryParameter("state");
         if(code != null && receivedState.equals(LoginViewModel.STATE)){
+            startStopProgressBar(true);
             viewModel.getAccessToken(code);
         }
     }
@@ -115,6 +118,21 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+
+
+    private void startStopProgressBar(boolean startStop){
+        ViewStub progressBarViewStub= binding.progressBarViewStub;
+        if (progressBarViewStub.getParent() != null) {
+            progressBarViewStub.inflate();
+        }
+        if(startStop){
+            progressBarViewStub.setVisibility(View.VISIBLE);
+        }else {
+            progressBarViewStub.setVisibility(View.GONE);
+        }
+
     }
 
 }
