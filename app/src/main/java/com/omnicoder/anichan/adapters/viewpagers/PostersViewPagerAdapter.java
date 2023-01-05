@@ -34,7 +34,11 @@ public class PostersViewPagerAdapter extends RecyclerView.Adapter<PostersViewPag
 
     @Override
     public void onBindViewHolder(@NonNull PageHolder holder, int position) {
-        Picasso.get().load(pictures.get(position).getLarge()).into(holder.imageView);
+        try{
+            Picasso.get().load(pictures.get(position).getLarge()).into(holder.imageView);
+        } catch (Exception e) {
+            holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
     }
 
 

@@ -85,8 +85,8 @@ public class ViewCharacterActivity extends AppCompatActivity {
         try{
             Picasso.get().load(character.getImages().getJpg().getImage_url()).into(binding.characterImageView);
             characterImage=new ImageData(character.getImages().getJpg());
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            binding.characterImageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         binding.nameView.setText(character.getName());
         binding.kanjiNameView.setText(character.getKanjiName());

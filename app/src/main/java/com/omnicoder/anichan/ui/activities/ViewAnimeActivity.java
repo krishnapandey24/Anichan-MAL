@@ -106,14 +106,18 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     private void observeData() {
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
-                String posterPath;
-                if (!anime.getPictures().isEmpty()) {
-                    posterPath = anime.getPictures().get(0).getMedium();
-                    Picasso.get().load(posterPath).into(binding.backgroundPoster);
+                try{
+                    Picasso.get().load(anime.getPictures().get(0).getMedium()).into(binding.backgroundPoster);
+                } catch (Exception e) {
+                    binding.backgroundPoster.setImageResource(R.drawable.ic_no_image_placeholder);
                 }
                 if (anime.getMainPicture() != null) {
                     MainPicture mainPicture = anime.getMainPicture();
-                    Picasso.get().load(mainPicture.getLarge()).into(binding.posterView);
+                    try{
+                        Picasso.get().load(mainPicture.getLarge()).into(binding.posterView);
+                    } catch (Exception e) {
+                        binding.posterView.setImageResource(R.drawable.ic_no_image_placeholder);
+                    }
                     List<MainPicture> pictures = anime.getPictures();
                     pictures.add(0, mainPicture);
                     binding.posterView.setOnClickListener(v -> {
@@ -157,6 +161,8 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
             loadingDialog.stopLoading();
         });
 

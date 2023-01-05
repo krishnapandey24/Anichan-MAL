@@ -103,9 +103,10 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         viewModel.getMangaDetails().observe(ViewMangaActivity.this, manga -> {
             try {
                 String posterPath;
-                if(!manga.getPictures().isEmpty()){
-                    posterPath=manga.getPictures().get(0).getMedium();
-                    Picasso.get().load(posterPath).into(binding.backgroundPoster);
+                try{
+                    Picasso.get().load(manga.getPictures().get(0).getMedium()).into(binding.backgroundPoster);
+                } catch (Exception e) {
+                    binding.backgroundPoster.setImageResource(R.drawable.ic_no_image_placeholder);
                 }
                 if(manga.getMainPicture()!=null){
                     MainPicture mainPicture=manga.getMainPicture();

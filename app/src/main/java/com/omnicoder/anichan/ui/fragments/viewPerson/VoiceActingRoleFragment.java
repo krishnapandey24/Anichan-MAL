@@ -19,9 +19,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.VoiceActingRoleAdapter;
-import com.omnicoder.anichan.adapters.recyclerViews.VoiceActorsAdapter;
 import com.omnicoder.anichan.databinding.FragmentVoiceActorsBinding;
-import com.omnicoder.anichan.models.jikan.CharacterVoiceActor;
 import com.omnicoder.anichan.models.jikan.VoiceActingRole;
 
 import java.util.List;

@@ -47,10 +47,9 @@ public class RelatedAnimeAdapter extends RecyclerView.Adapter<RelatedAnimeAdapte
         RelatedAnime anime= dataHolder.get(position);
         Node node=anime.getNode();
         try {
-            String imageURL = node.getMainPicture().getMedium();
-            Picasso.get().load(imageURL).into(holder.imageView);
+            Picasso.get().load(node.getMainPicture().getMedium()).into(holder.imageView);
         }catch (Exception e){
-            //
+            holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         holder.titleView.setText(node.getTitle());
         holder.relationType.setText(anime.getRelation_type_formatted());

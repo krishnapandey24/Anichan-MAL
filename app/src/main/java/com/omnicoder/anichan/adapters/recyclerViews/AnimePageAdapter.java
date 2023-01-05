@@ -47,10 +47,10 @@ public class AnimePageAdapter extends PagingDataAdapter<Data, AnimePageAdapter.M
         Node currentAnime= getItem(position).getNode();
         if(currentAnime != null){
             String title= currentAnime.getTitle();
-            MainPicture mainPicture=currentAnime.getMainPicture();
-            if(mainPicture!=null){
-                String imageURL= currentAnime.getMainPicture().getMedium();
-                Picasso.get().load(imageURL).into(holder.imageView);
+            try{
+                Picasso.get().load(currentAnime.getMainPicture().getMedium()).into(holder.imageView);
+            } catch (Exception e) {
+                holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
             }
             holder.titleView.setText(title);
             holder.imageView.setClipToOutline(true);

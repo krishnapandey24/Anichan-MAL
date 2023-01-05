@@ -48,8 +48,11 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
     public void onBindViewHolder(@NonNull AnimePageAdapterPlain.MyViewHolder holder, int position) {
         Node currentAnime= getItem(position).getNode();
         if(currentAnime != null){
-            String imageURL= currentAnime.getMainPicture().getMedium();
-            Picasso.get().load(imageURL).into(holder.imageView);
+            try{
+                Picasso.get().load(currentAnime.getMainPicture().getMedium()).into(holder.imageView);
+            } catch (Exception e) {
+                holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+            }
             holder.titleView.setText(currentAnime.getTitle());
             List<Genre> genres= currentAnime.getGenres();
             StringBuilder stringBuilder= new StringBuilder();

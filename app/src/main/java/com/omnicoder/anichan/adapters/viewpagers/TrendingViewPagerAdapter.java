@@ -46,9 +46,13 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
     @Override
     public void onBindViewHolder(@NonNull TrendingViewPagerAdapter.MyViewHolder holder, int position) {
         Node Anime= dataHolder.get(position).getNode();
-        String imageURL= Anime.getMainPicture().getMedium();
-        Picasso.get().load(imageURL).into(holder.imageView);
-        Picasso.get().load(imageURL).transform(new BlurTransformation(context,5,1)).into(holder.backgroundPosterView);
+        try{
+            String imageURL= Anime.getMainPicture().getMedium();
+            Picasso.get().load(imageURL).into(holder.imageView);
+            Picasso.get().load(imageURL).transform(new BlurTransformation(context,5,1)).into(holder.backgroundPosterView);
+        }catch (Exception e){
+            holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
         holder.titleView.setText(Anime.getTitle());
         holder.imageView.setClipToOutline(true);
         holder.ratingView.setText(String.valueOf(Anime.getMean()));

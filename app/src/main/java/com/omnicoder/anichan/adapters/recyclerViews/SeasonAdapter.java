@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.models.responses.Node;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
@@ -48,9 +49,12 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.MyViewHold
     public void onBindViewHolder(@NonNull SeasonAdapter.MyViewHolder holder, int position) {
         Node Anime= dataHolder.get(position).getNode();
         String title= Anime.getTitle();
-        String imageURL= Anime.getMainPicture().getMedium();
+        try{
+            Picasso.get().load(Anime.getMainPicture().getMedium()).into(holder.binding.imageView);
+        } catch (Exception e) {
+            holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
         String mediaType= Anime.getMedia_type();
-        Picasso.get().load(imageURL).into(holder.binding.imageView);
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.FriendsItemLayoutBinding;
 import com.omnicoder.anichan.models.jikan.FriendData;
 import com.omnicoder.anichan.models.jikan.UserFriend;
@@ -42,8 +43,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         holder.binding.titleView.setText(username);
         try{
             Picasso.get().load(user.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         holder.binding.cardView2.setOnClickListener(v -> viewUserInterface.viewUser(username));
     }

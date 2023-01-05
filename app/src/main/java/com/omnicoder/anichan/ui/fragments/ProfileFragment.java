@@ -80,7 +80,11 @@ public class ProfileFragment extends Fragment{
             }else{
                 UserData data = jikanUserResponse.getData();
                 setUpTabLayout(data.getStatistics(), data.getFavorites());
-                Picasso.get().load(data.getImages().getJpg().getImage_url()).into(binding.profileImageView);
+                try {
+                    Picasso.get().load(data.getImages().getJpg().getImage_url()).into(binding.profileImageView);
+                } catch (Exception e) {
+                    binding.profileImageView.setImageResource(R.drawable.ic_no_image_placeholder);
+                }
                 binding.userNameView.setText(data.getUsername());
                 binding.joinedView.setText(formatDate(data.getJoined()));
                 binding.locationView.setText(data.getLocation());

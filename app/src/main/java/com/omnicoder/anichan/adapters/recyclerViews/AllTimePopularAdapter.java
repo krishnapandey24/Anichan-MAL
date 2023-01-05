@@ -46,8 +46,11 @@ public class AllTimePopularAdapter extends RecyclerView.Adapter<AllTimePopularAd
     public void onBindViewHolder(@NonNull AllTimePopularAdapter.MyViewHolder holder, int position) {
         Node Anime= dataHolder.get(position).getNode();
         String title= Anime.getTitle();
-        String imageURL= Anime.getMainPicture().getMedium();
-        Picasso.get().load(imageURL).into(holder.imageView);
+        try{
+            Picasso.get().load(Anime.getMainPicture().getMedium()).into(holder.imageView);
+        } catch (Exception e) {
+            holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
         holder.titleView.setText(title);
         holder.imageView.setClipToOutline(true);
         holder.cardView.setOnClickListener(v -> {

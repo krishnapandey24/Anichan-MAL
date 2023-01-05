@@ -44,9 +44,10 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
     public void onBindViewHolder(@NonNull SearchPageAdapter.MyViewHolder holder, int position) {
         Node node= getItem(position).getNode();
         if(node != null){
-            String imageURL= node.getMainPicture().getMedium();
-            if(imageURL!=null){
-                Picasso.get().load(imageURL).into(holder.imageView);
+            try{
+                Picasso.get().load(node.getMainPicture().getMedium()).into(holder.imageView);
+            } catch (Exception e) {
+                holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
             }
             holder.titleView.setText(node.getTitle());
             holder.imageView.setClipToOutline(true);

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.LayoutBinding;
 import com.omnicoder.anichan.models.jikan.JikanSubEntity;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
@@ -48,8 +49,11 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
     public void onBindViewHolder(@NonNull JikanEntityAdapter.MyViewHolder holder, int position) {
         JikanSubEntity entity=dataHolder.get(position);
         String title= entity.getTitle();
-        String imageURL= entity.getImages().getJpg().getImage_url();
-        Picasso.get().load(imageURL).into(holder.binding.imageView);
+        try{
+            Picasso.get().load(entity.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
+        } catch (Exception e) {
+            holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
+        }
         holder.binding.titleView.setText(title);
         holder.binding.imageView.setClipToOutline(true);
         holder.binding.getRoot().setOnClickListener(v -> {

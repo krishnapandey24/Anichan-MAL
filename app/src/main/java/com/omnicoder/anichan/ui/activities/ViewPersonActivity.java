@@ -12,6 +12,7 @@ import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.PersonFragmentsStateAdapter;
 import com.omnicoder.anichan.databinding.ActivityViewPersonBinding;
 import com.omnicoder.anichan.di.BaseApplication;
@@ -59,8 +61,10 @@ public class ViewPersonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: 05-01-2023 Fix lagging and add pagination
         binding=ActivityViewPersonBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         PersonViewModel viewModel=new ViewModelProvider(this).get(PersonViewModel.class);
@@ -77,6 +81,7 @@ public class ViewPersonActivity extends AppCompatActivity {
             characterImage=new ImageData(person.getImages().getJpg());
         }catch (Exception e){
             e.printStackTrace();
+            binding.characterImageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         binding.nameView.setText(person.getName());
         String kanjiName=person.getFamilyName() + " " + person.getGivenName();
