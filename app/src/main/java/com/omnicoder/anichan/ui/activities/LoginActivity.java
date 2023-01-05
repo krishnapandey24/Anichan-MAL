@@ -11,13 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityLoginBinding;
 import com.omnicoder.anichan.utils.Constants;
-import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.utils.SessionManager;
 import com.omnicoder.anichan.viewModels.LoginViewModel;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
