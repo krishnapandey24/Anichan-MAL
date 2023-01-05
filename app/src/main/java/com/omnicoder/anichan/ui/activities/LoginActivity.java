@@ -3,16 +3,19 @@ package com.omnicoder.anichan.ui.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityLoginBinding;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.utils.SessionManager;
 import com.omnicoder.anichan.viewModels.LoginViewModel;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityLoginBinding binding;
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         viewModel= new ViewModelProvider(this).get(LoginViewModel.class);
         // TODO: 05-Nov-22 Complete Login Activity
         if(sessionManager.checkLogin()){
@@ -54,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             binding = ActivityLoginBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
+//            Picasso.get().load(R.drawable.login_background_2).into(binding.imageView);
             binding.button.setOnClickListener(v -> {
                 Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.loginUrl));
                 try{
@@ -63,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             });
+
         }
 
 

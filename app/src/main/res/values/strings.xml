@@ -337,6 +337,8 @@
     <string name="share">Share</string>
     <string name="open_in_myanimelist">Open in MyAnimeList</string>
     <string name="copy_link">Copy link</string>
+    <string name="login_message">Explore new Anime and Keep track of all your favorite anime in one place. \n \n Click on the login button to get started!</string>
+    <string name="login_with_myanimelist">Login with MyAnimeList</string>
 
 
 </resources>
