@@ -1,17 +1,26 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
 import static com.omnicoder.anichan.utils.Constants.POSTERS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +60,8 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     boolean addedToList = false;
     LoadingDialog loadingDialog;
     FragmentStateAdapter fragmentStateAdapter;
+    PopupMenu popupMenu;
+    int malId;
 
 
     @Override
@@ -83,6 +94,38 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     }
 
 
+    @SuppressLint("NonConstantResourceId")
+    private void launchMenu(){
+        String link = String.format(Constants.MY_ANIME_LIST_LINK,ANIME,malId);
+        if(popupMenu==null) {
+            popupMenu = new PopupMenu(this, binding.menuButton,Gravity.END);
+            popupMenu.getMenuInflater().inflate(R.menu.view_anime_manga_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.share:
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, link);
+                        startActivity(Intent.createChooser(shareIntent, "Share link using"));
+                        break;
+                    case R.id.openInMal:
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(browserIntent);
+                        break;
+                    case R.id.copyLink:
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("text", link);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(this, "Link copied!",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            });
+        }
+        popupMenu.show();
+    }
+
+
     private void setOnClickListeners() {
         View.OnClickListener onClickListener = v -> {
             if (viewMore) {
@@ -97,9 +140,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         binding.viewMore.setOnClickListener(onClickListener);
         binding.description.setOnClickListener(onClickListener);
         binding.backButton2.setOnClickListener(v -> finish());
-        binding.menuButton.setOnClickListener(v -> {
-            // TODO: 29-Oct-22 Complete this menu
-        });
+        binding.menuButton.setOnClickListener(v -> launchMenu());
         binding.addToListButton.setOnClickListener(v -> addAnimeBottomSheet.show(getSupportFragmentManager(), "AddAnimeBottomSheet"));
     }
 
@@ -157,6 +198,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                 addGenres(anime.getGenres());
                 addAnimeBottomSheet.setData(anime);
                 setTabLayout(viewModel, anime);
+                malId=anime.getId();
                 binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_", " "));
             } catch (Exception e) {
                 e.printStackTrace();

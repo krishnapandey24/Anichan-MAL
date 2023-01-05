@@ -1,17 +1,28 @@
 package com.omnicoder.anichan.ui.activities;
 
+import static com.omnicoder.anichan.utils.Constants.CHARACTER;
+import static com.omnicoder.anichan.utils.Constants.CHARACTERS;
 import static com.omnicoder.anichan.utils.Constants.CHARACTER_IMAGES;
 import static com.omnicoder.anichan.utils.Constants.ID;
 import static com.omnicoder.anichan.utils.Constants.IMAGE_TYPE;
+import static com.omnicoder.anichan.utils.Constants.MANGA;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
+import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -44,6 +55,8 @@ public class ViewCharacterActivity extends AppCompatActivity {
     FragmentStateAdapter fragmentStateAdapter;
     LoadingDialog loadingDialog;
     ImageData characterImage;
+    PopupMenu popupMenu;
+    int malId;
 
 
 
@@ -82,6 +95,7 @@ public class ViewCharacterActivity extends AppCompatActivity {
 
 
     private void initViews(CharacterDetailsData character) {
+        malId=character.getId();
         try{
             Picasso.get().load(character.getImages().getJpg().getImage_url()).into(binding.characterImageView);
             characterImage=new ImageData(character.getImages().getJpg());
@@ -92,8 +106,40 @@ public class ViewCharacterActivity extends AppCompatActivity {
         binding.kanjiNameView.setText(character.getKanjiName());
         binding.favoriteCount.setText(String.valueOf(character.getFavorites()));
         binding.about.setText(character.getAbout());
+        binding.menuButton.setOnClickListener(v-> launchMenu());
         setTabLayout(character.getVoices(),character.getAnime(),character.getManga());
         loadingDialog.stopLoading();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void launchMenu(){
+        String link = String.format(Constants.MY_ANIME_LIST_LINK,CHARACTER,malId);
+        if(popupMenu==null) {
+            popupMenu = new PopupMenu(this, binding.menuButton, Gravity.END);
+            popupMenu.getMenuInflater().inflate(R.menu.view_anime_manga_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.share:
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, link);
+                        startActivity(Intent.createChooser(shareIntent, "Share link using"));
+                        break;
+                    case R.id.openInMal:
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(browserIntent);
+                        break;
+                    case R.id.copyLink:
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("text", link);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(this, "Link copied!",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            });
+        }
+        popupMenu.show();
     }
 
     private void setImages(List<ImageData> jpgs){

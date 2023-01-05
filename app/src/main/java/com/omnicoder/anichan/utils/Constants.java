@@ -53,6 +53,7 @@ public class Constants {
     public static final String ANIME="anime";
     public static final String MANGA="manga";
     public static final String CHARACTERS="characters";
+    public static final String CHARACTER="character";
     public static final String PEOPLE="people";
     public static final String IS_PRO_USER = "is_pro_user";
 
@@ -67,4 +68,6 @@ public class Constants {
 
 
     public static final int RECYCLER_VIEW_MAX_LIMIT=50;
+
+    public static final String MY_ANIME_LIST_LINK="https://myanimelist.net/%s/%s/";
 }
