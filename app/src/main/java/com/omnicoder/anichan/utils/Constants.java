@@ -64,4 +64,7 @@ public class Constants {
     public static final String DATE_PATTERN = "dd MMMM yyyy";
 
     public static final String ID = "id";
+
+
+    public static final int RECYCLER_VIEW_MAX_LIMIT=50;
 }

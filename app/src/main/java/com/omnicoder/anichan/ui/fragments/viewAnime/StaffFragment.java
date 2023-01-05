@@ -41,6 +41,7 @@ public class StaffFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel.getStaff().observe(getViewLifecycleOwner(), staffData -> {
+            binding.progressBar.setVisibility(View.GONE);
             CrewAdapter adapter = new CrewAdapter(getContext(),staffData);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             binding.recyclerView.setAdapter(adapter);

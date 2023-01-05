@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
 import static com.omnicoder.anichan.utils.Constants.ID;
+import static com.omnicoder.anichan.utils.Constants.RECYCLER_VIEW_MAX_LIMIT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.models.animeResponse.Characters.Character;
 import com.omnicoder.anichan.models.animeResponse.Staff.StaffData;
 import com.omnicoder.anichan.databinding.CastItemLayoutBinding;
@@ -46,7 +48,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> 
         try{
             Picasso.get().load(person.getImages().getJpg().getImage_url()).into(holder.binding.imageView);
         }catch (Exception e){
-            //
+            holder.binding.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
         }
         holder.binding.cardView2.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewPersonActivity.class);
@@ -57,7 +59,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return Math.min(dataHolder.size(),RECYCLER_VIEW_MAX_LIMIT);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

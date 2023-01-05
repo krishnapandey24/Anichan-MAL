@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
+import static com.omnicoder.anichan.utils.Constants.RECYCLER_VIEW_MAX_LIMIT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -73,7 +75,7 @@ public class CharacterMangaAdapter extends RecyclerView.Adapter<CharacterMangaAd
 
     @Override
     public int getItemCount() {
-        return isCharacterManga ? characterMangas.size() : personMangas.size();
+        return Math.min((isCharacterManga ? characterMangas.size() : personMangas.size()), RECYCLER_VIEW_MAX_LIMIT);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

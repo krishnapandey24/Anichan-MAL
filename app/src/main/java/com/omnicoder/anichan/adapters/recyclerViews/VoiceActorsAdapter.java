@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
+import static com.omnicoder.anichan.utils.Constants.RECYCLER_VIEW_MAX_LIMIT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -57,7 +59,7 @@ public class VoiceActorsAdapter extends RecyclerView.Adapter<VoiceActorsAdapter.
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return Math.min(dataHolder.size(),RECYCLER_VIEW_MAX_LIMIT);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

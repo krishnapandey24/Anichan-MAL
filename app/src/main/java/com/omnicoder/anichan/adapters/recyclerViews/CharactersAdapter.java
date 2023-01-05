@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.adapters.recyclerViews;
 
 import static com.omnicoder.anichan.utils.Constants.ID;
+import static com.omnicoder.anichan.utils.Constants.RECYCLER_VIEW_MAX_LIMIT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,10 +26,13 @@ import java.util.List;
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.MyViewHolder> {
     List<CharacterData> dataHolder;
     Context context;
+    CharacterPaging characterPaging;
+    int limit=0;
 
-    public CharactersAdapter(Context context, List<CharacterData> dataHolder){
+    public CharactersAdapter(Context context, List<CharacterData> dataHolder, CharacterPaging characterPaging){
         this.dataHolder= dataHolder;
         this.context= context;
+        this.characterPaging=characterPaging;
     }
 
     @NonNull
@@ -56,11 +60,16 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.My
             intent.putExtra(ID,character.getMal_id());
             context.startActivity(intent);
         });
+
+        if(position>(limit+30)){
+            limit=30;
+            characterPaging.addMore();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return dataHolder.size();
+        return Math.min(dataHolder.size(),RECYCLER_VIEW_MAX_LIMIT);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -74,8 +83,14 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.My
             titleView= itemView.findViewById(R.id.titleView);
             roleView=itemView.findViewById(R.id.characterName);
         }
-
     }
+
+
+    public interface CharacterPaging{
+        void addMore();
+    }
+
+
 }
 
 
