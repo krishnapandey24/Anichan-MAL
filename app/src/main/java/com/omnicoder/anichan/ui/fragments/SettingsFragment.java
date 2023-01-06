@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.fragments;
 
 import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
+import static com.omnicoder.anichan.utils.Constants.KIDS_TAG;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
@@ -24,8 +25,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.app_preference,rootKey);
         SwitchPreferenceCompat nsfw=findPreference(NSFW_TAG);
         SwitchPreferenceCompat darkMode=findPreference(DARK_MODE_TAG);
+        SwitchPreferenceCompat kidsInSchedule=findPreference(KIDS_TAG);
         assert darkMode != null;
         assert nsfw !=null;
+        assert kidsInSchedule !=null;
         nsfw.setOnPreferenceChangeListener((preference, newValue) -> {
             sharedPreferences.edit().putBoolean(NSFW_TAG,(boolean) newValue).apply();
             return true;
@@ -39,6 +42,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
             sharedPreferences.edit().putBoolean(DARK_MODE_TAG,value).apply();
+            return true;
+        });
+
+        kidsInSchedule.setOnPreferenceChangeListener((preference, newValue) -> {
+            sharedPreferences.edit().putBoolean(KIDS_TAG,(boolean) newValue).apply();
             return true;
         });
     }

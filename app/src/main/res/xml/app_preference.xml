@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_age_limit" />
 
     <SwitchPreferenceCompat
-        android:key="nsfw"
+        android:key="kids"
         android:title="Show Kids Anime in Schedule"
         android:summary="Show/Hide kids genre anime in schedules"
         android:icon="@drawable/ic_baseline_child_care_24" />

@@ -22,7 +22,7 @@ public class ScheduleRepository {
     ScheduleRepository(JikanApi jikanAPI, SharedPreferences sharedPreferences){
         this.jikanAPI=jikanAPI;
         this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
-        this.nsfw=sharedPreferences.getBoolean(KIDS_TAG,false);
+        this.kids=sharedPreferences.getBoolean(KIDS_TAG,false);
     }
 
     public Observable<ScheduleResponse> getAnimeSchedule(String day){
