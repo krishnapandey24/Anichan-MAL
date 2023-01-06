@@ -28,10 +28,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
 
-
-
-
-
     @Provides
     @Singleton
     public static MalApi provideMalApi(MalInterceptor malInterceptor){

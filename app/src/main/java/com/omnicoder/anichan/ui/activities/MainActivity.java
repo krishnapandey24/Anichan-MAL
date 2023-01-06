@@ -14,7 +14,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setTheme(R.style.Theme_Anichan);
         if(sharedPreferences.getBoolean(DARK_MODE_TAG,false)){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
-
     }
 
     @Override
