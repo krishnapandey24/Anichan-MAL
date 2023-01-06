@@ -339,6 +339,11 @@
     <string name="copy_link">Copy link</string>
     <string name="login_message">Explore new Anime and Keep track of all your favorite anime in one place. \n \n Click on the login button to get started!</string>
     <string name="login_with_myanimelist">Login with MyAnimeList</string>
+    <string name="developed_by">Developed By:</string>
+    <string name="krishna_pandey">Krishna Pandey</string>
+    <string name="message_by_developer">I appreciate your interest in my app and hope it has met your expectations. Thank you for your support and for giving me the opportunity to serve you. If you have any feedback or suggestions for improvement, I\'d love to hear from you. Thank you again for choosing my app. \nPlease don\'t forget to rate the app on the play store, I\'ll do my best to keep developing and improving this app 😊✌</string>
+    <string name="developer_email">krishnaapps@gmail.com</string>
+    <string name="e_mail">E-Mail:</string>
 
 
 </resources>

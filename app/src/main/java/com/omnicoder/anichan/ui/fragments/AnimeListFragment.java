@@ -146,7 +146,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
             sortDialog.getWindow().setAttributes(layoutParams);
         }
         sortDialog.show();
-
     }
 
     private void observeAndShowToast(MutableLiveData<Boolean> response) {

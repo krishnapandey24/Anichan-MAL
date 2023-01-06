@@ -155,6 +155,9 @@
         <action
             android:id="@+id/action_account_fragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_account_fragment_to_faqFragment"
+            app:destination="@id/faqFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -166,6 +169,11 @@
         android:name="com.omnicoder.anichan.ui.fragments.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.FaqFragment"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" />
 
 
 </navigation>

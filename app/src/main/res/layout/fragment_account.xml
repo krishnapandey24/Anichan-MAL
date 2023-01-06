@@ -144,7 +144,6 @@
         android:layout_marginTop="18dp"
         android:elevation="2dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/demon_slayer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
         app:shapeAppearance="@style/circularImageView" />
@@ -190,18 +189,6 @@
         app:layout_constraintTop_toBottomOf="@+id/general" />
 
     <com.omnicoder.anichan.views.AccountListItemView
-        android:id="@+id/faqView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:item_title="@string/faq"
-        app:item_description="@string/faqDescription"
-        app:item_icon="@drawable/ic_faq"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settingsView" />
-
-    <com.omnicoder.anichan.views.AccountListItemView
         android:id="@+id/aboutView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -211,7 +198,7 @@
         app:item_title="@string/aboutApp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/faqView" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsView" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/support"

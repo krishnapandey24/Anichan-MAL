@@ -67,6 +67,7 @@ public class AccountFragment extends Fragment  {
         binding.aboutView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.aboutFragment));
         
         binding.settingsView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.settingsFragment));
+//        binding.faqView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.faqFragment));
         binding.reportBug.setOnClickListener(v -> {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                     "mailto",EMAIL, null));
