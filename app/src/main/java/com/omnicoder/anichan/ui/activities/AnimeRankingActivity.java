@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapterPlain;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.paging.RankingPagingSource;
 import com.omnicoder.anichan.utils.NodeComparator;
 import com.omnicoder.anichan.viewModels.AnimeChartViewModel;
 import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
@@ -28,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class AnimeRankingActivity extends AppCompatActivity{
+public class AnimeRankingActivity extends AppCompatActivity implements RankingPagingSource.ErrorHandler{
     private ActivityChartAnimeBinding binding;
     private AnimeChartViewModel viewModel;
     private String rankingType;
@@ -88,14 +90,14 @@ public class AnimeRankingActivity extends AppCompatActivity{
     public void setAnime(String rankingType, boolean three){
         binding.progressBar.setVisibility(View.VISIBLE);
         if(three) {
-            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime ->{
+            compositeDisposable.add(viewModel.getRanking(rankingType,this).subscribe(Anime ->{
                 animePageAdapter.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
             binding.animeView.setLayoutManager(new GridLayoutManager(AnimeRankingActivity.this, 3));
             binding.animeView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getRanking(rankingType).subscribe(Anime -> {
+            compositeDisposable.add(viewModel.getRanking(rankingType,this).subscribe(Anime -> {
                 animePageAdapterPlain.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
@@ -135,4 +137,8 @@ public class AnimeRankingActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    public void error() {
+        runOnUiThread(() -> Toast.makeText(AnimeRankingActivity.this,"Error in Connection or no data found",Toast.LENGTH_SHORT).show());
+    }
 }

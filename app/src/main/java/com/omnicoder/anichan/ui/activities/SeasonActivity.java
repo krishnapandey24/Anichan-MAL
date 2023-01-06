@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapterPlain;
-import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.databinding.ActivitySeasonBinding;
+import com.omnicoder.anichan.paging.SeasonPagingSource;
 import com.omnicoder.anichan.utils.NodeComparator;
 import com.omnicoder.anichan.viewModels.AnimeChartViewModel;
-import com.omnicoder.anichan.databinding.ActivitySeasonBinding;
 
 import java.util.Calendar;
 
@@ -31,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class SeasonActivity extends AppCompatActivity {
+public class SeasonActivity extends AppCompatActivity implements SeasonPagingSource.ErrorHandler{
     ActivitySeasonBinding binding;
     AnimeChartViewModel viewModel;
     CompositeDisposable compositeDisposable=new CompositeDisposable();
@@ -90,15 +92,14 @@ public class SeasonActivity extends AppCompatActivity {
     public void setAnime(String year,String season){
         binding.progressBar.setVisibility(View.VISIBLE);
         if(three) {
-            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> {
+            compositeDisposable.add(viewModel.getSeason(year, season, this).subscribe(Anime -> {
                 animePageAdapter.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
-
             }));
             binding.seasonView.setLayoutManager(new GridLayoutManager(SeasonActivity.this, 3));
             binding.seasonView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getSeason(year, season).subscribe(Anime -> {
+            compositeDisposable.add(viewModel.getSeason(year, season,this).subscribe(Anime -> {
                 animePageAdapterPlain.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
 
@@ -161,4 +162,8 @@ public class SeasonActivity extends AppCompatActivity {
         return AppCompatResources.getDrawable(SeasonActivity.this,R.drawable.ic_baseline_view_agenda_24);
     }
 
+    @Override
+    public void error() {
+        runOnUiThread(() -> Toast.makeText(SeasonActivity.this,"Error in Connection or no data found",Toast.LENGTH_SHORT).show());
+    }
 }

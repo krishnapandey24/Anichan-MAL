@@ -73,6 +73,7 @@ public class AnimePageAdapter extends PagingDataAdapter<Data, AnimePageAdapter.M
        return position== getItemCount() ? ANIME_ITEM : LOADING_ITEM;
     }
 
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView titleView;

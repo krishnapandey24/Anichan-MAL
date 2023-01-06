@@ -1,7 +1,5 @@
 package com.omnicoder.anichan.paging;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.paging.PagingState;
@@ -21,13 +19,15 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
     private final String year,season;
     private final boolean nsfw;
+    private final ErrorHandler errorHandler;
 
 
-    public SeasonPagingSource(MalApi malApi, String year, String season, boolean nsfw){
+    public SeasonPagingSource(MalApi malApi, String year, String season, boolean nsfw,ErrorHandler errorHandler){
         this.malApi=malApi;
         this.year=year;
         this.season=season.toLowerCase(Locale.ROOT);
         this.nsfw=nsfw;
+        this.errorHandler=errorHandler;
     }
 
 
@@ -46,16 +46,23 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{
+                    errorHandler.error();
                     e.printStackTrace();
-                    Log.d("tagg","message"+e.getMessage());
                     return new LoadResult.Error(e);
                 });
     }
 
     public LoadResult<Integer, Data> toLoadResult(RankingResponse response,int offset, int limit){
         int nextOffset= response.getData()==null ? null : offset + limit;
-        Log.d("tagg","offset got"+offset+" next of "+nextOffset);
         return new LoadResult.Page(response.getData(), offset == Constants.OFFSET ? null : offset - limit,nextOffset);
+    }
+
+
+
+
+
+    public interface ErrorHandler{
+        void error();
     }
 
 

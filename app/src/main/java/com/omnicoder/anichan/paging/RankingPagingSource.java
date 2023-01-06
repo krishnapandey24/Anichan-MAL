@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.paging;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +18,14 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
     private final String rankingType;
     private final boolean nsfw;
+    private final ErrorHandler errorHandler;
 
 
-    public RankingPagingSource(MalApi malApi, String rankingType, boolean nsfw){
+    public RankingPagingSource(MalApi malApi, String rankingType, boolean nsfw,ErrorHandler errorHandler){
         this.malApi=malApi;
         this.rankingType=rankingType;
         this.nsfw=nsfw;
+        this.errorHandler=errorHandler;
 
     }
 
@@ -43,13 +44,21 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
         return malApi.getAnimeRanking(rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
-                .onErrorReturn(LoadResult.Error::new);
+                .onErrorReturn(e->{
+                    errorHandler.error();
+                    e.printStackTrace();
+                    return new LoadResult.Error(e);
+                });
     }
 
     public LoadResult<Integer, Data> toLoadResult(RankingResponse response,int offset, int limit){
         int nextOffset= response.getData()==null ? null : offset + limit;
-        Log.d("tagg","offset got"+offset+" next of "+nextOffset);
         return new LoadResult.Page(response.getData(), offset == Constants.OFFSET ? null : offset - limit,nextOffset);
+    }
+
+
+    public interface ErrorHandler{
+        void error();
     }
 
 

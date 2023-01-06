@@ -4,6 +4,7 @@ import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;
@@ -30,14 +31,16 @@ public class AnimeChartRepository {
         this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
     }
 
-    public Flowable<PagingData<Data>> getRanking(String rankingType){
-        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,nsfw);
+    public Flowable<PagingData<Data>> getRanking(String rankingType,RankingPagingSource.ErrorHandler errorHandler){
+        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,nsfw,errorHandler);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
-    public Flowable<PagingData<Data>> getSeason(String year,String season){
-        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw);
-        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
+    public Flowable<PagingData<Data>> getSeason(String year, String season, SeasonPagingSource.ErrorHandler errorHandler){
+        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw,errorHandler);
+        Flowable<PagingData<Data>> flowable= PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
+        Log.d("tagg","fl: "+flowable);
+        return flowable;
     }
 
 

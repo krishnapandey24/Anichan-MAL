@@ -96,7 +96,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="16dp"
-            android:text="Anime By Season"
+            android:text="@string/anime_by_season"
             android:textColor="@color/headingTextColor"
             android:textSize="18sp"
             android:textStyle="bold"
