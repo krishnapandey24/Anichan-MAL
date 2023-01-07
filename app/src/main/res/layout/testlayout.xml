@@ -144,7 +144,6 @@
             android:layout_marginTop="18dp"
             android:elevation="2dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/demon_slayer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
             app:shapeAppearance="@style/circularImageView" />

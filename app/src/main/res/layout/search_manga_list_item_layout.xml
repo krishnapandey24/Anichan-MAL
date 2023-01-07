@@ -35,7 +35,6 @@
         android:layout_height="140dp"
         android:layout_marginBottom="-6dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/demon_slayer"
         app:shapeAppearance="@style/posterViewOnSide"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

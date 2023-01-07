@@ -11,9 +11,9 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     compileSdk 33
-    aaptOptions {
-        cruncherEnabled = false
-    }
+//    aaptOptions {
+//        cruncherEnabled = false
+//    }
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,

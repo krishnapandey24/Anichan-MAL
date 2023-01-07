@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/fire_hashira"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/backgroundPoster"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/posterView"
-        app:srcCompat="@drawable/demon_slayer" />
+        app:shapeAppearanceOverlay="@style/posterView"/>
 
     <TextView
         android:id="@+id/animeTitle"
