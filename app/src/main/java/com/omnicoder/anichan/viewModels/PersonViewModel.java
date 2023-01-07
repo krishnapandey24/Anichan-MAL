@@ -19,14 +19,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class PersonViewModel extends ViewModel {
-    MutableLiveData<Person> personDetails=new MutableLiveData<>();
-    MutableLiveData<List<ImageData>> personImages=new MutableLiveData<>();
-    CompositeDisposable compositeDisposable=new CompositeDisposable();
+    MutableLiveData<Person> personDetails = new MutableLiveData<>();
+    MutableLiveData<List<ImageData>> personImages = new MutableLiveData<>();
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     JikanApi jikanApi;
+    MutableLiveData<Boolean> NoInternet = new MutableLiveData<>();
+
+
 
     @Inject
-    public PersonViewModel(JikanApi jikanApi){
-        this.jikanApi=jikanApi;
+    public PersonViewModel(JikanApi jikanApi) {
+        this.jikanApi = jikanApi;
     }
 
     public MutableLiveData<Person> getPersonDetails() {
@@ -37,17 +40,17 @@ public class PersonViewModel extends ViewModel {
         return personImages;
     }
 
-    public void fetchPersonDetails(int id){
+    public void fetchPersonDetails(int id) {
         compositeDisposable.add(jikanApi.getPersonDetails(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> personDetails.setValue(response.getData()), Throwable::printStackTrace)
+                .subscribe(response -> personDetails.setValue(response.getData()), e -> NoInternet.setValue(true))
         );
 
         compositeDisposable.add(jikanApi.getPersonImages(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> personImages.setValue(response.getData()), e->{
+                .subscribe(response -> personImages.setValue(response.getData()), e -> {
                     personDetails.setValue(null);
                     e.printStackTrace();
                 })
@@ -55,5 +58,16 @@ public class PersonViewModel extends ViewModel {
 
 
     }
+
+    public MutableLiveData<Boolean> getNoInternet() {
+        return NoInternet;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.clear();
+    }
+
 
 }

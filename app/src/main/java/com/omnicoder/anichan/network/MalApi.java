@@ -53,7 +53,6 @@ public interface MalApi {
             @Field("status") String status
     );
 
-    @FormUrlEncoded
     @DELETE("anime/{anime_id}/my_list_status")
     Completable deleteAnimeFromList(
             @Path("anime_id") Integer anime_id
@@ -183,7 +182,6 @@ public interface MalApi {
             @Field("status") String status
     );
 
-    @FormUrlEncoded
     @DELETE("manga/{manga_id}/my_list_status")
     Completable deleteMangaFromList(
             @Path("manga_id") Integer manga_id

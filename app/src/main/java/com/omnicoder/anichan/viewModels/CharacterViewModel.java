@@ -4,13 +4,9 @@ package com.omnicoder.anichan.viewModels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omnicoder.anichan.models.animeResponse.Characters.CharacterData;
-import com.omnicoder.anichan.models.animeResponse.Characters.Jpg;
 import com.omnicoder.anichan.models.jikan.CharacterDetailsData;
-import com.omnicoder.anichan.models.jikan.CharacterDetailsResponse;
 import com.omnicoder.anichan.models.jikan.ImageData;
 import com.omnicoder.anichan.network.JikanApi;
-import com.omnicoder.anichan.network.MalApi;
 
 import java.util.List;
 
@@ -27,6 +23,11 @@ public class CharacterViewModel extends ViewModel {
     MutableLiveData<List<ImageData>> characterImages=new MutableLiveData<>();
     CompositeDisposable compositeDisposable=new CompositeDisposable();
     JikanApi jikanApi;
+    MutableLiveData<Boolean> NoInternet = new MutableLiveData<>();
+    public MutableLiveData<Boolean> getNoInternet() {
+        return NoInternet;
+    }
+
 
     @Inject
     public CharacterViewModel(JikanApi jikanApi){
@@ -45,15 +46,23 @@ public class CharacterViewModel extends ViewModel {
         compositeDisposable.add(jikanApi.getCharactersDetails(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> characterDetails.setValue(response.getData()), Throwable::printStackTrace)
+                .subscribe(response -> characterDetails.setValue(response.getData()), e -> NoInternet.setValue(true))
         );
 
         compositeDisposable.add(jikanApi.getCharacterImages(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> characterImages.setValue(response.getData()), Throwable::printStackTrace)
+                .subscribe(response -> characterImages.setValue(response.getData()), e -> NoInternet.setValue(true))
         );
 
 
     }
+
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.clear();
+    }
+
 }

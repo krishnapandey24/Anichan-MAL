@@ -63,12 +63,14 @@ public class StatsFragment extends Fragment {
         animeBinding.animeCompletedTextView.setText(String.valueOf(anime.getCompleted()));
         animeBinding.animeOnHoldTextView.setText(String.valueOf(anime.getOnHold()));
         animeBinding.animeDroppedTextView.setText(String.valueOf(anime.getDropped()));
+        animeBinding.totalAnimeTextView.setText(String.valueOf(anime.getTotalEntries()));
 
         mangaBinding.mangaReadingTextView.setText(String.valueOf(manga.getReading()));
         mangaBinding.mangaPlanToReadTextView.setText(String.valueOf(manga.getPlanToRead()));
         mangaBinding.mangaCompletedTextView.setText(String.valueOf(manga.getCompleted()));
         mangaBinding.mangaOnHoldTextView.setText(String.valueOf(manga.getOnHold()));
         mangaBinding.mangaDroppedTextView.setText(String.valueOf(manga.getDropped()));
+        mangaBinding.totalMangaTextView.setText(String.valueOf(manga.getTotalEntries()));
 
         animeBinding.daysView.setText(String.valueOf(anime.getDaysWatched()));
         animeBinding.episodesView.setText(String.valueOf(anime.getEpisodesWatched()));

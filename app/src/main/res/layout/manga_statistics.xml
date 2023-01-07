@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:elevation="3dp"
     android:paddingBottom="16dp"
-    android:background="@color/bgWhite"
     tools:context=".ui.fragments.profile.StatsFragment">
 
 
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="9.0/10"
         android:textColor="@color/listItemTitleTextColor"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -39,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="9.0/10"
         android:textColor="@color/listItemTitleTextColor"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -53,7 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="9.0/10"
         android:textColor="@color/listItemTitleTextColor"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -67,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="9.0/10"
         android:textColor="@color/listItemTitleTextColor"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -308,7 +303,6 @@
         android:id="@+id/totalMangaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5"
         android:textColor="@color/listItemTitleTextColor"
         android:textSize="15sp"
         android:textStyle="bold"

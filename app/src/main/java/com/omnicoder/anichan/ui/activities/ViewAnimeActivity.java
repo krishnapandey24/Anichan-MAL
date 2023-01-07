@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -235,7 +234,11 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(ViewAnimeActivity.this, R.drawable.dialog_background));
         noInternetConnectionDialog.setCancelable(false);
         Button okButton = noInternetConnectionDialog.findViewById(R.id.okButton);
-        okButton.setOnClickListener(v -> noInternetConnectionDialog.dismiss());
+        okButton.setOnClickListener(v -> {
+            loadingDialog.stopLoading();
+            noInternetConnectionDialog.dismiss();
+            finish();
+        });
         noInternetConnectionDialog.show();
     }
 

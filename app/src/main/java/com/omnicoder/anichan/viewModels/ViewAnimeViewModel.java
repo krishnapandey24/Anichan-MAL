@@ -44,9 +44,7 @@ public class ViewAnimeViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(anime::setValue, e->{
-                    e.printStackTrace();
                     NoInternet.setValue(true);
-                    Log.d("tagg","Error: in fetch "+e.getMessage());
                 })
         );
     }

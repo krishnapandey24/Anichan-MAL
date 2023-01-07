@@ -11,6 +11,7 @@ import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -20,10 +21,12 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -80,6 +83,11 @@ public class ViewPersonActivity extends AppCompatActivity {
         loadingDialog=new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         PersonViewModel viewModel=new ViewModelProvider(this).get(PersonViewModel.class);
+        viewModel.getNoInternet().observe(this, aBoolean -> {
+            if(aBoolean){
+                showNoInternetConnectionDialog();
+            }
+        });
         viewModel.fetchPersonDetails(getIntent().getIntExtra(ID,0));
         viewModel.getPersonDetails().observe(this,this::initViews);
         viewModel.getPersonImages().observe(this,this::setImages);
@@ -226,6 +234,20 @@ public class ViewPersonActivity extends AppCompatActivity {
         if(loadingDialog!=null){
             loadingDialog.stopLoading();
         }
+    }
+
+    public void showNoInternetConnectionDialog(){
+        Dialog noInternetConnectionDialog= new Dialog(this);
+        noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
+        noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.dialog_background));
+        noInternetConnectionDialog.setCancelable(false);
+        Button okButton=noInternetConnectionDialog.findViewById(R.id.okButton);
+        okButton.setOnClickListener(v -> {
+            loadingDialog.stopLoading();
+            noInternetConnectionDialog.dismiss();
+            finish();
+        });
+        noInternetConnectionDialog.show();
     }
 
     @Override

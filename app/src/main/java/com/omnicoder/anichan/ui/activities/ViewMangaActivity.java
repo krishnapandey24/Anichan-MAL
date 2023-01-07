@@ -203,7 +203,11 @@ public class ViewMangaActivity extends AppCompatActivity implements AddMangaBott
         noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(ViewMangaActivity.this,R.drawable.dialog_background));
         noInternetConnectionDialog.setCancelable(false);
         Button okButton=noInternetConnectionDialog.findViewById(R.id.okButton);
-        okButton.setOnClickListener(v -> noInternetConnectionDialog.dismiss());
+        okButton.setOnClickListener(v -> {
+            loadingDialog.stopLoading();
+            noInternetConnectionDialog.dismiss();
+            finish();
+        });
         noInternetConnectionDialog.show();
     }
 

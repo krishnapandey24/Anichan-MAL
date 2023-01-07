@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.stateAdapters.ExploreFragmentStateAdapter;
-import com.omnicoder.anichan.ui.activities.TestActivity;
 import com.omnicoder.anichan.databinding.ExploreFragmentBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +35,6 @@ public class ExploreFragment extends Fragment{
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setOnClickListeners();
-        binding.scanButton.setOnClickListener(v -> startActivity(new Intent(getContext(), TestActivity.class)));
         setUpTabLayout();
 
     }

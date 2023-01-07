@@ -26,9 +26,13 @@ public class ExploreViewModel extends ViewModel {
     private final MutableLiveData<List<Data>> topManga=new MutableLiveData<>();
     private final MutableLiveData<List<Data>> topManhwa=new MutableLiveData<>();
     private final MutableLiveData<List<Data>> topManhua=new MutableLiveData<>();
-
     CompositeDisposable compositeDisposable= new CompositeDisposable();
     private final ExploreRepository exploreRepository;
+    MutableLiveData<Boolean> NoInternet = new MutableLiveData<>();
+    public MutableLiveData<Boolean> getNoInternet() {
+        return NoInternet;
+    }
+
 
 
 
@@ -68,7 +72,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(trendingAnime::setValue, Throwable::printStackTrace)
+                .subscribe(trendingAnime::setValue, e -> NoInternet.setValue(true))
         );
     }
 
@@ -77,7 +81,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(recommendation::setValue, Throwable::printStackTrace)
+                .subscribe(recommendation::setValue, e -> NoInternet.setValue(true))
         );
     }
 
@@ -87,7 +91,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(RankingResponse::getData)
-                .subscribe(topUpcomingAnime::setValue, Throwable::printStackTrace)
+                .subscribe(topUpcomingAnime::setValue, e -> NoInternet.setValue(true))
         );
     }
 
@@ -97,7 +101,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(topManga::setValue, Throwable::printStackTrace)
+                .subscribe(topManga::setValue, e -> NoInternet.setValue(true))
         );
     }
 
@@ -106,7 +110,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(topManhwa::setValue, Throwable::printStackTrace)
+                .subscribe(topManhwa::setValue, e -> NoInternet.setValue(true))
         );
     }
 
@@ -115,7 +119,7 @@ public class ExploreViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .map(RankingResponse::getData)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(topManhua::setValue, Throwable::printStackTrace)
+                .subscribe(topManhua::setValue, e -> NoInternet.setValue(true))
         );
     }
 

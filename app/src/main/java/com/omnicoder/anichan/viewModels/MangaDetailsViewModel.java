@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.viewModels;
 
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -36,15 +35,10 @@ public class MangaDetailsViewModel extends ViewModel {
     }
 
     public void fetchMangaDetails(int id){
-        Log.d("tagg","fetch id: "+id);
         compositeDisposable.add(repository.getManga(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(manga::setValue, e->{
-                    e.printStackTrace();
-                    NoInternet.setValue(true);
-                    Log.d("tagg","Error: in fetch "+e.getMessage());
-                })
+                .subscribe(manga::setValue, e-> NoInternet.setValue(true))
         );
     }
 

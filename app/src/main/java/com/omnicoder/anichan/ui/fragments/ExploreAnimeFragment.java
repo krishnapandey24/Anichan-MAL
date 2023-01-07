@@ -3,15 +3,19 @@ package com.omnicoder.anichan.ui.fragments;
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 import static com.omnicoder.anichan.utils.Constants.LIST_SPACE_HEIGHT;
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +29,7 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimeAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.SeasonAdapter;
 import com.omnicoder.anichan.adapters.viewpagers.TrendingViewPagerAdapter;
@@ -51,6 +56,7 @@ public class ExploreAnimeFragment extends Fragment {
     @Inject
     SharedPreferences sharedPreferences;
     NativeAd nativeAd;
+    Dialog noInternetConnectionDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,6 +157,12 @@ public class ExploreAnimeFragment extends Fragment {
 
     private void observeData() {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
+        viewModel.getNoInternet().observe(lifecycleOwner, aBoolean -> {
+            Log.d("tagg","moved: "+aBoolean);
+            if(aBoolean){
+                showNoInternetConnectionDialog();
+            }
+        });
         viewModel.getTrendingAnime().observe(lifecycleOwner, this::setTrending);
         viewModel.getTopUpcomingAnime().observe(lifecycleOwner, this::setTopUpcoming);
         viewModel.getRecommendation().observe(lifecycleOwner, this::setRecommendations);
@@ -188,6 +200,28 @@ public class ExploreAnimeFragment extends Fragment {
             loadingDialog.stopLoading();
         }
     }
+
+    public void showNoInternetConnectionDialog() {
+        if(noInternetConnectionDialog==null){
+            noInternetConnectionDialog = new Dialog(getContext());
+            noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
+            noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dialog_background));
+            noInternetConnectionDialog.setCancelable(false);
+            Button okButton = noInternetConnectionDialog.findViewById(R.id.okButton);
+            okButton.setOnClickListener(v -> {
+                noInternetConnectionDialog.dismiss();
+                viewModel.fetchTrending();
+                viewModel.fetchSuggestions();
+                viewModel.fetchTopUpcoming();
+
+            });
+        }
+        if(!noInternetConnectionDialog.isShowing()){
+            noInternetConnectionDialog.show();
+        }
+
+    }
+
 
 
     @Override
