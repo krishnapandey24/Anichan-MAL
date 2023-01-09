@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.NavUtils;
@@ -16,16 +15,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapterPlain;
-import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
 import com.omnicoder.anichan.paging.RankingPagingSource;
 import com.omnicoder.anichan.utils.NodeComparator;
 import com.omnicoder.anichan.viewModels.AnimeChartViewModel;
-import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -67,26 +63,12 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
         });
 
         rankingType= rankingTypes[rankingTypeIndex];
+        binding.animeRankingSpinner.setSelection(rankingTypeIndex);
         Log.d("tagg", "rankingType: "+rankingType+" index: "+rankingTypeIndex);
         animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this,true);
         animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this,true);
         setAnime(rankingType,three);
         setupToolbar();
-        AdRequest adRequest= new AdRequest.Builder().build();
-        com.google.android.gms.ads.AdView adView = binding.adView;
-        adView.loadAd(adRequest);
-        AdListener adListener=new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-            }
-        };
-        adView.setAdListener(adListener);
     }
 
     public void setAnime(String rankingType, boolean three){

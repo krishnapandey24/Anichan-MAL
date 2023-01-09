@@ -43,7 +43,6 @@ public class ProfileFragmentStateAdapter extends FragmentStateAdapter {
             }
             return favoritesFragment;
         }else{
-
             if(friendsFragment==null){
                 friendsFragment=FriendsFragment.newInstance(username);
             }

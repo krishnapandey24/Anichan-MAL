@@ -7,7 +7,7 @@
     android:layout_margin="8dp"
     android:background="@drawable/white_rectangle"
     android:maxLines="3"
-    android:elevation="5dp"
+    android:elevation="3dp"
     android:padding="16dp"
     android:textColor="@color/listItemTitleTextColor"
     android:textSize="16sp"

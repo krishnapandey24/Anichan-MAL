@@ -21,6 +21,9 @@ public class StaffFragment extends Fragment {
     int id;
 
 
+    public StaffFragment(){}
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

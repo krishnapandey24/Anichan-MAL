@@ -112,12 +112,12 @@ public class ExploreAnimeFragment extends Fragment {
 
     private void setOnClickListeners() {
         binding.todayTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(1);
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.upcomingTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(3);
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
             Navigation.findNavController(v).navigate(action);
         });
 

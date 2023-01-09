@@ -63,13 +63,14 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     int malId;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadingDialog = new LoadingDialog(this);
-        loadingDialog.startLoadingForActivity();
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoadingForActivity();
         viewModel = new ViewModelProvider(this).get(ViewAnimeViewModel.class);
         Intent intent = getIntent();
         viewModel.fetchAnimeDetails(intent.getIntExtra("id", 0));
