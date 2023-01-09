@@ -2,6 +2,7 @@ package com.omnicoder.anichan.ui.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,6 +67,7 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
         });
 
         rankingType= rankingTypes[rankingTypeIndex];
+        Log.d("tagg", "rankingType: "+rankingType+" index: "+rankingTypeIndex);
         animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this,true);
         animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this,true);
         setAnime(rankingType,three);

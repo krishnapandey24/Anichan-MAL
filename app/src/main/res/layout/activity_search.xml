@@ -26,20 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/scanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="14dp"
-            android:src="@drawable/ic_baseline_camera_alt_24"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/searchButton"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
@@ -54,7 +40,7 @@
             android:singleLine="true"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/searchButton"
-            app:layout_constraintEnd_toStartOf="@+id/scanButton"
+            app:layout_constraintEnd_toStartOf="@+id/searchButton"
             app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
 

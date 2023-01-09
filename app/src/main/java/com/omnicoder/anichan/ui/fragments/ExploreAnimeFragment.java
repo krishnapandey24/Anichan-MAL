@@ -112,12 +112,12 @@ public class ExploreAnimeFragment extends Fragment {
 
     private void setOnClickListeners() {
         binding.todayTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(1);
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.upcomingTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(2);
+            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(3);
             Navigation.findNavController(v).navigate(action);
         });
 
@@ -158,7 +158,6 @@ public class ExploreAnimeFragment extends Fragment {
     private void observeData() {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
         viewModel.getNoInternet().observe(lifecycleOwner, aBoolean -> {
-            Log.d("tagg","moved: "+aBoolean);
             if(aBoolean){
                 showNoInternetConnectionDialog();
             }
