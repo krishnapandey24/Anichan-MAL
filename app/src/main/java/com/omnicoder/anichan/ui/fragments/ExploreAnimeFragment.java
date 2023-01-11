@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,10 +120,7 @@ public class ExploreAnimeFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        binding.recommendationTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToViewAnimeActivity action = ExploreFragmentDirections.actionExploreFragmentToViewAnimeActivity(7);
-            Navigation.findNavController(v).navigate(action);
-        });
+        binding.recommendationTitle.setOnClickListener(v -> Navigation.findNavController(v).navigate(ExploreFragmentDirections.actionExploreFragmentToRecommendationActivity()));
 
 
         binding.animeBySeason.setOnClickListener(v -> {

@@ -1,10 +1,8 @@
 package com.omnicoder.anichan.network;
 
 
-import com.omnicoder.anichan.models.AccessToken;
 import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.models.animeResponse.Anime;
-import com.omnicoder.anichan.models.animeResponse.Characters.CharacterResponse;
 import com.omnicoder.anichan.models.mangaListResponse.UpdateMangaResponse;
 import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
@@ -21,7 +19,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -59,16 +56,6 @@ public interface MalApi {
     );
 
 
-
-    @FormUrlEncoded
-    @POST("v1/oauth2/token")
-    Observable<AccessToken> getAccessToken(
-            @Field(value = "client_id",encoded = true) String clientId,
-            @Field(value = "code",encoded = true) String code,
-            @Field(value = "code_verifier",encoded = true) String codeVerifier,
-            @Field(value = "grant_type",encoded = true) String grantType
-    );
-
     @GET("anime/ranking")
     Observable<RankingResponse> getAnimeRanking(
             @Query("ranking_type") String rankingType,
@@ -84,6 +71,16 @@ public interface MalApi {
             @Query("fields") String fields,
             @Query("nsfw") Boolean nsfw
     );
+
+    @GET("anime/suggestions")
+    Single<RankingResponse> getSuggestions(
+            @Query("limit") int limit,
+            @Query("fields") String fields,
+            @Query("nsfw") Boolean nsfw,
+            @Query("offset") int offset
+    );
+
+
 
 
     @GET("anime/ranking")
@@ -134,10 +131,6 @@ public interface MalApi {
     Observable<UserAnimeListResponse> getNextPage(
             @Url String url
     );
-
-
-
-
 
     @GET("manga/ranking")
     Observable<RankingResponse> getMangaRanking(

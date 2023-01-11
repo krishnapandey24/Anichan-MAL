@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.paging;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.paging.PagingState;
@@ -14,19 +13,16 @@ import com.omnicoder.anichan.utils.Constants;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class RankingPagingSource extends RxPagingSource<Integer, Data> {
+public class SuggestedPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
-    private final String rankingType;
     private final boolean nsfw;
     private final ErrorHandler errorHandler;
 
 
-    public RankingPagingSource(MalApi malApi, String rankingType, boolean nsfw,ErrorHandler errorHandler){
+    public SuggestedPagingSource(MalApi malApi, boolean nsfw, ErrorHandler errorHandler){
         this.malApi=malApi;
-        this.rankingType=rankingType;
         this.nsfw=nsfw;
         this.errorHandler=errorHandler;
-
     }
 
 
@@ -41,7 +37,7 @@ public class RankingPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return malApi.getAnimeRanking(rankingType, Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getSuggestions(Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{

@@ -1,11 +1,14 @@
 package com.omnicoder.anichan.viewModels;
 
+import android.util.Log;
+
 import androidx.lifecycle.ViewModel;
 import androidx.paging.PagingData;
 
 import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.paging.RankingPagingSource;
 import com.omnicoder.anichan.paging.SeasonPagingSource;
+import com.omnicoder.anichan.paging.SuggestedPagingSource;
 import com.omnicoder.anichan.repositories.AnimeChartRepository;
 
 import java.util.Locale;
@@ -26,11 +29,15 @@ public class AnimeChartViewModel extends ViewModel {
 
 
     public Flowable<PagingData<Data>> getRanking(String rankingType, RankingPagingSource.ErrorHandler errorHandler){
-        return repository.getRanking(rankingType.toLowerCase(Locale.ROOT).trim(),errorHandler);
+        return repository.getRanking(rankingType.replaceAll("\\s", "").toLowerCase(Locale.ROOT),errorHandler);
     }
 
     public Flowable<PagingData<Data>> getSeason(String year, String season, SeasonPagingSource.ErrorHandler errorHandler){
         return repository.getSeason(year,season,errorHandler);
+    }
+
+    public Flowable<PagingData<Data>> getSuggestedAnime(SuggestedPagingSource.ErrorHandler errorHandler){
+        return repository.getSuggestedAnime(errorHandler);
     }
 }
 

@@ -15,6 +15,7 @@ import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.paging.RankingPagingSource;
 import com.omnicoder.anichan.paging.SeasonPagingSource;
+import com.omnicoder.anichan.paging.SuggestedPagingSource;
 import com.omnicoder.anichan.utils.Constants;
 
 import javax.inject.Inject;
@@ -36,11 +37,15 @@ public class AnimeChartRepository {
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
+    public Flowable<PagingData<Data>> getSuggestedAnime(SuggestedPagingSource.ErrorHandler errorHandler){
+        SuggestedPagingSource rankingPagingSource= new SuggestedPagingSource(malApi,nsfw,errorHandler);
+        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
+    }
+
+
     public Flowable<PagingData<Data>> getSeason(String year, String season, SeasonPagingSource.ErrorHandler errorHandler){
         SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw,errorHandler);
-        Flowable<PagingData<Data>> flowable= PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
-        Log.d("tagg","fl: "+flowable);
-        return flowable;
+        return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
     }
 
 

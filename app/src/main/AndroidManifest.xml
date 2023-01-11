@@ -74,6 +74,9 @@
             android:name=".ui.activities.AnimeRankingActivity"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
+            android:name=".ui.activities.RecommendationActivity"
+            android:parentActivityName=".ui.activities.MainActivity" />
+        <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"

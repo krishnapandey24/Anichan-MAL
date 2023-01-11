@@ -64,7 +64,6 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
 
         rankingType= rankingTypes[rankingTypeIndex];
         binding.animeRankingSpinner.setSelection(rankingTypeIndex);
-        Log.d("tagg", "rankingType: "+rankingType+" index: "+rankingTypeIndex);
         animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this,true);
         animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this,true);
         setAnime(rankingType,three);

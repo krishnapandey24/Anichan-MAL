@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_explore_fragment_to_mangaRankingActivity"
             app:destination="@id/mangaRankingActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_recommendationActivity"
+            app:destination="@id/recommendationActivity" />
     </fragment>
     <fragment
         android:id="@+id/news_fragment"
@@ -174,6 +177,10 @@
         android:name="com.omnicoder.anichan.ui.fragments.FaqFragment"
         android:label="fragment_faq"
         tools:layout="@layout/fragment_faq" />
+    <activity
+        android:id="@+id/recommendationActivity"
+        android:name="com.omnicoder.anichan.ui.activities.RecommendationActivity"
+        android:label="RecommendationActivity" />
 
 
 </navigation>

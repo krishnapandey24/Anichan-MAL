@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,12 +72,19 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
                 return view;
             }
         };
+        Log.d("tagg","viewpagerpositon : "+viewPagerPosition);
         binding.spinner.setAdapter(statusAdapter);
         binding.spinner.setSelection(viewPagerPosition);
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                anime.setStatus(mal_statuses[position]);
+                if(position==5){
+                    anime.setIs_rewatching(true);
+                    anime.setStatus(mal_statuses[0]);
+                }else{
+                    anime.setStatus(mal_statuses[position]);
+                    anime.setIs_rewatching(false);
+                }
                 if (++spinnerCounter > 1) {
                     switch (position) {
                         case 0:

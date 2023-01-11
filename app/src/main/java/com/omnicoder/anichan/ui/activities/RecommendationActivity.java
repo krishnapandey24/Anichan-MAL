@@ -2,10 +2,7 @@ package com.omnicoder.anichan.ui.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimePageAdapterPlain;
-import com.omnicoder.anichan.databinding.ActivityChartAnimeBinding;
-import com.omnicoder.anichan.paging.RankingPagingSource;
+import com.omnicoder.anichan.databinding.ActivityRecommendationAnimeBinding;
+import com.omnicoder.anichan.paging.SuggestedPagingSource;
 import com.omnicoder.anichan.utils.NodeComparator;
 import com.omnicoder.anichan.viewModels.AnimeChartViewModel;
 
@@ -27,64 +24,42 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 @AndroidEntryPoint
-public class AnimeRankingActivity extends AppCompatActivity implements RankingPagingSource.ErrorHandler{
-    private ActivityChartAnimeBinding binding;
+public class RecommendationActivity extends AppCompatActivity implements SuggestedPagingSource.ErrorHandler{
+    private ActivityRecommendationAnimeBinding binding;
     private AnimeChartViewModel viewModel;
-    private String rankingType;
     AnimePageAdapter animePageAdapter;
     AnimePageAdapterPlain animePageAdapterPlain;
     private final CompositeDisposable compositeDisposable= new CompositeDisposable();
-    int rankingTypeIndex;
     boolean three=true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityChartAnimeBinding.inflate(getLayoutInflater());
+        binding = ActivityRecommendationAnimeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel= new ViewModelProvider(this).get(AnimeChartViewModel.class);
-        rankingTypeIndex=getIntent().getIntExtra("animeTypeIndex",0);
-        String[] rankingTypes = getResources().getStringArray(R.array.RankingTypes);
-        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(AnimeRankingActivity.this,R.array.RankingTypes,android.R.layout.simple_spinner_item);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.animeRankingSpinner.setAdapter(arrayAdapter);
-        binding.animeRankingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setAnime(binding.animeRankingSpinner.getSelectedItem().toString(),three);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        rankingType= rankingTypes[rankingTypeIndex];
-        binding.animeRankingSpinner.setSelection(rankingTypeIndex);
-        animePageAdapter = new AnimePageAdapter(new NodeComparator(), AnimeRankingActivity.this,true);
-        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), AnimeRankingActivity.this,true);
-        setAnime(rankingType,three);
+        animePageAdapter = new AnimePageAdapter(new NodeComparator(), RecommendationActivity.this,true);
+        animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), RecommendationActivity.this,true);
+        setAnime(three);
         setupToolbar();
     }
 
-    public void setAnime(String rankingType, boolean three){
+    public void setAnime(boolean three){
         binding.progressBar.setVisibility(View.VISIBLE);
         if(three) {
-            compositeDisposable.add(viewModel.getRanking(rankingType,this).subscribe(Anime ->{
+            compositeDisposable.add(viewModel.getSuggestedAnime(this).subscribe(Anime ->{
                 animePageAdapter.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
-            binding.animeView.setLayoutManager(new GridLayoutManager(AnimeRankingActivity.this, 3));
+            binding.animeView.setLayoutManager(new GridLayoutManager(RecommendationActivity.this, 3));
             binding.animeView.setAdapter(animePageAdapter);
         }else {
-            compositeDisposable.add(viewModel.getRanking(rankingType,this).subscribe(Anime -> {
+            compositeDisposable.add(viewModel.getSuggestedAnime(this).subscribe(Anime -> {
                 animePageAdapterPlain.submitData(getLifecycle(), Anime);
                 binding.progressBar.setVisibility(View.GONE);
             }));
-            binding.animeView.setLayoutManager(new LinearLayoutManager(AnimeRankingActivity.this));
+            binding.animeView.setLayoutManager(new LinearLayoutManager(RecommendationActivity.this));
             binding.animeView.setAdapter(animePageAdapterPlain);
         }
     }
@@ -93,7 +68,7 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(AnimeRankingActivity.this);
+        NavUtils.navigateUpFromSameTask(RecommendationActivity.this);
     }
 
     @Override
@@ -105,9 +80,9 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
 
     public Drawable getDrawableBasedOnThree(){
         if(three){
-            return AppCompatResources.getDrawable(AnimeRankingActivity.this,R.drawable.ic_baseline_view_module_24);
+            return AppCompatResources.getDrawable(RecommendationActivity.this,R.drawable.ic_baseline_view_module_24);
         }
-        return AppCompatResources.getDrawable(AnimeRankingActivity.this,R.drawable.ic_baseline_view_agenda_24);
+        return AppCompatResources.getDrawable(RecommendationActivity.this,R.drawable.ic_baseline_view_agenda_24);
     }
 
     private void setupToolbar(){
@@ -115,13 +90,13 @@ public class AnimeRankingActivity extends AppCompatActivity implements RankingPa
         binding.toolbar.setOnMenuItemClickListener(item -> {
             three=!three;
             item.setIcon(getDrawableBasedOnThree());
-            setAnime(rankingType,three);
+            setAnime(three);
             return true;
         });
     }
 
     @Override
     public void error() {
-        runOnUiThread(() -> Toast.makeText(AnimeRankingActivity.this,"Error in Connection or no data found",Toast.LENGTH_SHORT).show());
+        runOnUiThread(() -> Toast.makeText(RecommendationActivity.this,"Error in Connection or no data found",Toast.LENGTH_SHORT).show());
     }
 }

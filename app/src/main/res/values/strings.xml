@@ -89,7 +89,7 @@
         <item>Movie</item>
         <item>Special</item>
         <item>By Popularity</item>
-        <item>Favorites</item>
+        <item>Favorite</item>
     </string-array>
 
     <string-array name="weekdays">

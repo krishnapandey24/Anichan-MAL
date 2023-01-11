@@ -40,6 +40,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         this.updateAnime=updateAnime;
         this.viewPagerPosition=viewPagerPosition;
         this.size=dataHolder.size();
+        Log.d("tagg", "AnimeListAdapter: "+viewPagerPosition);
     }
 
     @NonNull

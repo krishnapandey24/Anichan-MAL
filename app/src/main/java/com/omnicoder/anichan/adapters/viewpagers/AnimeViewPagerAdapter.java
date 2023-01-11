@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.adapters.viewpagers;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -47,6 +48,7 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
 
     @Override
     public void onBindViewHolder(@NonNull PageHolder holder, int position) {
+        Log.d("tagg", "onBindViewHolder: "+position);
         viewModel.getAnimeList(position,sortBy).observe(lifecycleOwner, animeList-> {
             if(updateList) {
                 recyclerView = holder.binding.recyclerView;
