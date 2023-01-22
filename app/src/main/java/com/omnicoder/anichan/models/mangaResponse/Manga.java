@@ -41,7 +41,10 @@ public class Manga {
     }
 
     public String getTitle() {
-        return title;
+        if(alternative_titles==null || alternative_titles.getEn()==null || alternative_titles.getEn().equals("")){
+            return title;
+        }
+        return alternative_titles.getEn();
     }
 
     public MainPicture getMainPicture() {

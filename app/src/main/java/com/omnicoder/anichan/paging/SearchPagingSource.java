@@ -21,7 +21,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private final int isAnime;
     private static final String ANIME= "anime";
     private static final String MANGA="manga";
-    public static final String FIELDS="media_type,popularity";
+    public static final String FIELDS="media_type,popularity,alternative_titles";
 
     public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime){
         this.malApi=malApi;

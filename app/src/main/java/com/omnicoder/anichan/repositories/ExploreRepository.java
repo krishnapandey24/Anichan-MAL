@@ -34,7 +34,7 @@ public class ExploreRepository {
     private static final String MANHWA="manhwa";
     private static final String MANHUA="manhua";
     private static final String UPCOMING="upcoming";
-    private static final String FIELDS="media_type,mean,genres";
+    private static final String FIELDS="media_type,mean,genres,alternative_titles";
     MalApi malApi;
     JikanApi jikanAPI;
     boolean nsfw;

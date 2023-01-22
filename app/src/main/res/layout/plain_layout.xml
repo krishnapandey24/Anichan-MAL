@@ -57,6 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="start"
+        android:baselineAligned="false"
         android:fontFamily="sans-serif-medium"
         android:text="Summer 2021"
         android:maxLines="2"

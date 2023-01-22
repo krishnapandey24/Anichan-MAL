@@ -17,7 +17,7 @@ public class Constants {
     public static final int USER_LIST_LIMIT=50;
     public static final int OFFSET=0;
     public static final int SEARCH_LIMIT=10;
-    public static final String RANKING_FIELDS="media_type,mean,genres";
+    public static final String RANKING_FIELDS="media_type,mean,genres,alternative_titles";
     public static final String AIRING="airing";
     public static final String UPCOMING="upcoming";
     public static final String POPULAR="bypopularity";

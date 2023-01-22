@@ -23,7 +23,7 @@ public class MangaRankingViewModel extends ViewModel {
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){
-        return repository.getRanking(rankingType.toLowerCase(Locale.ROOT).trim());
+        return repository.getRanking(rankingType.replaceAll("\\s", "").toLowerCase(Locale.ROOT));
     }
 
 

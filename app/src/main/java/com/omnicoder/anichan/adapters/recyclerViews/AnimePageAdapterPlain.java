@@ -23,6 +23,7 @@ import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdapterPlain.MyViewHolder> {
     public static final int LOADING_ITEM = 0;
@@ -46,7 +47,7 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
 
     @Override
     public void onBindViewHolder(@NonNull AnimePageAdapterPlain.MyViewHolder holder, int position) {
-        Node currentAnime= getItem(position).getNode();
+        Node currentAnime= Objects.requireNonNull(getItem(position)).getNode();
         if(currentAnime != null){
             try{
                 Picasso.get().load(currentAnime.getMainPicture().getMedium()).into(holder.imageView);
@@ -54,14 +55,7 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
                 holder.imageView.setImageResource(R.drawable.ic_no_image_placeholder);
             }
             holder.titleView.setText(currentAnime.getTitle());
-            List<Genre> genres= currentAnime.getGenres();
-            StringBuilder stringBuilder= new StringBuilder();
-            int size=genres.size();
-            for(int i=0;i<size;i++){
-                stringBuilder.append(genres.get(i).getName());
-                stringBuilder.append(",");
-            }
-            holder.genresView.setText(stringBuilder);
+            holder.genresView.setText(getGenres(currentAnime.getGenres()));
             holder.ratingView.setText(String.valueOf(currentAnime.getMean()));
             holder.imageView.setClipToOutline(true);
             holder.constraintLayout.setOnClickListener(v -> {
@@ -97,6 +91,19 @@ public class AnimePageAdapterPlain extends PagingDataAdapter<Data, AnimePageAdap
             genresView= itemView.findViewById(R.id.genresView);
             ratingView= itemView.findViewById(R.id.ratingView);
         }
+    }
+
+    private StringBuilder getGenres(List<Genre> genres) {
+        int size=genres.size()-1;
+        StringBuilder studiosString = new StringBuilder();
+        int i = 0;
+        while (i < size - 1) {
+            studiosString.append(genres.get(i).getName());
+            studiosString.append(", ");
+            i++;
+        }
+        studiosString.append(genres.get(i).getName());
+        return studiosString;
     }
 }
 
