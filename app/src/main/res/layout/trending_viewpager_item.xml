@@ -103,7 +103,7 @@
         android:baselineAligned="false"
         android:fontFamily="sans-serif-medium"
         android:gravity="start"
-        android:maxLines="2"
+        android:maxLines="3"
         android:textAllCaps="true"
         android:textColor="#bfffffff"
         android:textSize="12sp"

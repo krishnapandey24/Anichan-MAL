@@ -60,8 +60,6 @@ public class ViewCharacterActivity extends AppCompatActivity {
     int malId;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

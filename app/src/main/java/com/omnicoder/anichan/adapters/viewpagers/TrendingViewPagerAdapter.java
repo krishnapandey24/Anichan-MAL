@@ -2,6 +2,7 @@ package com.omnicoder.anichan.adapters.viewpagers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,15 +100,13 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
     }
 
     private StringBuilder getGenres(List<Genre> genres) {
-        int size=genres.size()-1;
         StringBuilder studiosString = new StringBuilder();
-        int i = 0;
-        while (i < size - 1) {
-            studiosString.append(genres.get(i).getName());
-            studiosString.append(", ");
-            i++;
+        String prefix="";
+        for(Genre genre: genres) {
+            studiosString.append(prefix);
+            prefix=", ";
+            studiosString.append(genre.getName());
         }
-        studiosString.append(genres.get(i).getName());
         return studiosString;
     }
 }

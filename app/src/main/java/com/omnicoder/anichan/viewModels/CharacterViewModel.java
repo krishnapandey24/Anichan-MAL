@@ -52,7 +52,7 @@ public class CharacterViewModel extends ViewModel {
         compositeDisposable.add(jikanApi.getCharacterImages(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> characterImages.setValue(response.getData()), e -> NoInternet.setValue(true))
+                .subscribe(response -> characterImages.setValue(response.getData()))
         );
 
 

@@ -21,23 +21,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AllTimePopularAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.RelatedAnimeAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.VideoAdapter;
+import com.omnicoder.anichan.databinding.FragmentSummaryBinding;
 import com.omnicoder.anichan.di.BaseApplication;
 import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.models.animeResponse.AnimeTheme;
+import com.omnicoder.anichan.models.animeResponse.Broadcast;
 import com.omnicoder.anichan.models.animeResponse.RelatedAnime;
 import com.omnicoder.anichan.models.animeResponse.Studio;
 import com.omnicoder.anichan.models.animeResponse.videos.Promo;
 import com.omnicoder.anichan.models.responses.Data;
-import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.activities.ViewThemesActivity;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
-import com.omnicoder.anichan.databinding.FragmentSummaryBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AnimeSummaryFragment extends Fragment {
     Anime anime;
@@ -74,13 +78,11 @@ public class AnimeSummaryFragment extends Fragment {
         initializeGoogleAdmob();
         observeData();
         binding.statusView.setText(getAiringStatus(anime.getStatus()));
-        if(anime.getBroadcast()!=null){
-            binding.broadcastView.setText(anime.getBroadcast().getBroadCast());
-        }
+        setBroadcast(anime.getBroadcast());
         binding.japaneseView.setText(anime.getAlternateTitles().getJa());
         binding.synonymsView.setText(getAlternateTitles(anime.getAlternateTitles().getSynonyms()));
-        binding.releaseDateView.setText(anime.getStart_date());
-        binding.endDateView.setText(anime.getEnd_date());
+        binding.releaseDateView.setText(formatDate(anime.getStart_date()));
+        binding.endDateView.setText(formatDate(anime.getEnd_date()));
         String episodeDuration=(anime.getAverage_episode_duration()/60)+" min";
         binding.episodeDurationView.setText(episodeDuration);
         binding.sourceView.setText(anime.getSource());
@@ -102,6 +104,24 @@ public class AnimeSummaryFragment extends Fragment {
             }
             viewMore=!viewMore;
         });
+    }
+
+    private String formatDate(String d){
+        try{
+            Locale defaultLocale=Locale.getDefault();
+            Date date = new SimpleDateFormat("yyyy-MM-dd",defaultLocale).parse(d);
+            assert date != null;
+            return new SimpleDateFormat("d MMMM yyyy",defaultLocale).format(date);
+        }catch (Exception e){
+            return d;
+        }
+    }
+
+    private void setBroadcast(Broadcast broadcast) {
+        if(broadcast==null) return;
+        String broadcastString= broadcast.getBroadCast();
+        String broadcastStringCapitalized=broadcastString.substring(0, 1).toUpperCase() + broadcastString.substring(1);
+        binding.broadcastView.setText(broadcastStringCapitalized);
     }
 
 

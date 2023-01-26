@@ -13,7 +13,6 @@ public class JikanInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response response = chain.proceed(chain.request());
-
         if(response.code() == 429){
             try {
                 Thread.sleep(3000L);
