@@ -6,7 +6,10 @@ import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.paging.Pager;
+import androidx.paging.PagingConfig;
+import androidx.paging.PagingData;
+import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.database.UserListDB;
@@ -199,4 +202,16 @@ public class AnimeListRepository {
     public Observable<UserAnimeListResponse> fetchNextPage(String nextPage) {
         return malApi.getNextPage(nextPage);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -2,6 +2,7 @@ package com.omnicoder.anichan.adapters.viewpagers;
 
 import android.app.Notification;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import com.omnicoder.anichan.databinding.FragmentTabBinding;
 public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAdapter.PageHolder> implements UpdateAnimeBottomSheet.UpdateAnime, AnimeListAdapter.MyViewHolder.UpdateAnimeList {
     Context context;
     String[] tabs;
-    FragmentTabBinding binding;
     AnimeListViewModel viewModel;
     LifecycleOwner lifecycleOwner;
     RecyclerView recyclerView;
@@ -49,16 +49,34 @@ public class AnimeViewPagerAdapter extends RecyclerView.Adapter<AnimeViewPagerAd
 
     @Override
     public void onBindViewHolder(@NonNull PageHolder holder, int position) {
+        Log.d("tagg", "onBindViewHolder:  "+position);
+        recyclerView = holder.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         viewModel.getAnimeList(position,sortBy).observe(lifecycleOwner, animeList-> {
-            if(updateList) {
-                recyclerView = holder.recyclerView;
-                AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, AnimeViewPagerAdapter.this, AnimeViewPagerAdapter.this,position);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-                recyclerView.setAdapter(adapter);
+            Log.d("tagg","size: "+animeList.size()+ "and "+animeList.get(0).getStatus());
+            if(animeList.size()>0 && ((animeList.get(0).getStatus().equals(getWatchStatus(position)) || (animeList.get(0).isIs_rewatching() && getWatchStatus(position).equals("rewatching"))))){
+//                if(updateList) {
+                    AnimeListAdapter adapter = new AnimeListAdapter(context, animeList, AnimeViewPagerAdapter.this, AnimeViewPagerAdapter.this,position);
+                    recyclerView.setAdapter(adapter);
+//                }
             }
         });
-        updateList=true;
+//        updateList=true;
     }
+
+
+    public static String getWatchStatus(int status) {
+        switch (status) {
+            case 0: return "watching";
+            case 1: return "plan_to_watch";
+            case 2: return "completed";
+            case 3: return "on_hold";
+            case 4: return "dropped";
+            case 5: return "rewatching";
+            default: return "Invalid input";
+        }
+    }
+
 
 
     @Override

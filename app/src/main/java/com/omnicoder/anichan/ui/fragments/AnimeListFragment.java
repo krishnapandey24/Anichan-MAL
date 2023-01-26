@@ -16,9 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
+import com.omnicoder.anichan.adapters.stateAdapters.AnimeListStateAdapter;
 import com.omnicoder.anichan.adapters.viewpagers.AnimeViewPagerAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
@@ -40,6 +42,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
     private Dialog sortDialog=null;
     private String[] tabs;
     private LoadingDialog loadingDialog;
+    private AnimeListStateAdapter animeListStateAdapter;
 
 
     @Override
@@ -68,8 +71,18 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         setupToolbar();
     }
     private void setTabLayout(){
-        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,-1));
-        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
+        ViewPager2 viewPager;
+        viewPager=binding.viewPager;
+        if(animeListStateAdapter==null){
+            animeListStateAdapter=new AnimeListStateAdapter(this);
+        }
+        viewPager.setAdapter(animeListStateAdapter);
+        new TabLayoutMediator(binding.tabLayout,viewPager,(tab, position) ->tab.setText(tabs[position])).attach();
+
+//
+//
+//        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,-1));
+//        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
     @Override

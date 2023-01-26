@@ -29,6 +29,8 @@ public class UserAnime {
         this.mean=mean;
     }
 
+
+
     public int getT_id() {
         return t_id;
     }

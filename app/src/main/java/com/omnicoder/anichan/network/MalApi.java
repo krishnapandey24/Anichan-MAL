@@ -127,6 +127,8 @@ public interface MalApi {
             @Query("nsfw") Boolean nsfw
     );
 
+
+
     @GET
     Observable<UserAnimeListResponse> getNextPage(
             @Url String url
@@ -200,6 +202,10 @@ public interface MalApi {
 
     @GET("users/@me?fields=id,name,gender,location,joined_at,anime_statistics")
     Observable<UserInfo> getUserInfo();
+
+
+
+
 
 
 
