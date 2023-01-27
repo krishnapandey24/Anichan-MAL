@@ -43,9 +43,9 @@ public class ReWatchingFragment extends Fragment implements AnimeListAdapter.MyV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AnimeListViewModel.class);
         updateAnimeViewModel=new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-        viewModel.fetchWatching(sortBy);
+        viewModel.fetchReWatching(sortBy);
     }
 
     @Nullable
@@ -59,12 +59,13 @@ public class ReWatchingFragment extends Fragment implements AnimeListAdapter.MyV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
-        viewModel.getWatching().observe(getViewLifecycleOwner(), animeList-> {
-            RecyclerView recyclerView=binding.recyclerView;
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        RecyclerView recyclerView=binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        viewModel.getReWatching().observe(getViewLifecycleOwner(), animeList-> {
+            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,5);
             recyclerView.setAdapter(adapter);
         });
+        viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchReWatching(sortBy));
     }
 
     @Override

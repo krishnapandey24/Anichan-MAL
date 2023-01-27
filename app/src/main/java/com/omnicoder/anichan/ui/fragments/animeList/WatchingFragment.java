@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.animeList;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimeListAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.databinding.AnimeListFragmentsBinding;
+import com.omnicoder.anichan.ui.fragments.AnimeListFragment;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
@@ -25,7 +27,7 @@ import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class WatchingFragment extends Fragment implements AnimeListAdapter.MyViewHolder.UpdateAnimeList, UpdateAnimeBottomSheet.UpdateAnime {
+public class WatchingFragment extends Fragment implements AnimeListAdapter.MyViewHolder.UpdateAnimeList, UpdateAnimeBottomSheet.UpdateAnime{
     private AnimeListViewModel viewModel;
     private UpdateAnimeViewModel updateAnimeViewModel;
     private AnimeListFragmentsBinding binding;
@@ -43,7 +45,7 @@ public class WatchingFragment extends Fragment implements AnimeListAdapter.MyVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AnimeListViewModel.class);
         updateAnimeViewModel=new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         viewModel.fetchWatching(sortBy);
     }
@@ -59,12 +61,13 @@ public class WatchingFragment extends Fragment implements AnimeListAdapter.MyVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
+        RecyclerView recyclerView=binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getWatching().observe(getViewLifecycleOwner(), animeList-> {
-            RecyclerView recyclerView=binding.recyclerView;
             AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             recyclerView.setAdapter(adapter);
         });
+        viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchWatching(sortBy));
     }
 
     @Override
@@ -123,4 +126,7 @@ public class WatchingFragment extends Fragment implements AnimeListAdapter.MyVie
         super.onResume();
         binding.getRoot().requestLayout();
     }
+
+
+
 }

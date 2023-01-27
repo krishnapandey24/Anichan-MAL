@@ -31,6 +31,7 @@ public class MangaListViewModel extends ViewModel {
     public MutableLiveData<List<UserManga>> all = new MutableLiveData<>();
     public MutableLiveData<List<UserManga>> searchResults = new MutableLiveData<>();
     public String nextPage = "";
+    public final MutableLiveData<Integer> sortBy=new MutableLiveData<>();
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<Boolean> mangaListFetched = new MutableLiveData<>();
     private final MangaListRepository repository;
@@ -41,8 +42,42 @@ public class MangaListViewModel extends ViewModel {
 
     }
 
+    public MutableLiveData<Integer> getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(int sortByInt){
+        sortBy.setValue(sortByInt);
+    }
+
+
     public String getNextPage() {
         return nextPage;
+    }
+
+
+    public MutableLiveData<List<UserManga>> getReading() {
+        return reading;
+    }
+
+    public MutableLiveData<List<UserManga>> getPlanToRead() {
+        return planToRead;
+    }
+
+    public MutableLiveData<List<UserManga>> getCompleted() {
+        return completed;
+    }
+
+    public MutableLiveData<List<UserManga>> getOnHold() {
+        return onHold;
+    }
+
+    public MutableLiveData<List<UserManga>> getDropped() {
+        return dropped;
+    }
+
+    public MutableLiveData<List<UserManga>> getReReading() {
+        return reReading;
     }
 
     public MutableLiveData<List<UserManga>> getSearchResults() {
@@ -55,7 +90,7 @@ public class MangaListViewModel extends ViewModel {
                 fetchReading(sortBy);
                 return reading;
             case 1:
-                fetchPlanToWatch(sortBy);
+                fetchPlanToRead(sortBy);
                 return planToRead;
             case 2:
                 fetchCompleted(sortBy);
@@ -73,7 +108,7 @@ public class MangaListViewModel extends ViewModel {
         return reading;
     }
 
-    private void fetchReReading(int sortBy) {
+    public void fetchReReading(int sortBy) {
         compositeDisposable.add(repository.getReReading(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,7 +125,7 @@ public class MangaListViewModel extends ViewModel {
         );
     }
 
-    public void fetchPlanToWatch(int sortBy) {
+    public void fetchPlanToRead(int sortBy) {
         compositeDisposable.add(repository.getMangaListByStatus(Constants.PLAN_TO_READ, sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

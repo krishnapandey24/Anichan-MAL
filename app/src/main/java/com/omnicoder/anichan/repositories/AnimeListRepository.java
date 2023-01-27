@@ -3,24 +3,19 @@ package com.omnicoder.anichan.repositories;
 
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.paging.Pager;
-import androidx.paging.PagingConfig;
-import androidx.paging.PagingData;
-import androidx.paging.rxjava3.PagingRx;
 
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.database.UserListDB;
 import com.omnicoder.anichan.database.AnimeDao;
 import com.omnicoder.anichan.database.UserAnime;
+import com.omnicoder.anichan.database.UserListDB;
+import com.omnicoder.anichan.models.UpdateAnimeResponse;
 import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
 import com.omnicoder.anichan.models.animeListResponse.UserListAnime;
 import com.omnicoder.anichan.models.animeResponse.Anime;
 import com.omnicoder.anichan.models.animeResponse.AnimeListStatus;
 import com.omnicoder.anichan.models.animeResponse.StartSeason;
-import com.omnicoder.anichan.models.UpdateAnimeResponse;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.utils.Constants;
 
@@ -57,6 +52,7 @@ public class AnimeListRepository {
     }
 
 
+    @SuppressLint("NonConstantResourceId")
     public Flowable<List<UserAnime>> getAnimeListByStatus(String status, int sortBy) {
         switch (sortBy) {
             case R.id.title:
@@ -68,11 +64,8 @@ public class AnimeListRepository {
         }
     }
 
-    public Completable addAnimeToList(UserAnime userAnime) {
-        return animeDao.insertOrUpdateAnime(userAnime);
-    }
 
-
+    @SuppressLint("NonConstantResourceId")
     public Flowable<List<UserAnime>> getReWatching(int sortBy) {
         switch (sortBy) {
             case R.id.title:
@@ -116,19 +109,16 @@ public class AnimeListRepository {
             animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
-                    Log.d("tagg", "on start");
 
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.d("tagg", "Completed");
 
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.d("tagg", "Something wrong: " + e.getMessage());
 
                 }
             });

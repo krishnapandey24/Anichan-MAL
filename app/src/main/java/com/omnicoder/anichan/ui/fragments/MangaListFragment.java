@@ -9,37 +9,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
-import com.omnicoder.anichan.adapters.viewpagers.MangaViewPagerAdapter;
-import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.adapters.stateAdapters.MangaListAdapter;
+import com.omnicoder.anichan.databinding.FragmentMangaListBinding;
 import com.omnicoder.anichan.ui.activities.SearchActivity;
-import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateMangaBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaListViewModel;
-import com.omnicoder.anichan.viewModels.UpdateMangaViewModel;
-import com.omnicoder.anichan.databinding.FragmentMangaListBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 
 @AndroidEntryPoint
-public class MangaListFragment extends Fragment implements MangaViewPagerAdapter.MangaPagerAdapterInterface {
+public class MangaListFragment extends Fragment {
     private FragmentMangaListBinding binding;
     private MangaListViewModel mangaListViewModel;
-    private UpdateMangaViewModel updateMangaViewModel;
     private Dialog sortDialog=null;
     private String[] tabs;
     private LoadingDialog loadingDialog;
+    private MangaListAdapter mangaListAdapter;
 
 
     @Override
@@ -61,58 +57,22 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
-        updateMangaViewModel= new ViewModelProvider(this).get(UpdateMangaViewModel.class);
-        observeAndShowToast(updateMangaViewModel.getResponse());
         tabs = getResources().getStringArray(R.array.MangaStatuses);
         setTabLayout();
         setupToolbar();
     }
+
     private void setTabLayout(){
-        binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,-1));
-        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
-    }
-
-    @Override
-    public void updateManga(UserManga userManga, int position) {
-        loadingDialog.startLoading();
-        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
-        updateMangaViewModel.updateManga(userManga.getId(),userManga.getStatus(),userManga.isIs_rereading(),userManga.getScore(),userManga.getNoOfVolumesRead(),userManga.getNoOfChaptersRead());
-        updateMangaViewModel.insertOrUpdateMangaInList(userManga);
-
-    }
-
-    @Override
-    public void addChapter(int id,int noOfChaptersRead) {
-        loadingDialog.startLoading();
-        updateMangaViewModel.addChapter(id,noOfChaptersRead);
-    }
-
-    @Override
-    public void showEditor(UpdateMangaBottomSheet updateMangaBottomSheet) {
-        updateMangaBottomSheet.show(getChildFragmentManager(), "UpdateMangaSheet");
-    }
-
-
-    @Override
-    public void mangaCompleted(int id,String name) {
-        updateMangaViewModel.mangaCompleted(id);
-        Toast.makeText(getContext(),name+" Moved to Completed!",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void deleteManga(int id) {
-        loadingDialog.startLoading();
-        observeAndShowToast(updateMangaViewModel.deleteResponse());
-        updateMangaViewModel.deleteManga(id);
-    }
-
-    @Override
-    public void fetchMore() {
-        if(mangaListViewModel.getNextPage()!=null){
-            Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
-            mangaListViewModel.fetchNextPage();
+        ViewPager2 viewPager=binding.viewPager;
+        if(mangaListAdapter==null){
+            mangaListAdapter=new MangaListAdapter(this);
         }
+        viewPager.setAdapter(mangaListAdapter);
+        new TabLayoutMediator(binding.tabLayout,viewPager,(tab, position) ->tab.setText(tabs[position])).attach();
     }
+
+
+
 
     private void setupToolbar(){
         binding.toolbar.setOnMenuItemClickListener(item -> {
@@ -141,7 +101,7 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                binding.viewPager.setAdapter(new MangaViewPagerAdapter(getContext(),tabs, mangaListViewModel,getViewLifecycleOwner(),MangaListFragment.this,checkedRadioButton));
+                mangaListViewModel.setSortBy(checkedRadioButton);
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());
@@ -150,17 +110,6 @@ public class MangaListFragment extends Fragment implements MangaViewPagerAdapter
         sortDialog.show();
 
 
-    }
-
-    private void observeAndShowToast(MutableLiveData<Boolean> response) {
-        response.observe(getViewLifecycleOwner(), success -> {
-            loadingDialog.stopLoading();
-            if (success) {
-                Toast.makeText(getContext(), "Manga List Updated Successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Something went wrong! \n Please try again", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 

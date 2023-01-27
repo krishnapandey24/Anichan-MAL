@@ -3,11 +3,9 @@ package com.omnicoder.anichan.viewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.paging.PagingData;
 
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.models.animeListResponse.UserAnimeListResponse;
-import com.omnicoder.anichan.models.animeListResponse.UserListAnime;
 import com.omnicoder.anichan.repositories.AnimeListRepository;
 import com.omnicoder.anichan.utils.Constants;
 
@@ -17,7 +15,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -36,6 +33,7 @@ public class AnimeListViewModel extends ViewModel {
     public String nextPage = null;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<Boolean> animeListFetched = new MutableLiveData<>();
+    public final MutableLiveData<Integer> sortBy=new MutableLiveData<>();
     private final AnimeListRepository repository;
 
 
@@ -47,6 +45,15 @@ public class AnimeListViewModel extends ViewModel {
     public String getNextPage() {
         return nextPage;
     }
+
+    public MutableLiveData<Integer> getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(int sortByInt){
+        sortBy.setValue(sortByInt);
+    }
+
 
     public MutableLiveData<List<UserAnime>> getSearchResults() {
         return searchResults;
@@ -103,7 +110,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
 
-    private void fetchReWatching(int sortBy) {
+    public void fetchReWatching(int sortBy) {
         compositeDisposable.add(repository.getReWatching(sortBy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

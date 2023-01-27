@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.omnicoder.anichan.ui.fragments.animeList.CompletedFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.DroppedFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.OnHoldFragment;
+import com.omnicoder.anichan.ui.fragments.animeList.CompletedAnimeFragment;
+import com.omnicoder.anichan.ui.fragments.animeList.DroppedAnimeFragment;
+import com.omnicoder.anichan.ui.fragments.animeList.OnHoldAnimeFragment;
 import com.omnicoder.anichan.ui.fragments.animeList.PlanToWatchFragment;
 import com.omnicoder.anichan.ui.fragments.animeList.ReWatchingFragment;
 import com.omnicoder.anichan.ui.fragments.animeList.WatchingFragment;
@@ -14,9 +14,9 @@ import com.omnicoder.anichan.ui.fragments.animeList.WatchingFragment;
 public class AnimeListStateAdapter extends FragmentStateAdapter {
     WatchingFragment watchingFragment;
     PlanToWatchFragment planToWatchFragment;
-    CompletedFragment completedFragment;
-    OnHoldFragment onHoldFragment;
-    DroppedFragment droppedFragment;
+    CompletedAnimeFragment completedAnimeFragment;
+    OnHoldAnimeFragment onHoldAnimeFragment;
+    DroppedAnimeFragment droppedAnimeFragment;
     ReWatchingFragment reWatchingFragment;
 
 
@@ -40,20 +40,20 @@ public class AnimeListStateAdapter extends FragmentStateAdapter {
                 }
                 return planToWatchFragment;
             case 2:
-                if(completedFragment==null){
-                    completedFragment=CompletedFragment.newInstance();
+                if(completedAnimeFragment ==null){
+                    completedAnimeFragment = CompletedAnimeFragment.newInstance();
                 }
-                return completedFragment;
+                return completedAnimeFragment;
             case 3:
-                if(onHoldFragment==null){
-                    onHoldFragment=OnHoldFragment.newInstance();
+                if(onHoldAnimeFragment ==null){
+                    onHoldAnimeFragment = OnHoldAnimeFragment.newInstance();
                 }
-                return onHoldFragment;
+                return onHoldAnimeFragment;
             case 4:
-                if(droppedFragment==null){
-                    droppedFragment=DroppedFragment.newInstance();
+                if(droppedAnimeFragment ==null){
+                    droppedAnimeFragment = DroppedAnimeFragment.newInstance();
                 }
-                return droppedFragment;
+                return droppedAnimeFragment;
             case 5:
                 if(reWatchingFragment==null){
                     reWatchingFragment=ReWatchingFragment.newInstance();

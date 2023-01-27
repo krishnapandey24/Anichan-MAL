@@ -43,7 +43,7 @@ public class PlanToWatchFragment extends Fragment implements AnimeListAdapter.My
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AnimeListViewModel.class);
         updateAnimeViewModel=new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         viewModel.fetchPlanToWatch(sortBy);
     }
@@ -59,12 +59,13 @@ public class PlanToWatchFragment extends Fragment implements AnimeListAdapter.My
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
+        RecyclerView recyclerView=binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getPlanToWatch().observe(getViewLifecycleOwner(), animeList-> {
-            RecyclerView recyclerView=binding.recyclerView;
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,1);
             recyclerView.setAdapter(adapter);
         });
+        viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchPlanToWatch(sortBy));
     }
 
     @Override

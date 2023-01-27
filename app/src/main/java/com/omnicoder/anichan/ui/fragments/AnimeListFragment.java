@@ -9,36 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textview.MaterialTextView;
-import com.omnicoder.anichan.adapters.stateAdapters.AnimeListStateAdapter;
-import com.omnicoder.anichan.adapters.viewpagers.AnimeViewPagerAdapter;
-import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.R;
+import com.omnicoder.anichan.adapters.stateAdapters.AnimeListStateAdapter;
+import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
 import com.omnicoder.anichan.ui.activities.SearchActivity;
-import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
-import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
-import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 
 @AndroidEntryPoint
-public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter.AnimePagerAdapterInterface {
+public class AnimeListFragment extends Fragment {
     private AnimeListFragmentBinding binding;
     private AnimeListViewModel viewModel;
-    private UpdateAnimeViewModel updateAnimeViewModel;
     private Dialog sortDialog=null;
     private String[] tabs;
     private LoadingDialog loadingDialog;
@@ -64,66 +57,20 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
-        updateAnimeViewModel= new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
-        observeAndShowToast(updateAnimeViewModel.getResponse());
         tabs = getResources().getStringArray(R.array.Statuses);
         setTabLayout();
         setupToolbar();
     }
     private void setTabLayout(){
-        ViewPager2 viewPager;
-        viewPager=binding.viewPager;
+        ViewPager2 viewPager=binding.viewPager;
         if(animeListStateAdapter==null){
             animeListStateAdapter=new AnimeListStateAdapter(this);
         }
         viewPager.setAdapter(animeListStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager,(tab, position) ->tab.setText(tabs[position])).attach();
-
-//
-//
-//        binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,-1));
-//        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> tab.setText(tabs[position])).attach();
     }
 
-    @Override
-    public void updateAnime(UserAnime userAnime, int position) {
-        loadingDialog.startLoading();
-        updateAnimeViewModel.updateAnime(userAnime.getId(),userAnime.getStatus(),userAnime.isIs_rewatching(),userAnime.getScore(),userAnime.getNum_episodes_watched());
-        updateAnimeViewModel.insertOrUpdateAnimeInList(userAnime);
-        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
-    }
 
-    @Override
-    public void addEpisode(int id,int noOfEpisodesWatched) {
-        loadingDialog.startLoading();
-        updateAnimeViewModel.addEpisode(id,noOfEpisodesWatched);
-    }
-
-    @Override
-    public void showEditor(UpdateAnimeBottomSheet updateAnimeBottomSheet) {
-        updateAnimeBottomSheet.show(getChildFragmentManager(), "UpdateAnimeSheet");
-    }
-
-    @Override
-    public void animeCompleted(int id,String name) {
-        updateAnimeViewModel.animeCompleted(id);
-        Toast.makeText(getContext(),name+" Completed!",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void deleteAnime(int id) {
-        loadingDialog.startLoading();
-        observeAndShowToast(updateAnimeViewModel.deleteResponse());
-        updateAnimeViewModel.deleteAnime(id);
-    }
-
-    @Override
-    public void fetchMore() {
-        if(viewModel.getNextPage()!=null){
-            Toast.makeText(getContext(),"Fetching more...",Toast.LENGTH_SHORT).show();
-            viewModel.fetchNextPage();
-        }
-    }
 
     private void setupToolbar(){
         binding.toolbar.setOnMenuItemClickListener(item -> {
@@ -152,7 +99,7 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                binding.viewPager.setAdapter(new AnimeViewPagerAdapter(getContext(),tabs,viewModel,getViewLifecycleOwner(),AnimeListFragment.this,checkedRadioButton));
+                viewModel.setSortBy(checkedRadioButton);
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());
@@ -161,16 +108,6 @@ public class AnimeListFragment extends Fragment implements AnimeViewPagerAdapter
         sortDialog.show();
     }
 
-    private void observeAndShowToast(MutableLiveData<Boolean> response) {
-        response.observe(getViewLifecycleOwner(), success -> {
-            loadingDialog.stopLoading();
-            if (success) {
-                Toast.makeText(getContext(), "Anime  List Updated Successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Something went wrong! \n Please try again", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
 

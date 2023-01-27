@@ -22,7 +22,7 @@ public interface AnimeDao {
     @Query("SELECT * from ANIME WHERE status=:status ORDER BY mean DESC")
     Flowable<List<UserAnime>> getAnimeListByMean(String status);
 
-    @Query("SELECT * from ANIME WHERE status=:status ORDER BY title DESC")
+    @Query("SELECT * from ANIME WHERE status=:status ORDER BY title ASC")
     Flowable<List<UserAnime>> getAnimeListByTitle(String status);
 
     @Query("SELECT * from ANIME WHERE title like :query || '%' ")

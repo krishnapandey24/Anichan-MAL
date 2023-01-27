@@ -25,7 +25,7 @@ import com.omnicoder.anichan.viewModels.UpdateAnimeViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CompletedFragment extends Fragment implements AnimeListAdapter.MyViewHolder.UpdateAnimeList, UpdateAnimeBottomSheet.UpdateAnime {
+public class CompletedAnimeFragment extends Fragment implements AnimeListAdapter.MyViewHolder.UpdateAnimeList, UpdateAnimeBottomSheet.UpdateAnime {
     private AnimeListViewModel viewModel;
     private UpdateAnimeViewModel updateAnimeViewModel;
     private AnimeListFragmentsBinding binding;
@@ -33,17 +33,17 @@ public class CompletedFragment extends Fragment implements AnimeListAdapter.MyVi
     int sortBy=-1;
 
 
-    public CompletedFragment(){}
+    public CompletedAnimeFragment(){}
 
-    public static CompletedFragment newInstance(){
-        return new CompletedFragment();
+    public static CompletedAnimeFragment newInstance(){
+        return new CompletedAnimeFragment();
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(AnimeListViewModel.class);
         updateAnimeViewModel=new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         viewModel.fetchCompleted(sortBy);
     }
@@ -59,12 +59,13 @@ public class CompletedFragment extends Fragment implements AnimeListAdapter.MyVi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
+        RecyclerView recyclerView=binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getCompleted().observe(getViewLifecycleOwner(), animeList-> {
-            RecyclerView recyclerView=binding.recyclerView;
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,2);
             recyclerView.setAdapter(adapter);
         });
+        viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchCompleted(sortBy));
     }
 
     @Override
