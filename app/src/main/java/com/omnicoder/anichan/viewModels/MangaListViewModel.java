@@ -84,29 +84,6 @@ public class MangaListViewModel extends ViewModel {
         return searchResults;
     }
 
-    public MutableLiveData<List<UserManga>> getMangaList(int position, int sortBy) {
-        switch (position) {
-            case 0:
-                fetchReading(sortBy);
-                return reading;
-            case 1:
-                fetchPlanToRead(sortBy);
-                return planToRead;
-            case 2:
-                fetchCompleted(sortBy);
-                return completed;
-            case 3:
-                fetchOnHold(sortBy);
-                return onHold;
-            case 4:
-                fetchDropped(sortBy);
-                return dropped;
-            case 5:
-                fetchReReading(sortBy);
-                return reReading;
-        }
-        return reading;
-    }
 
     public void fetchReReading(int sortBy) {
         compositeDisposable.add(repository.getReReading(sortBy)

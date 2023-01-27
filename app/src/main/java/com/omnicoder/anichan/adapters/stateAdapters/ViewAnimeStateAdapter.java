@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.omnicoder.anichan.models.animeResponse.Anime;
-import com.omnicoder.anichan.ui.fragments.viewAnime.CharactersFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnime.ReviewsFragment;
-import com.omnicoder.anichan.ui.fragments.viewAnime.StaffFragment;
 import com.omnicoder.anichan.ui.fragments.viewAnime.AnimeSummaryFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.CharactersFragment;
+import com.omnicoder.anichan.ui.fragments.viewAnime.StaffFragment;
 import com.omnicoder.anichan.viewModels.ViewAnimeViewModel;
 
 public class ViewAnimeStateAdapter extends FragmentStateAdapter {
@@ -34,7 +33,7 @@ public class ViewAnimeStateAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 if (animeSummaryFragment == null) {
-                    animeSummaryFragment = new AnimeSummaryFragment(anime, viewModel);
+                    animeSummaryFragment = new AnimeSummaryFragment(anime,viewModel);
                 }
                 return animeSummaryFragment;
             case 1:

@@ -62,6 +62,7 @@ public class AccountFragment extends Fragment  {
                 Navigation.findNavController(v).navigate(action);
             };
             binding.profileImageView.setOnClickListener(onClickListener);
+            binding.imageButton2.setOnClickListener(onClickListener);
             binding.userDetailsView.setOnClickListener(onClickListener);
         });
         binding.aboutView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.aboutFragment));
@@ -81,6 +82,8 @@ public class AccountFragment extends Fragment  {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Anichan:Feedback");
             startActivity(Intent.createChooser(emailIntent, "Feedback"));
         });
+
+
 
 
     }

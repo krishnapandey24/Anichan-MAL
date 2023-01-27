@@ -15,9 +15,11 @@
         android:theme="@style/Theme.Anichan">
         <activity
             android:name=".ui.activities.ViewPersonActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activities.PosterViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
 
         <meta-data
@@ -26,24 +28,29 @@
 
         <activity
             android:name=".ui.activities.ViewMangaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.MangaRankingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.ScheduleActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activities.ViewCharacterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activities.ViewThemesActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ui.activities.LoginActivity"
-            android:configChanges="keyboard|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
@@ -59,27 +66,33 @@
         </activity>
         <activity
             android:name=".ui.activities.ViewAnimeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@style/Theme.Anichan3" />
         <activity
             android:name=".ui.activities.SearchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/Theme.Anichan" />
         <activity
             android:name=".ui.activities.SeasonActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".ui.activities.MainActivity" />
 
         <activity
             android:name=".ui.activities.AnimeRankingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.RecommendationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

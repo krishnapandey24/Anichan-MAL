@@ -2,7 +2,6 @@ package com.omnicoder.anichan.adapters.viewpagers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,11 @@ import com.omnicoder.anichan.models.responses.Data;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.ui.activities.ViewAnimeActivity;
 import com.omnicoder.anichan.ui.activities.ViewMangaActivity;
+import com.omnicoder.anichan.utils.blurTransformation.BlurTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewPagerAdapter.MyViewHolder> {
     List<Data> dataHolder;
@@ -82,7 +81,6 @@ public class TrendingViewPagerAdapter extends RecyclerView.Adapter<TrendingViewP
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView,backgroundPosterView;
         TextView titleView,genresView,ratingView,formatView;
-        View blurView;
         ConstraintLayout cardView;
 
         public MyViewHolder(View itemView) {

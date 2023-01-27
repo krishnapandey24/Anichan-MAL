@@ -2,19 +2,16 @@ package com.omnicoder.anichan.repositories;
 
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.omnicoder.anichan.R;
-import com.omnicoder.anichan.database.UserListDB;
 import com.omnicoder.anichan.database.MangaDao;
+import com.omnicoder.anichan.database.UserListDB;
 import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.models.mangaListResponse.UpdateMangaResponse;
-import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.models.mangaListResponse.UserListManga;
+import com.omnicoder.anichan.models.mangaListResponse.UserMangaListResponse;
 import com.omnicoder.anichan.models.mangaResponse.Manga;
 import com.omnicoder.anichan.models.mangaResponse.MangaListStatus;
 import com.omnicoder.anichan.network.MalApi;
@@ -30,7 +27,6 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MangaListRepository {
@@ -58,18 +54,15 @@ public class MangaListRepository {
     public Flowable<List<UserManga>> getMangaListByStatus(String status, int sortBy) {
         switch (sortBy) {
             case R.id.title:
+                Log.d("tagg", "getMangaListByStatus: "+status+" sortBy: "+sortBy+" inside title");
                 return mangaDao.getMangaListByTitle(status);
             case R.id.score:
+                Log.d("tagg", "getMangaListByStatus: "+status+" sortBy: "+sortBy+" inside score");
                 return mangaDao.getMangaListByMean(status);
             default:
                 return mangaDao.getMangaListByID(status);
         }    
     }
-
-    public Completable addMangaToList(UserManga userManga) {
-        return mangaDao.insertOrUpdateManga(userManga);
-    }
-    
 
 
     public Flowable<List<UserManga>> getReReading(int sortBy) {

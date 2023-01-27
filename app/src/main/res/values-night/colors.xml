@@ -51,7 +51,7 @@
     <color name="bottomSheetMainTextColor">@color/white</color>
     <color name="transparentBlueColor">#102F80ED</color>
     <color name="drop_down_arrow_color">@color/black</color>
-    <color name="grey">#647380</color>
+    <color name="grey">#E7E8E9</color>
     <color name="color1">#f58529</color>
     <color name="color2">#feda77</color>
     <color name="color3">#dd2a7b</color>

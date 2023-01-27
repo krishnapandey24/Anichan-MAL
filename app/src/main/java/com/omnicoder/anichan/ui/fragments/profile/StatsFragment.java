@@ -24,6 +24,7 @@ import java.util.List;
 import app.futured.donut.DonutProgressView;
 import app.futured.donut.DonutSection;
 
+
 public class StatsFragment extends Fragment {
     JikanUserStatistic statistics;
     FragmentStatsBinding binding;

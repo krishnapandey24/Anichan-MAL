@@ -22,7 +22,7 @@ public interface MangaDao {
     @Query("SELECT * from MANGA WHERE status=:status ORDER BY mean DESC")
     Flowable<List<UserManga>> getMangaListByMean(String status);
 
-    @Query("SELECT * from MANGA WHERE status=:status ORDER BY title DESC")
+    @Query("SELECT * from MANGA WHERE status=:status ORDER BY title ASC")
     Flowable<List<UserManga>> getMangaListByTitle(String status);
 
     @Query("SELECT * from MANGA WHERE title like :query || '%' ")
@@ -31,8 +31,6 @@ public interface MangaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertOrUpdateManga(UserManga userManga);
 
-    @Query("SELECT * from  MANGA ORDER BY :sortBy")
-    Flowable<List<UserManga>> getAllManga(String sortBy);
 
     @Query("SELECT * from manga WHERE is_rereading==1 ORDER BY t_id DESC")
     Flowable<List<UserManga>> getReReadingById();

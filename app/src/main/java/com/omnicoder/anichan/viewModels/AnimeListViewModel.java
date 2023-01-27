@@ -59,29 +59,6 @@ public class AnimeListViewModel extends ViewModel {
         return searchResults;
     }
 
-    public MutableLiveData<List<UserAnime>> getAnimeList(int position, int sortBy) {
-        switch (position) {
-            case 0:
-                fetchWatching(sortBy);
-                return watching;
-            case 1:
-                fetchPlanToWatch(sortBy);
-                return planToWatch;
-            case 2:
-                fetchCompleted(sortBy);
-                return completed;
-            case 3:
-                fetchOnHold(sortBy);
-                return onHold;
-            case 4:
-                fetchDropped(sortBy);
-                return dropped;
-            case 5:
-                fetchReWatching(sortBy);
-                return reWatching;
-        }
-        return watching;
-    }
 
     public MutableLiveData<List<UserAnime>> getWatching() {
         return watching;

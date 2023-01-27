@@ -47,7 +47,8 @@
     <color name="green">#82D75F</color>
     <color name="drop_down_arrow_color">@color/blue</color>
     <color name="textColor">#647380</color>
-    <color name="grey">#647380</color>
+    <color name="grey">#E7E8E9</color>
+
     <color name="color1">#f58529</color>
     <color name="color2">#feda77</color>
     <color name="color3">#dd2a7b</color>
