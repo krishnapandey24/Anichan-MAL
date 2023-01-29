@@ -1,8 +1,8 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -24,27 +24,32 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class AnimeChartRepository {
     MalApi malApi;
-    boolean nsfw;
+    boolean nsfw,japaneseTitles;
+
 
     @Inject
     public AnimeChartRepository(MalApi malApi, SharedPreferences sharedPreferences){
         this.malApi= malApi;
         this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
+        this.japaneseTitles=sharedPreferences.getBoolean(ANIME_JAPANESE_TITLES,false);
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType,RankingPagingSource.ErrorHandler errorHandler){
-        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,nsfw,errorHandler);
+        String fields= japaneseTitles ? Constants.RANKING_FIELDS : Constants.RANKING_FIELDS+Constants.NUM_SCORE;
+        RankingPagingSource rankingPagingSource= new RankingPagingSource(malApi,rankingType,nsfw,errorHandler,fields);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
     public Flowable<PagingData<Data>> getSuggestedAnime(SuggestedPagingSource.ErrorHandler errorHandler){
-        SuggestedPagingSource rankingPagingSource= new SuggestedPagingSource(malApi,nsfw,errorHandler);
+        String fields= japaneseTitles ? Constants.RANKING_FIELDS : Constants.RANKING_FIELDS+Constants.NUM_SCORE;
+        SuggestedPagingSource rankingPagingSource= new SuggestedPagingSource(malApi,nsfw,errorHandler,fields);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 
 
     public Flowable<PagingData<Data>> getSeason(String year, String season, SeasonPagingSource.ErrorHandler errorHandler){
-        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw,errorHandler);
+        String fields= japaneseTitles ? Constants.RANKING_FIELDS : Constants.RANKING_FIELDS+Constants.NUM_SCORE;
+        SeasonPagingSource seasonPagingSource= new SeasonPagingSource(malApi,year,season,nsfw,errorHandler,fields);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> seasonPagingSource));
     }
 

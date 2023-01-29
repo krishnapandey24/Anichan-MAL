@@ -78,7 +78,7 @@ public class AnimeListRepository {
     }
 
     public Observable<UserAnimeListResponse> fetchUserAnimeList() {
-        return malApi.getUserAnimeList(Constants.LIMIT, nsfw);
+        return malApi.getUserAnimeList(Constants.LIMIT, nsfw,Constants.USER_ANIME_LIST_FIELDS);
     }
 
     public Completable deleteAllAnime() {
@@ -106,7 +106,7 @@ public class AnimeListRepository {
                 }
                 userAnimeList.add(new UserAnime(node.getId(), node.getTitle(), mainPicture, node.getMedia_type(), season, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), listStatus.getNum_episodes_watched(), node.getNum_episodes(), listStatus.isIs_rewatching(), node.getMean()));
             }
-            animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
+            CompletableObserver observer=animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
 
@@ -122,6 +122,7 @@ public class AnimeListRepository {
 
                 }
             });
+            observer.onComplete();
 
             return true;
         } catch (Exception e) {

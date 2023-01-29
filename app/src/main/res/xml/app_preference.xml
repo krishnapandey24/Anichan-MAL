@@ -18,4 +18,20 @@
         android:summary="Show/Hide kids genre anime in schedules"
         android:icon="@drawable/ic_baseline_child_care_24" />
 
+    <SwitchPreferenceCompat
+        android:key="anime_japanese_titles"
+        android:title="Anime Japanese titles"
+        android:summary="Enable/Disable English titles for anime"
+        android:icon="@drawable/ic_baseline_title_24" />
+
+    <SwitchPreferenceCompat
+        android:key="manga_japanese _titles"
+        android:title="Manga Japanese titles"
+        android:summary="Enable/Disable English titles for manga"
+        android:icon="@drawable/ic_baseline_title_24" />
+
+
+
+
+
 </PreferenceScreen>

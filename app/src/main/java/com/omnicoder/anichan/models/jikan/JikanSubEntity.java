@@ -14,9 +14,8 @@ public class JikanSubEntity {
     @Json(name = "title_english")
     String englishTitle;
 
-    public String getEnglishTitle() {
-        return englishTitle;
-    }
+    Pagination pagination;
+
 
     public JikanImage getImages() {
         return images;
@@ -27,7 +26,10 @@ public class JikanSubEntity {
     }
 
     public String getTitle() {
-        return title==null ? name : title;
+        if(pagination==null || (englishTitle==null || englishTitle.equals(""))){
+            return title==null ? name : title;
+        }
+        return englishTitle;
     }
 
     public String getUrl() {

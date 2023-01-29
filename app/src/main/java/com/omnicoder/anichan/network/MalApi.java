@@ -121,10 +121,11 @@ public interface MalApi {
     );
 
 
-    @GET("users/@me/animelist?fields=list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast,mean")
+    @GET("users/@me/animelist")
     Observable<UserAnimeListResponse> getUserAnimeList(
             @Query("limit") Integer limit,
-            @Query("nsfw") Boolean nsfw
+            @Query("nsfw") Boolean nsfw,
+            @Query("fields") String fields
     );
 
 
@@ -159,10 +160,11 @@ public interface MalApi {
 
     );
 
-    @GET("users/@me/mangalist?fields=list_status,title,id,media_type,main_picture,num_volumes,num_chapters,mean")
+    @GET("users/@me/mangalist")
     Observable<UserMangaListResponse> getUserMangaList(
             @Query("limit") Integer limit,
-            @Query("nsfw") Boolean nsfw
+            @Query("nsfw") Boolean nsfw,
+            @Query("fields") String fields
     );
 
     @GET

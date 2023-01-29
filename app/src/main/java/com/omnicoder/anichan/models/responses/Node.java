@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.models.responses;
 
-
 import com.omnicoder.anichan.models.animeResponse.AlternateTitles;
 
 import java.util.List;
@@ -14,6 +13,8 @@ public class Node {
     List<Genre> genres;
     List<MainPicture> pictures;
     AlternateTitles alternative_titles;
+    Integer num_scoring_users;
+
 
 
     public Integer getPopularity() {
@@ -29,8 +30,7 @@ public class Node {
     }
 
     public String getTitle() {
-        // TODO: 13-01-2023 add option
-        if(alternative_titles==null || alternative_titles.getEn()==null || alternative_titles.getEn().equals("")){
+        if((num_scoring_users==null) || (alternative_titles==null || alternative_titles.getEn()==null || alternative_titles.getEn().equals(""))){
             return title;
         }
         return alternative_titles.getEn();

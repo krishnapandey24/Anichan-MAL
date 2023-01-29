@@ -30,9 +30,6 @@ public interface JikanApi {
     @GET("manga/{id}/characters")
     Observable<CharacterResponse> getMangaCharacters(@Path("id") int id);
 
-    @GET
-    Observable<ScheduleResponse> getAnimeSchedule(@Url String url);
-
     @GET("users/{userName}/full")
     Observable<JikanUserResponse> getUserInfo(@Path("userName") String username);
 
@@ -42,7 +39,14 @@ public interface JikanApi {
     @GET("/v4/schedules")
     Observable<ScheduleResponse> getSchedule(
             @Query("filter") String day,
-            @Query("nsfw") Boolean nsfw,
+            @Query("sfw") Boolean nsfw,
+            @Query("kids") Boolean kids
+    );
+
+    @GET("/v4/schedules?page=1")
+    Observable<ScheduleResponse> getScheduleWithPage(
+            @Query("filter") String day,
+            @Query("sfw") Boolean nsfw,
             @Query("kids") Boolean kids
     );
 

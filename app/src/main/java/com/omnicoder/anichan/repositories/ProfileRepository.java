@@ -12,7 +12,6 @@ import io.reactivex.rxjava3.core.Observable;
 public class ProfileRepository {
     MalApi malApi;
     JikanApi jikanAPI;
-    String nextFriendPage="";
 
     @Inject
     public ProfileRepository(MalApi malApi, JikanApi jikanAPI){

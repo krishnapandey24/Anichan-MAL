@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.Context;
@@ -21,17 +22,21 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class MangaRankingRepository {
     MalApi malApi;
-    boolean nsfw;
+    boolean nsfw,japaneseTitles;
+
 
 
     @Inject
     public MangaRankingRepository(MalApi malApi, SharedPreferences sharedPreferences){
         this.malApi= malApi;
         this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,false);
+        this.japaneseTitles=sharedPreferences.getBoolean(MANGA_JAPANESE_TITLES,false);
+
     }
 
     public Flowable<PagingData<Data>> getRanking(String rankingType){
-        MangaRankingPagingSource rankingPagingSource= new MangaRankingPagingSource(malApi,rankingType,nsfw);
+        String fields= japaneseTitles ? Constants.RANKING_FIELDS : Constants.RANKING_FIELDS+Constants.NUM_SCORE;
+        MangaRankingPagingSource rankingPagingSource= new MangaRankingPagingSource(malApi,rankingType,nsfw,fields);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> rankingPagingSource));
     }
 

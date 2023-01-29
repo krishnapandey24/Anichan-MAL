@@ -17,12 +17,14 @@ public class SuggestedPagingSource extends RxPagingSource<Integer, Data> {
     private final MalApi malApi;
     private final boolean nsfw;
     private final ErrorHandler errorHandler;
+    private final String fields;
 
 
-    public SuggestedPagingSource(MalApi malApi, boolean nsfw, ErrorHandler errorHandler){
+    public SuggestedPagingSource(MalApi malApi, boolean nsfw, ErrorHandler errorHandler, String fields){
         this.malApi=malApi;
         this.nsfw=nsfw;
         this.errorHandler=errorHandler;
+        this.fields=fields;
     }
 
 
@@ -37,7 +39,7 @@ public class SuggestedPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return malApi.getSuggestions(Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getSuggestions(Constants.LIMIT,fields,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{

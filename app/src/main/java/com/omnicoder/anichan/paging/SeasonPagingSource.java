@@ -21,13 +21,16 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     private final boolean nsfw;
     private final ErrorHandler errorHandler;
 
+    private final String fields;
 
-    public SeasonPagingSource(MalApi malApi, String year, String season, boolean nsfw,ErrorHandler errorHandler){
+
+    public SeasonPagingSource(MalApi malApi, String year, String season, boolean nsfw,ErrorHandler errorHandler, String fields){
         this.malApi=malApi;
         this.year=year;
         this.season=season.toLowerCase(Locale.ROOT);
         this.nsfw=nsfw;
         this.errorHandler=errorHandler;
+        this.fields=fields;
     }
 
 
@@ -42,7 +45,7 @@ public class SeasonPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset =loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.LIMIT;
-        return malApi.getSeason(year,season,Constants.SEASON_SORT,Constants.LIMIT,Constants.RANKING_FIELDS,nsfw,offset)
+        return malApi.getSeason(year,season,Constants.SEASON_SORT,Constants.LIMIT,fields,nsfw,offset)
                 .subscribeOn(Schedulers.io())
                 .map(rankingResponse -> toLoadResult(rankingResponse,offset,limit))
                 .onErrorReturn(e->{

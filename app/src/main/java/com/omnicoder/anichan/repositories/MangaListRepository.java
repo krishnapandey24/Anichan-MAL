@@ -1,5 +1,6 @@
 package com.omnicoder.anichan.repositories;
 
+import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
@@ -33,7 +34,7 @@ public class MangaListRepository {
     MangaDao mangaDao;
     UserListDB userListDB;
     MalApi malApi;
-    boolean nsfw;
+    boolean nsfw,japaneseTitles;
 
 
     @Inject
@@ -42,7 +43,7 @@ public class MangaListRepository {
         this.userListDB = userListDB;
         this.malApi = malApi;
         this.nsfw=sharedPreferences.getBoolean(NSFW_TAG,nsfw);
-
+        this.japaneseTitles=sharedPreferences.getBoolean(MANGA_JAPANESE_TITLES,false);
     }
 
 
@@ -77,7 +78,8 @@ public class MangaListRepository {
     }
 
     public Observable<UserMangaListResponse> fetchUserMangaList() {
-        return malApi.getUserMangaList(Constants.LIMIT,nsfw);
+        String fields= japaneseTitles ? Constants.USER_MANGA_LIST_FIELDS : Constants.USER_MANGA_LIST_FIELDS+Constants.NUM_SCORE;
+        return malApi.getUserMangaList(Constants.LIMIT,nsfw,fields);
     }
 
     public Completable deleteAllManga() {
@@ -97,22 +99,19 @@ public class MangaListRepository {
                 String mainPicture = node.getMainPicture() == null ? "" : node.getMainPicture().getMedium();
                 userMangaList.add(new UserManga(node.getId(), node.getTitle(), mainPicture, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), node.getNum_volumes(), node.getNum_chapters(), listStatus.getNum_volumes_read(), listStatus.getNum_chapters_read(), listStatus.isIs_rereading(),node.getMean()));
             }
-            mangaDao.insertAllManga(userMangaList).subscribeWith(new CompletableObserver() {
+            CompletableObserver subs=mangaDao.insertAllManga(userMangaList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
-                    Log.d("tagg", "on start");
 
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.d("tagg", "Completed");
 
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    Log.d("tagg", "Something wrong: " + e.getMessage());
 
                 }
             });
@@ -120,7 +119,6 @@ public class MangaListRepository {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("tagg", "Error: insertManga: " + e.getMessage());
             return false;
         }
 

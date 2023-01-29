@@ -1,14 +1,19 @@
 package com.omnicoder.anichan.ui.fragments;
 
+import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
 import static com.omnicoder.anichan.utils.Constants.KIDS_TAG;
+import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -26,9 +31,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         SwitchPreferenceCompat nsfw=findPreference(NSFW_TAG);
         SwitchPreferenceCompat darkMode=findPreference(DARK_MODE_TAG);
         SwitchPreferenceCompat kidsInSchedule=findPreference(KIDS_TAG);
+        SwitchPreferenceCompat animeJapaneseTitles=findPreference(ANIME_JAPANESE_TITLES);
+        SwitchPreferenceCompat mangaJapaneseTitles=findPreference(MANGA_JAPANESE_TITLES);
         assert darkMode != null;
         assert nsfw !=null;
         assert kidsInSchedule !=null;
+        assert animeJapaneseTitles !=null;
+        assert mangaJapaneseTitles !=null;
         nsfw.setOnPreferenceChangeListener((preference, newValue) -> {
             sharedPreferences.edit().putBoolean(NSFW_TAG,(boolean) newValue).apply();
             return true;
@@ -49,5 +58,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             sharedPreferences.edit().putBoolean(KIDS_TAG,(boolean) newValue).apply();
             return true;
         });
+
+        animeJapaneseTitles.setOnPreferenceChangeListener((preference, newValue) -> {
+            sharedPreferences.edit().putBoolean(ANIME_JAPANESE_TITLES,(boolean) newValue).apply();
+            return true;
+        });
+
+        mangaJapaneseTitles.setOnPreferenceChangeListener((preference, newValue) -> {
+            sharedPreferences.edit().putBoolean(MANGA_JAPANESE_TITLES,(boolean) newValue).apply();
+            return true;
+        });
     }
+
 }

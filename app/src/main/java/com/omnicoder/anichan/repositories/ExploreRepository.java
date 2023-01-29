@@ -1,6 +1,8 @@
 package com.omnicoder.anichan.repositories;
 
 
+import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
+import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
@@ -37,7 +39,7 @@ public class ExploreRepository {
     private static final String FIELDS="media_type,mean,genres,alternative_titles";
     MalApi malApi;
     JikanApi jikanAPI;
-    boolean nsfw;
+    boolean nsfw,animeJapaneseTitles,mangaJapaneseTitles;
 
 
     @Inject
@@ -45,33 +47,40 @@ public class ExploreRepository {
         this.malApi= malApi;
         this.jikanAPI=jikanAPI;
         this.nsfw= sharedPreferences.getBoolean(NSFW_TAG,false);
+        this.animeJapaneseTitles=sharedPreferences.getBoolean(ANIME_JAPANESE_TITLES,false);
+        this.mangaJapaneseTitles=sharedPreferences.getBoolean(MANGA_JAPANESE_TITLES,false);
     }
 
 
 
     public Observable<RankingResponse> get9TrendingAnime(){
-        return malApi.getAnimeRanking(AIRING,9,FIELDS,nsfw);
+        String fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getAnimeRanking(AIRING,9,fields,nsfw);
     }
 
     public Observable<RankingResponse> getSuggestions(){
-        return malApi.getSuggestions(9,FIELDS,nsfw);
+        String fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getSuggestions(9,fields,nsfw);
     }
 
 
     public Observable<RankingResponse> get9TopUpcomingAnime(){
-        return malApi.getAnimeRanking(UPCOMING,9,FIELDS,nsfw);
+        String fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getAnimeRanking(UPCOMING,9,fields,nsfw);
     }
 
 
 
     public Flowable<PagingData<Data>> searchAnime(String query, int isAnime){
-        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query, nsfw,isAnime);
+        String fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query, nsfw,isAnime,fields);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
     }
 
 
     public Observable<Anime> getAnime(int id){
-        return malApi.getAnimeDetails(id,Constants.ANIME_DETAILS_FIELDS);
+        String fields= animeJapaneseTitles ? Constants.ANIME_DETAILS_FIELDS : Constants.ANIME_DETAILS_FIELDS+Constants.NUM_SCORE;
+        return malApi.getAnimeDetails(id,fields);
     }
 
     public Observable<VideoResponse> getVideos(int id){
@@ -93,23 +102,23 @@ public class ExploreRepository {
 
 
     public Observable<Manga> getManga(int id){
-        return malApi.getMangaDetails(id,Constants.MANGA_DETAILS_FIELDS);
+        String fields= mangaJapaneseTitles ? Constants.MANGA_DETAILS_FIELDS : Constants.MANGA_DETAILS_FIELDS+Constants.NUM_SCORE;
+        return malApi.getMangaDetails(id,fields);
     }
 
     public Observable<RankingResponse> get9TopManga(){
-        return malApi.getMangaRanking(MANGA,9,FIELDS,nsfw);
+        String fields= mangaJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getMangaRanking(MANGA,9,fields,nsfw);
     }
 
     public Observable<RankingResponse> get9TopManhwa(){
-        return malApi.getMangaRanking(MANHWA,9,FIELDS,nsfw);
+        String fields= mangaJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getMangaRanking(MANHWA,9,fields,nsfw);
     }
 
     public Observable<RankingResponse> get9TopManhua(){
-        return malApi.getMangaRanking(MANHUA,9,FIELDS,nsfw);
-    }
-
-    public Observable<RankingResponse> get9OneShots(){
-        return malApi.getMangaRanking(MANGA,9,FIELDS,nsfw);
+        String fields= mangaJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        return malApi.getMangaRanking(MANHUA,9,fields,nsfw);
     }
 
     public Observable<CharacterResponse> getMangaCharacters(int id){

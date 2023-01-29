@@ -20,7 +20,7 @@ public class Manga {
     int rank;
     int popularity;
     int num_list_users;
-    int num_scoring_users;
+    Integer num_scoring_users;
     String nsfw;
     String created_at;
     String updated_at;
@@ -41,7 +41,7 @@ public class Manga {
     }
 
     public String getTitle() {
-        if(alternative_titles==null || alternative_titles.getEn()==null || alternative_titles.getEn().equals("")){
+        if((num_scoring_users==null) || (alternative_titles==null || alternative_titles.getEn()==null || alternative_titles.getEn().equals(""))){
             return title;
         }
         return alternative_titles.getEn();
