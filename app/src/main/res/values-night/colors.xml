@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="menuIcon">@color/white</color>
+    <color name="dark_fade_effect">#80000000</color>
+    <color name="drop_down_spinner_arrow_color">@color/white</color>
+
+    <!--    <color name="listItemTitleTextColor">@color/textColor</color>-->
+    <color name="listItemTitleTextColor">@color/white</color>
+    <color name="headingTextColor">#ADC0D1</color>
+    <color name="cancelTextColor">@color/white</color>
+    <color name="notScoredYet">@color/textColor</color>
+    <color name="cancelButtonColor">@color/bottomSheetBackground</color>
+    <color name="viewAnimeMainTextColor">@color/headingTextColor</color>
+    <color name="white_rectangle_background">#102F80ED</color>
+    <color name="blue">#2F80ED</color>
+    <color name="pickDateColor">@color/headingTextColor</color>
+    <!--    <color name="darkBlue">#161d2f</color>-->
+    <color name="darkBlue">#202025</color>
+    <color name="mainBlue">#1261cd</color>
+    <color name="buttonBlue">#0077EB</color>
+    <color name="navigationBarColor">@color/darkBlue</color>
+    <color name="searchBarBackground">#303134</color>
+    <color name="lineColor">#303134</color>
+<!--    <color name="bgWhite">#0C1622</color>-->
+    <color name="bgWhite">#121212</color>
+    <color name="transparentBlue2">#352F80ED</color>
+    <color name="transparentBlue3">#102F80ED</color>
+
+    <color name="contentBackground">#303134</color>
+    <color name="green">#82D75F</color>
+    <color name="textColor">@color/searchBarIconColor</color>
+<!--    <color name="textColor">#647380</color>-->
+    <color name="searchBarIconColor">#757A81</color>
+    <color name="bottomSheetBackground">@color/darkBlue</color>
+<!--    <color name="bottomSheetMainTextColor">@color/textColor</color>-->
+    <color name="bottomSheetMainTextColor">@color/white</color>
+    <color name="transparentBlueColor">#102F80ED</color>
+    <color name="drop_down_arrow_color">@color/black</color>
+    <color name="grey">#E7E8E9</color>
+    <color name="recycler_view_background_color">@color/black</color>
+
+    <color name="mal_blue">#2e51a2</color>
+</resources>

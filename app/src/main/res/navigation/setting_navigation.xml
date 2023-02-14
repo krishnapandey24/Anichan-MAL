@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accountFragment">
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.account.AccountFragment"
+        android:label="AccountFragment" >
+        <action
+            android:id="@+id/action_accountFragment_to_aboutFragment2"
+            app:destination="@id/aboutFragment2" />
+        <action
+            android:id="@+id/action_accountFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_settingsFragment2"
+            app:destination="@id/settingsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.ProfileFragment"
+        android:label="ProfileFragment" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="friend"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_profileFragment_to_viewFavoritesFragment2"
+            app:destination="@id/viewFavoritesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment2"
+        android:name="com.omnicoder.anichan.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/aboutFragment2"
+        android:name="com.omnicoder.anichan.ui.fragments.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/viewFavoritesFragment2"
+        android:name="com.omnicoder.anichan.ui.fragments.profile.ViewFavoritesFragment"
+        android:label="ViewFavoritesFragment" >
+        <argument
+            android:name="favorites"
+            app:argType="com.omnicoder.anichan.models.jikan.Favorites" />
+        <argument
+            android:name="favorites_type"
+            app:argType="string" />
+    </fragment>
+
+    <action android:id="@+id/moveToProfileFragment"
+        app:destination="@id/profileFragment"/>
+
+    <action android:id="@+id/moveToFavoritesFragment2"
+        app:destination="@id/viewFavoritesFragment2"/>
+</navigation>

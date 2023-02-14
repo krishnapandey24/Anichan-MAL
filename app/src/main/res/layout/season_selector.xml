@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/BottomSheetDialog"
+    android:background="@drawable/model_bottom_sheet_background">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/trendingBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:checked="true"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="@string/winter"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/topUpcomingBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="@string/spring"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/mostPopularBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="@string/summer"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/highestRatedBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_chart_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:padding="20dp"
+            android:text="@string/fall"
+            android:textColor="@drawable/top_chart_text_color"
+            android:textSize="15sp" />
+
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

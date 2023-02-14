@@ -1,0 +1,22 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Anichan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/mainBlue</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
+        <item name="colorOnPrimary">@color/bgWhite</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/textColor</item>
+        <item name="backgroundColor">@color/bgWhite</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/bgWhite</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+
+
+</resources>

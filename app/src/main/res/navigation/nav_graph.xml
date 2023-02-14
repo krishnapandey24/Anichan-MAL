@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/explore_fragment">
+
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.ExploreFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/explore_fragment" >
+        <action
+            android:id="@+id/action_explore_fragment_to_seasonActivity"
+            app:destination="@id/seasonActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_viewAnimeActivity"
+            app:destination="@id/animeRankingActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_scheduleActivity"
+            app:destination="@id/scheduleActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_mangaRankingActivity"
+            app:destination="@id/mangaRankingActivity" />
+        <action
+            android:id="@+id/action_explore_fragment_to_recommendationActivity"
+            app:destination="@id/recommendationActivity" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/anime_list_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.AnimeListFragment"
+        android:label="anime_list_fragment"
+        tools:layout="@layout/anime_list_fragment" >
+        <action
+            android:id="@+id/action_anime_list_fragment_to_searchListFragment"
+            app:destination="@id/searchListFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/seasonActivity"
+        android:name="com.omnicoder.anichan.ui.activities.SeasonActivity"
+        android:label="SeasonActivity" >
+        <argument
+            android:name="SeasonIndex"
+            app:argType="integer" />
+        <argument
+            android:name="Season"
+            app:argType="string" />
+    </activity>
+
+    <activity
+        android:id="@+id/animeRankingActivity"
+        android:name="com.omnicoder.anichan.ui.activities.AnimeRankingActivity"
+        android:label="activity_view_anime"
+        app:action="action_viewAnimeActivity_to_anime_chart_bottom_sheet"
+        tools:layout="@layout/activity_chart_anime">
+        <argument
+            android:name="animeTypeIndex"
+            app:argType="integer" />
+
+    </activity>
+
+    <fragment
+        android:id="@+id/searchListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.SearchListFragment"
+        android:label="SearchListFragment" >
+        <argument
+            android:name="isAnimeList"
+            app:argType="boolean" />
+    </fragment>
+    <activity
+        android:id="@+id/mangaRankingActivity"
+        android:name="com.omnicoder.anichan.ui.activities.MangaRankingActivity"
+        android:label="activity_manga_ranking"
+        tools:layout="@layout/activity_manga_ranking" >
+        <argument android:name="mangaTypeIndex"
+            app:argType="integer"
+            app:defaultValue="0"/>
+    </activity>
+    <activity
+        android:id="@+id/scheduleActivity"
+        android:name="com.omnicoder.anichan.ui.activities.ScheduleActivity"
+        android:label="activity_schedule"
+        tools:layout="@layout/activity_schedule" />
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.omnicoder.anichan.ui.activities.SearchActivity"
+        android:label="SearchActivity" />
+    <fragment
+        android:id="@+id/manga_list_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.MangaListFragment"
+        android:label="manga_list_fragment"
+        tools:layout="@layout/fragment_manga_list" >
+        <action
+            android:id="@+id/action_manga_list_fragment_to_searchListFragment"
+            app:destination="@id/searchListFragment" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.FaqFragment"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" />
+    <activity
+        android:id="@+id/recommendationActivity"
+        android:name="com.omnicoder.anichan.ui.activities.RecommendationActivity"
+        android:label="RecommendationActivity" />
+    <fragment
+        android:id="@+id/account_host_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.account.AccountHostFragment"
+        android:label="AccountHostFragment"
+        />
+
+
+</navigation>

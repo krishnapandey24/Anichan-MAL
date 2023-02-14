@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="listItemTitleTextColor">@color/black</color>
+    <color name="headingTextColor">#000000</color>
+    <color name="mainBlue">@color/darkBlue</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#2F80ED</color>
+    <color name="cancelButtonColor">@color/white</color>
+    <color name="cancelTextColor">@color/blue</color>
+    <color name="darkBlue">#1261cd</color>
+    <color name="drop_down_spinner_arrow_color">#282626</color>
+    <color name="buttonBlue">#0077EB</color>
+    <color name="viewAnimeMainTextColor">@color/blue</color>
+    <color name="white_rectangle_background">@color/white</color>
+    <color name="navigationBarColor">@color/white</color>
+    <color name="searchBarBackground">@color/white</color>
+    <color name="lineColor">#E4E4E4</color>
+    <color name="searchBarIconColor">@color/white</color>
+    <color name="bottomSheetBackground">@color/white</color>
+    <color name="bgWhite">@color/white</color>
+    <color name="transparentBlue2">#352F80ED</color>
+    <color name="transparentBlue3">#102F80ED</color>
+    <color name="bottomSheetMainTextColor">@color/black</color>
+    <color name="notScoredYet">@color/black</color>
+<!--    <color name="transparentBlueColor">#252F80ED</color>-->
+    <color name="transparentBlueColor">@color/transparentBlue2</color>
+    <color name="menuIcon">@color/black</color>
+    <color name="contentBackground">#ECEFF1</color>
+
+    <color name="dark_fade_effect">#80000000</color>
+    <color name="pickDateColor">@color/blue</color>
+    <color name="green">#82D75F</color>
+    <color name="drop_down_arrow_color">@color/blue</color>
+    <color name="textColor">#647380</color>
+    <color name="grey">#E7E8E9</color>
+    <color name="recycler_view_background_color">@color/white</color>
+    
+    //Statistics colors
+
+    <color name="colorWatching">#78e08f</color>
+    <color name="colorCompleted">#6a89cc</color>
+    <color name="colorOnHold">#fad390</color>
+    <color name="colorDropped">#e55039</color>
+    <color name="colorPlanToWatch">#9cafb5</color>
+    
+    //Ads colors
+    <color name="gnt_test_background_color">#00F4F4F4</color>
+    <color name="gnt_white">#FFFFFF</color>
+    <color name="gnt_blue">#4285f4</color>
+    <color name="gnt_ad_green">#3A6728</color>
+    <color name="gnt_gray">#808080</color>
+
+    <color name="mal_blue">#2e51a2</color>
+
+
+
+
+
+
+
+
+</resources>

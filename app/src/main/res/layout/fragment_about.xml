@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.AboutFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/bgWhite"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="About App" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appIconView"
+        android:layout_width="@dimen/account_profile_image_width_and_height"
+        android:layout_height="@dimen/account_profile_image_width_and_height"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+        app:shapeAppearance="@style/circularImageView" />
+
+    <TextView
+        android:id="@+id/userNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/app_name"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/appIconView"
+        app:layout_constraintTop_toTopOf="@+id/appIconView" />
+
+    <TextView
+        android:id="@+id/appText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/an_myanimelist_client"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/appIconView"
+        app:layout_constraintTop_toBottomOf="@+id/userNameView" />
+
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appIconView" />
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_description="@string/developerDescription"
+        app:item_icon="@drawable/ic_baseline_person_24"
+        app:item_title="@string/developer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view10" />
+
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/librariesUsed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_description="@string/librariesUsedDescription"
+        app:item_icon="@drawable/ic_baseline_list_alt_24"
+        app:item_title="@string/librariesUsed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/developer" />
+
+
+    <com.omnicoder.anichan.views.AccountListItemView
+        android:id="@+id/changeLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:item_title="@string/changelog"
+        app:item_icon="@drawable/ic_baseline_info_24"
+        app:item_description="@string/changelogDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/librariesUsed" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

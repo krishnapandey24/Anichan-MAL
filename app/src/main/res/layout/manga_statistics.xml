@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:paddingBottom="16dp"
+    tools:context=".ui.fragments.profile.StatsFragment">
+
+
+    <View
+        android:id="@+id/center"
+        android:layout_width="0.01dp"
+        android:layout_height="0.01dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/daysView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView5"
+        app:layout_constraintStart_toStartOf="@+id/ratingView5"
+        app:layout_constraintTop_toBottomOf="@+id/mangaStatsPieChart" />
+
+    <TextView
+        android:id="@+id/chaptersView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView6"
+        app:layout_constraintStart_toStartOf="@+id/ratingView6"
+        app:layout_constraintTop_toBottomOf="@+id/mangaStatsPieChart" />
+
+    <TextView
+        android:id="@+id/meanScoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView7"
+        app:layout_constraintStart_toStartOf="@+id/ratingView7"
+        app:layout_constraintTop_toBottomOf="@+id/mangaStatsPieChart" />
+
+    <TextView
+        android:id="@+id/rereadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView8"
+        app:layout_constraintStart_toStartOf="@+id/ratingView8"
+        app:layout_constraintTop_toBottomOf="@+id/mangaStatsPieChart" />
+
+    <TextView
+        android:id="@+id/ratingView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:text="Days"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="Chapters"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/center"
+        app:layout_constraintStart_toEndOf="@+id/ratingView5"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Mean Score"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/center"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="Reread"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ratingView7"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+
+    <TextView
+        android:id="@+id/today_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/manga_statistics"
+        android:textColor="@color/headingTextColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <app.futured.donut.DonutProgressView
+        android:id="@+id/mangaStatsPieChart"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:donut_gapAngle="90"
+        app:donut_gapWidth="20"
+        app:donut_strokeWidth="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+
+    <TextView
+        android:id="@+id/mangaReadingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/mangaReadingTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+    <TextView
+        android:id="@+id/mangaReadingTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Reading: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorWatching"
+        app:layout_constraintStart_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+    <TextView
+        android:id="@+id/mangaCompletedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableTint="@color/colorCompleted"
+        app:layout_constraintStart_toEndOf="@+id/mangaCompletedTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/mangaReadingTextView" />
+
+    <TextView
+        android:id="@+id/mangaCompletedTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Completed: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorCompleted"
+        app:layout_constraintStart_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/mangaReadingTextView" />
+
+    <TextView
+        android:id="@+id/mangaOnHoldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableTint="@color/colorOnHold"
+        app:layout_constraintStart_toEndOf="@+id/mangaOnHoldTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/mangaCompletedTextView" />
+
+    <TextView
+        android:id="@+id/mangaOnHoldTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="On Hold: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorOnHold"
+        app:layout_constraintStart_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/mangaCompletedTextView" />
+
+    <TextView
+        android:id="@+id/mangaDroppedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+
+        android:textStyle="bold"
+        app:drawableTint="@color/colorDropped"
+        app:layout_constraintStart_toEndOf="@+id/mangaDroppedTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/mangaOnHoldTextView" />
+
+    <TextView
+        android:id="@+id/mangaDroppedTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+
+        android:fontFamily="sans-serif"
+        android:text="Dropped: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorDropped"
+        app:layout_constraintStart_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/mangaOnHoldTextView" />
+
+    <TextView
+        android:id="@+id/mangaPlanToReadTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+
+
+        app:layout_constraintStart_toEndOf="@+id/mangaPlanToReadTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/mangaDroppedTextView" />
+
+    <TextView
+        android:id="@+id/mangaPlanToReadTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Plan To Read: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorPlanToWatch"
+        app:layout_constraintStart_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/mangaDroppedTextView" />
+
+    <TextView
+        android:id="@+id/totalMangaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+
+        app:drawableTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintStart_toStartOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/view11" />
+
+
+    <View
+        android:id="@+id/view11"
+        android:layout_width="0.01dp"
+        android:layout_height="0.01dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mangaStatsPieChart"
+        app:layout_constraintEnd_toEndOf="@+id/mangaStatsPieChart"
+        app:layout_constraintStart_toStartOf="@+id/mangaStatsPieChart"
+        app:layout_constraintTop_toTopOf="@+id/mangaStatsPieChart" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:textSize="13sp"
+        app:drawableTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/view11"
+        app:layout_constraintEnd_toEndOf="@+id/totalMangaTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalMangaTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

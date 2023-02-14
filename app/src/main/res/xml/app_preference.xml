@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreferenceCompat
+        android:key="dark_mode"
+        android:title="Dark Mode"
+        android:summary="Turn On/Off Dark theme"
+        android:icon="@drawable/ic_baseline_dark_mode_24" />
+
+    <SwitchPreferenceCompat
+        android:key="nsfw"
+        android:title="Show NSFW content"
+        android:summary="Show/Hide NSFW content"
+        android:icon="@drawable/ic_age_limit" />
+
+    <SwitchPreferenceCompat
+        android:key="kids"
+        android:title="Show Kids Anime in Schedule"
+        android:summary="Show/Hide kids genre anime in schedules"
+        android:icon="@drawable/ic_baseline_child_care_24" />
+
+    <SwitchPreferenceCompat
+        android:key="anime_japanese_titles"
+        android:title="Anime Japanese titles"
+        android:summary="Enable/Disable English titles for anime"
+        android:icon="@drawable/ic_baseline_title_24" />
+
+    <SwitchPreferenceCompat
+        android:key="manga_japanese _titles"
+        android:title="Manga Japanese titles"
+        android:summary="Enable/Disable English titles for manga"
+        android:icon="@drawable/ic_baseline_title_24" />
+
+
+
+
+
+</PreferenceScreen>

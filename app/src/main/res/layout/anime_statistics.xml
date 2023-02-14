@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:paddingBottom="16dp"
+    tools:context=".ui.fragments.profile.StatsFragment">
+
+    <View
+        android:id="@+id/center"
+        android:layout_width="0.01dp"
+        android:layout_height="0.01dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/daysView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView5"
+        app:layout_constraintStart_toStartOf="@+id/ratingView5"
+        app:layout_constraintTop_toBottomOf="@+id/animeStatsPieChart" />
+
+    <TextView
+        android:id="@+id/episodesView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView6"
+        app:layout_constraintStart_toStartOf="@+id/ratingView6"
+        app:layout_constraintTop_toBottomOf="@+id/animeStatsPieChart" />
+
+    <TextView
+        android:id="@+id/meanScoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView7"
+        app:layout_constraintStart_toStartOf="@+id/ratingView7"
+        app:layout_constraintTop_toBottomOf="@+id/animeStatsPieChart" />
+
+    <TextView
+        android:id="@+id/rewatchedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ratingView8"
+        app:layout_constraintStart_toStartOf="@+id/ratingView8"
+        app:layout_constraintTop_toBottomOf="@+id/animeStatsPieChart" />
+
+    <TextView
+        android:id="@+id/ratingView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:text="Days"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Episodes"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/center"
+        app:layout_constraintStart_toEndOf="@+id/ratingView5"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-5dp"
+        android:gravity="center"
+        android:text="Mean Score"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/center"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/ratingView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="Rewatched"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ratingView7"
+        app:layout_constraintTop_toBottomOf="@+id/daysView" />
+
+    <TextView
+        android:id="@+id/today_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="@string/anime_statistics"
+        android:textColor="@color/headingTextColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <app.futured.donut.DonutProgressView
+        android:id="@+id/animeStatsPieChart"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:donut_gapAngle="90"
+        app:donut_gapWidth="20"
+        app:donut_strokeWidth="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+
+    <TextView
+        android:id="@+id/animeWatchingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/animeWatchingTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+    <TextView
+        android:id="@+id/animeWatchingTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Watching: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorWatching"
+        app:layout_constraintStart_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/today_title" />
+
+    <TextView
+        android:id="@+id/animeCompletedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableTint="@color/colorCompleted"
+        app:layout_constraintStart_toEndOf="@+id/animeCompletedTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/animeWatchingTextView" />
+
+    <TextView
+        android:id="@+id/animeCompletedTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Completed: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorCompleted"
+        app:layout_constraintStart_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/animeWatchingTextView" />
+
+    <TextView
+        android:id="@+id/animeOnHoldTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableTint="@color/colorOnHold"
+        app:layout_constraintStart_toEndOf="@+id/animeOnHoldTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/animeCompletedTextView" />
+
+    <TextView
+        android:id="@+id/animeOnHoldTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="On Hold: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorOnHold"
+        app:layout_constraintStart_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/animeCompletedTextView" />
+
+    <TextView
+        android:id="@+id/animeDroppedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+
+        android:textStyle="bold"
+        app:drawableTint="@color/colorDropped"
+        app:layout_constraintStart_toEndOf="@+id/animeDroppedTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/animeOnHoldTextView" />
+
+    <TextView
+        android:id="@+id/animeDroppedTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+
+        android:fontFamily="sans-serif"
+        android:text="Dropped: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorDropped"
+        app:layout_constraintStart_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/animeOnHoldTextView" />
+
+    <TextView
+        android:id="@+id/animePlanToWatchTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:text="Plan To Watch: "
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
+        app:drawableTint="@color/colorPlanToWatch"
+        app:layout_constraintStart_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/animeDroppedTextView" />
+
+    <TextView
+        android:id="@+id/animePlanToWatchTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textStyle="bold"
+
+        app:drawableTint="@color/colorPlanToWatch"
+        app:layout_constraintStart_toEndOf="@+id/animePlanToWatchTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/animeDroppedTextView" />
+
+    <TextView
+        android:id="@+id/totalAnimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/listItemTitleTextColor"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:drawableTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintStart_toStartOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toBottomOf="@+id/view11" />
+
+
+    <View
+        android:id="@+id/view11"
+        android:layout_width="0.01dp"
+        android:layout_height="0.01dp"
+        app:layout_constraintBottom_toBottomOf="@+id/animeStatsPieChart"
+        app:layout_constraintEnd_toEndOf="@+id/animeStatsPieChart"
+        app:layout_constraintStart_toStartOf="@+id/animeStatsPieChart"
+        app:layout_constraintTop_toTopOf="@+id/animeStatsPieChart" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:textSize="13sp"
+        app:drawableTint="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/view11"
+        app:layout_constraintEnd_toEndOf="@+id/totalAnimeTextView"
+        app:layout_constraintStart_toStartOf="@+id/totalAnimeTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
