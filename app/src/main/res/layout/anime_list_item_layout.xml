@@ -30,7 +30,6 @@
         android:fontFamily="sans-serif-medium"
         android:maxLines="2"
         android:textColor="@color/listItemTitleTextColor"
-        android:text="Demon Slayer The Movie : Mugen Train"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/editButton"
         app:layout_constraintStart_toEndOf="@+id/imageView"

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class ViewFavoritesFragment extends Fragment {
     FragmentViewFavoritesBinding binding;
+    OnBackPressedCallback callback;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,5 +64,31 @@ public class ViewFavoritesFragment extends Fragment {
             binding.toolbar.setTitle("Favorite "+favoritesType);
             binding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
             }
-        }
+
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(callback==null){
+            callback= new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    setEnabled(true);
+                    Navigation.findNavController(requireView()).navigateUp();
+
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(),callback);
+        }
+        callback.setEnabled(true);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        callback.setEnabled(false);
+    }
+
+
+}

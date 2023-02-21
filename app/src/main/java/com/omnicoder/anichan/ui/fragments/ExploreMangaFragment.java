@@ -2,6 +2,7 @@ package com.omnicoder.anichan.ui.fragments;
 
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -82,7 +83,7 @@ public class ExploreMangaFragment extends Fragment{
             this.nativeAd=nativeAd;
             binding.adView.setNativeAd(nativeAd);
         }).build();
-        AdRequest nativeAdRequest = new AdRequest.Builder().build();
+        @SuppressLint("VisibleForTests") AdRequest nativeAdRequest = new AdRequest.Builder().build();
         adLoader.loadAd(nativeAdRequest);
     }
 
@@ -137,10 +138,6 @@ public class ExploreMangaFragment extends Fragment{
         recyclerView.setAdapter(seasonAdapter2);
 
     }
-
-
-
-
 
 
     @Override

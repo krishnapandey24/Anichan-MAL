@@ -49,7 +49,6 @@ public class MangaRankingPagingSource extends RxPagingSource<Integer, Data> {
 
     public LoadResult<Integer, Data> toLoadResult(RankingResponse response,int offset, int limit){
         int nextOffset= response.getData()==null ? null : offset + limit;
-        Log.d("tagg","offset got"+offset+" next of "+nextOffset);
         return new LoadResult.Page(response.getData(), offset == Constants.OFFSET ? null : offset - limit,nextOffset);
     }
 

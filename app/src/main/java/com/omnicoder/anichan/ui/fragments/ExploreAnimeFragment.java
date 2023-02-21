@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimeAdapter;
@@ -90,7 +89,6 @@ public class ExploreAnimeFragment extends Fragment {
     }
 
     private void initializeGoogleAdmob(){
-        MobileAds.initialize(requireContext(),initializationStatus -> {
             AdLoader adLoader = new AdLoader.Builder(requireContext(), NATIVE_AD_UNIT_ID).forNativeAd(nativeAd -> {
                 if (isAdded() && requireActivity().isDestroyed()) {
                     nativeAd.destroy();
@@ -105,7 +103,6 @@ public class ExploreAnimeFragment extends Fragment {
             }).build();
             AdRequest nativeAdRequest = new AdRequest.Builder().build();
             adLoader.loadAd(nativeAdRequest);
-        });
     }
 
 

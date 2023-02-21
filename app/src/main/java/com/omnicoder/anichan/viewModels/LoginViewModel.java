@@ -49,7 +49,6 @@ public class LoginViewModel extends ViewModel {
     public final String loginUrl= String.format(Constants.LOGIN_URL,Constants.CLIENT_ID,codeVerified,STATE);
 
     public void getAccessToken(String code){
-        Log.d("tagg","function called access "+code);
         compositeDisposable.add(repository.getAccessToken(code,codeVerified)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,7 +58,6 @@ public class LoginViewModel extends ViewModel {
                 }, e->{
                     getNewAccessToken.setValue(false);
                     e.printStackTrace();
-                    Log.d("tagg","the error : "+e.getMessage());
                 })
         );
     }
@@ -71,10 +69,8 @@ public class LoginViewModel extends ViewModel {
                 .subscribe(newAccessToken->{
                     sessionManager.createSession(newAccessToken);
                     refreshComplete.setValue(true);
-                    Log.d("tagg","latest refresh token: "+sessionManager.getLatestRefreshToken());
                 },e->{
                     e.printStackTrace();
-                    Log.d("tagg","Error in refresh access token viewmodel: "+e.getMessage());
                 })
         );
     }

@@ -45,6 +45,7 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(favorites==null) return;
         Context context=getContext();
         List<JikanSubEntity> anime=favorites.getAnime();
         List<JikanSubEntity> manga=favorites.getManga();
@@ -54,7 +55,7 @@ public class FavoritesFragment extends Fragment {
             JikanEntityAdapter animeAdapter= new JikanEntityAdapter(context,anime,ANIME,Math.min(anime.size(), RECYCLER_VIEW_ITEM_COUNT) );
             binding.animeView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.animeView.setAdapter(animeAdapter);
-            binding.anime.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment(favorites, ANIME)));
+            binding.anime.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment2(favorites, ANIME)));
         }else{
             binding.anime.setVisibility(View.GONE);
             binding.animeView.setVisibility(View.GONE);
@@ -64,7 +65,7 @@ public class FavoritesFragment extends Fragment {
             JikanEntityAdapter mangaAdapter= new JikanEntityAdapter(context,manga,MANGA,Math.min(manga.size(), RECYCLER_VIEW_ITEM_COUNT));
             binding.mangaView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.mangaView.setAdapter(mangaAdapter);
-            binding.manga.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment(favorites, MANGA)));
+            binding.manga.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment2(favorites, MANGA)));
         }else{
             binding.mangaView.setVisibility(View.GONE);
             binding.manga.setVisibility(View.GONE);
@@ -74,7 +75,7 @@ public class FavoritesFragment extends Fragment {
             JikanEntityAdapter characterAdapter= new JikanEntityAdapter(context,characters,CHARACTERS,Math.min(characters.size(), RECYCLER_VIEW_ITEM_COUNT));
             binding.charactersView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.charactersView.setAdapter(characterAdapter);
-            binding.characters.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment(favorites, CHARACTERS)));
+            binding.characters.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment2(favorites, CHARACTERS)));
         }else{
             binding.charactersView.setVisibility(View.GONE);
             binding.characters.setVisibility(View.GONE);
@@ -84,12 +85,13 @@ public class FavoritesFragment extends Fragment {
             JikanEntityAdapter peopleAdapter= new JikanEntityAdapter(context,people,PEOPLE,Math.min(people.size(), RECYCLER_VIEW_ITEM_COUNT));
             binding.peopleView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.peopleView.setAdapter(peopleAdapter);
-            binding.people.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment(favorites, PEOPLE)));
+            binding.people.setOnClickListener(v -> Navigation.findNavController(view).navigate(NavGraphDirections.moveToFavoritesFragment2(favorites, PEOPLE)));
         }else{
             binding.peopleView.setVisibility(View.GONE);
             binding.people.setVisibility(View.GONE);
         }
-        
+
+
    
         
     }

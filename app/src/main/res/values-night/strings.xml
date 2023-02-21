@@ -5,20 +5,14 @@
     <string name="spring">Spring</string>
     <string name="summer">Summer</string>
     <string name="fall">Fall</string>
-    <string name="place_for_ad">PLACE FOR AD</string>
     <string name="alternate_titles">Alternate Titles</string>
     <string name="view_more">View More</string>
     <string name="opening_ending_themes">Opening/Ending Themes</string>
     <string name="related">Related</string>
     <string name="recommendations">Recommendations</string>
-    <string name="anime_ranking">Anime Ranking</string>
-    <string name="manga_ranking">Manga Ranking</string>
-    <string name="seasonal_chart">Seasonal Chart</string>
-    <string name="schedule">Schedule</string>
     <string name="currently_airing">Currently Airing</string>
     <string name="top_upcoming">Top Upcoming</string>
     <string name="recommendation">Recommendation</string>
     <string name="itemLayout" />
     <string name="manga">Manga</string>
-    <string name="faqDescription">Answers to some common questions</string>
 </resources>

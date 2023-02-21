@@ -14,9 +14,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.omnicoder.anichan.R;
@@ -41,6 +43,7 @@ public class AboutFragment extends Fragment {
         binding.developer.setOnClickListener(v -> launchDeveloperDialog());
         binding.librariesUsed.setOnClickListener(v -> startActivity(new Intent(getContext(), OssLicensesMenuActivity.class)));
         binding.changeLog.setOnClickListener(v-> Toast.makeText(getContext(),"No changes yet. Please wait for the update",Toast.LENGTH_SHORT).show());
+
 
 
     }

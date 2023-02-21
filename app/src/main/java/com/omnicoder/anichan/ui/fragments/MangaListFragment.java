@@ -48,6 +48,8 @@ public class MangaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentMangaListBinding.inflate(inflater,container,false);
+        tabs = getResources().getStringArray(R.array.MangaStatuses);
+        setTabLayout();
         return binding.getRoot();
     }
 
@@ -57,8 +59,6 @@ public class MangaListFragment extends Fragment {
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
-        tabs = getResources().getStringArray(R.array.MangaStatuses);
-        setTabLayout();
         setupToolbar();
     }
 

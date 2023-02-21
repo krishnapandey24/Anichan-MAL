@@ -29,28 +29,8 @@
             android:id="@+id/action_explore_fragment_to_recommendationActivity"
             app:destination="@id/recommendationActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/news_fragment"
-        android:name="com.omnicoder.anichan.ui.fragments.NewsFragment"
-        android:label="news_fragment"
-        tools:layout="@layout/news_fragment" />
-    <fragment
-        android:id="@+id/profile_fragment"
-        android:name="com.omnicoder.anichan.ui.fragments.ProfileFragment"
-        android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" >
-        <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_profile_fragment_to_viewFavoritesFragment"
-            app:destination="@id/viewFavoritesFragment" />
-        <argument
-            android:name="friend"
-            app:argType="boolean"
-            android:defaultValue="false" />
-    </fragment>
+
+
 
     <fragment
         android:id="@+id/anime_list_fragment"
@@ -120,58 +100,9 @@
             android:id="@+id/action_manga_list_fragment_to_searchListFragment"
             app:destination="@id/searchListFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/friendsFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.profile.FriendsFragment"
-        android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
 
-    <action android:id="@+id/moveToParentFragment"
-        app:destination="@id/profile_fragment"/>
 
-    <fragment
-        android:id="@+id/viewFavoritesFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.profile.ViewFavoritesFragment"
-        android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites"
-        >
-        <argument
-            android:name="favorites"
-            app:argType="com.omnicoder.anichan.models.jikan.Favorites" />
-        <argument
-            android:name="favorites_type"
-            app:argType="string" />
-    </fragment>
-    <action android:id="@+id/moveToFavoritesFragment"
-        app:destination="@id/viewFavoritesFragment"/>
-    <fragment
-        android:id="@+id/account_fragment"
-        android:name="com.omnicoder.anichan.ui.fragments.AccountFragment"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
-        <action
-            android:id="@+id/action_accountFragment_to_profile_fragment"
-            app:destination="@id/profile_fragment" />
-        <action
-            android:id="@+id/action_account_fragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_account_fragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
-        <action
-            android:id="@+id/action_account_fragment_to_faqFragment"
-            app:destination="@id/faqFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.omnicoder.anichan.ui.fragments.AboutFragment"
-        android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+
     <fragment
         android:id="@+id/faqFragment"
         android:name="com.omnicoder.anichan.ui.fragments.FaqFragment"
@@ -181,6 +112,11 @@
         android:id="@+id/recommendationActivity"
         android:name="com.omnicoder.anichan.ui.activities.RecommendationActivity"
         android:label="RecommendationActivity" />
+    <fragment
+        android:id="@+id/account_host_fragment"
+        android:name="com.omnicoder.anichan.ui.fragments.account.AccountHostFragment"
+        android:label="AccountHostFragment"
+        />
 
 
 </navigation>

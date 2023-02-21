@@ -29,14 +29,14 @@ public class MalInterceptor implements Interceptor {
         }
         requestBuilder.addHeader("Authorization","Bearer "+accessToken);
         Response response= chain.proceed(requestBuilder.build());
-        if(!response.isSuccessful()){
-            if(response.code()==429 || response.code()==401){
-                Log.d("tagg","Too many request");
-            }
-        }
-        if(response.code()==404){
-            Log.d("tagg","response 404: "+response.body().string());
-        }
+//        if(!response.isSuccessful()){
+//            if(response.code()==429 || response.code()==401){
+//                Log.d("tagg","Too many request");
+//            }
+//        }
+//        if(response.code()==404){
+//            Log.d("tagg","response 404: "+response.body().string());
+//        }
         return response;
     }
 }

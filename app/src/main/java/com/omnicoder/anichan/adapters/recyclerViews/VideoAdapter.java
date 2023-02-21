@@ -3,7 +3,6 @@ package com.omnicoder.anichan.adapters.recyclerViews;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -36,7 +35,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull VideoAdapter.MyViewHolder holder, int position) {
         Promo video= dataHolder.get(position);
-        Log.d("tagg","title: "+video.getTitle());
         try {
             Picasso.get().load(video.getTrailer().getImages().getMedium_image_url()).into(holder.binding.thumbnailView);
             binding.constraintLayout.setOnClickListener(v -> {

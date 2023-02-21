@@ -18,7 +18,7 @@
 
 
     <item
-        android:id="@+id/account_fragment"
+        android:id="@+id/account_host_fragment"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/account"/>
 

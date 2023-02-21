@@ -111,7 +111,7 @@ public class MangaSummaryFragment extends Fragment {
 
     private void setRecommendations(List<Data> recommendations, Context context){
         if(recommendations.size()>0){
-            AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,true);
+            AllTimePopularAdapter allTimePopularAdapter= new AllTimePopularAdapter(context,recommendations,false);
             binding.recommendationRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.recommendationRv.setAdapter(allTimePopularAdapter);
         }else{
@@ -123,7 +123,7 @@ public class MangaSummaryFragment extends Fragment {
 
     private void setRelatedAnime(List<RelatedAnime> related_anime, Context context) {
         if(related_anime.size()>0){
-            RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,true);
+            RelatedAnimeAdapter relatedAnimeAdapter= new RelatedAnimeAdapter(context,related_anime,false);
             binding.relatedRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
             binding.relatedRv.setAdapter(relatedAnimeAdapter);
         }else{

@@ -9,7 +9,6 @@ import static com.omnicoder.anichan.utils.DAYS.TUESDAY;
 import static com.omnicoder.anichan.utils.DAYS.WEDNESDAY;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,14 +197,6 @@ public class ScheduleFragment extends Fragment {
         loadingDialog.stopLoading();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("tagg", "onDestroy: Scehdule");
-    }
+
 }

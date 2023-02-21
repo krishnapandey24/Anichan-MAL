@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,7 @@ public class ProfileFragment extends Fragment{
     String username;
     boolean showingFriend = false;
     LoadingDialog loadingDialog;
+    OnBackPressedCallback callback;
 
 
     @Override
@@ -62,8 +64,6 @@ public class ProfileFragment extends Fragment{
         binding = ProfileFragmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -93,6 +93,10 @@ public class ProfileFragment extends Fragment{
 
         });
 
+
+
+
+
     }
 
 
@@ -121,6 +125,33 @@ public class ProfileFragment extends Fragment{
         viewPager.setUserInputEnabled(false);
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(callback==null){
+            callback= new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    setEnabled(true);
+                    Navigation.findNavController(requireView()).navigateUp();
+
+                }
+            };
+            requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(),callback);
+        }
+        callback.setEnabled(true);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        callback.setEnabled(false);
+    }
+
+
 
 
 

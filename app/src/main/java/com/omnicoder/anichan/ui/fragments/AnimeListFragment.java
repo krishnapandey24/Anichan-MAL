@@ -48,6 +48,8 @@ public class AnimeListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=AnimeListFragmentBinding.inflate(inflater,container,false);
+        tabs = getResources().getStringArray(R.array.Statuses);
+        setTabLayout();
         return binding.getRoot();
     }
 
@@ -57,8 +59,6 @@ public class AnimeListFragment extends Fragment {
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
-        tabs = getResources().getStringArray(R.array.Statuses);
-        setTabLayout();
         setupToolbar();
     }
     private void setTabLayout(){

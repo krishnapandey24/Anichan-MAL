@@ -55,6 +55,9 @@ public class StatsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(statistics==null){
+            return;
+        }
         AnimeStats anime=statistics.getAnime();
         MangaStats manga=statistics.getManga();
         setDonutProgressView(anime,manga);

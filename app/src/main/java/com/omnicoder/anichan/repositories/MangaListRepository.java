@@ -55,10 +55,8 @@ public class MangaListRepository {
     public Flowable<List<UserManga>> getMangaListByStatus(String status, int sortBy) {
         switch (sortBy) {
             case R.id.title:
-                Log.d("tagg", "getMangaListByStatus: "+status+" sortBy: "+sortBy+" inside title");
                 return mangaDao.getMangaListByTitle(status);
             case R.id.score:
-                Log.d("tagg", "getMangaListByStatus: "+status+" sortBy: "+sortBy+" inside score");
                 return mangaDao.getMangaListByMean(status);
             default:
                 return mangaDao.getMangaListByID(status);

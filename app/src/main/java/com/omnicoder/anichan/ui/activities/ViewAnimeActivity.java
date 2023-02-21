@@ -69,6 +69,7 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
         super.onCreate(savedInstanceState);
         binding = ActivityViewAnimeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // TODO: 29-01-2023 Add Related manga in summaryFragment
         loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoadingForActivity();
         viewModel = new ViewModelProvider(this).get(ViewAnimeViewModel.class);
