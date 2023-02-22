@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.repositories;
 
 
+import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
@@ -72,8 +73,16 @@ public class ExploreRepository {
 
 
     public Flowable<PagingData<Data>> searchAnime(String query, int isAnime){
-        String fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
-        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query, nsfw,isAnime,fields);
+        String animeOrManga;
+        String fields;
+        if(isAnime==0){
+            animeOrManga=ANIME;
+            fields= animeJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        }else{
+            animeOrManga=MANGA;
+            fields= mangaJapaneseTitles ? FIELDS : FIELDS+Constants.NUM_SCORE;
+        }
+        SearchPagingSource searchPagingSource= new SearchPagingSource(malApi,query, nsfw,isAnime,fields,animeOrManga);
         return PagingRx.getFlowable(new Pager(new PagingConfig(Constants.LIMIT),() -> searchPagingSource));
     }
 

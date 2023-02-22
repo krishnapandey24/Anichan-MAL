@@ -60,21 +60,7 @@ public class SearchActivity extends AppCompatActivity{
 
             }
         });
-        AdRequest adRequest= new AdRequest.Builder().build();
-        com.google.android.gms.ads.AdView adView = binding.adView;
-        adView.loadAd(adRequest);
-        AdListener adListener=new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-            }
 
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-            }
-        };
-        adView.setAdListener(adListener);
 
     }
 

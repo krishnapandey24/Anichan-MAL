@@ -1,7 +1,5 @@
 package com.omnicoder.anichan.network.interceptors;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.omnicoder.anichan.utils.SessionManager;
@@ -28,15 +26,6 @@ public class MalInterceptor implements Interceptor {
             accessToken=sessionManager.getAccessToken();
         }
         requestBuilder.addHeader("Authorization","Bearer "+accessToken);
-        Response response= chain.proceed(requestBuilder.build());
-//        if(!response.isSuccessful()){
-//            if(response.code()==429 || response.code()==401){
-//                Log.d("tagg","Too many request");
-//            }
-//        }
-//        if(response.code()==404){
-//            Log.d("tagg","response 404: "+response.body().string());
-//        }
-        return response;
+        return chain.proceed(requestBuilder.build());
     }
 }

@@ -22,14 +22,16 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     private static final String ANIME= "anime";
     private static final String MANGA="manga";
     private final String fields;
+    private final String animeOrManga;
 
 
-    public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime,String fields){
+    public SearchPagingSource(MalApi malApi, String query, boolean nsfw, int isAnime,String fields, String animeOrManga){
         this.malApi=malApi;
         this.query = query;
         this.nsfw = nsfw;
         this.isAnime=isAnime;
         this.fields=fields;
+        this.animeOrManga=animeOrManga;
     }
 
 
@@ -47,7 +49,7 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
     public Single<LoadResult<Integer, Data>> loadSingle(@NonNull LoadParams<Integer> loadParams) {
         int offset= loadParams.getKey() != null ? loadParams.getKey() : Constants.OFFSET;
         int limit= Constants.SEARCH_LIMIT;
-            return malApi.searchAnime(isAnime==0 ? ANIME : MANGA,query,limit,nsfw,offset,fields)
+            return malApi.searchAnime(animeOrManga,query,limit,nsfw,offset,fields)
                     .subscribeOn(Schedulers.io())
                     .map(rankingResponse -> toLoadResult(rankingResponse.getData(),offset,limit))
                     .onErrorReturn(LoadResult.Error::new);
