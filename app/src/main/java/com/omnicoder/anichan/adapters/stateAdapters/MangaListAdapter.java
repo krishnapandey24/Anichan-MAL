@@ -17,7 +17,6 @@ public class MangaListAdapter extends FragmentStateAdapter {
     CompletedMangaFragment completedMangaFragment;
     OnHoldMangaFragment onHoldMangaFragment;
     DroppedMangaFragment droppedMangaFragment;
-    ReReadingFragment reReadingFragment;
 
 
 
@@ -54,11 +53,6 @@ public class MangaListAdapter extends FragmentStateAdapter {
                     droppedMangaFragment = DroppedMangaFragment.newInstance();
                 }
                 return droppedMangaFragment;
-            case 5:
-                if(reReadingFragment==null){
-                    reReadingFragment=ReReadingFragment.newInstance();
-                }
-                return reReadingFragment;
             default:
                 return readingFragment;
         }
@@ -66,6 +60,6 @@ public class MangaListAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 5;
     }
 }

@@ -156,10 +156,6 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
                     case 4:
                         selectedStatus="dropped";
                         break;
-                    case 5:
-                        selectedStatus="watching";
-                        rewatching=true;
-                        break;
                 }
             }
 

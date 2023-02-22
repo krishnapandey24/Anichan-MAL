@@ -17,7 +17,6 @@ public class AnimeListStateAdapter extends FragmentStateAdapter {
     CompletedAnimeFragment completedAnimeFragment;
     OnHoldAnimeFragment onHoldAnimeFragment;
     DroppedAnimeFragment droppedAnimeFragment;
-    ReWatchingFragment reWatchingFragment;
 
 
 
@@ -54,11 +53,6 @@ public class AnimeListStateAdapter extends FragmentStateAdapter {
                     droppedAnimeFragment = DroppedAnimeFragment.newInstance();
                 }
                 return droppedAnimeFragment;
-            case 5:
-                if(reWatchingFragment==null){
-                    reWatchingFragment=ReWatchingFragment.newInstance();
-                }
-                return reWatchingFragment;
             default:
                 return watchingFragment;
         }
@@ -66,6 +60,6 @@ public class AnimeListStateAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 5;
     }
 }

@@ -76,13 +76,8 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==5){
-                    anime.setIs_rewatching(true);
-                    anime.setStatus(mal_statuses[0]);
-                }else{
-                    anime.setStatus(mal_statuses[position]);
-                    anime.setIs_rewatching(false);
-                }
+                anime.setStatus(mal_statuses[position]);
+                anime.setIs_rewatching(false);
                 if (++spinnerCounter > 1) {
                     switch (position) {
                         case 0:

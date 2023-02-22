@@ -160,10 +160,6 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
                     case 4:
                         selectedStatus=malStatus[4];
                         break;
-                    case 5:
-                        selectedStatus=malStatus[1];
-                        rereading =true;
-                        break;
                 }
             }
 

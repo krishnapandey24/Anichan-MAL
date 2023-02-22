@@ -113,7 +113,6 @@
         <item>Completed</item>
         <item>On Hold</item>
         <item>Dropped</item>
-        <item>Rewatching</item>
     </string-array>
 
     <string-array name="AnimeStatuses">
@@ -122,7 +121,6 @@
         <item>Completed</item>
         <item>On Hold</item>
         <item>Dropped</item>
-        <item>Rewatching</item>
     </string-array>
 
     <string-array name="MangaStatuses">
@@ -131,7 +129,6 @@
         <item>Completed</item>
         <item>On Hold</item>
         <item>Dropped</item>
-        <item>Rereading</item>
     </string-array>
 
     <string-array name="malMangaStatuses">
