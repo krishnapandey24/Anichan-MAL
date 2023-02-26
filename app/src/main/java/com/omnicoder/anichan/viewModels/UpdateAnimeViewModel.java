@@ -41,8 +41,8 @@ public class UpdateAnimeViewModel extends ViewModel {
         return deleteResponse;
     }
 
-    public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes){
-        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes)
+    public void updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes,String startDate, String endDate){
+        compositeDisposable.add(repository.updateAnime(id,status,isRewatching,score,numOfWatchedEpisodes,startDate,endDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

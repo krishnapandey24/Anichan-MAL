@@ -123,7 +123,7 @@ public class MangaListRepository {
     }
 
 
-    public Observable<UpdateMangaResponse> updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer volumesRead, Integer chaptersRead) {
+    public Observable<UpdateMangaResponse> updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer volumesRead, Integer chaptersRead, String startDate, String endDate) {
         return malApi.updateManga(
                 id,
                 status,
@@ -135,7 +135,9 @@ public class MangaListRepository {
                 null,
                 null,
                 null,
-                null
+                null,
+                startDate,
+                endDate
         );
     }
 
@@ -153,6 +155,8 @@ public class MangaListRepository {
                 null,
                 null,
                 noOfChaptersRead,
+                null,
+                null,
                 null,
                 null,
                 null,

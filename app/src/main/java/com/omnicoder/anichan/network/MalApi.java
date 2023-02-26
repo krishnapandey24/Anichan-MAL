@@ -39,7 +39,9 @@ public interface MalApi {
             @Field("num_times_rewatched") Integer numOfTimesRewatched,
             @Field("rewatch_value") Integer rewatchValue,
             @Field("tags") String tags,
-            @Field("comments") String comments
+            @Field("comments") String comments,
+            @Field("start_date") String startDate,
+            @Field("finish_date") String finishDate
     );
 
 
@@ -198,7 +200,9 @@ public interface MalApi {
             @Field("num_times_reread") Integer numTimeReRead,
             @Field("reread_value") Integer reReadValue,
             @Field("tags") String tags,
-            @Field("comments") String comments
+            @Field("comments") String comments,
+            @Field("start_date") String startDate,
+            @Field("finish_date") String finishDate
     );
 
 

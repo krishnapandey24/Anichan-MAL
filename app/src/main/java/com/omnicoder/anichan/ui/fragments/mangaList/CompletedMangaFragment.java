@@ -117,7 +117,7 @@ public class CompletedMangaFragment extends Fragment implements MangaListAdapter
     @Override
     public void updateManga(UserManga manga, int position) {
         loadingDialog.startLoading();
-        updateMangaViewModel.updateManga(manga.getId(),manga.getStatus(), manga.isIs_rereading(),manga.getScore(), manga.getNoOfVolumesRead(), manga.getNoOfChaptersRead());
+        updateMangaViewModel.updateManga(manga.getId(),manga.getStatus(), manga.isIs_rereading(),manga.getScore(), manga.getNoOfVolumesRead(), manga.getNoOfChaptersRead(),manga.getStartDate(),manga.getFinishDate());
         updateMangaViewModel.insertOrUpdateMangaInList(manga);
         observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
     }

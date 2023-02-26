@@ -8,12 +8,12 @@ public class UserAnime {
     @PrimaryKey(autoGenerate = true)
     int t_id;
     int id;
-    String title,main_picture,media_type,start_season,status,startDate,finishData;
+    String title,main_picture,media_type,start_season,status,startDate, finishDate;
     int score,num_episodes_watched,num_episodes;
     boolean is_rewatching;
     float mean;
 
-    public UserAnime(int id, String title, String main_picture, String media_type, String start_season, String status, String startDate, String finishData, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching, float mean) {
+    public UserAnime(int id, String title, String main_picture, String media_type, String start_season, String status, String startDate, String finishDate, int score, int num_episodes_watched, int num_episodes, boolean is_rewatching, float mean) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
@@ -21,7 +21,7 @@ public class UserAnime {
         this.start_season = start_season;
         this.status = status;
         this.startDate = startDate;
-        this.finishData = finishData;
+        this.finishDate = finishDate;
         this.score = score;
         this.num_episodes_watched = num_episodes_watched;
         this.num_episodes = num_episodes;
@@ -43,16 +43,16 @@ public class UserAnime {
         this.startDate = startDate;
     }
 
-    public void setFinishData(String finishData) {
-        this.finishData = finishData;
+    public void setFinishDate(String finishDate) {
+        this.finishDate = finishDate;
     }
 
     public String getStartDate() {
         return startDate;
     }
 
-    public String getFinishData() {
-        return finishData;
+    public String getFinishDate() {
+        return finishDate;
     }
 
     public int getId() {

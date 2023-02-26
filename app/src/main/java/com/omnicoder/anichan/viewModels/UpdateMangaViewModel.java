@@ -42,8 +42,8 @@ public class UpdateMangaViewModel extends ViewModel {
     }
     
 
-    public void updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer noOfVolumesRead,Integer noOfChaptersRead){
-        compositeDisposable.add(repository.updateManga(id,status,isRewatching,score,noOfVolumesRead,noOfChaptersRead)
+    public void updateManga(Integer id, String status, boolean isRewatching, Integer score, Integer noOfVolumesRead,Integer noOfChaptersRead,String startDate, String endDate){
+        compositeDisposable.add(repository.updateManga(id,status,isRewatching,score,noOfVolumesRead,noOfChaptersRead,startDate, endDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

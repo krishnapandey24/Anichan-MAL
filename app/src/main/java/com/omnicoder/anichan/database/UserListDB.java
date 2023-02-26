@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 import com.omnicoder.anichan.models.UserInfo;
 
-@Database(entities = {UserAnime.class, UserManga.class, UserInfo.class},version = 9,exportSchema = false)
+@Database(entities = {UserAnime.class, UserManga.class, UserInfo.class},version = 10,exportSchema = false)
 public abstract class UserListDB extends RoomDatabase {
     public abstract AnimeDao animeDao();
     public abstract MangaDao mangaDao();

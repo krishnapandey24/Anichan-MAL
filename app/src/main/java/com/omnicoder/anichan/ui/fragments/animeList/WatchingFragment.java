@@ -98,7 +98,7 @@ public class WatchingFragment extends Fragment implements AnimeListAdapter.MyVie
     @Override
     public void updateAnime(UserAnime anime, int viewPagerPosition) {
         loadingDialog.startLoading();
-        updateAnimeViewModel.updateAnime(anime.getId(),anime.getStatus(),anime.isIs_rewatching(),anime.getScore(),anime.getNum_episodes_watched());
+        updateAnimeViewModel.updateAnime(anime.getId(),anime.getStatus(),anime.isIs_rewatching(),anime.getScore(),anime.getNum_episodes_watched(),anime.getStartDate(),anime.getFinishDate());
         updateAnimeViewModel.insertOrUpdateAnimeInList(anime);
         observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
     }

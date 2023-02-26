@@ -5,6 +5,7 @@ import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.database.AnimeDao;
@@ -133,7 +134,8 @@ public class AnimeListRepository {
     }
 
 
-    public Observable<UpdateAnimeResponse> updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes) {
+    public Observable<UpdateAnimeResponse> updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes, String startDate, String endDate) {
+        Log.d("tagg","all here: "+startDate+" "+endDate);
         return malApi.updateAnime(
                 id,
                 status,
@@ -144,7 +146,9 @@ public class AnimeListRepository {
                 null,
                 null,
                 null,
-                null
+                null,
+                startDate,
+                endDate
         );
     }
 
@@ -161,6 +165,8 @@ public class AnimeListRepository {
                 null,
                 null,
                 numberOfEpisodesWatched,
+                null,
+                null,
                 null,
                 null,
                 null,

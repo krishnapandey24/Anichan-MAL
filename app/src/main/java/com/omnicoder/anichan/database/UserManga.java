@@ -9,18 +9,18 @@ public class UserManga {
     @PrimaryKey(autoGenerate = true)
     int t_id;
     int id;
-    String title,main_picture,status,startDate,finishData;
+    String title,main_picture,status,startDate, finishDate;
     int score,noOfVolumes,noOfChapters,noOfVolumesRead, noOfChaptersRead;
     boolean is_rereading;
     float mean;
 
-    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishData, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading,float mean) {
+    public UserManga(int id, String title, String main_picture, String status, String startDate, String finishDate, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading, float mean) {
         this.id = id;
         this.title = title;
         this.main_picture = main_picture;
         this.status = status;
         this.startDate = startDate;
-        this.finishData = finishData;
+        this.finishDate = finishDate;
         this.score = score;
         this.noOfVolumes = noOfVolumes;
         this.noOfChapters = noOfChapters;
@@ -56,8 +56,8 @@ public class UserManga {
         return startDate;
     }
 
-    public String getFinishData() {
-        return finishData;
+    public String getFinishDate() {
+        return finishDate;
     }
 
     public int getScore() {
@@ -100,8 +100,8 @@ public class UserManga {
         this.startDate = startDate;
     }
 
-    public void setFinishData(String finishData) {
-        this.finishData = finishData;
+    public void setFinishDate(String finishDate) {
+        this.finishDate = finishDate;
     }
 
     public void setScore(int score) {

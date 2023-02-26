@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
+import static com.omnicoder.anichan.utils.MalDateFormatter.getMALDateFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -205,12 +207,12 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initDatePicker() {
         String animeStartDate = anime.getStartDate();
-        String animeFinishDate = anime.getFinishData();
+        String animeFinishDate = anime.getFinishDate();
         if (animeStartDate != null) {
-            binding.pickStartDate.setText(anime.getStart_season());
+            binding.pickStartDate.setText(animeStartDate);
         }
         if (animeFinishDate != null) {
-            binding.pickFinishDate.setText(anime.getFinishData());
+            binding.pickFinishDate.setText(animeFinishDate);
         }
         FragmentManager fragmentManager = getChildFragmentManager();
         final MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().build();
@@ -222,7 +224,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         final MaterialDatePicker<Long> materialDatePicker2 = MaterialDatePicker.Builder.datePicker().build();
         materialDatePicker2.addOnPositiveButtonClickListener(selection -> {
             String finishDate = materialDatePicker2.getHeaderText();
-            anime.setFinishData(finishDate);
+            anime.setFinishDate(finishDate);
             binding.pickFinishDate.setText(finishDate);
         });
         binding.pickStartDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager, "DatePicker"));
@@ -241,7 +243,7 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.finishDateToday.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.pickFinishDate.setText(todayDate);
-                anime.setFinishData(todayDate);
+                anime.setFinishDate(todayDate);
             } else {
                 binding.pickFinishDate.setText("Pick Finish Date");
             }
@@ -253,6 +255,8 @@ public class UpdateAnimeBottomSheet extends BottomSheetDialogFragment {
         binding.addToListButton.setText("Update");
         binding.cancelButton.setText("Remove");
         binding.addToListButton.setOnClickListener(v -> {
+            anime.setStartDate(getMALDateFormat(anime.getStartDate()));
+            anime.setFinishDate(getMALDateFormat(anime.getFinishDate()));
             anime.setNum_episodes_watched(Integer.parseInt(binding.editText.getText().toString()));
             updateAnimeInterface.updateAnime(anime, viewPagerPosition);
             dismiss();

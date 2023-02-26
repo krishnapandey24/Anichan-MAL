@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
+import static com.omnicoder.anichan.utils.MalDateFormatter.getMALDateFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -227,7 +229,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
     @SuppressLint("SetTextI18n")
     private void initDatePicker() {
         String mangaStartDate = manga.getStartDate();
-        String mangaFinishDate = manga.getFinishData();
+        String mangaFinishDate = manga.getFinishDate();
         if (mangaStartDate != null) {
             binding.pickStartDate.setText(mangaStartDate);
         }
@@ -245,7 +247,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         final MaterialDatePicker<Long> materialDatePicker2 = MaterialDatePicker.Builder.datePicker().build();
         materialDatePicker2.addOnPositiveButtonClickListener(selection -> {
             String finishDate = materialDatePicker2.getHeaderText();
-            manga.setFinishData(finishDate);
+            manga.setFinishDate(finishDate);
             binding.pickFinishDate.setText(finishDate);
         });
         binding.pickStartDate.setOnClickListener(v -> materialDatePicker.show(fragmentManager, "DatePicker"));
@@ -264,7 +266,7 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         binding.finishDateToday.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 binding.pickFinishDate.setText(todayDate);
-                manga.setFinishData(todayDate);
+                manga.setFinishDate(todayDate);
             } else {
                 binding.pickFinishDate.setText("Pick Finish Date");
             }
@@ -279,6 +281,8 @@ public class UpdateMangaBottomSheet extends BottomSheetDialogFragment {
         binding.addToListButton.setOnClickListener(v -> {
             manga.setNoOfVolumesRead(Integer.parseInt(binding.editVolumes.getText().toString()));
             manga.setNoOfChaptersRead(Integer.parseInt(binding.editChapters.getText().toString()));
+            manga.setStartDate(getMALDateFormat(manga.getStartDate()));
+            manga.setFinishDate(getMALDateFormat(manga.getFinishDate()));
             updateMangaInterface.updateManga(manga, position);
             dismiss();
         });

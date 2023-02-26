@@ -1,9 +1,12 @@
 package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
+import static com.omnicoder.anichan.utils.MalDateFormatter.getMALDateFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -293,12 +296,16 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
         });
     }
 
+
     @SuppressLint("SetTextI18n")
     private void initButtons(){
         UpdateAnimeViewModel updateAnimeViewModel = new ViewModelProvider(this).get(UpdateAnimeViewModel.class);
         binding.addToListButton.setOnClickListener(v -> {
             animeAdded.startLoading();
-            updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()));
+            String start=getMALDateFormat(startDate);
+            String finish=getMALDateFormat(finishDate);
+            Log.d("tagg","Here enddate: "+finish);
+            updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()),start,finish);
             animeAdded.setResponseToObserve(updateAnimeViewModel.getUpdateAnimeResponse());
             String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();
             StartSeason startSeason= anime.getStart_season();

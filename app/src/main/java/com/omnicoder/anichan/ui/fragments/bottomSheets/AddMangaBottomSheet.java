@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.bottomSheets;
 
+import static com.omnicoder.anichan.utils.MalDateFormatter.getMALDateFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -319,9 +321,11 @@ public class AddMangaBottomSheet extends BottomSheetDialogFragment {
         UpdateMangaViewModel viewModel = new ViewModelProvider(this).get(UpdateMangaViewModel.class);
         binding.addToListButton.setOnClickListener(v -> {
             mangaAdded.startLoading();
+            String start=getMALDateFormat(startDate);
+            String finish=getMALDateFormat(finishDate);
             int volumes=Integer.parseInt(binding.editVolumes.getText().toString());
             int chapters=Integer.parseInt(binding.editChapters.getText().toString());
-            viewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters);
+            viewModel.updateManga(manga.getId(),selectedStatus, rereading,score,volumes,chapters,start,finish);
             mangaAdded.setResponseToObserve(viewModel.getUpdateMangaResponse());
             String mainPicture=manga.getMainPicture()==null ? "" : manga.getMainPicture().getMedium();
             UserManga userManga=new UserManga(manga.getId(),manga.getTitle(),mainPicture,selectedStatus,startDate,finishDate,score,volumes,chapters, manga.getNum_volumes(),manga.getNum_chapters(), rereading,manga.getMean());
