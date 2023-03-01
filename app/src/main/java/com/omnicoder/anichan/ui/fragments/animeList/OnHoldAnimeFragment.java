@@ -62,8 +62,10 @@ public class OnHoldAnimeFragment extends Fragment implements AnimeListAdapter.My
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getOnHold().observe(getViewLifecycleOwner(), animeList-> {
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,3);
-            recyclerView.setAdapter(adapter);
+            if(!animeList.isEmpty()){
+                AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchWatching(sortBy));
     }

@@ -150,9 +150,11 @@ public class MangaListViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    deleteAllManga();
-                    insertDataInDatabase(response);
-                    nextPage=response.getPaging().getNext();
+                    if(!response.getData().isEmpty()){
+                        deleteAllManga();
+                        insertDataInDatabase(response);
+                        nextPage=response.getPaging().getNext();
+                    }
                 })
         );
     }

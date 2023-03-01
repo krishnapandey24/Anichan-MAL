@@ -62,8 +62,10 @@ public class OnHoldMangaFragment extends Fragment implements MangaListAdapter.My
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getOnHold().observe(getViewLifecycleOwner(), mangaList-> {
-            MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,3);
-            recyclerView.setAdapter(adapter);
+            if(!mangaList.isEmpty()) {
+                MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchOnHold(sortBy));
     }

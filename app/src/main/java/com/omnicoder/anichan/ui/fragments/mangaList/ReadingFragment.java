@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.omnicoder.anichan.adapters.recyclerViews.AnimeListAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.MangaListAdapter;
 import com.omnicoder.anichan.database.UserManga;
 import com.omnicoder.anichan.databinding.JustRecyclerViewBinding;
@@ -62,8 +63,10 @@ public class ReadingFragment extends Fragment implements MangaListAdapter.MyView
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getReading().observe(getViewLifecycleOwner(), mangaList-> {
-            MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
-            recyclerView.setAdapter(adapter);
+            if(!mangaList.isEmpty()) {
+                MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchReading(sortBy));
     }

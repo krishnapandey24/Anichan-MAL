@@ -150,9 +150,11 @@ public class AnimeListViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    deleteAllAnime();
-                    insertDataInDatabase(response);
-                    nextPage = response.getPaging().getNext();
+                    if(!response.getData().isEmpty()){
+                        deleteAllAnime();
+                        insertDataInDatabase(response);
+                        nextPage = response.getPaging().getNext();
+                    }
                 }, Throwable::printStackTrace)
         );
     }

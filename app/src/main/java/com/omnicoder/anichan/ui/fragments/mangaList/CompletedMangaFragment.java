@@ -62,8 +62,10 @@ public class CompletedMangaFragment extends Fragment implements MangaListAdapter
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getCompleted().observe(getViewLifecycleOwner(), mangaList-> {
-            MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,2);
-            recyclerView.setAdapter(adapter);
+            if(!mangaList.isEmpty()) {
+                MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchCompleted(sortBy));
     }

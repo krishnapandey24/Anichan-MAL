@@ -62,8 +62,10 @@ public class CompletedAnimeFragment extends Fragment implements AnimeListAdapter
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getCompleted().observe(getViewLifecycleOwner(), animeList-> {
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,2);
-            recyclerView.setAdapter(adapter);
+            if(!animeList.isEmpty()){
+                AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchCompleted(sortBy));
     }

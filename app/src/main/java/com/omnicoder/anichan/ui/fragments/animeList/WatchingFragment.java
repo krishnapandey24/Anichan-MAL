@@ -1,7 +1,6 @@
 package com.omnicoder.anichan.ui.fragments.animeList;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimeListAdapter;
 import com.omnicoder.anichan.database.UserAnime;
 import com.omnicoder.anichan.databinding.AnimeListFragmentsBinding;
-import com.omnicoder.anichan.ui.fragments.AnimeListFragment;
 import com.omnicoder.anichan.ui.fragments.bottomSheets.UpdateAnimeBottomSheet;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
@@ -64,8 +62,10 @@ public class WatchingFragment extends Fragment implements AnimeListAdapter.MyVie
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getWatching().observe(getViewLifecycleOwner(), animeList-> {
-            AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
-            recyclerView.setAdapter(adapter);
+            if(!animeList.isEmpty()){
+                AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
+                recyclerView.setAdapter(adapter);
+            }
         });
         viewModel.getSortBy().observe(getViewLifecycleOwner(),sortBy -> viewModel.fetchWatching(sortBy));
     }
