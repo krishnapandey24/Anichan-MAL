@@ -166,16 +166,19 @@ public class MangaListViewModel extends ViewModel {
     }
 
     public void insertDataInDatabase(UserMangaListResponse userMangaListResponse) {
-        Single.fromCallable(() -> repository.insertMangaInDB(userMangaListResponse))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                    if (aBoolean) {
-                        mangaListFetched.setValue(true);
-                    } else {
-                        mangaListFetched.setValue(false);
-                    }
-                });
+        compositeDisposable.add(
+                Single.fromCallable(() -> repository.insertMangaInDB(userMangaListResponse))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(aBoolean -> {
+                            if (aBoolean) {
+                                mangaListFetched.setValue(true);
+                            } else {
+                                mangaListFetched.setValue(false);
+                            }
+                        })
+        );
+
     }
 
     public MutableLiveData<Boolean> getMangaListFetchedStatus() {

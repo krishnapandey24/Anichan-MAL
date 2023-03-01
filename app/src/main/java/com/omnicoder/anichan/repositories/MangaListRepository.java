@@ -4,7 +4,6 @@ import static com.omnicoder.anichan.utils.Constants.MANGA_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.database.MangaDao;

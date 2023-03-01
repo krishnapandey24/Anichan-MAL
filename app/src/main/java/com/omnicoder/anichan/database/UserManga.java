@@ -13,6 +13,7 @@ public class UserManga {
     int score,noOfVolumes,noOfChapters,noOfVolumesRead, noOfChaptersRead;
     boolean is_rereading;
     float mean;
+    
 
     public UserManga(int id, String title, String main_picture, String status, String startDate, String finishDate, int score, int noOfVolumes, int noOfChapters, int noOfVolumesRead, int noOfChaptersRead, boolean is_rereading, float mean) {
         this.id = id;

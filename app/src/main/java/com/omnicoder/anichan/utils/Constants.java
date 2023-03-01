@@ -58,8 +58,8 @@ public class Constants {
     public static final int RECYCLER_VIEW_MAX_LIMIT=50;
 
     public static final String MY_ANIME_LIST_LINK="https://myanimelist.net/%s/%s/";
-    public static final String USER_ANIME_LIST_FIELDS = "list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast,mean";
-    public static final String USER_MANGA_LIST_FIELDS = "list_status,title,id,media_type,main_picture,num_volumes,num_chapters,mean";
+    public static final String USER_ANIME_LIST_FIELDS = "list_status,title,id,media_type,main_picture,num_episodes,start_season,broadcast,mean,alternative_titles,updated_at";
+    public static final String USER_MANGA_LIST_FIELDS = "list_status,title,id,media_type,main_picture,num_volumes,num_chapters,alternative_titles,mean,updated_at";
 
     public static final String NUM_SCORE = ",num_scoring_users";
 }

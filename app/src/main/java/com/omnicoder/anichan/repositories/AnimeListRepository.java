@@ -1,11 +1,11 @@
 package com.omnicoder.anichan.repositories;
 
 
+import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.database.AnimeDao;
@@ -36,7 +36,7 @@ public class AnimeListRepository {
     AnimeDao animeDao;
     UserListDB userListDB;
     MalApi malApi;
-    boolean nsfw;
+    boolean nsfw, japaneseTitles;
 
 
     @Inject
@@ -45,6 +45,8 @@ public class AnimeListRepository {
         this.userListDB = userListDB;
         this.malApi = malApi;
         this.nsfw = sharedPreferences.getBoolean(NSFW_TAG, false);
+        this.japaneseTitles = sharedPreferences.getBoolean(ANIME_JAPANESE_TITLES, false);
+
     }
 
 
@@ -79,7 +81,7 @@ public class AnimeListRepository {
     }
 
     public Observable<UserAnimeListResponse> fetchUserAnimeList() {
-        return malApi.getUserAnimeList(Constants.LIMIT, nsfw,Constants.USER_ANIME_LIST_FIELDS);
+        return malApi.getUserAnimeList(Constants.LIMIT, nsfw, japaneseTitles ? Constants.USER_ANIME_LIST_FIELDS : Constants.USER_ANIME_LIST_FIELDS + Constants.NUM_SCORE);
     }
 
     public Completable deleteAllAnime() {
@@ -107,7 +109,7 @@ public class AnimeListRepository {
                 }
                 userAnimeList.add(new UserAnime(node.getId(), node.getTitle(), mainPicture, node.getMedia_type(), season, listStatus.getStatus(), listStatus.getStart_date(), listStatus.getFinish_date(), listStatus.getScore(), listStatus.getNum_episodes_watched(), node.getNum_episodes(), listStatus.isIs_rewatching(), node.getMean()));
             }
-            CompletableObserver observer=animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
+            CompletableObserver observer = animeDao.insertAllAnime(userAnimeList).subscribeWith(new CompletableObserver() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
 
@@ -124,7 +126,6 @@ public class AnimeListRepository {
                 }
             });
             observer.onComplete();
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,7 +136,6 @@ public class AnimeListRepository {
 
 
     public Observable<UpdateAnimeResponse> updateAnime(Integer id, String status, boolean isRewatching, Integer score, Integer numOfWatchedEpisodes, String startDate, String endDate) {
-        Log.d("tagg","all here: "+startDate+" "+endDate);
         return malApi.updateAnime(
                 id,
                 status,
@@ -199,16 +199,6 @@ public class AnimeListRepository {
     public Observable<UserAnimeListResponse> fetchNextPage(String nextPage) {
         return malApi.getNextPage(nextPage);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

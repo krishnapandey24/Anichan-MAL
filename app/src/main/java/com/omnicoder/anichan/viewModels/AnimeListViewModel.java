@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.viewModels;
 
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -167,7 +166,7 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public void insertDataInDatabase(UserAnimeListResponse userAnimeListResponse) {
-        Single.fromCallable(() -> repository.insertAnimeInDB(userAnimeListResponse))
+        compositeDisposable.add(Single.fromCallable(() -> repository.insertAnimeInDB(userAnimeListResponse))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
@@ -177,7 +176,7 @@ public class AnimeListViewModel extends ViewModel {
                         animeListFetched.setValue(false);
 
                     }
-                });
+                }));
     }
 
 

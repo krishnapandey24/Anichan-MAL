@@ -123,7 +123,7 @@ public interface MalApi {
     );
 
 
-    @GET("users/@me/animelist")
+    @GET("users/@me/animelist?sort=list_updated_at")
     Observable<UserAnimeListResponse> getUserAnimeList(
             @Query("limit") Integer limit,
             @Query("nsfw") Boolean nsfw,
@@ -162,7 +162,7 @@ public interface MalApi {
 
     );
 
-    @GET("users/@me/mangalist")
+    @GET("users/@me/mangalist?sort=list_updated_at")
     Observable<UserMangaListResponse> getUserMangaList(
             @Query("limit") Integer limit,
             @Query("nsfw") Boolean nsfw,

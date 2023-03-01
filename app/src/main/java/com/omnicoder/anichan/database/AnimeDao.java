@@ -16,7 +16,7 @@ public interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllAnime(List<UserAnime> userAnimeList);
 
-    @Query("SELECT * from ANIME WHERE status=:status ORDER BY t_id DESC")
+    @Query("SELECT * from ANIME WHERE status=:status")
     Flowable<List<UserAnime>> getAnimeListByID(String status);
 
     @Query("SELECT * from ANIME WHERE status=:status ORDER BY mean DESC")

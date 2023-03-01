@@ -16,7 +16,7 @@ public interface MangaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertAllManga(List<UserManga> userMangaList);
 
-    @Query("SELECT * from MANGA WHERE status=:status ORDER BY t_id DESC")
+    @Query("SELECT * from MANGA WHERE status=:status")
     Flowable<List<UserManga>> getMangaListByID(String status);
 
     @Query("SELECT * from MANGA WHERE status=:status ORDER BY mean DESC")

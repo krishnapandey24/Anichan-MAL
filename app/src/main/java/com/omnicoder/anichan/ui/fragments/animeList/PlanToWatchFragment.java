@@ -1,6 +1,7 @@
 package com.omnicoder.anichan.ui.fragments.animeList;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,10 @@ public class PlanToWatchFragment extends Fragment implements AnimeListAdapter.My
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         viewModel.getPlanToWatch().observe(getViewLifecycleOwner(), animeList-> {
+            Log.d("tagg"," list: "+animeList.toString());
+            for(UserAnime anime: animeList){
+                Log.d("tagg"," item: "+anime.getTitle()+"  id: "+anime.getId());
+            }
             AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,1);
             recyclerView.setAdapter(adapter);
         });
