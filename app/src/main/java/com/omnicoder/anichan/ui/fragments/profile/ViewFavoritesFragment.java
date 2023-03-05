@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.omnicoder.anichan.adapters.recyclerViews.JikanEntityAdapter;
@@ -58,9 +59,9 @@ public class ViewFavoritesFragment extends Fragment {
                     data=favorites.getPeople();
                     break;
             }
-            JikanEntityAdapter animeAdapter= new JikanEntityAdapter(getContext(),data,favoritesType,data.size());
-            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-            binding.recyclerView.setAdapter(animeAdapter);
+            JikanEntityAdapter jikanEntityAdapter= new JikanEntityAdapter(getContext(),data,favoritesType,data.size());
+            binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+            binding.recyclerView.setAdapter(jikanEntityAdapter);
             binding.toolbar.setTitle("Favorite "+favoritesType);
             binding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
             }

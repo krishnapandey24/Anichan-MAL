@@ -2,7 +2,7 @@ package com.omnicoder.anichan.adapters.recyclerViews;
 
 import static com.omnicoder.anichan.utils.Constants.ANIME;
 import static com.omnicoder.anichan.utils.Constants.CHARACTERS;
-import static com.omnicoder.anichan.utils.Constants.MANGA;
+import static com.omnicoder.anichan.utils.Constants.PEOPLE;
 
 import android.content.Context;
 import android.content.Intent;
@@ -63,14 +63,14 @@ public class JikanEntityAdapter extends RecyclerView.Adapter<JikanEntityAdapter.
                     intent = new Intent(context, ViewAnimeActivity.class);
                     intent.putExtra("media_type",entity.getType());
                     break;
-                case MANGA:
-                    intent = new Intent(context, ViewMangaActivity.class);
-                    break;
                 case CHARACTERS:
                     intent= new Intent(context, ViewCharacterActivity.class);
                     break;
-                default:
+                case PEOPLE:
                     intent= new Intent(context, ViewPersonActivity.class);
+                    break;
+                default:
+                    intent = new Intent(context, ViewMangaActivity.class);
                     break;
             }
             intent.putExtra(Constants.ID,entity.getMalId());

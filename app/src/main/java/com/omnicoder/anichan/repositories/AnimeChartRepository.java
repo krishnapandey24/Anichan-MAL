@@ -4,7 +4,6 @@ import static com.omnicoder.anichan.utils.Constants.ANIME_JAPANESE_TITLES;
 import static com.omnicoder.anichan.utils.Constants.NSFW_TAG;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.paging.Pager;
 import androidx.paging.PagingConfig;

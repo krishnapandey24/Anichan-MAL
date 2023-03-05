@@ -1,6 +1,5 @@
 package com.omnicoder.anichan.viewModels;
 
-import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 import androidx.paging.PagingData;

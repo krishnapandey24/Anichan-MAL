@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -304,7 +303,6 @@ public class AddAnimeBottomSheet extends BottomSheetDialogFragment {
             animeAdded.startLoading();
             String start=getMALDateFormat(startDate);
             String finish=getMALDateFormat(finishDate);
-            Log.d("tagg","Here enddate: "+finish);
             updateAnimeViewModel.updateAnime(anime.getId(),selectedStatus,rewatching,score,Integer.valueOf(binding.editText.getText().toString()),start,finish);
             animeAdded.setResponseToObserve(updateAnimeViewModel.getUpdateAnimeResponse());
             String mainPicture=anime.getMainPicture()==null ? "" : anime.getMainPicture().getMedium();

@@ -3,12 +3,9 @@ package com.omnicoder.anichan.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import com.omnicoder.anichan.utils.Constants;
 import com.omnicoder.anichan.utils.Extensions;
@@ -85,7 +82,6 @@ public class LoginActivity2 extends AppCompatActivity {
 
     private void parseIntentData(Uri uri){
         binding.message.setText("calling uri: "+uri.toString());
-        Log.d("tagg","calling Uri"+ uri);
         String code= uri.getQueryParameter("code");
         String receivedState= uri.getQueryParameter("state");
         if(code != null && receivedState.equals(LoginViewModel.STATE)){
@@ -112,55 +108,44 @@ public class LoginActivity2 extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        Log.d("tagg","in new intnet");
-        Uri uri = getIntent().getData();
-        if(uri != null){
-            Log.d("tagg","true");
-        }else{
-            Log.d("tagg","false");
-
-        }
     }
 
-    private void takeIntent(){
-        Log.d("tagg","taking the intent");
-        Log.d("tagg"," si is +"+(getIntent().getData()==null));
-        Uri uri = getIntent().getData();
-        if(uri!=null){
-            Log.d("tagg","the uri receiived: "+uri.toString());
-            if (uri != null && uri.toString().startsWith(Constants.ANICHAN_PAGE_LINK)) {
-                // use the parameter your API exposes for the code (mostly it's "code")
-                String code = uri.getQueryParameter("code");
-                if (code != null) {
-                    parseIntentData(uri);
-                } else if (uri.getQueryParameter("error") != null) {
-                    Log.d("tagg","the error here is "+uri.getQueryParameter("error"));
-                    // show an error message here
-                }
-            }
-
-        }else{
-            Log.d("tagg","<B> It is null </B>");
-
-
-        }
-
-    }
-
+//    private void takeIntent(){
+//        Log.d("tagg","taking the intent");
+//        Log.d("tagg"," si is +"+(getIntent().getData()==null));
+//        Uri uri = getIntent().getData();
+//        if(uri!=null){
+//            Log.d("tagg","the uri receiived: "+uri.toString());
+//            if (uri != null && uri.toString().startsWith(Constants.ANICHAN_PAGE_LINK)) {
+//                // use the parameter your API exposes for the code (mostly it's "code")
+//                String code = uri.getQueryParameter("code");
+//                if (code != null) {
+//                    parseIntentData(uri);
+//                } else if (uri.getQueryParameter("error") != null) {
+//                    Log.d("tagg","the error here is "+uri.getQueryParameter("error"));
+//                    // show an error message here
+//                }
+//            }
+//
+//        }else{
+//            Log.d("tagg","<B> It is null </B>");
+//
+//
+//        }
+//
+//    }
+//
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("tagg","destryoed");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("tagg","onresu");
         Uri uri= getIntent().getData();
-        Log.d("tagg","so we got : "+uri);
         if (uri != null && uri.toString().startsWith(Constants.ANICHAN_PAGE_LINK)) {
             parseIntentData(uri);
         }

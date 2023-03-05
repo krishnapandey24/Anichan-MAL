@@ -68,6 +68,9 @@ public class Manga {
     }
 
     public float getMean() {
+        if(mean==null){
+            return 0.0f;
+        }
         return mean;
     }
 

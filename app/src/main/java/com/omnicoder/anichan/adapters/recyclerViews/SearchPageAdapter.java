@@ -53,12 +53,11 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
             holder.imageView.setClipToOutline(true);
             holder.itemView.setOnClickListener(v -> {
                 Intent intent;
-                if(node.getMedia_type().equals("manga")){
-                    intent = new Intent(context, ViewMangaActivity.class);
-                }else{
+                if(node.getMedia_type().equals("anime")){
                     intent = new Intent(context, ViewAnimeActivity.class);
                     intent.putExtra("media_type",node.getMedia_type());
-
+                }else{
+                    intent = new Intent(context, ViewMangaActivity.class);
                 }
                 intent.putExtra("id",node.getId());
                 context.startActivity(intent);
