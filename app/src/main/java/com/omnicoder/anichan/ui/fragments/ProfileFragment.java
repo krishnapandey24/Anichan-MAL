@@ -3,15 +3,18 @@ package com.omnicoder.anichan.ui.fragments;
 
 import static com.omnicoder.anichan.utils.Constants.DATE_PATTERN;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -45,6 +48,9 @@ public class ProfileFragment extends Fragment{
     LoadingDialog loadingDialog;
     OnBackPressedCallback callback;
 
+    Dialog noInternetConnectionDialog;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +76,11 @@ public class ProfileFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         loadingDialog = new LoadingDialog(this, getContext());
         loadingDialog.startLoading();
+        viewModel.getSuccess().observe(getViewLifecycleOwner(),success->{
+            if(!success){
+                showNoInternetConnectionDialog();
+            }
+        });
         viewModel.getUserInfo().observe(getViewLifecycleOwner(), jikanUserResponse -> {
             if(jikanUserResponse==null){
                 // TODO: 29-Sep-22 Create error message
@@ -142,6 +153,24 @@ public class ProfileFragment extends Fragment{
             requireActivity().getOnBackPressedDispatcher().addCallback(requireActivity(),callback);
         }
         callback.setEnabled(true);
+    }
+
+    public void showNoInternetConnectionDialog() {
+        if(noInternetConnectionDialog==null){
+            noInternetConnectionDialog = new Dialog(getContext());
+            noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
+            noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dialog_background));
+            noInternetConnectionDialog.setCancelable(false);
+            Button okButton = noInternetConnectionDialog.findViewById(R.id.okButton);
+            okButton.setOnClickListener(v -> {
+                noInternetConnectionDialog.dismiss();
+                viewModel.fetchUserInfo(username);
+            });
+        }
+        if(!noInternetConnectionDialog.isShowing()){
+            noInternetConnectionDialog.show();
+        }
+
     }
 
 

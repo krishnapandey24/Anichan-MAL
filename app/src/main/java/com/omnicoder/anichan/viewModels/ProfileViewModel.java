@@ -22,6 +22,8 @@ public class ProfileViewModel extends ViewModel {
     private final MutableLiveData<JikanUserResponse> userInfo = new MutableLiveData<>();
     private final MutableLiveData<UserFriendResponse> userFriends = new MutableLiveData<>();
 
+    private final MutableLiveData<Boolean> success=new MutableLiveData<>();
+
     public MutableLiveData<JikanUserResponse> getUserInfo() {
         return userInfo;
     }
@@ -39,17 +41,22 @@ public class ProfileViewModel extends ViewModel {
         compositeDisposable.add(repository.getUserInfoFromJikan(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userInfo::setValue, Throwable::printStackTrace)
+                .subscribe(response ->{
+                    userInfo.setValue(response);
+                    success.setValue(true);
+                }, e-> success.setValue(false))
         );
+    }
+
+    public MutableLiveData<Boolean> getSuccess() {
+        return success;
     }
 
     public void fetchUserFriends(String username) {
         compositeDisposable.add(repository.getUserFriends(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userFriends::setValue, e->{
-                    userFriends.setValue(null);
-                })
+                .subscribe(userFriends::setValue, e-> userFriends.setValue(null))
         );
     }
 

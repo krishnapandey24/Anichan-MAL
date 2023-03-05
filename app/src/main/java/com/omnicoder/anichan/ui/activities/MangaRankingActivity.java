@@ -61,7 +61,6 @@ public class MangaRankingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setManga(binding.mangaRankingSpinner.getSelectedItem().toString(),three);
-
             }
 
             @Override
@@ -71,6 +70,7 @@ public class MangaRankingActivity extends AppCompatActivity {
         });
 
         rankingType= mangaRankingTypes[rankingTypeIndex];
+        binding.mangaRankingSpinner.setSelection(rankingTypeIndex);
         animePageAdapter = new AnimePageAdapter(new NodeComparator(), MangaRankingActivity.this,false);
         animePageAdapterPlain= new AnimePageAdapterPlain(new NodeComparator(), MangaRankingActivity.this,false);
         setManga(rankingType,three);

@@ -3,14 +3,17 @@ package com.omnicoder.anichan.ui.fragments;
 import static com.omnicoder.anichan.utils.AdsConstants.NATIVE_AD_UNIT_ID;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.adapters.recyclerViews.SeasonAdapter;
 import com.omnicoder.anichan.adapters.recyclerViews.AnimeAdapter;
 import com.omnicoder.anichan.adapters.viewpagers.TrendingViewPagerAdapter;
@@ -41,6 +45,9 @@ public class ExploreMangaFragment extends Fragment{
     private NativeAd nativeAd;
     private ExploreMangaBinding binding;
     private ExploreViewModel viewModel;
+
+    Dialog noInternetConnectionDialog;
+
 
 
     @Override
@@ -95,12 +102,12 @@ public class ExploreMangaFragment extends Fragment{
         });
 
         binding.topManhwaTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToMangaRankingActivity action= ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity(5);
+            ExploreFragmentDirections.ActionExploreFragmentToMangaRankingActivity action= ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity(4);
             Navigation.findNavController(v).navigate(action);
         });
 
         binding.topManhuaTitle.setOnClickListener(v -> {
-            ExploreFragmentDirections.ActionExploreFragmentToMangaRankingActivity action= ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity(6);
+            ExploreFragmentDirections.ActionExploreFragmentToMangaRankingActivity action= ExploreFragmentDirections.actionExploreFragmentToMangaRankingActivity(5);
             Navigation.findNavController(v).navigate(action);
         });
 
@@ -108,6 +115,11 @@ public class ExploreMangaFragment extends Fragment{
 
     private void observeData(){
         LifecycleOwner lifecycleOwner= getViewLifecycleOwner();
+        viewModel.getNoInternet().observe(lifecycleOwner,success->{
+            if(!success){
+                showNoInternetConnectionDialog();
+            }
+        });
         viewModel.getTopManga().observe(lifecycleOwner, this::setTopManga);
         viewModel.getTopManhwa().observe(lifecycleOwner,this::setTopManhwa);
         viewModel.getTopManhua().observe(lifecycleOwner,this::setTopManhua);
@@ -136,8 +148,28 @@ public class ExploreMangaFragment extends Fragment{
         AnimeAdapter seasonAdapter2 = new AnimeAdapter(getContext(), exploreViews,false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(seasonAdapter2);
+    }
+
+    public void showNoInternetConnectionDialog() {
+        if(noInternetConnectionDialog==null){
+            noInternetConnectionDialog = new Dialog(getContext());
+            noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
+            noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dialog_background));
+            noInternetConnectionDialog.setCancelable(false);
+            Button okButton = noInternetConnectionDialog.findViewById(R.id.okButton);
+            okButton.setOnClickListener(v -> {
+                noInternetConnectionDialog.dismiss();
+                viewModel.fetchTopManga();
+                viewModel.fetchTopManhwa();
+                viewModel.fetchTopManhua();
+            });
+        }
+        if(!noInternetConnectionDialog.isShowing()){
+            noInternetConnectionDialog.show();
+        }
 
     }
+
 
 
     @Override

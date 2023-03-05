@@ -97,7 +97,6 @@ public class ExploreAnimeFragment extends Fragment {
                 if(this.nativeAd!=null){
                     this.nativeAd.destroy();
                 }
-
                 this.nativeAd=nativeAd;
                 binding.adView.setNativeAd(nativeAd);
             }).build();

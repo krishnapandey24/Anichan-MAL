@@ -91,9 +91,6 @@ public class FavoritesFragment extends Fragment {
             binding.people.setVisibility(View.GONE);
         }
 
-
-   
-        
     }
 
 
