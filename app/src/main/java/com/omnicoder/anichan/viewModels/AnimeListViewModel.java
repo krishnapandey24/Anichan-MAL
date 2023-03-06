@@ -176,7 +176,6 @@ public class AnimeListViewModel extends ViewModel {
                         animeListFetched.setValue(true);
                     } else {
                         animeListFetched.setValue(false);
-
                     }
                 }));
     }

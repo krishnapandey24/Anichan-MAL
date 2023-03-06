@@ -4,6 +4,7 @@ package com.omnicoder.anichan.ui.fragments;
 import static com.omnicoder.anichan.utils.Constants.DATE_PATTERN;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,7 +30,9 @@ import com.omnicoder.anichan.databinding.ProfileFragmentBinding;
 import com.omnicoder.anichan.models.jikan.Favorites;
 import com.omnicoder.anichan.models.jikan.JikanUserStatistic;
 import com.omnicoder.anichan.models.jikan.UserData;
+import com.omnicoder.anichan.ui.activities.LoginActivity;
 import com.omnicoder.anichan.utils.LoadingDialog;
+import com.omnicoder.anichan.utils.SessionManager;
 import com.omnicoder.anichan.viewModels.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -36,6 +40,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -49,6 +55,11 @@ public class ProfileFragment extends Fragment{
     OnBackPressedCallback callback;
 
     Dialog noInternetConnectionDialog;
+
+    @Inject
+    SessionManager sessionManager;
+
+    AlertDialog alertDialog;
 
 
 
@@ -101,13 +112,33 @@ public class ProfileFragment extends Fragment{
                 binding.locationView.setText(data.getLocation());
             }
             loadingDialog.stopLoading();
-
         });
 
+        setupToolbar();
+    }
 
+    private void setupToolbar(){
+        binding.toolbar.setNavigationOnClickListener(v->Navigation.findNavController(requireView()).navigateUp());
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            if(alertDialog==null){
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setMessage("Are you sure you want to logout?");
+                builder.setTitle("Confirm Logout");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    sessionManager.clearSession();
+                    Intent intent= new Intent(requireContext(), LoginActivity.class);
+                    startActivity(intent);
+                    requireActivity().finish();
+                });
 
+                builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
-
+                alertDialog = builder.create();
+            }
+            alertDialog.show();
+            return true;
+        });
     }
 
 

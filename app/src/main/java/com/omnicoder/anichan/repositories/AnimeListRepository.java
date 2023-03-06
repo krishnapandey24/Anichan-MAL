@@ -122,7 +122,7 @@ public class AnimeListRepository {
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-
+                    throw new RuntimeException(e);
                 }
             });
             observer.onComplete();

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,7 +59,10 @@ public class MangaListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
+        mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> {
+            loadingDialog.stopLoading();
+            Toast.makeText(getContext(), aBoolean ? "Fetched successfully": "Something went wrong", Toast.LENGTH_SHORT).show();
+        });
         setupToolbar();
     }
 

@@ -25,6 +25,7 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
     public static final int LOADING_ITEM = 0;
     public static final int ANIME_ITEM = 1;
     Context context;
+    boolean isAnime;
 
     public SearchPageAdapter(DiffUtil.ItemCallback<Data> diffCallBack, Context context){
         super(diffCallBack);
@@ -42,7 +43,11 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
 
     @Override
     public void onBindViewHolder(@NonNull SearchPageAdapter.MyViewHolder holder, int position) {
-        Node node= getItem(position).getNode();
+        Data item= getItem(position);
+        if(position==0){
+            isAnime= item.isAnime() == 0;
+        }
+        Node node= item.getNode();
         if(node != null){
             try{
                 Picasso.get().load(node.getMainPicture().getMedium()).into(holder.imageView);
@@ -53,7 +58,7 @@ public class SearchPageAdapter extends PagingDataAdapter<Data, SearchPageAdapter
             holder.imageView.setClipToOutline(true);
             holder.itemView.setOnClickListener(v -> {
                 Intent intent;
-                if(node.getMedia_type().equals("anime")){
+                if(isAnime){
                     intent = new Intent(context, ViewAnimeActivity.class);
                     intent.putExtra("media_type",node.getMedia_type());
                 }else{

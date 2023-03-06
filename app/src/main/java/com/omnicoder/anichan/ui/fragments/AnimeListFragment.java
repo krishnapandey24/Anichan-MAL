@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,7 +60,10 @@ public class AnimeListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
         loadingDialog.startLoading();
-        viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> loadingDialog.stopLoading());
+        viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> {
+            loadingDialog.stopLoading();
+            Toast.makeText(getContext(), aBoolean ? "Fetched successfully": "Something went wrong", Toast.LENGTH_SHORT).show();
+        });
         setupToolbar();
     }
     private void setTabLayout(){

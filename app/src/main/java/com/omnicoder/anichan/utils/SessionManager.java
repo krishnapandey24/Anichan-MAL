@@ -74,6 +74,12 @@ public class SessionManager {
         return !checkLogin() && isTokenExpired();
     }
 
+    public void  clearSession(){
+        editor.clear();
+        editor.commit();
+    }
+
+
 
 
 

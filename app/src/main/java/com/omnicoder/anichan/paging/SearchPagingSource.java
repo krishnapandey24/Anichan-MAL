@@ -51,7 +51,11 @@ public class SearchPagingSource extends RxPagingSource<Integer, Data> {
         int limit= Constants.SEARCH_LIMIT;
             return malApi.searchAnime(animeOrManga,query,limit,nsfw,offset,fields)
                     .subscribeOn(Schedulers.io())
-                    .map(rankingResponse -> toLoadResult(rankingResponse.getData(),offset,limit))
+                    .map(rankingResponse -> {
+                        List<Data> response=rankingResponse.getData();
+                        response.get(0).setAnime(isAnime);
+                        return toLoadResult(response,offset,limit);
+                    })
                     .onErrorReturn(LoadResult.Error::new);
 
     }
