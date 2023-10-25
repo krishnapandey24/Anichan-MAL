@@ -53,9 +53,9 @@ public class MangaListRepository {
 
     public Flowable<List<UserManga>> getMangaListByStatus(String status, int sortBy) {
         switch (sortBy) {
-            case R.id.title:
+            case 1:
                 return mangaDao.getMangaListByTitle(status);
-            case R.id.score:
+            case 2:
                 return mangaDao.getMangaListByMean(status);
             default:
                 return mangaDao.getMangaListByID(status);
@@ -65,9 +65,9 @@ public class MangaListRepository {
 
     public Flowable<List<UserManga>> getReReading(int sortBy) {
         switch (sortBy) {
-            case R.id.title:
+            case 1:
                 return mangaDao.getReReadingByTitle();
-            case R.id.score:
+            case 2:
                 return mangaDao.getReReadingByMean();
             default:
                 return mangaDao.getReReadingById();

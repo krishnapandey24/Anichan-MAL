@@ -122,25 +122,21 @@ public class ViewCharacterActivity extends AppCompatActivity {
             popupMenu = new PopupMenu(this, binding.menuButton, Gravity.END);
             popupMenu.getMenuInflater().inflate(R.menu.view_anime_manga_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.share:
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, link);
-                        startActivity(Intent.createChooser(shareIntent, "Share link using"));
-                        break;
-                    case R.id.openInMal:
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                        startActivity(browserIntent);
-                        break;
-                    case R.id.copyLink:
-                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("text", link);
-                        clipboard.setPrimaryClip(clip);
-                        Toast.makeText(this, "Link copied!",Toast.LENGTH_SHORT).show();
-                        break;
+                if (item.getItemId() == findViewById(R.id.share).getId()) {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, link);
+                    startActivity(Intent.createChooser(shareIntent, "Share link using"));
+                } else if (item.getItemId() == findViewById(R.id.openInMal).getId()) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    startActivity(browserIntent);
+                } else if (item.getItemId() == findViewById(R.id.copyLink).getId()) {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("text", link);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(this, "Link copied!", Toast.LENGTH_SHORT).show();
                 }
-                return true;
+                return false;
             });
         }
         popupMenu.show();

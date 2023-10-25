@@ -105,7 +105,15 @@ public class MangaListFragment extends Fragment {
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                mangaListViewModel.setSortBy(checkedRadioButton);
+                int sortBy;
+                if(checkedRadioButton==R.id.title){
+                    sortBy=1;
+                } else if(checkedRadioButton==R.id.score){
+                    sortBy=2;
+                }else{
+                    sortBy=0;
+                }
+                mangaListViewModel.setSortBy(sortBy);
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());

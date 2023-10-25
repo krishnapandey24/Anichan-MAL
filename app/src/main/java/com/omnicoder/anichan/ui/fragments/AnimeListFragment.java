@@ -92,7 +92,7 @@ public class AnimeListFragment extends Fragment {
     @SuppressLint("NonConstantResourceId")
     private void launchSortDialog() {
         if(sortDialog==null){
-            sortDialog= new Dialog(getContext());
+            sortDialog= new Dialog(requireContext());
             sortDialog.setContentView(R.layout.list_sort_dialog);
             sortDialog.setCancelable(true);
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -104,7 +104,15 @@ public class AnimeListFragment extends Fragment {
             MaterialTextView cancelButton=sortDialog.findViewById(R.id.cancel);
             okButton.setOnClickListener(v -> {
                 int checkedRadioButton=radioGroup.getCheckedRadioButtonId();
-                viewModel.setSortBy(checkedRadioButton);
+                int sortBy;
+                if(checkedRadioButton==R.id.title){
+                    sortBy=1;
+                } else if(checkedRadioButton==R.id.score){
+                    sortBy=2;
+                }else{
+                    sortBy=0;
+                }
+                viewModel.setSortBy(sortBy);
                 sortDialog.dismiss();
             });
             cancelButton.setOnClickListener(v -> sortDialog.dismiss());

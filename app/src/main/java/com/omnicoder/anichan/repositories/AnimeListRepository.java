@@ -55,12 +55,12 @@ public class AnimeListRepository {
     }
 
 
-    @SuppressLint("NonConstantResourceId")
+
     public Flowable<List<UserAnime>> getAnimeListByStatus(String status, int sortBy) {
         switch (sortBy) {
-            case R.id.title:
+            case 1:
                 return animeDao.getAnimeListByTitle(status);
-            case R.id.score:
+            case 2:
                 return animeDao.getAnimeListByMean(status);
             default:
                 return animeDao.getAnimeListByID(status);
@@ -68,12 +68,11 @@ public class AnimeListRepository {
     }
 
 
-    @SuppressLint("NonConstantResourceId")
     public Flowable<List<UserAnime>> getReWatching(int sortBy) {
         switch (sortBy) {
-            case R.id.title:
+            case 1:
                 return animeDao.getReWatchingByTitle();
-            case R.id.score:
+            case 2:
                 return animeDao.getReWatchingByMean();
             default:
                 return animeDao.getReWatchingById();

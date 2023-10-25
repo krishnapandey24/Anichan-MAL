@@ -6,7 +6,6 @@ import static com.omnicoder.anichan.utils.Constants.POSTERS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_LESS;
 import static com.omnicoder.anichan.utils.Constants.VIEW_MORE;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -63,7 +62,6 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     int malId;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,32 +93,27 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     }
 
 
-    @SuppressLint("NonConstantResourceId")
-    private void launchMenu(){
-        String link = String.format(Constants.MY_ANIME_LIST_LINK,ANIME,malId);
-        if(popupMenu==null) {
-            popupMenu = new PopupMenu(this, binding.menuButton,Gravity.END);
+    private void launchMenu() {
+        String link = String.format(Constants.MY_ANIME_LIST_LINK, ANIME, malId);
+        if (popupMenu == null) {
+            popupMenu = new PopupMenu(this, binding.menuButton, Gravity.END);
             popupMenu.getMenuInflater().inflate(R.menu.view_anime_manga_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.share:
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, link);
-                        startActivity(Intent.createChooser(shareIntent, "Share link using"));
-                        break;
-                    case R.id.openInMal:
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                        startActivity(browserIntent);
-                        break;
-                    case R.id.copyLink:
-                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("text", link);
-                        clipboard.setPrimaryClip(clip);
-                        Toast.makeText(this, "Link copied!",Toast.LENGTH_SHORT).show();
-                        break;
+                if (item.getItemId() == findViewById(R.id.share).getId()) {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, link);
+                    startActivity(Intent.createChooser(shareIntent, "Share link using"));
+                } else if (item.getItemId() == findViewById(R.id.openInMal).getId()) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    startActivity(browserIntent);
+                } else if (item.getItemId() == findViewById(R.id.copyLink).getId()) {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("text", link);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(this, "Link copied!", Toast.LENGTH_SHORT).show();
                 }
-                return true;
+                return false;
             });
         }
         popupMenu.show();
@@ -148,14 +141,14 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
     private void observeData() {
         viewModel.getAnimeDetails().observe(ViewAnimeActivity.this, anime -> {
             try {
-                try{
+                try {
                     Picasso.get().load(anime.getPictures().get(0).getMedium()).into(binding.backgroundPoster);
                 } catch (Exception e) {
                     binding.backgroundPoster.setImageResource(R.drawable.ic_no_image_placeholder);
                 }
                 if (anime.getMainPicture() != null) {
                     MainPicture mainPicture = anime.getMainPicture();
-                    try{
+                    try {
                         Picasso.get().load(mainPicture.getLarge()).into(binding.posterView);
                     } catch (Exception e) {
                         binding.posterView.setImageResource(R.drawable.ic_no_image_placeholder);
@@ -193,13 +186,13 @@ public class ViewAnimeActivity extends AppCompatActivity implements AddAnimeBott
                     binding.seasonAndDurationView.setText(duration);
                     binding.seasonAndDurationView2.setText(duration2);
                 } else {
-                    String episodeCount= anime.getNum_episodes()==0 ? "?" : String.valueOf(anime.getNum_episodes());
+                    String episodeCount = anime.getNum_episodes() == 0 ? "?" : String.valueOf(anime.getNum_episodes());
                     binding.seasonAndDurationView.setText(episodeCount);
                 }
                 addGenres(anime.getGenres());
                 addAnimeBottomSheet.setData(anime);
                 setTabLayout(viewModel, anime);
-                malId=anime.getId();
+                malId = anime.getId();
                 binding.addToListButton.setText(anime.getMy_list_status().getStatus().toUpperCase(Locale.ROOT).replace("_", " "));
             } catch (Exception e) {
                 e.printStackTrace();
