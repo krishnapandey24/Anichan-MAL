@@ -5,6 +5,7 @@ import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.omnicoder.anichan.NotificationListener;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
 import com.omnicoder.anichan.utils.SessionManager;
@@ -41,32 +43,55 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        if(sharedPreferences.getBoolean(DARK_MODE_TAG,false)){
+        if (sharedPreferences.getBoolean(DARK_MODE_TAG, false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         MobileAds.initialize(this);
-        if(sessionManager.notLoggedInOrTokenExpired()){
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        if (!isNotificationServiceEnabled()) {
+            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+            startActivity(intent);
+        }
+
+        if (sessionManager.notLoggedInOrTokenExpired()) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             return;
         }
-        MainViewModel mainViewModel=new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.fetchUserInfo();
-        navController= Navigation.findNavController(this,R.id.fragmentContainerView);
-        BottomNavigationView bottomNavigationView= binding.activityMainBottomNavigationView;
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        BottomNavigationView bottomNavigationView = binding.activityMainBottomNavigationView;
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.navigationBarColor));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding=null;
+        binding = null;
     }
+
+    public boolean isNotificationServiceEnabled() {
+        String packageName = getPackageName();
+        String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
+        return flat != null && flat.contains(packageName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (isNotificationServiceEnabled()) {
+            // Permission granted, start your service
+            startService(new Intent(this, NotificationListener.class));
+        } else {
+            // Permission denied, handle accordingly
+        }
+    }
+
 
 }

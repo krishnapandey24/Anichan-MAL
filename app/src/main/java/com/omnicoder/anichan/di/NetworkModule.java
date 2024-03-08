@@ -5,6 +5,7 @@ import android.content.Context;
 import com.omnicoder.anichan.network.JikanApi;
 import com.omnicoder.anichan.network.MalApi;
 import com.omnicoder.anichan.network.MalAuthApi;
+import com.omnicoder.anichan.network.NotiAPI;
 import com.omnicoder.anichan.network.interceptors.JikanInterceptor;
 import com.omnicoder.anichan.network.interceptors.MalInterceptor;
 import com.omnicoder.anichan.utils.SessionManager;
@@ -87,6 +88,18 @@ public class NetworkModule {
                 .build()
                 .create(MalAuthApi.class);
     }
+
+    @Provides
+    @Singleton
+    public static NotiAPI provideNotiAPI(){
+        return new Retrofit.Builder()
+                .baseUrl("https://kinochan.pythonanywhere.com/")
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build()
+                .create(NotiAPI.class);
+    }
+
 
 
 

@@ -40,6 +40,7 @@ import com.omnicoder.anichan.viewModels.ExploreViewModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -194,9 +195,9 @@ public class ExploreAnimeFragment extends Fragment {
 
     public void showNoInternetConnectionDialog() {
         if(noInternetConnectionDialog==null){
-            noInternetConnectionDialog = new Dialog(getContext());
+            noInternetConnectionDialog = new Dialog(requireContext());
             noInternetConnectionDialog.setContentView(R.layout.no_internet_connection_dialog);
-            noInternetConnectionDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dialog_background));
+            Objects.requireNonNull(noInternetConnectionDialog.getWindow()).setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dialog_background));
             noInternetConnectionDialog.setCancelable(false);
             Button okButton = noInternetConnectionDialog.findViewById(R.id.okButton);
             okButton.setOnClickListener(v -> {
