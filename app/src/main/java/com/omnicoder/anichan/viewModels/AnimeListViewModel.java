@@ -72,7 +72,6 @@ public class AnimeListViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<UserAnime>> getOnHold() {
-
         return onHold;
     }
 
@@ -188,7 +187,7 @@ public class AnimeListViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     nextPage = response.getPaging().getNext();
-                    if (response.getData().size() > 0) {
+                    if (!response.getData().isEmpty()) {
                         insertDataInDatabase(response);
                     }
                 }, Throwable::printStackTrace)

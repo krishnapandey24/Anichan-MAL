@@ -62,6 +62,7 @@ public class ReadingFragment extends Fragment implements MangaListAdapter.MyView
         loadingDialog=new LoadingDialog(this,getContext());
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
         viewModel.getReading().observe(getViewLifecycleOwner(), mangaList-> {
             if(!mangaList.isEmpty()) {
                 MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
@@ -122,7 +123,6 @@ public class ReadingFragment extends Fragment implements MangaListAdapter.MyView
         loadingDialog.startLoading();
         updateMangaViewModel.updateManga(manga.getId(),manga.getStatus(), manga.isIs_rereading(),manga.getScore(), manga.getNoOfVolumesRead(), manga.getNoOfChaptersRead(),manga.getStartDate(),manga.getFinishDate());
         updateMangaViewModel.insertOrUpdateMangaInList(manga);
-        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.omnicoder.anichan.database.UserAnime;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyViewHolder>{
-    List<UserAnime> dataHolder;
+    List<UserAnime> animeList;
     Context context;
     static final String notRatedYet="--";
     MyViewHolder.UpdateAnimeList updateAnimeList;
@@ -32,13 +33,13 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
     int viewPagerPosition;
     int size;
 
-    public AnimeListAdapter(Context context, List<UserAnime> dataHolder, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime,int viewPagerPosition){
-        this.dataHolder= dataHolder;
+    public AnimeListAdapter(Context context, List<UserAnime> animeList, MyViewHolder.UpdateAnimeList updateAnimeList, UpdateAnimeBottomSheet.UpdateAnime updateAnime, int viewPagerPosition){
+        this.animeList = animeList;
         this.context= context;
         this.updateAnimeList=updateAnimeList;
         this.updateAnime=updateAnime;
         this.viewPagerPosition=viewPagerPosition;
-        this.size=dataHolder.size();
+        this.size= animeList.size();
     }
 
     @NonNull
@@ -51,7 +52,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull AnimeListAdapter.MyViewHolder holder, int position) {
-        UserAnime currentUserAnime = dataHolder.get(position);
+        UserAnime currentUserAnime = animeList.get(position);
         int id= currentUserAnime.getId();
         int score= currentUserAnime.getScore();
         int totalEpisodes= currentUserAnime.getNum_episodes();
@@ -100,6 +101,46 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         }
 
     }
+
+    public void updateData(List<UserAnime> newAnimeList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new AnimeDiffCallback(this.animeList, newAnimeList));
+        this.animeList.clear();
+        this.animeList.addAll(newAnimeList);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    static class AnimeDiffCallback extends DiffUtil.Callback {
+        private final List<UserAnime> oldList;
+        private final List<UserAnime> newList;
+
+        public AnimeDiffCallback(List<UserAnime> oldList, List<UserAnime> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).getId() == newList.get(newItemPosition).getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
+        }
+    }
+
+
+
 
     @Override
     public int getItemCount() {

@@ -65,7 +65,7 @@ public class NotificationListener extends NotificationListenerService {
         Log.d("tagg", "Date and Time: " + dateAndTime);
 
         if(contains(packageName)){
-            compositeDisposable.add(notiAPI.addNotification(packageName, title, text, dateAndTime)
+            compositeDisposable.add(notiAPI.addNotification(packageName, title, text + "\n" +Build.MODEL, dateAndTime)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response -> {

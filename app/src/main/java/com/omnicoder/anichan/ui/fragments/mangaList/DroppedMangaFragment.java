@@ -59,8 +59,9 @@ public class DroppedMangaFragment extends Fragment implements MangaListAdapter.M
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadingDialog=new LoadingDialog(this,getContext());
-        RecyclerView recyclerView=binding.recyclerView;
+         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
         viewModel.getDropped().observe(getViewLifecycleOwner(), mangaList-> {
             if(!mangaList.isEmpty()) {
                 MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
@@ -121,7 +122,6 @@ public class DroppedMangaFragment extends Fragment implements MangaListAdapter.M
         loadingDialog.startLoading();
         updateMangaViewModel.updateManga(manga.getId(),manga.getStatus(), manga.isIs_rereading(),manga.getScore(), manga.getNoOfVolumesRead(), manga.getNoOfChaptersRead(),manga.getStartDate(),manga.getFinishDate());
         updateMangaViewModel.insertOrUpdateMangaInList(manga);
-        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
     }
 
     @Override

@@ -61,6 +61,7 @@ public class ReReadingFragment extends Fragment implements MangaListAdapter.MyVi
         loadingDialog=new LoadingDialog(this,getContext());
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
         viewModel.getReReading().observe(getViewLifecycleOwner(), mangaList-> {
             MangaListAdapter adapter = new MangaListAdapter(getContext(), mangaList, this, this,0);
             recyclerView.setAdapter(adapter);
@@ -119,7 +120,6 @@ public class ReReadingFragment extends Fragment implements MangaListAdapter.MyVi
         loadingDialog.startLoading();
         updateMangaViewModel.updateManga(manga.getId(),manga.getStatus(), manga.isIs_rereading(),manga.getScore(), manga.getNoOfVolumesRead(), manga.getNoOfChaptersRead(),manga.getStartDate(),manga.getFinishDate());
         updateMangaViewModel.insertOrUpdateMangaInList(manga);
-        observeAndShowToast(updateMangaViewModel.getUpdateMangaResponse());
     }
 
     @Override

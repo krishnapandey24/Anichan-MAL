@@ -4,8 +4,10 @@ import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        Log.d("tagg"," Build model: "+ Build.MODEL+ " manu: "+Build.MANUFACTURER);
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.fetchUserInfo();
         navController = Navigation.findNavController(this, R.id.fragmentContainerView);

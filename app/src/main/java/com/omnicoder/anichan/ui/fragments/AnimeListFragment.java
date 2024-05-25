@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class AnimeListFragment extends Fragment {
         loadingDialog.startLoading();
         viewModel.getAnimeListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> {
             loadingDialog.stopLoading();
-            Toast.makeText(getContext(), aBoolean ? "Fetched successfully": "Something went wrong", Toast.LENGTH_SHORT).show();
+            if(!aBoolean) Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
         });
         setupToolbar();
     }

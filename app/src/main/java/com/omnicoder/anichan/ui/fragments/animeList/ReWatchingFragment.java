@@ -61,6 +61,8 @@ public class ReWatchingFragment extends Fragment implements AnimeListAdapter.MyV
         loadingDialog=new LoadingDialog(this,getContext());
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
+
         viewModel.getReWatching().observe(getViewLifecycleOwner(), animeList-> {
             AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,5);
             recyclerView.setAdapter(adapter);
@@ -98,7 +100,6 @@ public class ReWatchingFragment extends Fragment implements AnimeListAdapter.MyV
         loadingDialog.startLoading();
         updateAnimeViewModel.updateAnime(anime.getId(),anime.getStatus(),anime.isIs_rewatching(),anime.getScore(),anime.getNum_episodes_watched(),anime.getStartDate(),anime.getFinishDate());
         updateAnimeViewModel.insertOrUpdateAnimeInList(anime);
-        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
     }
 
     @Override

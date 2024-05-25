@@ -61,6 +61,7 @@ public class DroppedAnimeFragment extends Fragment implements AnimeListAdapter.M
         loadingDialog=new LoadingDialog(this,getContext());
         RecyclerView recyclerView=binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
         viewModel.getDropped().observe(getViewLifecycleOwner(), animeList-> {
             if(!animeList.isEmpty()){
                 AnimeListAdapter adapter = new AnimeListAdapter(getContext(), animeList, this, this,0);
@@ -98,10 +99,8 @@ public class DroppedAnimeFragment extends Fragment implements AnimeListAdapter.M
     @Override
     public void updateAnime(UserAnime anime, int viewPagerPosition) {
         loadingDialog.startLoading();
-        updateAnimeViewModel.updateAnime(anime.getId(),anime.getStatus(),anime.isIs_rewatching(),anime.getScore(),anime.getNum_episodes_watched(),anime.getStartDate(),anime.getFinishDate()
-        );
+        updateAnimeViewModel.updateAnime(anime.getId(),anime.getStatus(),anime.isIs_rewatching(),anime.getScore(),anime.getNum_episodes_watched(),anime.getStartDate(),anime.getFinishDate());
         updateAnimeViewModel.insertOrUpdateAnimeInList(anime);
-        observeAndShowToast(updateAnimeViewModel.getUpdateAnimeResponse());
     }
 
     @Override

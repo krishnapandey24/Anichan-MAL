@@ -72,12 +72,7 @@ public class UpdateMangaViewModel extends ViewModel {
         compositeDisposable.add(repository.addChapter(id,noOfChaptersRead)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mangaResponse->{
-                    response.setValue(true);
-                }, e-> {
-                    e.printStackTrace();
-                    response.setValue(false);
-                })
+                .subscribe(mangaResponse-> updateMangaResponse.setValue(true), e-> updateMangaResponse.setValue(false))
         );
 
         compositeDisposable.add(repository.addChapterInDB(id,noOfChaptersRead)
@@ -101,7 +96,7 @@ public class UpdateMangaViewModel extends ViewModel {
     }
 
     public void deleteManga(int id) {
-        repository.deleteManga(id)
+        Object temp= repository.deleteManga(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new CompletableObserver() {

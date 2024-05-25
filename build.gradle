@@ -14,7 +14,7 @@ buildscript {
     dependencies {
         def nav_version = "2.5.2"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-        classpath 'com.android.tools.build:gradle:8.1.2'
+        classpath 'com.android.tools.build:gradle:8.4.1'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.1'
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.6")
 

@@ -1,5 +1,7 @@
 package com.omnicoder.anichan.viewModels;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -51,10 +53,7 @@ public class UpdateAnimeViewModel extends ViewModel {
                     }else{
                         updateAnimeResponse.setValue(false);
                     }
-                }, throwable -> {
-                    updateAnimeResponse.setValue(false);
-                    throwable.printStackTrace();
-                })
+                }, throwable -> updateAnimeResponse.setValue(false))
         );
     }
 
@@ -72,7 +71,7 @@ public class UpdateAnimeViewModel extends ViewModel {
         compositeDisposable.add(repository.addEpisode(id,numberOfEpisodesWatched)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(animeResponse -> response.setValue(true), e-> response.setValue(false))
+                .subscribe(animeResponse -> updateAnimeResponse.setValue(true), e-> updateAnimeResponse.setValue(false))
         );
 
         compositeDisposable.add(repository.addEpisodeInDB(id,numberOfEpisodesWatched)
