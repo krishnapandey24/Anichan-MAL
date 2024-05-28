@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments;
+package com.omnicoder.anichan.ui.fragments.animeList;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -25,6 +25,8 @@ import com.omnicoder.anichan.databinding.AnimeListFragmentBinding;
 import com.omnicoder.anichan.ui.activities.SearchActivity;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.AnimeListViewModel;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -68,7 +70,7 @@ public class AnimeListFragment extends Fragment {
     private void setTabLayout(){
         ViewPager2 viewPager=binding.viewPager;
         if(animeListStateAdapter==null){
-            animeListStateAdapter=new AnimeListStateAdapter(this);
+            animeListStateAdapter=new AnimeListStateAdapter(this, viewModel);
         }
         viewPager.setAdapter(animeListStateAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager,(tab, position) ->tab.setText(tabs[position])).attach();
@@ -95,7 +97,7 @@ public class AnimeListFragment extends Fragment {
             sortDialog.setContentView(R.layout.list_sort_dialog);
             sortDialog.setCancelable(true);
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(sortDialog.getWindow().getAttributes());
+            layoutParams.copyFrom(Objects.requireNonNull(sortDialog.getWindow()).getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             MaterialTextView okButton=sortDialog.findViewById(R.id.ok);
@@ -119,9 +121,5 @@ public class AnimeListFragment extends Fragment {
         }
         sortDialog.show();
     }
-
-
-
-
 
 }

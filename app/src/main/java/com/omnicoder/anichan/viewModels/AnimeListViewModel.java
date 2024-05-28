@@ -102,6 +102,14 @@ public class AnimeListViewModel extends ViewModel {
         );
     }
 
+    public void fetchAnimeByStatus(String status, MutableLiveData<List<UserAnime>> listMutableLiveData, int sortBy){
+        compositeDisposable.add(repository.getAnimeListByStatus(status, sortBy)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(listMutableLiveData::setValue, Throwable::printStackTrace)
+        );
+    }
+
     public void fetchPlanToWatch(int sortBy) {
         compositeDisposable.add(repository.getAnimeListByStatus(Constants.PLAN_TO_WATCH, sortBy)
                 .subscribeOn(Schedulers.io())

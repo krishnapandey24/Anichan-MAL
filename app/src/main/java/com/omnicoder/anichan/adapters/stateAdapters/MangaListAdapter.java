@@ -4,24 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.omnicoder.anichan.ui.fragments.mangaList.CompletedMangaFragment;
-import com.omnicoder.anichan.ui.fragments.mangaList.DroppedMangaFragment;
-import com.omnicoder.anichan.ui.fragments.mangaList.OnHoldMangaFragment;
-import com.omnicoder.anichan.ui.fragments.mangaList.PlanToReadFragment;
-import com.omnicoder.anichan.ui.fragments.mangaList.ReReadingFragment;
-import com.omnicoder.anichan.ui.fragments.mangaList.ReadingFragment;
+import com.omnicoder.anichan.ui.fragments.mangaList.MangaListByStatusFragment;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.viewModels.MangaListViewModel;
 
 public class MangaListAdapter extends FragmentStateAdapter {
-    ReadingFragment readingFragment;
-    PlanToReadFragment planToReadFragment;
-    CompletedMangaFragment completedMangaFragment;
-    OnHoldMangaFragment onHoldMangaFragment;
-    DroppedMangaFragment droppedMangaFragment;
+    MangaListByStatusFragment readingFragment;
+    MangaListByStatusFragment planToReadFragment;
+    MangaListByStatusFragment completedMangaFragment;
+    MangaListByStatusFragment onHoldMangaFragment;
+    MangaListByStatusFragment droppedMangaFragment;
+
+    private final MangaListViewModel viewModel;
 
 
 
-    public MangaListAdapter(@NonNull Fragment fragment) {
+    public MangaListAdapter(@NonNull Fragment fragment, MangaListViewModel mangaListViewModel) {
         super(fragment);
+        this.viewModel = mangaListViewModel;
     }
 
     @NonNull
@@ -30,27 +30,27 @@ public class MangaListAdapter extends FragmentStateAdapter {
         switch (position){
             case 0:
                 if(readingFragment==null){
-                    readingFragment=ReadingFragment.newInstance();
+                    readingFragment=new MangaListByStatusFragment(Constants.READING, viewModel.reading);
                 }
                 return readingFragment;
             case 1:
                 if(planToReadFragment==null){
-                    planToReadFragment=PlanToReadFragment.newInstance();
+                    planToReadFragment= new MangaListByStatusFragment(Constants.PLAN_TO_READ, viewModel.planToRead);
                 }
                 return planToReadFragment;
             case 2:
                 if(completedMangaFragment ==null){
-                    completedMangaFragment = CompletedMangaFragment.newInstance();
+                    completedMangaFragment = new MangaListByStatusFragment(Constants.COMPLETED, viewModel.completed);
                 }
                 return completedMangaFragment;
             case 3:
                 if(onHoldMangaFragment ==null){
-                    onHoldMangaFragment = OnHoldMangaFragment.newInstance();
+                    onHoldMangaFragment = new MangaListByStatusFragment(Constants.ON_HOLD, viewModel.onHold);
                 }
                 return onHoldMangaFragment;
             case 4:
                 if(droppedMangaFragment ==null){
-                    droppedMangaFragment = DroppedMangaFragment.newInstance();
+                    droppedMangaFragment = new MangaListByStatusFragment(Constants.DROPPED, viewModel.dropped);
                 }
                 return droppedMangaFragment;
             default:
@@ -62,4 +62,5 @@ public class MangaListAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 5;
     }
+
 }

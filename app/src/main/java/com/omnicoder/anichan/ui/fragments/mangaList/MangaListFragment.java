@@ -1,4 +1,4 @@
-package com.omnicoder.anichan.ui.fragments;
+package com.omnicoder.anichan.ui.fragments.mangaList;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -25,6 +25,8 @@ import com.omnicoder.anichan.databinding.FragmentMangaListBinding;
 import com.omnicoder.anichan.ui.activities.SearchActivity;
 import com.omnicoder.anichan.utils.LoadingDialog;
 import com.omnicoder.anichan.viewModels.MangaListViewModel;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -61,7 +63,7 @@ public class MangaListFragment extends Fragment {
         loadingDialog.startLoading();
         mangaListViewModel.getMangaListFetchedStatus().observe(getViewLifecycleOwner(), aBoolean -> {
             loadingDialog.stopLoading();
-            Toast.makeText(getContext(), aBoolean ? "Fetched successfully": "Something went wrong", Toast.LENGTH_SHORT).show();
+            if(!aBoolean) Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
         });
         setupToolbar();
     }
@@ -69,7 +71,7 @@ public class MangaListFragment extends Fragment {
     private void setTabLayout(){
         ViewPager2 viewPager=binding.viewPager;
         if(mangaListAdapter==null){
-            mangaListAdapter=new MangaListAdapter(this);
+            mangaListAdapter=new MangaListAdapter(this, mangaListViewModel);
         }
         viewPager.setAdapter(mangaListAdapter);
         new TabLayoutMediator(binding.tabLayout,viewPager,(tab, position) ->tab.setText(tabs[position])).attach();
@@ -93,11 +95,11 @@ public class MangaListFragment extends Fragment {
     @SuppressLint("NonConstantResourceId")
     private void launchSortDialog() {
         if(sortDialog==null){
-            sortDialog= new Dialog(getContext());
+            sortDialog= new Dialog(requireContext());
             sortDialog.setContentView(R.layout.list_sort_dialog);
             sortDialog.setCancelable(true);
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(sortDialog.getWindow().getAttributes());
+            layoutParams.copyFrom(Objects.requireNonNull(sortDialog.getWindow()).getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
             MaterialTextView okButton=sortDialog.findViewById(R.id.ok);

@@ -93,6 +93,14 @@ public class MangaListViewModel extends ViewModel {
         );
     }
 
+    public void fetchMangaByStatus(String status,int sortBy, MutableLiveData<List<UserManga>> listToObserve){
+        compositeDisposable.add(repository.getMangaListByStatus(status,sortBy)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(listToObserve::setValue, Throwable::printStackTrace)
+        );
+    }
+
 
     public void fetchReading(int sortBy) {
         compositeDisposable.add(repository.getMangaListByStatus(Constants.READING, sortBy)

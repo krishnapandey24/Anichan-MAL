@@ -4,24 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.omnicoder.anichan.ui.fragments.animeList.CompletedAnimeFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.DroppedAnimeFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.OnHoldAnimeFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.PlanToWatchFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.ReWatchingFragment;
-import com.omnicoder.anichan.ui.fragments.animeList.WatchingFragment;
+import com.omnicoder.anichan.ui.fragments.animeList.AnimeListStatusFragment;
+import com.omnicoder.anichan.utils.Constants;
+import com.omnicoder.anichan.viewModels.AnimeListViewModel;
 
 public class AnimeListStateAdapter extends FragmentStateAdapter {
-    WatchingFragment watchingFragment;
-    PlanToWatchFragment planToWatchFragment;
-    CompletedAnimeFragment completedAnimeFragment;
-    OnHoldAnimeFragment onHoldAnimeFragment;
-    DroppedAnimeFragment droppedAnimeFragment;
+    AnimeListStatusFragment watchingFragment;
+    AnimeListStatusFragment planToWatchFragment;
+    AnimeListStatusFragment completedAnimeFragment;
+    AnimeListStatusFragment onHoldAnimeFragment;
+    AnimeListStatusFragment droppedAnimeFragment;
+
+    AnimeListViewModel animeListViewModel;
 
 
 
-    public AnimeListStateAdapter(@NonNull Fragment fragment) {
+    public AnimeListStateAdapter(@NonNull Fragment fragment, AnimeListViewModel animeListViewModel) {
         super(fragment);
+        this.animeListViewModel = animeListViewModel;
     }
 
     @NonNull
@@ -30,27 +30,27 @@ public class AnimeListStateAdapter extends FragmentStateAdapter {
         switch (position){
             case 0:
                 if(watchingFragment==null){
-                    watchingFragment=WatchingFragment.newInstance();
+                    watchingFragment=new AnimeListStatusFragment(Constants.WATCHING, animeListViewModel.watching);
                 }
                 return watchingFragment;
             case 1:
                 if(planToWatchFragment==null){
-                    planToWatchFragment=PlanToWatchFragment.newInstance();
+                    planToWatchFragment=new AnimeListStatusFragment(Constants.PLAN_TO_WATCH, animeListViewModel.planToWatch);
                 }
                 return planToWatchFragment;
             case 2:
                 if(completedAnimeFragment ==null){
-                    completedAnimeFragment = CompletedAnimeFragment.newInstance();
+                    completedAnimeFragment = new AnimeListStatusFragment(Constants.COMPLETED, animeListViewModel.completed);
                 }
                 return completedAnimeFragment;
             case 3:
                 if(onHoldAnimeFragment ==null){
-                    onHoldAnimeFragment = OnHoldAnimeFragment.newInstance();
+                    onHoldAnimeFragment = new AnimeListStatusFragment(Constants.ON_HOLD, animeListViewModel.onHold);
                 }
                 return onHoldAnimeFragment;
             case 4:
                 if(droppedAnimeFragment ==null){
-                    droppedAnimeFragment = DroppedAnimeFragment.newInstance();
+                    droppedAnimeFragment = new AnimeListStatusFragment(Constants.DROPPED, animeListViewModel.dropped);
                 }
                 return droppedAnimeFragment;
             default:

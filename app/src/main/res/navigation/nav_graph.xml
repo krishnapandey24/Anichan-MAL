@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/anime_list_fragment"
-        android:name="com.omnicoder.anichan.ui.fragments.AnimeListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.animeList.AnimeListFragment"
         android:label="anime_list_fragment"
         tools:layout="@layout/anime_list_fragment" >
         <action
@@ -93,7 +93,7 @@
         android:label="SearchActivity" />
     <fragment
         android:id="@+id/manga_list_fragment"
-        android:name="com.omnicoder.anichan.ui.fragments.MangaListFragment"
+        android:name="com.omnicoder.anichan.ui.fragments.mangaList.MangaListFragment"
         android:label="manga_list_fragment"
         tools:layout="@layout/fragment_manga_list" >
         <action

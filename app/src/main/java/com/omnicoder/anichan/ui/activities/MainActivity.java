@@ -4,10 +4,7 @@ import static com.omnicoder.anichan.utils.Constants.DARK_MODE_TAG;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +17,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.omnicoder.anichan.NotificationListener;
 import com.omnicoder.anichan.R;
 import com.omnicoder.anichan.databinding.ActivityMainBinding;
 import com.omnicoder.anichan.utils.SessionManager;
 import com.omnicoder.anichan.viewModels.MainViewModel;
-
 
 import javax.inject.Inject;
 
@@ -54,18 +49,12 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         MobileAds.initialize(this);
-        if (!isNotificationServiceEnabled()) {
-            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-            startActivity(intent);
-        }
-
         if (sessionManager.notLoggedInOrTokenExpired()) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             return;
         }
 
-        Log.d("tagg"," Build model: "+ Build.MODEL+ " manu: "+Build.MANUFACTURER);
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.fetchUserInfo();
         navController = Navigation.findNavController(this, R.id.fragmentContainerView);
@@ -79,23 +68,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         binding = null;
     }
-
-    public boolean isNotificationServiceEnabled() {
-        String packageName = getPackageName();
-        String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
-        return flat != null && flat.contains(packageName);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (isNotificationServiceEnabled()) {
-            // Permission granted, start your service
-            startService(new Intent(this, NotificationListener.class));
-        } else {
-            // Permission denied, handle accordingly
-        }
-    }
-
 
 }

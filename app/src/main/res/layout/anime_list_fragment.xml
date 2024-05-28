@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgWhite"
-    tools:context=".ui.fragments.AnimeListFragment">
+    tools:context=".ui.fragments.animeList.AnimeListFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout

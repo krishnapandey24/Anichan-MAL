@@ -2,6 +2,7 @@ package com.omnicoder.anichan.adapters.recyclerViews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class AnimeListAdapter extends RecyclerView.Adapter<AnimeListAdapter.MyVi
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new AnimeDiffCallback(this.animeList, newAnimeList));
         this.animeList.clear();
         this.animeList.addAll(newAnimeList);
+        Log.d("tagg","size: "+newAnimeList.size());
         diffResult.dispatchUpdatesTo(this);
     }
 
